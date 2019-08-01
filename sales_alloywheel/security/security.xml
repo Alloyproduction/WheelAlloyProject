@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record model="res.groups" id="module_category_ceo_management">
+                <field name="name">ceo</field>
+                <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+</odoo>

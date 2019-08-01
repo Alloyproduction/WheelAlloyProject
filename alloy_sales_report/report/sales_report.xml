@@ -1,0 +1,105 @@
+<odoo>
+<data>
+    <report
+        id="sales_report_id"
+        model="sale.order"
+        string="Quality control slip"
+        name="alloy_sales_report.sales_report_template"
+        file="alloy_sales_report.sales_report_id"
+        report_type="qweb-html" />
+
+    <template id="sales_report_template">
+        <t t-call="web.external_layout">
+             <t t-call="web.html_container">
+                  <t t-foreach="docs" t-as="o">
+                         <div class="page">
+                            <style type="text/css">
+                                .td-y {
+                                border: 1px solid #32CD32;
+                                text-align: center;
+                                font-family:Droid Arabic Naskh,serif;
+                                }
+                                .th-x{
+                                font-family:Droid Arabic Naskh,serif;
+                                <!--background-color: #32CD32 !important;-->
+                                border: 1px solid #32CD32;
+                                text-align: center;
+                                }
+                                .strong-x{
+                                border:none;
+                                text-align: center;
+                                }
+
+
+                            </style>
+
+                            <br/>
+                             <table>
+                                 <tr>
+                                    <td colspan="6" style="text-align: center;">
+                                        <h3>كرت استلام الجوده</h3><br/>
+                                        <h3 style="margin-top: -40;">Quality control slip</h3>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td>No</td>
+                                     <td></td>
+                                    <td >رقم</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Date</td>
+                                     <td></td>
+                                    <td >التاريخ</td>
+                                 </tr>
+                                 <tr>
+                                    <td width="200" >Inoice#</td>
+                                    <td width="200"></td>
+                                    <td >رقم الفاتوره</td>
+                                    <td width="200">No of parts</td>
+                                     <td width="200"></td>
+                                    <td style="text-align:right;" width="200">عدد القطع</td>
+                                 </tr>
+                                 <tr>
+                                    <td >AWRS JC#</td>
+                                    <td colspan="4"></td>
+                                    <td width="400" style="text-align:right;">رقم كرت اصلاح اللوي</td>
+                                 </tr>
+                                 <tr>
+                                    <td width="400">Insurance Co. Name</td>
+                                    <td colspan="4"></td>
+                                    <td width="400" style="text-align:right;">اسم شركه التامين</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Agency Name</td>
+                                    <td></td>
+                                    <td style="text-align:right;" width="200">اسم الوكاله</td>
+                                    <td width="250">Type of car</td>
+                                     <td></td>
+                                    <td style="text-align:right;" >نوع السياره</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Claim #</td>
+                                    <td></td>
+                                    <td style="text-align:right;" width="200">رقم المطالبه</td>
+                                    <td>Plat #</td>
+                                     <td></td>
+                                    <td style="text-align:right;" >رقم اللوحه</td>
+                                 </tr>
+                                 <tr>
+                                    <td colspan="2">Advisor Name and sign</td>
+                                    <td colspan="3"></td>
+                                    <td width="400" style="text-align:right;">اسم المشرف وتوقيعه</td>
+                                 </tr>
+                                 <tr>
+                                    <td >Deliver By</td>
+                                    <td colspan="4"></td>
+                                    <td style="text-align:right;">التسليم بواسطه</td>
+                                 </tr>
+                             </table>
+                        </div>
+                    </t>
+                </t>
+        </t>
+    </template>
+</data>
+</odoo>

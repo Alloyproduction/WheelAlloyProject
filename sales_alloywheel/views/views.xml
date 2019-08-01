@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+
+        <record id="cron_do_task" forcecreate='True' model="ir.cron">
+              <field name="name">Do -Task</field>
+              <field eval="True" name="active"/>
+              <field name="user_id" ref="base.user_root"/>
+              <field name="interval_number">1</field>
+              <field name="interval_type">minutes</field>
+              <field name="numbercall">-1</field>
+              <field name="model_id" ref="model_product_template"/>
+              <field name="state">code</field>
+              <field name="function">model.cron_do_task()</field>
+        </record>
+
+        <record id="do_task_server" model="ir.actions.server">
+          <field name="name">Do Action</field>
+          <field name="type">ir.actions.server</field>
+          <field name="model_id" ref="model_product_template"/>
+          <field name="state">code</field>
+          <field name="code">
+              if records:
+                  action = records.server_do_action()
+          </field>
+          <field name="binding_model_id" ref="model_product_template"/>
+      </record>
+
+        <!-- Inherit product template Form View to Modify it -->
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="minimum_qtys" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit stock picking Form View to Modify it -->
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="current_user_id" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit sale order Form View to Modify it -->
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_person" invisible="1"/>
+                    <field name="source" attrs="{'required':[('is_person','=',True)]}" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ('sale','done','cancel'))]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="source" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ('purchase','done','cancel'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
