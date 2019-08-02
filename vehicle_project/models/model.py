@@ -443,15 +443,18 @@ class InheritSale(models.Model):
 
     def get_delivered_task(self):
         for rec in self:
-            task_ids = self.env['project.task'].search([('sale', '=',rec.id)])
-            if task_ids:
-                for line in task_ids:
-                    if line.stage_id.name != 'Delivery':
-                        rec.is_task_delivered = True
-                        break
-            else:
+            if rec.invoice_count > 0:
                 rec.is_task_delivered = True
-                break
+            else:
+                task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+                if task_ids:
+                    for line in task_ids:
+                        if line.stage_id.name != 'Delivery':
+                            rec.is_task_delivered = True
+                            break
+                else:
+                    rec.is_task_delivered = True
+                    break
 
 
 
