@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="alloy_location_form_view">
+            <field name="name">alloy.location</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+      <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='type']" position="before">
+
+      <field name="companyloc"   />
+
+  </xpath>
+
+            </field>
+        </record>
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="alloylocation.action_window">
+      <field name="name">alloylocation window</field>
+      <field name="res_model">alloylocation.alloylocation</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="alloylocation.action_server">
+      <field name="name">alloylocation server</field>
+      <field name="model_id" ref="model_alloylocation_alloylocation"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="alloylocation" id="alloylocation.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="alloylocation.menu_1" parent="alloylocation.menu_root"/>
+    <menuitem name="Menu 2" id="alloylocation.menu_2" parent="alloylocation.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="alloylocation.menu_1_list" parent="alloylocation.menu_1"
+              action="alloylocation.action_window"/>
+    <menuitem name="Server to list" id="alloylocation" parent="alloylocation.menu_2"
+              action="alloylocation.action_server"/>
+    -->
+  </data>
+</odoo>
