@@ -5,7 +5,7 @@ from odoo import models, fields, api ,_
 class ResPartneralloy(models.Model):
     _inherit = 'res.partner'
 
-    companyloc= fields.Many2one('alloy.location',string="Company Location3")
+    companyloc= fields.Many2one('alloy.location',string="Company Location")
 
 class alloylocation(models.Model):
     _name = 'alloy.location'
