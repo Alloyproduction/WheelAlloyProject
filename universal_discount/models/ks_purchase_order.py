@@ -15,6 +15,7 @@ class KSGlobalDiscountPurchases(models.Model):
                                          track_visibility='always', store=True)
     ks_enable_discount = fields.Boolean(compute='ks_verify_discount')
 
+
     @api.depends('name')
     def ks_verify_discount(self):
         self.ks_enable_discount = self.env['ir.config_parameter'].sudo().get_param('ks_enable_discount')
@@ -27,9 +28,26 @@ class KSGlobalDiscountPurchases(models.Model):
                 rec.ks_calculate_discount()
         return ks_res
 
+    # @api.depends('order_line.price_total', 'ks_amount_discount')
+    # def _amount_all(self):
+    #     for order in self:
+    #         amount_untaxed = amount_tax = 0.0
+    #         for line in order.order_line:
+    #             amount_untaxed += line.price_subtotal
+    #             # amount_tax += line.price_tax
+    #             amount_tax = ((sum(line.price_subtotal for line in order.order_line) - order.ks_amount_discount)*5) / 100
+    #         order.update({
+    #             'amount_untaxed': order.currency_id.round(amount_untaxed),
+    #             'amount_tax': order.currency_id.round(amount_tax),
+    #             'amount_total': amount_untaxed + amount_tax,
+    #         })
+
     @api.multi
     def ks_calculate_discount(self):
         for rec in self:
+            tax_id = 0.0
+            if rec.order_line:
+                tax_id = rec.order_line[0].taxes_id.amount
             if rec.ks_global_discount_type == "amount":
                 rec.ks_amount_discount = rec.ks_global_discount_rate if rec.amount_untaxed > 0 else 0
             elif rec.ks_global_discount_type == "percent":
@@ -37,7 +55,9 @@ class KSGlobalDiscountPurchases(models.Model):
                     rec.ks_amount_discount = (rec.amount_untaxed + rec.amount_tax) * rec.ks_global_discount_rate / 100
                 else:
                     rec.ks_amount_discount = 0
-            rec.amount_total = rec.amount_tax + rec.amount_untaxed - rec.ks_amount_discount
+            rec.amount_tax = ((sum(line.price_subtotal for line in rec.order_line) - rec.ks_amount_discount)\
+                              * tax_id) / 100
+            rec.amount_total = rec.amount_untaxed - rec.ks_amount_discount + rec.amount_tax
 
     @api.constrains('ks_global_discount_rate')
     def ks_check_discount_value(self):
