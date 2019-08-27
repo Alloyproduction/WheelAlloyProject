@@ -42,6 +42,9 @@ class KsGlobalDiscountSales(models.Model):
     @api.multi
     def ks_calculate_discount(self):
         for rec in self:
+            tax_id = 0.0
+            if rec.order_line:
+                tax_id = rec.order_line[0].tax_id.amount
             if rec.ks_global_discount_type == "amount":
                 rec.ks_amount_discount = rec.ks_global_discount_rate if rec.amount_untaxed > 0 else 0
 
@@ -50,7 +53,9 @@ class KsGlobalDiscountSales(models.Model):
                     rec.ks_amount_discount = (rec.amount_untaxed + rec.amount_tax) * rec.ks_global_discount_rate / 100
                 else:
                     rec.ks_amount_discount = 0
-            rec.amount_total = rec.amount_untaxed + rec.amount_tax - rec.ks_amount_discount
+            rec.amount_tax = ((sum(line.price_subtotal for line in rec.order_line) - rec.ks_amount_discount)\
+                              * tax_id) / 100
+            rec.amount_total = rec.amount_untaxed - rec.ks_amount_discount + rec.amount_tax
 
     @api.constrains('ks_global_discount_rate')
     def ks_check_discount_value(self):
