@@ -2,11 +2,11 @@
     <data>
 
         <record id="view_users_form_inherit" model="ir.ui.view">
-            <field name="name">res.user</field>
+            <field name="name">res.users</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='company_ids']" position="after">
+                <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="warehouse_id" />
                 </xpath>
             </field>
