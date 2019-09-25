@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="is_individual" invisible="1"/>
+                    <field name="x_studio_source_2"
+                            attrs="{'invisible':[('is_individual','=',True)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="source_sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.source</field>
+            <field name="model">sale.order.source</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="source_sale_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.source</field>
+            <field name="model">sale.order.source</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="source_sale_order_action" model="ir.actions.act_window">
+            <field name="name">sale order source</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.source</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="source_sale_order_action_menu"
+                  name="Sales sources"
+                  action="source_sale_order_action"
+                  parent="sale.sale_order_menu"
+                  sequence="8"/>
+    </data>
+</odoo>
