@@ -440,6 +440,7 @@ class InheritSale(models.Model):
     project = fields.Many2one('project.project', string='Project')
     agency_name = fields.Many2one('res.partner', string='Agency Name')
     is_task_delivered = fields.Boolean(compute='get_delivered_task', default=True)
+    task_duration = fields.Float()
 
     def get_delivered_task(self):
         for rec in self:
@@ -449,7 +450,7 @@ class InheritSale(models.Model):
                 task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
                 if task_ids:
                     for line in task_ids:
-                        if line.stage_id.name != 'Delivery':
+                        if line.stage_id.name != 'Finished and QC':
                             rec.is_task_delivered = True
                             break
                 else:
@@ -475,6 +476,8 @@ class InheritSale(models.Model):
 
     @api.multi
     def action_confirm_replica(self):
+        if not self.alloy_digital_signature:
+            raise UserError(_("You must add Your signature"))
         self.write({
             'state': 'sale',
             'confirmation_date': fields.Datetime.now()
@@ -510,7 +513,7 @@ class InheritSale(models.Model):
                      'sale': self.id,
                      'stage_id': stage_id,
                      'project_id': self.project.id, 'date_assign': fields.Datetime.now(),
-                     'date_deadline': fields.Date.today() + timedelta(hours=90)})
+                     'date_deadline': fields.Date.today() + timedelta(hours=self.task_duration+12)})
 
                 #                 self.env['subtask.component'].create(
                 #                     {'task': task.id, 'product_id': line.product_id.id, 'price_subtotal': line.price_subtotal,

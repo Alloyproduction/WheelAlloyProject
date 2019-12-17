@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+        <record id="project_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Time stamp">
+                        <field name="stage_date" invisible="1"/>
+                        <field name="is_delivery_stage" invisible="1"/>
+                        <field name="stage_time_ids">
+                            <tree string="Time stamp">
+                                <field name="project_task_id" invisible="1"/>
+                                <field name="stage_from_id" />
+                                <field name="stage_to_id" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                                <field name="total_time" />
+                                <field name="time_between_stages" invisible="1"/>
+                            </tree>
+                            <form string="Time stamp">
+                                <field name="stage_from_id" />
+                                <field name="stage_to_id" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Signature" attrs="{'invisible':[('is_delivery_stage', '!=', True)]}">
+                        <label for="alloy_digital_signature" string="Signature" />
+                        <h2>
+                            <field name="alloy_digital_signature" widget="signature"/>
+                        </h2>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
