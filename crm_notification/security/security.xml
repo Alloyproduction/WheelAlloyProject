@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="module_distributer_category" model="ir.module.category">
+            <field name="name">CRM Groups</field>
+            <field name="sequence">45</field>
+        </record>
+
+        <record id="distributer_group_manager" model="res.groups">
+            <field name="name">Group B</field>
+            <field name="category_id" ref="module_distributer_category"/>
+
+        </record>
+
+        <record id="distributer_group_user" model="res.groups">
+            <field name="name">Group A</field>
+            <field name="category_id" ref="module_distributer_category"/>
+            <field name="implied_ids" eval="[(4, ref('distributer_group_manager'))]"/>
+        </record>
+
+
+    </data>
+</odoo>
