@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <report
+        id="print_partner_ledger"
+        model="partner.ledeger.wizard"
+        string="Partner Ledger"
+        report_type="xlsx"
+        name="erec_account_report.print_partner_ledger"
+        file="Partner Ledger"
+        menu="False"
+        attachment_use="False"/>
+
+   
+</odoo>
