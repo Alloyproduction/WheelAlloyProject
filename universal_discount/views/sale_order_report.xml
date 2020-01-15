@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+
+        <!--<template id="report_sale_order_inherit" inherit_id="sale.report_saleorder_document">-->
+        <!--<xpath expr="//tr[hasclass('o_total')]" position="after">-->
+            <!--<tr class="border-black o_total">-->
+                <!--<td><strong>discount</strong></td>-->
+                <!--<td class="text-right">-->
+                    <!--<span t-field="doc.ks_global_discount_rate"/>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</xpath>-->
+        <!--</template>-->
+
+    </data>
+</odoo>
