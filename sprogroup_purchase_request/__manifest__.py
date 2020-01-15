@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Purchase Request',
+    'name': 'alloy Purchase Request',
     'version': '1.0',
     'category': 'Purchases',
     'author':'tung.tung11191@gmail.com',

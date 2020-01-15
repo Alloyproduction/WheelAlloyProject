@@ -16,14 +16,17 @@
         <field name="category_id" ref="module_category_sprogroup_purchase_request"/>
     </record>
 
+    <record id="group_sprogroup_purchase_request_leader" model="res.groups">
+        <field name="name">Sprogroup Purchase Request leader</field>
+        <field name="implied_ids" eval="[(4, ref('sprogroup_purchase_request.group_sprogroup_purchase_request_user'))]"/>
+        <field name="category_id" ref="module_category_sprogroup_purchase_request"/>
+    </record>
+
     <record id="group_sprogroup_purchase_request_manager" model="res.groups">
         <field name="name">Sprogroup Purchase Request Manager</field>
         <field name="implied_ids" eval="[(4, ref('sprogroup_purchase_request.group_sprogroup_purchase_request_user'))]"/>
         <field name="category_id" ref="module_category_sprogroup_purchase_request"/>
     </record>
-
-</data>
-<data noupdate="0">
 
 </data>
 </odoo>

@@ -29,7 +29,8 @@
               <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
                   <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                     type="action" class="btn-primary"
-                    attrs="{'invisible': [('is_task_delivered', '=', True)]}"/>
+                    />
+                  <!--attrs="{'invisible': [('is_task_delivered', '=', True)]}"-->
               </xpath>
           </field>
       </record>
@@ -40,6 +41,9 @@
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="sales_person_id" />
+                </xpath>
                 <xpath expr="//header" position="inside">
                     <field name="is_task_finished" invisible="1"/>
                     <field name="sale" invisible="1"></field>

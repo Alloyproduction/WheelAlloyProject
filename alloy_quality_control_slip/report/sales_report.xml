@@ -1,0 +1,139 @@
+<odoo>
+<data>
+    <report
+        id="sales_report_id"
+        model="quality.control.slip"
+        string="Quality control slip"
+        name="alloy_quality_control_slip.sales_report_template"
+        file="alloy_quality_control_slip.sales_report_id"
+        report_type="qweb-pdf" />
+
+    <template id="sales_report_template">
+        <t t-call="web.external_layout">
+             <t t-call="web.html_container">
+                 <t t-set="x" t-value="0" />
+                  <t t-foreach="docs" t-as="o">
+                         <div class="page">
+                            <style type="text/css">
+                                .td-y {
+                                border: 1px solid #32CD32;
+                                text-align: center;
+                                font-family:Droid Arabic Naskh,serif;
+                                }
+                                .th-x{
+                                font-family:Droid Arabic Naskh,serif;
+                                <!--background-color: #32CD32 !important;-->
+                                border: 1px solid #32CD32;
+                                text-align: center;
+                                }
+                                .strong-x{
+                                border:none;
+                                text-align: center;
+                                }
+
+
+                            </style>
+
+                            <br/>
+                             <table style="border: 1px solid #32CD32;width:105%">
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td colspan="6" style="border: 1px solid #32CD32;text-align: center;">
+                                        <h3>كرت استلام الجوده</h3><br/>
+                                        <h3 style="margin-top: -40;">Quality control slip</h3>
+                                    </td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;">No</td>
+                                     <td style="border: 1px solid #32CD32;text-align:center;" width="300"><span t-field="o.name"/></td>
+                                    <td width="120" style="border: 1px solid #32CD32;text-align:center;">رقم</td>
+                                    <td colspan="3" style="border: 1px solid #32CD32;"></td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;">Date</td>
+                                     <td style="border: 1px solid #32CD32;text-align:center;"><span t-field="o.confirmation_date"/></td>
+                                    <td  width="120" style="border: 1px solid #32CD32;text-align:center;">التاريخ</td>
+                                    <td  colspan="3" style="border: 1px solid #32CD32;"></td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td width="200"  style="border: 1px solid #32CD32;">Inoice#</td>
+                                    <td width="200" style="border: 1px solid #32CD32;text-align:center;"><span t-esc="o.invoice_number" /></td>
+                                    <td  width="120" style="border: 1px solid #32CD32;text-align:center;">رقم الفاتوره</td>
+                                    <td width="130" style="border: 1px solid #32CD32;">No of parts</td>
+                                     <td width="300" style="border: 1px solid #32CD32;text-align:center;">
+                                         <!--<t t-foreach="o.order_line" t-as="q">-->
+                                             <!--<t t-set="x" t-value="x+q.product_uom_qty" />-->
+                                         <!--</t>-->
+                                         <span t-field="o.no_of_pieces"/>
+                                     </td>
+                                    <td style="text-align:center;" width="200">عدد القطع</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" >AWRS JC#</td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" colspan="4">
+                                        <span t-field="o.license_plate"/>
+                                    </td>
+                                    <td width="200" style="border: 1px solid #32CD32; text-align:center;">رقم كرت اصلاح اللوي</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" width="250">Insurance Co. Name</td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" colspan="4">
+                                        <span t-field="o.insurance_company.name"/></td>
+                                    <td width="200" style="border: 1px solid #32CD32;text-align:center;">اسم شركه التامين</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;">Agency Name</td>
+                                    <td style="border: 1px solid #32CD32;;text-align:center;">
+                                        <span t-field="o.agency_name.name"/></td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" width="120">اسم الوكاله</td>
+                                    <td style="border: 1px solid #32CD32;" width="120">Type of car</td>
+                                     <td style="border: 1px solid #32CD32;;text-align:center;" width="300"><span t-field="o.vehicle.name"/></td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" >نوع السياره</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;">Claim #</td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;"><span t-field="o.claim_no"/></td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" width="120">رقم المطالبه</td>
+                                    <td style="border: 1px solid #32CD32;" width="120">Plat #</td>
+                                     <td style="border: 1px solid #32CD32;text-align:center;" width="300"><span t-field="o.license_plate"/></td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" >رقم اللوحه</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;">Advisor Name and sign</td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" colspan="4"><span t-field="o.service_advisor.name"/></td>
+                                    <td width="280" style="border: 1px solid #32CD32;text-align:center;">اسم المشرف وتوقيعه</td>
+                                 </tr>
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" >Deliver By</td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;" colspan="4"><span t-field="o.user_id.name"/></td>
+                                    <td style="border: 1px solid #32CD32;text-align:center;">التسليم بواسطه</td>
+                                 </tr>
+
+
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" colspan="6">
+                                        <h6 style="text-align:center;">by signing this quality control slip you are here by verifying that the service provided by
+                                        awts are of high quality and acceptable to AWRS agent/customer</h6>
+                                        <h6 style="text-align:center;">من خلال التوقيع علي كرت استلام الجوده علي الخدمه المقدمه من تقنيون الجنوط انها مقبوله وذات جوده عاليه وليس بها عيوب</h6>
+                                    </td>
+                                 </tr>
+
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" colspan="6">
+                                        <label for="alloy_digital_signature" string="Signature" />
+                                        <h2>
+                                            <img t-attf-src="data:image/*;base64,{{o.alloy_digital_signature}}"/>
+                                            <!--<span t-field="o.alloy_digital_signature"  t-field-options='{"widget": "signature"}'/>-->
+                                        </h2>
+                                    </td>
+                                 </tr>
+
+
+
+                             </table>
+                        </div>
+                    </t>
+                </t>
+        </t>
+    </template>
+</data>
+</odoo>

@@ -44,6 +44,7 @@ class tasks(models.Model):
     # code for hours minutes
     hourminutes = fields.Char(string='hours minutes', compute='_compute_hours_minutes')
     hours_minutes = fields.Char(string='hours: minutes')
+    sales_person_id = fields.Many2one(comodel_name="res.users")
 
     # total_cost = fields.Float('Total Labor Cost', compute='_compute_total_cost')
     #
@@ -476,8 +477,8 @@ class InheritSale(models.Model):
 
     @api.multi
     def action_confirm_replica(self):
-        if not self.alloy_digital_signature:
-            raise UserError(_("You must add Your signature"))
+        # if not self.alloy_digital_signature:
+        #     raise UserError(_("You must add Your signature"))
         self.write({
             'state': 'sale',
             'confirmation_date': fields.Datetime.now()
@@ -512,6 +513,7 @@ class InheritSale(models.Model):
                     {'name': line.product_id.name + name1 + name2 + self.name,
                      'sale': self.id,
                      'stage_id': stage_id,
+                     'sales_person_id': self.user_id.id,
                      'project_id': self.project.id, 'date_assign': fields.Datetime.now(),
                      'date_deadline': fields.Date.today() + timedelta(hours=self.task_duration+12)})
 

@@ -21,8 +21,8 @@
                                 string="Leader Approve"
                                 type="object"
                                 class="oe_highlight"
-                                groups="base.group_user"
-                                attrs="{'invisible': [('can_leader_approved', '=', False)]}"/>
+                                groups="sprogroup_purchase_request.group_sprogroup_purchase_request_leader"
+                                states="to_approve"/>
                         <button name="button_manager_approved"
                                 states="leader_approved"
                                 string="Manager Approve"
@@ -68,6 +68,7 @@
                                 <field name="can_manager_approved" invisible="1"/>
                                 <field name="can_reject" invisible="1"/>
                                 <field name="requested_by" readonly="1"/>
+                                <field name="partner_id" />
                                 <field name="department_id" />
                                 <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
                             </group>
@@ -80,7 +81,7 @@
                         </group>
                         <notebook>
                             <page string="Products">
-                                <field name="line_ids" attrs="{'readonly': [('is_editable','=', False)]}">
+                                <field name="line_ids" attrs="{'readonly': [('state','in', ['manager_approved','done','rejected'])]}">
                                     <tree decoration-muted="cancelled == True">
                                         <field name="product_id"/>
                                         <field name="name"/>

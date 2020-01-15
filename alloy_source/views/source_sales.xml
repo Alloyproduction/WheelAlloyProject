@@ -9,7 +9,8 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="is_individual" invisible="1"/>
                     <field name="x_studio_source_2"
-                            attrs="{'invisible':[('is_individual','=',True)]}"/>
+                            attrs="{'invisible':[('is_individual','=',True)],
+                                    'required':[('is_individual','=',False)]}"/>
                 </xpath>
 
             </field>

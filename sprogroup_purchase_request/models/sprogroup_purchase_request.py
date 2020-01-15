@@ -6,6 +6,8 @@ from odoo import api, fields, models, _ , SUPERUSER_ID
 from odoo.addons import decimal_precision as dp
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.exceptions import UserError
+
 _STATES = [
     ('draft', 'Draft'),
     ('to_approve', 'To be approved'),
@@ -46,6 +48,7 @@ class SprogroupPurchaseRequest(models.Model):
                                    default=_get_default_requested_by)
     assigned_to = fields.Many2one('res.users', 'Approver', required=True,
                                   track_visibility='onchange')
+    partner_id = fields.Many2one('res.partner', 'Vendor', required=True)
     description = fields.Text('Description')
 
     line_ids = fields.One2many('sprogroup.purchase.request.line', 'request_id',
@@ -205,7 +208,15 @@ class SprogroupPurchaseRequest(models.Model):
         # }
 
         order_line = []
+        price_unit = 0.0
         for line in self.line_ids:
+            if line.product_id.seller_ids:
+                # print(">>>>>>>>>>", line.product_id.seller_ids)
+                for r in line.product_id.seller_ids:
+                    # print("LLLLLLLL", r.name.name)
+                    if r.name.id == self.partner_id.id:
+                        price_unit = r.price
+                # raise UserError(_(">>>>>>>>>>"))
             product = line.product_id
             fpos = self.env['account.fiscal.position']
             if self.env.uid == SUPERUSER_ID:
@@ -217,11 +228,11 @@ class SprogroupPurchaseRequest(models.Model):
             product_line = (0, 0, {'product_id' : line.product_id.id,
                                    'state' : 'draft',
                                    'product_uom' : line.product_id.uom_po_id.id,
-                                    'price_unit' : 0,
+                                    'price_unit' : price_unit,
                                    'date_planned' :  datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    # 'taxes_id' : ((6,0,[taxes_id.id])),
                                    'product_qty' : line.product_qty,
-                                   'name' : line.product_id.name
+                                   'name' : line.product_id.name,
                                    })
             order_line.append(product_line)
 
@@ -244,6 +255,7 @@ class SprogroupPurchaseRequest(models.Model):
             'context': {
                 'default_order_line': order_line,
                 'default_state': 'draft',
+                'default_partner_id': self.partner_id.id,
 
             }
         }
