@@ -1,0 +1,486 @@
+<data>
+  <xpath expr="/t/t/div[2]/div[8]" position="after">
+    <img class="img-fluid" dir="ltr" src="/web/image/4725/Stamp.jpeg?access_token=710445fc-bc91-46fc-aab5-5470481720bd"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/img" position="attributes">
+    <attribute name="style" separator=";" add="width:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[5]/div/strong[2]" position="before">
+    <span>New Text Block</span>
+  </xpath>
+  <!--<xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]/div/span[2]" position="replace">-->
+  <!--  <span style="font-weight:bold;">رقم اللوحة</span>-->
+  <!--</xpath>-->
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]/div/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:10px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]/div/span[1]" position="attributes">
+    <attribute name="style" separator=";" remove="margin-right:10px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" remove="margin-right:100px"/>
+  </xpath>
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[3]/table[1]/t[8]/tr[1]/td[1]/div[1]/span[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[3]/table[1]/t[8]/tr[1]/td[1]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[3]/table[1]/t[8]/tr[1]/td[2]" position="replace"/>-->
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]" position="attributes">
+    <attribute name="class" separator=" " add="h3"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]" position="attributes">
+    <attribute name="class" separator=" " remove="h3"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:150px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:200px" remove="margin-right:150px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[1]" position="attributes">
+    <attribute name="style" separator=";" remove="margin-right:200px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:1000px" remove="margin-right:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[3]/table/t[5]/tr/td[2]" position="attributes">
+    <attribute name="style" separator=";" remove="margin-right:1000px"/>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/div[5]/div[1]/span[1]" position="replace"/>
+  <xpath expr="/t" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="replace">
+    <span style="font-weight:bold;">
+      <p>اسم ‫العميل‬:</p>
+      <p>.‫‬<br/><br/></p>
+      <p>
+        <br/>
+      </p>
+    </span>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-bottom:0px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:0px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-top:0px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:0px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]" position="replace">
+    <span style="font-weight:bold;margin-bottom:0px;margin-right:0px;margin-top:0px;margin-left:0px">
+      <p>:اسم العميل</p>
+    </span>
+  </xpath>
+  <xpath expr="/t/t/t[2]/div/div[2]/span[2]" position="replace">
+    <span style="font-weight:bold;">رقم الجوال: ‫‬</span>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]/p" position="replace">
+    <p>     :اسم العميل</p>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]/p" position="replace">
+    <p>       :اسم العميل : إياد الشهراني</p>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]/p" position="replace">
+    <p/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]/p" position="replace">
+    <p>اسم العميل : إياد الشهراني</p>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[2]/p" position="replace">
+    <p>:اسم العميل</p>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[1]/div[2]/span[1]" position="attributes">
+    <attribute name="t-options-widget">"text"</attribute>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-top:-100px"/>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/div[3]/table[1]/t[6]/tr[1]/td[2]" position="replace"/>
+  <xpath expr="/t[1]/t[1]/div[2]/div[3]/table[1]/t[6]" position="replace"/>
+  <!--<xpath expr="/t/t/div[2]/div[3]/table/t[3]/tr/td[1]/div/span[2]" position="replace">-->
+  <!--  <span style="font-weight:bold;"> اسم المشرف </span>-->
+  <!--</xpath>-->
+  <xpath expr="/t/t/div[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:105px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:105px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]" position="attributes">
+    <attribute name="style" separator=";" remove="margin-left:105px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]" position="attributes">
+    <attribute name="style" separator=";" remove="margin-right:105px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/br" position="after">
+    <div class="row">
+      <div class="col">
+        <span>New Text Block</span>
+      </div>
+    </div>
+  </xpath>
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span" position="replace">-->
+  <!--  <span>Plate#/رقم اللوحة</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[4]" position="after">-->
+  <!--  <div class="row">-->
+  <!--    <div class="col">-->
+  <!--      <span>New Text Block</span>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span" position="replace">-->
+  <!--  <span>-->
+  <!--    <b>Plate#/رقم اللوحة</b>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span" position="replace">-->
+  <!--  <span>-->
+  <!--    <b>  Plate#/رقم اللوحة</b>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[2]" position="after">-->
+  <!--  <div class="row">-->
+  <!--    <div class="col">-->
+  <!--      <span>New Text Block</span>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span" position="replace">-->
+  <!--  <span>-->
+  <!--    <b>Chassis #/ رقم الشاصي</b>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span/b" position="replace">-->
+  <!--  <b>-->
+  <!--    <b>Chassis #/ رقم الشاصي</b>-->
+  <!--  </b>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/h2/t[1]/span[2]" position="replace">-->
+  <!--  <span t-if="doc.state in ['draft','sent']">Quotation # عرض الاسعار</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/h2/t[1]/span[2]" position="replace">-->
+  <!--  <span t-if="doc.state in ['draft','sent']">Quotation # عرض الاسعار</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/h2/t[1]/span[2]" position="replace">-->
+  <!--  <span t-if="doc.state in ['draft','sent']">Quotation # عرض اسعار</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[1]/div[2]/span[1]" position="replace">-->
+  <!--  <span style="font-weight:bold;margin-top:-100px" t-options-widget="&quot;text&quot;">:اسم العميل</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[1]/div[2]/span[2]" position="replace"/>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span/b/b" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-right:800px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[3]/div/span/b/b" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-right:0px" remove="margin-right:800px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[4]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[3]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[2]/tr[1]/td[1]/div[1]" position="attributes">-->
+  <!--  <attribute name="class">right</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[2]/tr[1]/td[1]" position="attributes">-->
+  <!--  <attribute name="class">right</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[7]/tr[1]/td[2]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[5]/tr[1]/td[1]/div[1]/span[2]" position="replace"/>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[2]" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="width:500.px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[2]" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="width:500px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[2]" position="attributes">-->
+  <!--  <attribute name="style" separator=";" remove="width:500.px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;"> /رقم المطالبة </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[3]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">/اسم المشرف  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[5]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">/رقم اللوحة </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[6]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">/رقم الشاصي</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">:رقم المطالبة </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[3]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">:اسم المشرف  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[5]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">:رقم اللوحة </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[6]/tr/td[3]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">:رقم الشاصي</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[3]/tr[1]/td[2]" position="attributes">-->
+  <!--  <attribute name="class">text-align:center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[3]/tr[1]/td[2]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[5]/tr[1]/td[2]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[6]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[6]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="class"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[6]/tr[1]/td[2]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[2]/tr/td[1]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">  Claim# :</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[3]/tr/td[1]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">Service Advisor :</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[5]/tr/td[1]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold">Plate # :</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[6]/tr/td[1]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">Chasis # :</span>-->
+  <!--</xpath>-->
+  <xpath expr="/t/t/div[2]/h2/t[1]/span[1]" position="replace">
+    <span t-if="doc.state not in ['draft','sent']">Quotation #عرض أسعار</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[2]/div[4]/strong" position="replace">
+    <strong>Sales Person</strong>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[2]/div[2]/strong" position="replace">
+    <strong>Quotation Date</strong>
+  </xpath>
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[8]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/img[1]" position="replace"/>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[4]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-right:150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[4]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-right:-150px" remove="margin-right:150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[4]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-right:-px" remove="margin-right:-150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[4]/tr[1]/td[2]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[4]/tr/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-bottom:150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[5]/tr[1]/td[1]/div[1]/span[2]" position="replace"/>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="replace">-->
+  <!--  <span style="padding-left:5px;font-weight:bold;" t-esc="doc.x_studio_field_icWOZ">-->
+  <!--    <p>شركة عبد اللطيف جميل</p>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.x_studio_field_icWOZ.child_count</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.x_studio_field_icWOZ.parent_id.parent_id._city</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.x_studio_field_icWOZ</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:156px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:153px" remove="margin-left:156px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.agency_name.customer_arabic_name</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:156px" remove="margin-left:153px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:190px" remove="margin-left:156px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="replace">-->
+  <!--  <span style="padding-left:5px;font-weight:bold;margin-left:190px" t-esc="doc.agency_name.customer_arabic_name">-->
+  <!--    <p>                  شركة عبد اللطيف جميل</p>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[5]/table/t[1]/tr/td[2]/span" position="replace">-->
+  <!--  <span style="padding-left:5px;font-weight:bold;margin-left:190px" t-esc="doc.agency_name.customer_arabic_name">-->
+  <!--    <p>                          شركة عبد اللطيف جميل</p>-->
+  <!--  </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[4]" position="after">-->
+  <!--  <div class="row">-->
+  <!--    <div class="col-6">-->
+  <!--      <span>New Column</span>-->
+  <!--    </div>-->
+  <!--    <div class="col-6">-->
+  <!--      <span>New Column</span>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/div[2]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[5]/div[1]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[6]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.x_studio_field_icWOZ</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:15px" remove="margin-left:190px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:156px" remove="margin-left:190px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[4]/tr/td[1]/div/span" position="replace">-->
+  <!--  <span style="font-weight:bold;">Job Card #: </span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[2]/div[2]/strong" position="replace">-->
+  <!--  <strong>Invoice Date</strong>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/t[4]/div/div[2]/span[2]" position="replace">-->
+  <!--  <span style="font-weight:bold;"> ‫الرقم‬ ‫الضريبي :‬ ‫‬</span>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:20px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:100px" remove="margin-left:20px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:125px" remove="margin-left:100px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:150px" remove="margin-left:125px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:159px" remove="margin-left:150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[6]/tr/td[3]/div/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:190px" remove="margin-left:159px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:25px" remove="margin-left:15px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:150px" remove="margin-left:156px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[6]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="class">text-center</attribute>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" add="margin-left:50px" remove="margin-left:25px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t/t/div[2]/div[6]/table/t[1]/tr/td[2]/span" position="attributes">-->
+  <!--  <attribute name="style" separator=";" remove="margin-left:150px"/>-->
+  <!--</xpath>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[6]/table[1]/t[6]/tr[1]/td[1]/div[1]/span[2]" position="replace"/>-->
+  <!--<xpath expr="/t[1]/t[1]/div[2]/div[6]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">-->
+  <!--  <attribute name="t-esc">doc.x_studio_field_icWOZ.display_name</attribute>-->
+  <!--</xpath>-->
+  <xpath expr="/t[1]/t[1]/div[2]/div[4]/table[1]/t[1]/tr[1]/td[2]/span[1]" position="attributes">
+    <attribute name="t-esc">doc.x_studio_field_icWOZ.display_name</attribute>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/div[3]/div[1]" position="replace"/>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:120px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:-120px" remove="margin-left:120px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:-156px" remove="margin-left:-120px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:-200px" remove="margin-left:-156px"/>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[2]/span" position="attributes">
+    <attribute name="style" separator=";" remove="margin-left:-200px"/>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/div[4]/table[1]/t[3]/tr[1]/td[2]/span[1]" position="attributes">
+    <attribute name="class">text_left</attribute>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/div[4]/table[1]/t[3]/tr[1]/td[2]/span[1]" position="attributes">
+    <attribute name="class"/>
+  </xpath>
+  <xpath expr="/t/t/t[4]/div/div[2]/span[2]" position="replace">
+    <span style="font-weight:bold;"> ‫الرقم‬ ‫الضريبي:‬ ‫‬</span>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/div[2]/img[1]" position="replace"/>
+  <xpath expr="/t[1]/t[1]/div[2]/div[6]/div[1]" position="replace"/>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[6]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold;">Chasis #:</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[4]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold;">Service Advisor :</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:رقم المطالبة  </span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[4]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:اسم المشرف  </span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[6]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:رقم الشاصي</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[4]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold;">Claim :</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[4]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold;">Claim #:</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[4]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:رقم المطالبة</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[3]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:رقم اللوحة</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[5]/tr/td[3]/div/span" position="replace">
+    <span style="font-weight:bold;">:اسم المشرف  </span>
+  </xpath>
+  <xpath expr="/t/t/t[4]/div/div[1]/span[1]" position="replace">
+    <span style="font-weight:bold;">VAT:</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[5]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold">Service Advisor:</span>
+  </xpath>
+  <xpath expr="/t/t/div[2]/div[4]/table/t[5]/tr/td[1]/div/span" position="replace">
+    <span style="font-weight:bold">Service Advisor:</span>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[1]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:100px"/>
+  </xpath>
+  <xpath expr="/t/t/div[1]/div[1]/span[2]" position="attributes">
+    <attribute name="style" separator=";" add="margin-left:150px" remove="margin-left:100px"/>
+  </xpath>
+  <xpath expr="/t/t/t[2]/div/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:150px"/>
+  </xpath>
+  <xpath expr="/t/t/t[2]/div/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:250px" remove="margin-right:150px"/>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/t[2]/div[1]/div[1]/span[2]" position="replace"/>
+  <xpath expr="/t/t/t[4]/div/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:250px"/>
+  </xpath>
+  <xpath expr="/t/t/t[4]/div/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:230px" remove="margin-right:250px"/>
+  </xpath>
+  <xpath expr="/t/t/t[4]/div/div[2]/span[1]" position="attributes">
+    <attribute name="style" separator=";" add="margin-right:210px" remove="margin-right:230px"/>
+  </xpath>
+  <xpath expr="/t[1]/t[1]/t[4]/div[1]/div[1]/span[2]" position="replace"/>
+</data>

@@ -1,5 +1,7 @@
 <odoo>
     <data>
-
+        <record id="group_view_rfq_cancel_button" model="res.groups">
+            <field name="name">view sale order cancel button</field>
+        </record>
     </data>
 </odoo>

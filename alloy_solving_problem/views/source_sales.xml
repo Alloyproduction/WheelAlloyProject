@@ -1,6 +1,23 @@
 <odoo>
     <data>
 
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="groups">alloy_solving_problem.group_view_rfq_cancel_button</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                    <field name="name"/>
+                </xpath>
+
+            </field>
+        </record>
+
         <record id="res_user_form_inherit" model="ir.ui.view">
             <field name="name">res.users</field>
             <field name="model">res.users</field>

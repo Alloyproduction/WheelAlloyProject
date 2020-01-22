@@ -283,7 +283,7 @@ class SprogroupPurchaseRequestLine(models.Model):
         track_visibility='onchange')
     name = fields.Char('Description', size=256,
                        track_visibility='onchange')
-    product_uom_id = fields.Many2one('product.uom', 'Product Unit of Measure',
+    product_uom_id = fields.Many2one('uom.uom', 'Volume',
                                      track_visibility='onchange')
     product_qty = fields.Float(string='Quantity', track_visibility='onchange', digits=dp.get_precision('Product Unit of Measure'))
     request_id = fields.Many2one('sprogroup.purchase.request',
@@ -326,6 +326,8 @@ class SprogroupPurchaseRequestLine(models.Model):
 
     cancelled = fields.Boolean(
         string="Cancelled", readonly=True, default=False, copy=False)
+
+    # volume_id = fields.Many2one(comodel_name="uom.uom", string="Volume")
 
     @api.onchange('product_id')
     def onchange_product_id(self):

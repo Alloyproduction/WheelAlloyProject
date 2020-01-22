@@ -86,7 +86,7 @@
                                         <field name="product_id"/>
                                         <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="product_uom_id" groups="product.group_uom"/>
+                                        <field name="product_uom_id" />
                                         <field name="date_required"/>
                                         <field name="cancelled" invisible="1"/>
                                         <field name="is_editable" invisible="1"/>
@@ -99,14 +99,8 @@
                                                     <field name="product_id"/>
                                                     <field name="name"/>
                                                     <label for="product_qty" />
-                                                    <div>
-                                                        <field name="product_qty"
-                                                               class="oe_inline"/>
-                                                        <field name="product_uom_id"
-                                                               groups="product.group_uom"
-                                                               class="oe_inline"/>
-                                                    </div>
-
+                                                    <field name="product_qty"/>
+                                                    <field name="product_uom_id"/>
                                                     <field name="date_required"/>
                                                     <field name="cancelled"/>
 

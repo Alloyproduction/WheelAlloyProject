@@ -1,0 +1,281 @@
+<odoo>
+<data>
+    <report
+        id="purchase_request_report_id"
+        model="sprogroup.purchase.request"
+        string="Purchase request"
+        name="purchase_request_report.purchase_request_template"
+        file="purchase_request_report.purchase_request_report_id"
+        report_type="qweb-pdf" />
+
+<template id="purchase_request_template">
+    <t t-call="web.external_layout">
+     <t t-call="web.html_container">
+          <t t-set="x" t-value="0" />
+          <t t-foreach="docs" t-as="o">
+                <t t-set="emp_count" t-value="0"/>
+                 <div class="page" dir="rtl">
+                    <style type="text/css">
+                        .td-y {
+                        border: 1px solid #32CD32;
+                        text-align: center;
+                        font-family:Droid Arabic Naskh,serif;
+                        }
+                        .th-x{
+                        font-family:Droid Arabic Naskh,serif;
+                        <!--background-color: #32CD32 !important;-->
+                        border: 1px solid #32CD32;
+                        text-align: center;
+                        }
+                        .strong-x{
+                        border:none;
+                        text-align: center;
+                        }
+
+
+                    </style>
+
+                     <!--<table>-->
+                         <!--<tr>-->
+                            <!--<td dir="rtl" width="400">اسم العميل</td>-->
+                            <!--<td dir="rtl" width="400"></td>-->
+                            <!--<td width="400"> </td>-->
+                            <!--<td width="200" dir="ltr">Customer Name </td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                            <!--<td dir="rtl" width="400">الرقم الضريبي</td>-->
+                            <!--<td dir="rtl" width="400"></td>-->
+                            <!--<td width="400"> </td>-->
+                            <!--<td width="100" dir="ltr">Vat #</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">العنوان</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">address line</td>-->
+
+                         <!--</tr>-->
+
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">العنوان</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">address line</td>-->
+
+                         <!--</tr>-->
+
+                     <!--</table>-->
+<br/>
+<br/>
+
+                     <table dir="ltr" style="float:left;">
+                         <tr>
+                            <td><h3>code #</h3></td>
+                             <td>
+                                <span t-field="o.code"/>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td style="width=100;text-align: center;">start date</td>
+                             <td style="width=100;text-align: center;">End Date</td>
+                             <td style="width=100;text-align: center;"></td>
+                             <td style="width=200;text-align: center;">Approved By</td>
+                             <td style="width=100;text-align: center;"></td>
+                             <td style="width=200;text-align: center;">Requested By</td>
+                         </tr>
+                         <tr>
+                            <td  style="width=100;text-align: center;"><span t-field="o.date_start"/></td>
+                            <td  style="width=100;text-align: center;"><span t-field="o.end_start"/></td >
+                            <td  style="width=100;text-align: center;"></td >
+                            <td style="width=200;text-align: center;"><span t-field="o.assigned_to.name"/></td>
+                             <td style="width=100;text-align: center;"></td>
+                            <td  style="width=200;text-align: center;"><span t-field="o.requested_by.name"/></td>
+                         </tr>
+                     </table>
+<br/>
+<br/>
+<br/>
+<!--<br/>-->
+<!--<br/>-->
+<!--<br/>-->
+<!--<br/>-->
+<!--<br/>-->
+<!--<br/>-->
+                     <!--&lt;!&ndash;<table>&ndash;&gt;-->
+                         <!--<tr>-->
+                            <!--<td dir="rtl" width="400">اسم الوكاله</td>-->
+                            <!--<td dir="rtl" width="400"></td>-->
+                            <!--<td width="400"> </td>-->
+                            <!--<td width="100" dir="ltr">Agency Name </td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                            <!--<td dir="rtl" width="400">رقم المطالبه</td>-->
+                            <!--<td dir="rtl" width="400"></td>-->
+                            <!--<td width="400"> </td>-->
+                            <!--<td width="100" dir="ltr">claim #</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">اسم المشرف</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">service adviser</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">رقم كارت عمل الوكاله</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">job card #</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">رقم اللوحه</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">plat #</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">نوع السياره</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">Car Type</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">رقم الشاسيه</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">Chassis #</td>-->
+
+                         <!--</tr>-->
+                         <!--<tr>-->
+                                <!--<td dir="rtl" width="400">قراه العداد</td>-->
+                                <!--<td dir="rtl" width="400"></td>-->
+                                <!--<td width="400"> </td>-->
+                                <!--<td width="100" dir="ltr">odometer</td>-->
+
+                           <!--</tr>-->
+
+
+                     <!--</table>-->
+
+                    <table class='table table-bordered ' style="border-color:#32CD32 " width="100%">
+                        <thead style="border-color:#32CD32">
+                            <th style="border-color:#32CD32;text-align: center;" class="th-x">Request date</th>
+                            <th style="border-color:#32CD32;text-align: center;" class="th-x">Volume</th>
+                            <th style="border-color:#32CD32;text-align: center;" class="th-x">Quantity</th>
+                            <th style="border-color:#32CD32 ;text-align: center;" class="th-x" width="200" >Description</th>
+                            <th style="border-color:#32CD32;text-align: center;" class="th-x" width="200">Product</th>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.line_ids" t-as="employee_data">
+                                <tr>
+                                    <!--<t t-set="emp_count" t-value="emp_count+1"/>-->
+                                    <!--<td class="td-y" style="border-color:#32CD32;text-align: center;">-->
+                                        <!--<span t-esc="emp_count"/>-->
+                                    <!--</td>-->
+                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
+                                        <span t-field="employee_data.date_required"/>
+                                    </td>
+                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
+                                        <span t-field="employee_data.product_uom_id.name"/>
+                                    </td>
+                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
+                                        <span t-field="employee_data.product_qty"/>
+                                    </td>
+                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
+                                           <span t-field="employee_data.product_id.name"/>
+                                    </td>
+                                    <td class="td-y" style="border-color:#32CD32;text-align: center;">
+                                        <span t-field="employee_data.product_id"/>
+                                    </td>
+
+                                </tr>
+                                <!--<tr>-->
+                                    <!--<td class="td-y" style="border-color:#32CD32;text-align: right;">-->
+                                        <!--<h3> الاجمالى :  </h3>-->
+                                        <!--<span t-field="employee_data.price_total"/>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+
+                            </t>
+                        </tbody>
+                        <!--<thead class="td-x" style="border-color:black;text-align: right;">-->
+
+                            <!--<tr>-->
+                                <!--<th colspan="2">-->
+                                    <!--<span t-esc="o.amount_total"/>-->
+                                <!--</th>-->
+                                <!--<th colspan="3">الاجمالي قبل الضريبه/subtotal</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<th colspan="2">-->
+                                    <!--<span t-esc="o.amount_total"/>-->
+                                <!--</th>-->
+                                <!--<th colspan="3">ضريبه القيمه المضافه/Vat 5%</th>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<th colspan="2">-->
+                                    <!--<span t-esc="o.amount_total"/>-->
+                                <!--</th>-->
+                                <!--<th colspan="3">الاجمالي بعد الضريبه/Total Amount</th>-->
+                            <!--</tr>-->
+
+                        <!--</thead>-->
+
+
+                    </table>
+
+                    <!--<table>-->
+                         <!--<tbody>-->
+
+
+                                <!--<td  style="border-color:#32CD32;text-align: right;padding-right:10px;" class="td-y ; oe_inline" width="600">-->
+
+                                    <!--<h3>اعتماد المستوده : </h3>-->
+                                    <!--<h3 >الاسم : </h3>-->
+                                    <!--<h3 >التوقيع : </h3>-->
+
+                                <!--</td>-->
+
+                                <!--<td  style="border-color:#32CD32;text-align: right;padding-right:10px;" class="td-y" width="400">-->
+
+
+                                    <!--<group>-->
+                                        <!--<div class="oe_inline">-->
+                                            <!--<h3 style="width: 33%" >الاجمالى :-->
+
+                                            <!--</h3>-->
+                                            <!--<h3 style="width: 33%">اسم المستلم : </h3>-->
+                                            <!--<h3 style="width: 33%">التوقيع : </h3>-->
+                                        <!--</div>-->
+                                    <!--</group>-->
+
+
+                                <!--</td>-->
+
+
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+         </t>
+</t>
+    </t>
+
+
+</template>
+
+<!--<template id="report_saleorder">-->
+    <!--<t t-call="report.html_container">-->
+        <!--<t t-foreach="doc_ids" t-as="doc_id">-->
+            <!--<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale.report_saleorder_document')"/>-->
+        <!--</t>-->
+    <!--</t>-->
+<!--</template>-->
+</data>
+</odoo>

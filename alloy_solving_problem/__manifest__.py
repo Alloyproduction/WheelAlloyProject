@@ -9,7 +9,7 @@
     'version': '0.1',
     'depends': ['base', 'sale', 'purchase'],
     'data': [
-        # 'security/security.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/source_sales.xml',
     ],

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+
+        <record model="res.groups" id="group_view_create_invoice_button">
+            <field name="name">View create invoice button</field>
+        </record>
+
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -26,11 +32,18 @@
           <field name="model">sale.order</field>
           <field name="inherit_id" ref="sale_management.sale_order_view_form"/>
           <field name="arch" type="xml">
-              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
-                  <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                    type="action" class="btn-primary"
-                    />
-                  <!--attrs="{'invisible': [('is_task_delivered', '=', True)]}"-->
+              <!--<xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">-->
+                  <!--<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"-->
+                    <!--type="action" class="btn-primary"-->
+                    <!--groups="vehicle_project.group_view_create_invoice_button"-->
+                    <!--/>-->
+                  <!--&lt;!&ndash;attrs="{'invisible': [('is_task_delivered', '=', True)]}"&ndash;&gt;-->
+              <!--</xpath>-->
+              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
+                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
+              </xpath>
+              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">
+                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
               </xpath>
           </field>
       </record>
