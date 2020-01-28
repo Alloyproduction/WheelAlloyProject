@@ -55,6 +55,10 @@ class CrmLead(models.Model):
               'product_id': line.product_id.id,
               'product_uom_qty': line.product_uom_qty,
             })
+        sales = self.env['crm.stage'].search([('name','=','sales')])
+        self.write({
+            'stage_id': sales.id
+        })
         return {
             'type': 'ir.actions.act_window',
             'name': 'Quotation',
@@ -93,7 +97,10 @@ class CrmLead(models.Model):
             }
 
             activities = self.env['mail.activity'].create(create_vals)
-
+        logistic = self.env['crm.stage'].search([('name','=','logistic')])
+        self.write({
+            'stage_id': logistic.id
+        })
         self.message_post(body='New Opportunity Need Approval',
                                  subtype='mt_comment',
                                  subject='New Opportunity Need Approval',

@@ -1,5 +1,11 @@
 <odoo>
     <data>
+        <record model="res.groups" id="group_view_create_crm_quotation_button">
+            <field name="name">View crm quotation button</field>
+        </record>
 
+         <record id="view_send_logistic_button" model="res.groups">
+            <field name="name">View crm send to logistic</field>
+        </record>
     </data>
 </odoo>

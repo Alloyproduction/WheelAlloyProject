@@ -7,6 +7,10 @@
             <field name="name">View create invoice button</field>
         </record>
 
+         <record id="view_confirm_order_button" model="res.groups">
+            <field name="name">View Confirm Order Button</field>
+        </record>
+
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -19,10 +23,15 @@
                 <field name="is_task_delivered" invisible="1"/>
             </xpath>
               <xpath expr="//button[@name='action_confirm'][1]" position="replace">
-                  <button name="action_confirm_replica" id="action_confirm" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                  <button name="action_confirm_replica" id="action_confirm"
+                          string="Confirm" class="btn-primary" type="object"
+                          groups="vehicle_project.view_confirm_order_button"
+                          attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
             </xpath>
             <xpath expr="//button[@name='action_confirm'][1]" position="replace">
-                 <button name="action_confirm_replica" string="Confirm" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                 <button name="action_confirm_replica" string="Confirm" type="object"
+                         groups="vehicle_project.view_confirm_order_button"
+                         attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
             </xpath>
             </field>
         </record>

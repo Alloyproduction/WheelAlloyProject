@@ -11,7 +11,7 @@ class QualityControlSlip(models.Model):
     invoice_number = fields.Char()
     claim_no = fields.Char()
     license_plate = fields.Char()
-    confirmation_date = fields.Date()
+    confirmation_date = fields.Date(track_visibility='always',)
     no_of_pieces = fields.Float()
     insurance_company = fields.Many2one('res.partner',string='Insurance Company')
     agency_name = fields.Many2one('generic.location',string='Agency Name')
@@ -27,11 +27,13 @@ class QualityControlSlip(models.Model):
     def accept_qc_slip(self):
         for rec in self:
             rec.sale_id.alloy_digital_signature = rec.alloy_digital_signature
+            rec.confirmation_date = fields.date.today()
             rec.state = 'accept'
 
     @api.multi
     def deny_qc_slip(self):
         for rec in self:
+            rec.confirmation_date = fields.date.today()
             rec.state = 'deny'
 
     @api.multi

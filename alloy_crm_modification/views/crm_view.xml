@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='%(sale_crm.sale_action_quotations_new)d']" position="replace">
                     <button string="New Quotation" name="get_quotation_order" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+                            groups="alloy_crm_modification.group_view_create_crm_quotation_button"
                     />
                 </xpath>
             </field>
@@ -41,7 +43,11 @@
                 </xpath>
 
                 <xpath expr="//header" position="inside">
-                    <button string="Send to Logistic" name="send_notification_to_logistic" type="object" class="oe_highlight"/>
+                    <button string="Send to Logistic"
+                            name="send_notification_to_logistic"
+                            type="object" class="oe_highlight"
+                            groups="alloy_crm_modification.view_send_logistic_button"
+                            />
                 </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="Order Lines">
@@ -67,6 +73,21 @@
             <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//header" position="inside">
+                    <button string="Send to Logistic"
+                            name="send_notification_to_logistic"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+                            groups="alloy_crm_modification.view_send_logistic_button"
+                            />
+                    <button string="New Quotation"
+                            name="get_quotation_order"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+                            groups="alloy_crm_modification.group_view_create_crm_quotation_button"
+                            />
+                </xpath>
+
                 <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="required">1</attribute>
                 </xpath>
@@ -88,9 +109,6 @@
                     <field name="city_id" required="1"/>
                 </xpath>
 
-                <xpath expr="//header" position="inside">
-                    <button string="Send to Logistic" name="send_notification_to_logistic" type="object" class="oe_highlight"/>
-                </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="Order Lines">
                         <field name="crm_order_line_ids">
@@ -142,5 +160,6 @@
         </record>
 
         <menuitem id="res_city_root" name="City" parent="crm.crm_menu_sales" action="res_city_view_action"/>
+
     </data>
 </odoo>

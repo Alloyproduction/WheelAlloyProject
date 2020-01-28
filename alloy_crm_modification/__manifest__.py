@@ -7,9 +7,12 @@
     'website': "http://www.yourcompany.com",
     'category': 'crm',
     'version': '0.1',
-    'depends': ['base', 'sale_crm', 'sale'],
+    'depends': ['base', 'sale_crm', 'sale', 'portal'],
+    # 'qweb': [
+    #     "static/src/xml/portal_signature.xml",
+    # ],
     'data': [
-        # 'security/security.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/crm_view.xml',
     ],

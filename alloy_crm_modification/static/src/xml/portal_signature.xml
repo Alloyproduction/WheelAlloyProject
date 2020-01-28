@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<templates id="template" xml:space="preserve">-->
+  <!--&lt;!&ndash;<xpath expr="//span[contains(@t-esc,'tax_id')]/.." position="replace" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<t t-esc="widget.options.signLabel or 'Accept &amp; Sign" t-operation="replace">&ndash;&gt;-->
+    <!--<xpath expr="//t[contains(@t-esc,'widget.options.signLabel')]" position="replace" >  -->
+      <!--<t t-esc="widget.options.signLabel or 'Accept &amp; Sign66666666666'"/>-->
+    <!--</xpath>-->
+<!--</templates>-->
+
+<template id="template" xml:space="preserve">
+    <t t-name="portal.portal_signature" t-extend="portal.portal_signature">
+        <t t-jquery='.clearfix' t-operation='replace'>
+            <div class="mt16 clearfix">
+              <button type="submit" class="btn btn-primary o_portal_sign_submit float-right">
+                <t t-esc="widget.options.signLabel or 'Accept &amp; Sign99999999999'"/>
+              </button>
+            </div>
+        </t>
+    </t>
+</template>
