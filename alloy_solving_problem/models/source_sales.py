@@ -4,6 +4,12 @@ from odoo import models, fields, api, _
 from datetime import datetime
 
 
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    description = fields.Char(string="Extra Description")
+
+
 class ResUsers(models.Model):
     _inherit = "res.users"
 

@@ -11,8 +11,12 @@
                     <attribute name="groups">alloy_solving_problem.group_view_rfq_cancel_button</attribute>
                 </xpath>
 
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                    <field name="description"/>
+                </xpath>
                 <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
                     <field name="name"/>
+                    <field name="description"/>
                 </xpath>
 
             </field>

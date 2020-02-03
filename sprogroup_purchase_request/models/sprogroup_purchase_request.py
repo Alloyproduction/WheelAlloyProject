@@ -13,8 +13,8 @@ _STATES = [
     ('to_approve', 'To be approved'),
     ('leader_approved', 'Leader Approved'),
     ('manager_approved', 'Manager Approved'),
-    ('rejected', 'Rejected'),
-    ('done', 'Done')
+    ('done', 'Done'),
+    ('rejected', 'Rejected')
 ]
 
 
@@ -46,6 +46,7 @@ class SprogroupPurchaseRequest(models.Model):
                                    required=True,
                                    track_visibility='onchange',
                                    default=_get_default_requested_by)
+    employee_name = fields.Many2one('res.users','Employee Name')
     assigned_to = fields.Many2one('res.users', 'Approver', required=True,
                                   track_visibility='onchange')
     partner_id = fields.Many2one('res.partner', 'Vendor', required=True)
@@ -80,20 +81,21 @@ class SprogroupPurchaseRequest(models.Model):
 
         self.assigned_to =  assigned_to
 
-    @api.one
-    @api.depends('requested_by')
+    @api.multi
+    # @api.depends('requested_by')
+    @api.onchange('requested_by')
     def _compute_department(self):
         if (self.requested_by.id == False):
-            self.department_id = None
+            self.department_id = False
             return
 
-        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.login)])
         if (len(employee) > 0):
             self.department_id = employee[0].department_id.id
         else:
-            self.department_id = None
+            self.department_id = False
 
-    department_id = fields.Many2one('hr.department', string='Department', compute='_compute_department', store=True,)
+    department_id = fields.Many2one('hr.department', string='Department')
 
     @api.one
     @api.depends('state')
@@ -164,23 +166,23 @@ class SprogroupPurchaseRequest(models.Model):
     def button_to_approve(self):
         return self.write({'state': 'to_approve'})
 
-    @api.multi
-    def button_leader_approved(self):
-        return self.write({'state': 'leader_approved'})
+    # @api.multi
+    # def button_leader_approved(self):
+    #     return self.write({'state': 'leader_approved'})
 
 
     @api.multi
     def button_manager_approved(self):
-        return self.write({'state': 'manager_approved'})
+        return self.write({'state': 'done'})
 
     @api.multi
     def button_rejected(self):
         self.mapped('line_ids').do_cancel()
         return self.write({'state': 'rejected'})
 
-    @api.multi
-    def button_done(self):
-        return self.write({'state': 'done'})
+    # @api.multi
+    # def button_done(self):
+    #     return self.write({'state': 'done'})
 
     @api.multi
     def check_auto_reject(self):

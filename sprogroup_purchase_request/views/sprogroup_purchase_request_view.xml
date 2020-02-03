@@ -17,25 +17,25 @@
                         <button name="button_to_approve" states="draft"
                                 string="Request approval" type="object"
                                 class="oe_highlight"/>
-                        <button name="button_leader_approved"
-                                string="Leader Approve"
-                                type="object"
-                                class="oe_highlight"
-                                groups="sprogroup_purchase_request.group_sprogroup_purchase_request_leader"
-                                states="to_approve"/>
+                        <!--<button name="button_leader_approved"-->
+                                <!--string="Leader Approve"-->
+                                <!--type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--groups="sprogroup_purchase_request.group_sprogroup_purchase_request_leader"-->
+                                <!--states="to_approve"/>-->
                         <button name="button_manager_approved"
-                                states="leader_approved"
-                                string="Manager Approve"
+                                states="to_approve"
+                                string="Approve"
                                 type="object"
                                 class="oe_highlight"
                                 groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"
                         />
-                        <button name="button_done"
-                                states="manager_approved"
-                                string="Done"
-                                type="object"
-                                class="oe_highlight"
-                                groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>
+                        <!--<button name="button_done"-->
+                                <!--states="manager_approved"-->
+                                <!--string="Done"-->
+                                <!--type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>-->
                         <button name="button_rejected"
                                 string="Reject"
                                 type="object"
@@ -47,7 +47,7 @@
                         />
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,to_approve,leader_approved,manager_approved,done,rejected"
+                               statusbar_visible="draft,to_approve,done,rejected"
                                statusbar_colors='{"manager_approved":"blue"}'/>
 
 
@@ -68,6 +68,7 @@
                                 <field name="can_manager_approved" invisible="1"/>
                                 <field name="can_reject" invisible="1"/>
                                 <field name="requested_by" readonly="1"/>
+                                <field name="employee_name" />
                                 <field name="partner_id" />
                                 <field name="department_id" />
                                 <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
@@ -234,9 +235,10 @@
         <menuitem
             id="menu_sprogroup_purchase_request_act"
             sequence="10"
-            parent="purchase.menu_procurement_management"
             action="sprogroup_purchase_request_form_action"
+            web_icon="sprogroup_purchase_request,static/description/icon.png"
             />
+            <!--parent="purchase.menu_procurement_management"-->
 
 
         <act_window
