@@ -5,8 +5,8 @@
               <field name="name">Do -Task</field>
               <field eval="True" name="active"/>
               <field name="user_id" ref="base.user_root"/>
-              <field name="interval_number">60</field>
-              <field name="interval_type">minutes</field>
+              <field name="interval_number">1</field>
+              <field name="interval_type">Days</field>
               <field name="numbercall">-1</field>
               <field name="model_id" ref="model_product_template"/>
               <field name="state">code</field>
