@@ -53,10 +53,51 @@ class ProductTemplate(models.Model):
                                         partner_ids=recipient_partners,
                                         message_type='notification')
 
+
     @api.model
     def cron_do_task(self):
-        self.server_do_action()
+        # self.server_do_action()
+        self.send_low_stock_via_email()
 
+    @api.multi
+    def send_low_stock_via_email(self):
+        header_label_list = ["Internal Refrence", "Name", "Qty On Hand", "Low Stock Qty"]
+        product_obj = self.env['product.product']
+        product_ids = product_obj.search([])
+        product_ids = product_ids.filtered(lambda r: r.qty_available <= r.minimum_qty and r.minimum_qty >= 0)
+        print('sdjfhssdf', product_ids)
+        group =  self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
+        print(group)
+        recipients = []
+        for recipient in group.users:
+            recipients.append((4, recipient.partner_id.id))
+        # Notification message body
+        body = """  
+        <table class="table table-bordered">
+            <tr style="font-size:14px; border: 1px solid black">
+                <th style="text-align:center; border: 1px solid black">%s</th>
+                <th style="text-align:center; border: 1px solid black">%s</th>
+                <th style="text-align:center; border: 1px solid black">%s</th>
+                <th style="text-align:center; border: 1px solid black">%s</th>
+                </tr>
+             """ % (header_label_list[0], header_label_list[1], header_label_list[2], header_label_list[3])
+        for product_ids in product_ids:
+            body += """ 
+                <tr style="font-size:14px; border: 1px solid black">
+                    <td style="text-align:center; border: 1px solid black">%s</td>
+                    <td style="text-align:center; border: 1px solid black">%s</td>
+                    <td style="text-align:center; border: 1px solid black">%s</td>
+                    <td style="text-align:center; border: 1px solid black">%s</td>
+                </tr>
+                """ % (product_ids.default_code, product_ids.name, product_ids.qty_available, product_ids.minimum_qty)
+            "</table>"
+        post_vars = {'subject': "Low stock notification",
+                     'body': body,
+                     'partner_ids': recipients, }
+        self.message_post(
+            type="notification",
+            subtype="mt_comment",
+            **post_vars)
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
