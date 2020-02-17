@@ -83,15 +83,17 @@ class ProductTemplate(models.Model):
                 </tr>
              """ % (header_label_list[0], header_label_list[1], header_label_list[2], header_label_list[3])
         for product_ids in product_ids:
-            body += """ 
-                <tr style="font-size:14px; border: 1px solid black">
-                    <td style="text-align:center; border: 1px solid black">%s</td>
-                    <td style="text-align:center; border: 1px solid black">%s</td>
-                    <td style="text-align:center; border: 1px solid black">%s</td>
-                    <td style="text-align:center; border: 1px solid black">%s</td>
-                </tr>
-                """ % (product_ids.default_code, product_ids.name, product_ids.qty_available, product_ids.minimum_qty)
-            "</table>"
+            if product_ids.minimum_qty :
+                body += """ 
+                    <tr style="font-size:14px; border: 1px solid black">
+                        <td style="text-align:center; border: 1px solid black">%s</td>
+                        <td style="text-align:center; border: 1px solid black">%s</td>
+                        <td style="text-align:center; border: 1px solid black">%s</td>
+                        <td style="text-align:center; border: 1px solid black">%s</td>
+                    </tr>
+                    """ % (product_ids.default_code, product_ids.name, product_ids.qty_available, product_ids.minimum_qty)
+                "</table>"
+
         post_vars = {'subject': "Low stock notification",
                      'body': body,
                      'partner_ids': recipients, }
