@@ -66,7 +66,7 @@ class ProductTemplate(models.Model):
         product_ids = product_obj.search([])
         product_ids = product_ids.filtered(lambda r: r.qty_available <= r.minimum_qty and r.minimum_qty >= 0)
         print('sdjfhssdf', product_ids)
-        group =  groups = self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
+        group =  self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
         print(group)
         recipients = []
         for recipient in group.users:
