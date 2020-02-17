@@ -33,7 +33,8 @@ class SaleOrder(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    minimum_qtys = fields.Float(string="Minimum Quantity")
+    # minimum_qtys = fields.Float(string="Minimum Quantity")
+    minimum_qty = fields.Float(string="Minimum Quantity")
 
     @api.multi
     def server_do_action(self):
@@ -62,11 +63,11 @@ class ProductTemplate(models.Model):
     @api.multi
     def send_low_stock_via_email(self):
         header_label_list = ["Internal Refrence", "Name", "Qty On Hand", "Low Stock Qty"]
-        product_obj = self.env['product.product']
+        product_obj = self.env['product.template']
         product_ids = product_obj.search([])
         product_ids = product_ids.filtered(lambda r: r.qty_available <= r.minimum_qty and r.minimum_qty >= 0)
         print('sdjfhssdf', product_ids)
-        group =  self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
+        group =  groups = self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
         print(group)
         recipients = []
         for recipient in group.users:
