@@ -64,6 +64,7 @@ class SprogroupPurchaseRequest(models.Model):
                              required=True,
                              copy=False,
                              default='draft')
+    is_editable_employee_name = fields.Boolean(string='Is editable emp Name',default=True)
 
 
     @api.onchange('state')
@@ -164,6 +165,7 @@ class SprogroupPurchaseRequest(models.Model):
 
     @api.multi
     def button_to_approve(self):
+        self.is_editable_employee_name=False
         return self.write({'state': 'to_approve'})
 
     # @api.multi
@@ -373,6 +375,8 @@ class SprogroupPurchaseRequestLine(models.Model):
     is_editable = fields.Boolean(string='Is editable',
                                  compute="_compute_is_editable",
                                  readonly=True)
+
+
     @api.multi
     def write(self, vals):
         res = super(SprogroupPurchaseRequestLine, self).write(vals)
