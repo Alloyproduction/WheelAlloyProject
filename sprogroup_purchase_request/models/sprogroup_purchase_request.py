@@ -46,7 +46,7 @@ class SprogroupPurchaseRequest(models.Model):
                                    required=True,
                                    track_visibility='onchange',
                                    default=_get_default_requested_by)
-    employee_name = fields.Many2one('res.partner','Employee Name', domain=[('supplier','=',False) ,('customer','=',False) ])
+    employee_name = fields.Many2one('hr.employee','Employee Name') #, domain=[('supplier','=',False) ,('customer','=',False) ]
     assigned_to = fields.Many2one('res.users', 'Approver', required=True,
                                   track_visibility='onchange')
     partner_id = fields.Many2one('res.partner', 'Vendor', required=True, domain=[('supplier','=',True) ])
