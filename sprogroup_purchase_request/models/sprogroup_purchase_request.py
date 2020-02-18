@@ -254,13 +254,22 @@ class SprogroupPurchaseRequest(models.Model):
             'target': 'new',
             'view_id': view_id.id,
             'views': [(view_id.id, 'form')],
+
             'context': {
                 'default_order_line': order_line,
                 'default_state': 'draft',
                 'default_partner_id': self.partner_id.id,
+                'default_purchase_request_id': self.id,
+                'default_employee_name_id': self.employee_name.id,
 
             }
         }
+class purchaseorderwizard(models.Model):
+    _inherit='purchase.order'
+
+    purchase_request_id=fields.Many2one('sprogroup.purchase.request','Purchase Request')
+    employee_name_id=fields.Many2one('res.partner','Employee Name', domain=[('supplier','=',False) ,('customer','=',False) ])
+
 class SprogroupPurchaseRequestLine(models.Model):
 
     _name = "sprogroup.purchase.request.line"
