@@ -6,13 +6,15 @@ from odoo import api, fields, models, _ , SUPERUSER_ID
 from odoo.addons import decimal_precision as dp
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.exceptions import UserError
+
 _STATES = [
     ('draft', 'Draft'),
     ('to_approve', 'To be approved'),
     ('leader_approved', 'Leader Approved'),
     ('manager_approved', 'Manager Approved'),
-    ('rejected', 'Rejected'),
-    ('done', 'Done')
+    ('done', 'Done'),
+    ('rejected', 'Rejected')
 ]
 
 
@@ -44,8 +46,10 @@ class SprogroupPurchaseRequest(models.Model):
                                    required=True,
                                    track_visibility='onchange',
                                    default=_get_default_requested_by)
+    employee_name = fields.Many2one('res.partner','Employee Name', domain=[('supplier','=',False) ,('customer','=',False) ])
     assigned_to = fields.Many2one('res.users', 'Approver', required=True,
                                   track_visibility='onchange')
+    partner_id = fields.Many2one('res.partner', 'Vendor', required=True, domain=[('supplier','=',True) ])
     description = fields.Text('Description')
 
     line_ids = fields.One2many('sprogroup.purchase.request.line', 'request_id',
@@ -77,20 +81,21 @@ class SprogroupPurchaseRequest(models.Model):
 
         self.assigned_to =  assigned_to
 
-    @api.one
-    @api.depends('requested_by')
+    @api.multi
+    # @api.depends('requested_by')
+    @api.onchange('requested_by')
     def _compute_department(self):
         if (self.requested_by.id == False):
-            self.department_id = None
+            self.department_id = False
             return
 
-        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.login)])
         if (len(employee) > 0):
             self.department_id = employee[0].department_id.id
         else:
-            self.department_id = None
+            self.department_id = False
 
-    department_id = fields.Many2one('hr.department', string='Department', compute='_compute_department', store=True,)
+    department_id = fields.Many2one('hr.department', string='Department')
 
     @api.one
     @api.depends('state')
@@ -161,23 +166,23 @@ class SprogroupPurchaseRequest(models.Model):
     def button_to_approve(self):
         return self.write({'state': 'to_approve'})
 
-    @api.multi
-    def button_leader_approved(self):
-        return self.write({'state': 'leader_approved'})
+    # @api.multi
+    # def button_leader_approved(self):
+    #     return self.write({'state': 'leader_approved'})
 
 
     @api.multi
     def button_manager_approved(self):
-        return self.write({'state': 'manager_approved'})
+        return self.write({'state': 'done'})
 
     @api.multi
     def button_rejected(self):
         self.mapped('line_ids').do_cancel()
         return self.write({'state': 'rejected'})
 
-    @api.multi
-    def button_done(self):
-        return self.write({'state': 'done'})
+    # @api.multi
+    # def button_done(self):
+    #     return self.write({'state': 'done'})
 
     @api.multi
     def check_auto_reject(self):
@@ -205,7 +210,15 @@ class SprogroupPurchaseRequest(models.Model):
         # }
 
         order_line = []
+        price_unit = 0.0
         for line in self.line_ids:
+            if line.product_id.seller_ids:
+                # print(">>>>>>>>>>", line.product_id.seller_ids)
+                for r in line.product_id.seller_ids:
+                    # print("LLLLLLLL", r.name.name)
+                    if r.name.id == self.partner_id.id:
+                        price_unit = r.price
+                # raise UserError(_(">>>>>>>>>>"))
             product = line.product_id
             fpos = self.env['account.fiscal.position']
             if self.env.uid == SUPERUSER_ID:
@@ -217,11 +230,11 @@ class SprogroupPurchaseRequest(models.Model):
             product_line = (0, 0, {'product_id' : line.product_id.id,
                                    'state' : 'draft',
                                    'product_uom' : line.product_id.uom_po_id.id,
-                                    'price_unit' : 0,
+                                    'price_unit' : price_unit,
                                    'date_planned' :  datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    # 'taxes_id' : ((6,0,[taxes_id.id])),
                                    'product_qty' : line.product_qty,
-                                   'name' : line.product_id.name
+                                   'name' : line.product_id.name,
                                    })
             order_line.append(product_line)
 
@@ -241,12 +254,22 @@ class SprogroupPurchaseRequest(models.Model):
             'target': 'new',
             'view_id': view_id.id,
             'views': [(view_id.id, 'form')],
+
             'context': {
                 'default_order_line': order_line,
                 'default_state': 'draft',
+                'default_partner_id': self.partner_id.id,
+                'default_purchase_request_id': self.id,
+                'default_employee_name_id': self.employee_name.id,
 
             }
         }
+class purchaseorderwizard(models.Model):
+    _inherit='purchase.order'
+
+    purchase_request_id=fields.Many2one('sprogroup.purchase.request','Purchase Request')
+    employee_name_id=fields.Many2one('res.partner','Employee Name', domain=[('supplier','=',False) ,('customer','=',False) ])
+
 class SprogroupPurchaseRequestLine(models.Model):
 
     _name = "sprogroup.purchase.request.line"
@@ -271,7 +294,7 @@ class SprogroupPurchaseRequestLine(models.Model):
         track_visibility='onchange')
     name = fields.Char('Description', size=256,
                        track_visibility='onchange')
-    product_uom_id = fields.Many2one('product.uom', 'Product Unit of Measure',
+    product_uom_id = fields.Many2one('uom.uom', 'Volume',
                                      track_visibility='onchange')
     product_qty = fields.Float(string='Quantity', track_visibility='onchange', digits=dp.get_precision('Product Unit of Measure'))
     request_id = fields.Many2one('sprogroup.purchase.request',
@@ -314,6 +337,8 @@ class SprogroupPurchaseRequestLine(models.Model):
 
     cancelled = fields.Boolean(
         string="Cancelled", readonly=True, default=False, copy=False)
+
+    # volume_id = fields.Many2one(comodel_name="uom.uom", string="Volume")
 
     @api.onchange('product_id')
     def onchange_product_id(self):
