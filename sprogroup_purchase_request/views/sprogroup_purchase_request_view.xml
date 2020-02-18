@@ -17,25 +17,25 @@
                         <button name="button_to_approve" states="draft"
                                 string="Request approval" type="object"
                                 class="oe_highlight"/>
-                        <button name="button_leader_approved"
-                                string="Leader Approve"
-                                type="object"
-                                class="oe_highlight"
-                                groups="base.group_user"
-                                attrs="{'invisible': [('can_leader_approved', '=', False)]}"/>
+                        <!--<button name="button_leader_approved"-->
+                                <!--string="Leader Approve"-->
+                                <!--type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--groups="sprogroup_purchase_request.group_sprogroup_purchase_request_leader"-->
+                                <!--states="to_approve"/>-->
                         <button name="button_manager_approved"
-                                states="leader_approved"
-                                string="Manager Approve"
+                                states="to_approve"
+                                string="Approve"
                                 type="object"
                                 class="oe_highlight"
                                 groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"
                         />
-                        <button name="button_done"
-                                states="manager_approved"
-                                string="Done"
-                                type="object"
-                                class="oe_highlight"
-                                groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>
+                        <!--<button name="button_done"-->
+                                <!--states="manager_approved"-->
+                                <!--string="Done"-->
+                                <!--type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>-->
                         <button name="button_rejected"
                                 string="Reject"
                                 type="object"
@@ -47,7 +47,7 @@
                         />
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,to_approve,leader_approved,manager_approved,done,rejected"
+                               statusbar_visible="draft,to_approve,done,rejected"
                                statusbar_colors='{"manager_approved":"blue"}'/>
 
 
@@ -68,6 +68,8 @@
                                 <field name="can_manager_approved" invisible="1"/>
                                 <field name="can_reject" invisible="1"/>
                                 <field name="requested_by" readonly="1"/>
+                                <field name="employee_name" />
+                                <field name="partner_id" />
                                 <field name="department_id" />
                                 <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
                             </group>
@@ -80,12 +82,12 @@
                         </group>
                         <notebook>
                             <page string="Products">
-                                <field name="line_ids" attrs="{'readonly': [('is_editable','=', False)]}">
+                                <field name="line_ids" attrs="{'readonly': [('state','in', ['manager_approved','done','rejected'])]}">
                                     <tree decoration-muted="cancelled == True">
                                         <field name="product_id"/>
                                         <field name="name"/>
                                         <field name="product_qty"/>
-                                        <field name="product_uom_id" groups="product.group_uom"/>
+                                        <field name="product_uom_id" />
                                         <field name="date_required"/>
                                         <field name="cancelled" invisible="1"/>
                                         <field name="is_editable" invisible="1"/>
@@ -98,14 +100,8 @@
                                                     <field name="product_id"/>
                                                     <field name="name"/>
                                                     <label for="product_qty" />
-                                                    <div>
-                                                        <field name="product_qty"
-                                                               class="oe_inline"/>
-                                                        <field name="product_uom_id"
-                                                               groups="product.group_uom"
-                                                               class="oe_inline"/>
-                                                    </div>
-
+                                                    <field name="product_qty"/>
+                                                    <field name="product_uom_id"/>
                                                     <field name="date_required"/>
                                                     <field name="cancelled"/>
 
@@ -236,12 +232,34 @@
             </field>
         </record>
 
+
+
+
+
+    <record model="ir.ui.view" id="purchase_request_form_view">
+            <field name="name">purchase_link</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="purchase_request_id" />
+                  <field name="employee_name_id" />
+            </xpath>
+
+            </field>
+        </record>
+
+
+
+
         <menuitem
             id="menu_sprogroup_purchase_request_act"
             sequence="10"
-            parent="purchase.menu_procurement_management"
             action="sprogroup_purchase_request_form_action"
+            web_icon="sprogroup_purchase_request,static/description/icon.png"
             />
+            <!--parent="purchase.menu_procurement_management"-->
 
 
         <act_window
