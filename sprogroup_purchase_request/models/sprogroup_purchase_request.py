@@ -270,7 +270,7 @@ class purchaseorderwizard(models.Model):
     _inherit='purchase.order'
 
     purchase_request_id=fields.Many2one('sprogroup.purchase.request','Purchase Request')
-    employee_name_id=fields.Many2one('res.partner','Employee Name', domain=[('supplier','=',False) ,('customer','=',False) ])
+    employee_name_id=fields.Many2one('hr.employee','Employee Name')
 
 class SprogroupPurchaseRequestLine(models.Model):
 
