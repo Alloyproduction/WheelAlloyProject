@@ -19,7 +19,7 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="agency_name" domain="[('is_agency','=',True)]"/>
                 <field name="project" />
-                <field name="task_duration" />
+<!--                <field name="task_duration" />-->
                 <field name="is_task_delivered" invisible="1"/>
             </xpath>
               <xpath expr="//button[@name='action_confirm'][1]" position="replace">

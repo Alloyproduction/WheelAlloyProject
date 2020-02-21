@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <template id="assets_backend_inherit_vehicle_project" inherit_id="web.assets_backend" name="vehicle_project backend assets">-->
+        <template id="assets_backend_inherit_vehicle_project" inherit_id="web.assets_frontend" name="vehicle_project backend assets">
+
+<!--        <xpath expr="script[last()]" position="after">-->
+<!--            <script type="text/javascript" src="/vehicle_project/static/js/portal_signature2.js"></script>-->
+
+<!--        </xpath>-->
+
+
+         <xpath expr="//script[@src='/portal/static/src/js/portal_signature.js']" position="replace">
+            <script type="text/javascript" src="/vehicle_project/static/js/portal_signature2.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

@@ -45,6 +45,7 @@ class tasks(models.Model):
     hourminutes = fields.Char(string='hours minutes', compute='_compute_hours_minutes')
     hours_minutes = fields.Char(string='hours: minutes')
     sales_person_id = fields.Many2one(comodel_name="res.users")
+    task_hours =  fields.Float ('Task hours',default=0)
 
     # total_cost = fields.Float('Total Labor Cost', compute='_compute_total_cost')
     #
@@ -75,6 +76,7 @@ class tasks(models.Model):
                 hours = (diff.seconds) // 3600
                 minutes = ((diff.seconds) % 3600) // 60
                 totalhours = hour1 + hours
+                # task.task_hours =totalhours
 
                 if totalhours < 72 :
                     task.hourminutes = str(totalhours) + ":" + str(minutes)
@@ -111,6 +113,8 @@ class tasks(models.Model):
 
             else:
                 task.is_task_finished = False
+
+
 
     @api.multi
     def action_view_deliverys(self):
@@ -442,6 +446,7 @@ class InheritSale(models.Model):
     agency_name = fields.Many2one('res.partner', string='Agency Name')
     is_task_delivered = fields.Boolean(compute='get_delivered_task', default=True)
     task_duration = fields.Float()
+    # full_url=fields.char('full_url',default="")
 
     def get_delivered_task(self):
         for rec in self:
@@ -475,6 +480,7 @@ class InheritSale(models.Model):
         action['domain'] = [('name', 'ilike', self.name)]
         return action
 
+
     @api.multi
     def action_confirm_replica(self):
         # if not self.alloy_digital_signature:
@@ -484,7 +490,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id = 73   #  stage_id = 1
+            stage_id = 73 #73  1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
@@ -537,6 +543,91 @@ class InheritSale(models.Model):
 #                 'res_id': task.id,
 #                 'context': self.env.context
 #             }
+
+
+    @api.multi
+    def action_quotation_send(self):
+        '''
+        This function opens a window to compose an email, with the edi sale template message loaded by default
+        '''
+        self.ensure_one()
+
+        str='<p style="margin: 0px; padding: 0px; font-size: 13px; "><a href="https://alloywheel.odoo.com'
+        str +=  self.get_portal_url()+'"'
+        str +=' class="btn btn-beta" target="_blank" style="color:white;">Accept and Sign online</a><br></p>'
+
+        # self.full_url =str
+        print(str)
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('sale', 'email_template_edi_sale')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        lang = self.env.context.get('lang')
+        template = template_id and self.env['mail.template'].browse(template_id)
+
+
+
+        tempBody= """<p style="margin:0px 0 1rem 0;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">% set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order' Hello, <br><br>Your % if ctx.get('proforma'): Pro forma invoice for ${doc_name} ${object.name} % if object.origin: (with reference: ${object.origin} ) % endif amounting in ${format_amount(object.amount_total, object.pricelist_id.currency_id)} is available. % else: ${doc_name} ${object.name} % if object.origin: (with reference: ${object.origin} ) % endif amounting in ${format_amount(object.amount_total, object.pricelist_id.currency_id)} is ready for review. % endif <br><br>Do not hesitate to contact us if you have any questions. <br></p><br><p style="margin:0px 0 1rem 0;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;"></p>
+"""
+        print(tempBody)
+        template.body_html = tempBody+ str
+
+        print(template)
+
+        if template and template.lang:
+            lang = template._render_template(template.lang, 'sale.order', self.ids[0])
+        ctx = {
+            'default_model': 'sale.order',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'model_description': self.with_context(lang=lang).type_name,
+            'custom_layout': "mail.mail_notification_paynow",
+            'proforma': self.env.context.get('proforma', False),
+            'force_email': True
+        }
+        y={
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+        return y
+
+    @api.multi
+    def preview_sale_order(self):
+
+        self.ensure_one()
+        y = {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': self.get_portal_url(),
+        }
+        print("y", y)
+        print("url", self.get_portal_url())
+        return y
+
+    def has_to_be_signed(self, also_in_draft=False):
+        # print("self.state",self.state)
+        # print("also_in_draft", also_in_draft)
+        # print(" self.is_expired ",  self.is_expired )
+        # print("self.require_signature ", self.require_signature )
+        # print("self.signature", self.signature)
+        # print("self.team_id.team_type", self.team_id.team_type)
+        return not self.is_expired and self.require_signature and not self.signature and self.team_id.team_type != 'website'
+
 
 
 class StockPicking(models.Model):
