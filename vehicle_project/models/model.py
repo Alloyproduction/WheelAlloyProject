@@ -572,8 +572,7 @@ class InheritSale(models.Model):
 
 
 
-        tempBody= """<p style="margin:0px 0 1rem 0;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;">% set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order' Hello, <br><br>Your % if ctx.get('proforma'): Pro forma invoice for ${doc_name} ${object.name} % if object.origin: (with reference: ${object.origin} ) % endif amounting in ${format_amount(object.amount_total, object.pricelist_id.currency_id)} is available. % else: ${doc_name} ${object.name} % if object.origin: (with reference: ${object.origin} ) % endif amounting in ${format_amount(object.amount_total, object.pricelist_id.currency_id)} is ready for review. % endif <br><br>Do not hesitate to contact us if you have any questions. <br></p><br><p style="margin:0px 0 1rem 0;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;"></p>
-"""
+        tempBody= """<p><span style="font-style: initial; font-variant-ligatures: initial; font-variant-caps: initial; font-weight: initial; text-align: inherit;">&nbsp;Dear&nbsp;&nbsp;</span><span style="font-style: initial; font-variant-ligatures: initial; font-variant-caps: initial; font-weight: initial; text-align: inherit;">${object.partner_id.name}</span><br></p><div style="margin: 0px; padding: 0px;"><br></div><div style="margin: 0px; padding: 0px;">Here is the quotation ${object.name} from AWRS Team / Alloy wheel repair specialists&nbsp;<br>&nbsp;&nbsp;</div><div style="margin: 0px; padding: 0px;"><br></div><div style="margin: 0px; padding: 0px;">Do not hesitate to contact us if you have any questions.&nbsp;<br><br></div>"""
         print(tempBody)
         template.body_html = tempBody+ str
 
