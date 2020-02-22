@@ -554,7 +554,7 @@ class InheritSale(models.Model):
         str=""
         str='<p style="margin: 0px; padding: 0px; font-size: 13px; "><a href="https://alloywheel.odoo.com'
         str +=  self.get_portal_url()+'"'
-        str +=' class="btn btn-beta" target="_blank" style="color:white;">Confirm</a><br></p>'
+        str +=' class="btn btn-beta" target="_blank" style="color:white;border-radius: 12px;">Confirm</a><br></p>'
 
         # self.full_url =str
         print(str)
