@@ -644,3 +644,8 @@ class ProcurementGroup(models.Model):
     _inherit = 'procurement.group'
 
     task_id = fields.Many2one('project.task', 'Task')
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    discount_fixed = fields.Float()
