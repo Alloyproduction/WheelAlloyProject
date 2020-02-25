@@ -33,8 +33,8 @@ class CustomerPortalController(CustomerPortal):  # Inherit in your custom class
         if not signature:
             return {'error': _('Signature is missing.')}
 
-        if not order_sudo.has_to_be_paid():
-            order_sudo.action_confirm_replica()
+        #if not order_sudo.has_to_be_paid():
+           # order_sudo.action_confirm_replica()
 
         order_sudo.signature = signature
         order_sudo.signed_by = partner_name
