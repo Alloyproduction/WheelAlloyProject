@@ -36,10 +36,10 @@ var TimeCounter = AbstractField.extend({
 //                   console.log(currentDate);
 //                   console.log(xendduration);
 //                    console.log("-------------------------------------");
-
-                              self.duration += data.date_end ?
-                        self._getDateDifference(data.date_start, data.date_end) :
-                        self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
+						 self.duration += self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
+                       // self.duration += data.date_end ?
+                       // self._getDateDifference(data.date_start, data.date_end) :
+                      //  self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
                 });
             }
         });
