@@ -1,4 +1,5 @@
 odoo.define('project_task_timer_app.timer_main', function (require) {
+	"use strict";
 var AbstractField = require('web.AbstractField');
 var core = require('web.core');
 var field_registry = require('web.field_registry');
@@ -26,8 +27,8 @@ var TimeCounter = AbstractField.extend({
                 self.duration = 0;
                 self.Eduration=0;
                 _.each(result, function (data) {
-                xendduration = self._getDateDifference(currentDate,time.auto_str_to_date(data.date_deadline));
-                self.Eduration +=self._getDateDifference(currentDate,time.auto_str_to_date(data.date_deadline));
+                xendduration = self._getDateDifference(currentDate,data.date_deadline);
+                self.Eduration +=xendduration;
 //                xendduration=xendduration/(60*60*1000);
 //                    console.log(" hi..");
 //                 console.log(data.production_id);
@@ -36,10 +37,10 @@ var TimeCounter = AbstractField.extend({
 //                   console.log(currentDate);
 //                   console.log(xendduration);
 //                    console.log("-------------------------------------");
-						 self.duration += self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
-                       // self.duration += data.date_end ?
-                       // self._getDateDifference(data.date_start, data.date_end) :
-                      //  self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
+
+                              self.duration += data.date_end ?
+                        self._getDateDifference(data.date_start, data.date_end) :
+                        self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
                 });
             }
         });
