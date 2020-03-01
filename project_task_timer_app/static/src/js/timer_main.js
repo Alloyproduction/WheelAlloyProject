@@ -27,7 +27,7 @@ var TimeCounter = AbstractField.extend({
                 self.Eduration=0;
                 _.each(result, function (data) {
                 xendduration = self._getDateDifference(currentDate,time.auto_str_to_date(data.date_deadline));
-                self.Eduration +=xendduration;
+                self.Eduration +=self._getDateDifference(currentDate,time.auto_str_to_date(data.date_deadline));
 //                xendduration=xendduration/(60*60*1000);
 //                    console.log(" hi..");
 //                 console.log(data.production_id);
