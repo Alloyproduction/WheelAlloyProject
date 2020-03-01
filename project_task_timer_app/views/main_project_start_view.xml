@@ -4,7 +4,7 @@
         <template id="assets_backend_timer" name="timer assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/project_task_timer_app/static/src/js/timer_main.js"></script>
-                <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>
+<!--                <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>-->
             </xpath>
         </template>
 	
@@ -40,7 +40,7 @@
                     
             	</xpath>
             	<xpath expr="//notebook/page[@name='extra_info']" position="before">
-            		<page string="Duration"   invisible="1" >
+            		<page string="Duration"    >
             			<field name="duration_ids">
             			<tree>
 <!-- invisible="1" -->
