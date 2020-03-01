@@ -61,9 +61,9 @@ class Inherit_project_task(models.Model):
 
 		self.task_run = True
 
-		self.stage_id = 1
+		self.stage_id = 8
 		print("hi")
-		super(Inherit_project_task, self).write({"stage_id": 1})
+		super(Inherit_project_task, self).write({"stage_id": 8})
 
 		return {
 			'type': 'ir.actions.close_wizard_refresh_view'
