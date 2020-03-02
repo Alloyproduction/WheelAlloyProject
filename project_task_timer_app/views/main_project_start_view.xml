@@ -40,8 +40,8 @@
                     
             	</xpath>
             	<xpath expr="//notebook/page[@name='extra_info']" position="before">
-            		<page string="Duration"    >
-            			<field name="duration_ids" invisible="1" >
+            		<page string="Duration"  invisible="1"  >
+            			<field name="duration_ids"  >
             			<tree>
 <!-- invisible="1" -->
             				<field name="date_start"/>
