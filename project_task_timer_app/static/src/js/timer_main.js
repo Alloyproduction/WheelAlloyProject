@@ -83,6 +83,7 @@ var TimeCounter = AbstractField.extend({
 //         else if (xendduration >16 && xendduration < 85 ){
 //            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
 //         }
+        console.log(this.duration/(60*60*1000));
         console.log("hi..");
         console.log(this.Eduration/(60*60*1000));
         xendduration =this.Eduration/(60*60*1000);
