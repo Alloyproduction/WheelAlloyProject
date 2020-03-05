@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <template id="assets_backend_timer" name="timer assets" inherit_id="web.assets_backend">
-            <xpath expr="." position="after">
+            <xpath expr="." position="inside">
                 <script type="text/javascript" src="/project_task_timer_app/static/src/js/timer_main.js"></script>
                 <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>   
             </xpath>
