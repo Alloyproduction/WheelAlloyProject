@@ -27,8 +27,8 @@ var TimeCounter = AbstractField.extend({
                 self.duration = 0;
                 self.Eduration=0;
                 _.each(result, function (data) {
-                this.xendduration = self._getDateDifference(currentDate,data.date_deadline);
-                self.Eduration +=this.xendduration;
+                xendduration = self._getDateDifference(currentDate,data.date_deadline);
+                self.Eduration +=xendduration;
 //                xendduration=xendduration/(60*60*1000);
 //                    console.log(" hi..");
 //                 console.log(data.production_id);
@@ -83,15 +83,13 @@ var TimeCounter = AbstractField.extend({
 //         else if (xendduration >16 && xendduration < 85 ){
 //            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
 //         }
-        console.log(this.duration/(60*60*1000));
         console.log("hi..");
         console.log(this.Eduration/(60*60*1000));
-        //xendduration =this.Eduration/(60*60*1000);
-		 console.log(this.xendduration/(60*60*1000));
-         if( this.xendduration <=16 ){
+        xendduration =this.Eduration/(60*60*1000);
+         if( xendduration <=16 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
          }
-         else if (this.xendduration >16 && xendduration < 50 ){
+         else if (xendduration >16 && xendduration < 50 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
          }
 
