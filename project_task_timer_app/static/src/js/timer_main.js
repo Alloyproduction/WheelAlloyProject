@@ -44,6 +44,7 @@ var TimeCounter = AbstractField.extend({
                 });
             }
         });
+		console.log(def);
         return $.when(this._super.apply(this, arguments), def);
     },
     destroy: function () {
