@@ -24,8 +24,9 @@ var TimeCounter = AbstractField.extend({
                 var currentDate = new Date();
                 self.duration = 0;
 				 console.log(" hi..before call then ..");
-				  console.log("data.date_start"+data.date_start);
+				  
                 _.each(result, function (data) {
+					console.log(data.date_start);
                     self.duration += data.date_end ?
                         self._getDateDifference(data.date_start, data.date_end) :
                         self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
