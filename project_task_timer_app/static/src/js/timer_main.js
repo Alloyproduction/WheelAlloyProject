@@ -94,7 +94,11 @@ var TimeCounter = AbstractField.extend({
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
          }
 
-        this.$el.html($('<span style="color:red;">' + moment.utc(this.duration).format("HH:mm:ss") + '</span>'));
+            var x=this.duration;
+        var hours = Math.floor((x / (1000 * 60 * 60 ) ));
+  var minutes = Math.floor((x % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((x % (1000 * 60)) / 1000);
+        this.$el.html($('<span style="color:red;">' +   hours+":"+ minutes+":"+ seconds  + '</span>'));
     },
 });
 
