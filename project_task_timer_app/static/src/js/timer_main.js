@@ -57,9 +57,9 @@ var TimeCounter = AbstractField.extend({
                 self.duration += 1000;
                 self._startTimeCounter();
             }, 1000);
-        } else {
-            clearTimeout(this.timer);
-        }
+        } //else {
+           // clearTimeout(this.timer);
+        //}
         this.$el.html($('<span style="color:red;">' + moment.utc(this.duration).format("HH:mm:ss") + '</span>'));
     },
 });
