@@ -18,7 +18,7 @@ var TimeCounter = AbstractField.extend({
             method: 'search_read',
             domain: [
                 ['production_id', '=', this.record.data.id],
-                ['user_id', '=', this.getSession().uid],
+             
             ],
         }).then(function (result) {
             if (self.mode === 'readonly') {
