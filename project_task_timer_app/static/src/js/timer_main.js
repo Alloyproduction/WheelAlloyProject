@@ -29,14 +29,14 @@ var TimeCounter = AbstractField.extend({
                 _.each(result, function (data) {
                 xendduration = self._getDateDifference(currentDate,data.date_deadline);
                 self.Eduration +=xendduration;
-//                xendduration=xendduration/(60*60*1000);
-//                    console.log(" hi..");
-//                 console.log(data.production_id);
-//                   console.log(data.date_start);
-//                  console.log(data.date_deadline);
-//                   console.log(currentDate);
-//                   console.log(xendduration);
-//                    console.log("-------------------------------------");
+                xendduration=xendduration/(60*60*1000);
+                   console.log(" hi.. willStart");
+                  console.log(data.production_id);
+                    console.log(data.date_start);
+                   console.log(data.date_deadline);
+                   console.log(currentDate);
+                    console.log(xendduration);
+                   console.log("-------------------------------------");
 
                               self.duration += data.date_end ?
                         self._getDateDifference(data.date_start, data.date_end) :
