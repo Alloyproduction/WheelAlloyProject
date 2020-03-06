@@ -30,6 +30,7 @@ var TimeCounter = AbstractField.extend({
                     self.duration += data.date_end ?
                         self._getDateDifference(data.date_start, data.date_end) :
                         self._getDateDifference(time.auto_str_to_date(data.date_start), currentDate);
+					console.log(self.duration);
                 });
             }
         });
@@ -50,7 +51,7 @@ var TimeCounter = AbstractField.extend({
     },
     _startTimeCounter: function () {
         var self = this;
-        clearTimeout(this.timer);
+       // clearTimeout(this.timer);
         if (this.record.data.is_user_working) {
             this.timer = setTimeout(function () {
                 self.duration += 1000;
