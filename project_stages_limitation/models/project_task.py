@@ -36,7 +36,7 @@ class ProjectTask(models.Model):
             self.stage_date = fields.Datetime.now()
             if self.env.user.stage_ids and values['stage_id'] in self.env.user.stage_ids.ids:
             
-                 if self.stage_id.id != 1 or self.task_run == True:
+                 if self.stage_id.id != 73 or self.task_run == True:
                     return super(ProjectTask, self).write(values)
                 else :
                     raise UserError(_("You aren't allowed to change to this stage press run Task"))
