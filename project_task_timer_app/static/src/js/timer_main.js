@@ -115,9 +115,11 @@ var TimeCounter = AbstractField.extend({
 	else if( hours >62 && xendduration <10){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
          }
+        var h= (hours>=10? hours : "0"+hours);
+        var m= (minutes>=10? minutes: "0"+minutes);
+        var s=(seconds>=10? seconds: "0"+seconds);
 
-
-        this.$el.html($('<span style="color:red;">' +   hours+":"+ minutes+":"+ seconds  + '</span>'));
+        this.$el.html($('<span style="color:red;">' +   h+":"+m +":"+ s  + '</span>'));
 //        console.log(counter);
     },
 });
