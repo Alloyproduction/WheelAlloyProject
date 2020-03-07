@@ -30,13 +30,13 @@ var TimeCounter = AbstractField.extend({
                 xendduration = self._getDateDifference(currentDate,data.date_deadline);
                 self.Eduration +=xendduration;
                 xendduration=xendduration/(60*60*1000);
-                   console.log(" hi.. willStart");
-                  console.log(data.production_id);
-                    console.log(data.date_start);
-                   console.log(data.date_deadline);
-                   console.log(currentDate);
-                    console.log(xendduration);
-                   console.log("-------------------------------------");
+                 //  console.log(" hi.. willStart");
+                //  console.log(data.production_id);
+                 //   console.log(data.date_start);
+                 //  console.log(data.date_deadline);
+                 //  console.log(currentDate);
+                 //   console.log(xendduration);
+                //   console.log("-------------------------------------");
 
                               self.duration += data.date_end ?
                         self._getDateDifference(data.date_start, data.date_end) :
@@ -90,9 +90,13 @@ var TimeCounter = AbstractField.extend({
          if( xendduration <=16 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
          }
-         else if (xendduration >16 && xendduration < 50 ){
+         else if (xendduration >16 && xendduration < 62 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
          }
+		 else {
+			 var $record = this.$el.parent().parent().parent().parent().css("background-color", '#ffffff' );
+			 
+		 }
 
             var x=this.duration;
         var hours = Math.floor((x / (1000 * 60 * 60 ) ));
