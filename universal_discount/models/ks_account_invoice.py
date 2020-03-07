@@ -58,8 +58,10 @@ class KsGlobalDiscountInvoice(models.Model):
                     # rec.ks_amount_discount = (rec.amount_untaxed + rec.amount_tax) * rec.ks_global_discount_rate / 100
                 else:
                     rec.ks_amount_discount = 0
-            rec.amount_tax = ((sum(line.price_subtotal for line in rec.invoice_line_ids) - rec.ks_amount_discount)\
-                              * tax_id) / 100
+            # rec.amount_tax = ((sum(line.price_subtotal for line in rec.invoice_line_ids) - rec.ks_amount_discount)\
+            #                   * tax_id) / 100
+            round_curr = self.currency_id.round
+            rec.amount_tax = self.amount_tax = sum(round_curr(line.amount) for line in self.tax_line_ids)
             rec.price_after_discount = rec.amount_untaxed - rec.ks_amount_discount
             rec.amount_total = rec.amount_untaxed - rec.ks_amount_discount + rec.amount_tax
 
