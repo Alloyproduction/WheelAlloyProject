@@ -90,7 +90,7 @@ var TimeCounter = AbstractField.extend({
          if( xendduration <=16 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
          }
-         else if (xendduration >16 && xendduration < 49 ){
+         else if (xendduration >22 && xendduration < 49 ){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
          }
 		 else {
