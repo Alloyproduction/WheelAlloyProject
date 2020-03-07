@@ -87,21 +87,28 @@ var TimeCounter = AbstractField.extend({
         console.log("hi..");
         console.log(this.Eduration/(60*60*1000));
         xendduration =this.Eduration/(60*60*1000);
-         if( xendduration <=16 ){
-            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
-         }
-         else if (xendduration >22 && xendduration < 49 ){
-            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
-         }
-		 else {
-			 var $record = this.$el.parent().parent().parent().parent().css("background-color", '#ffffff' );
-			 
-		 }
+		
 
             var x=this.duration;
         var hours = Math.floor((x / (1000 * 60 * 60 ) ));
   var minutes = Math.floor((x % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((x % (1000 * 60)) / 1000);
+  
+      if( hours <=48 ){
+			  var $record = this.$el.parent().parent().parent().parent().css("background-color", '#ffffff' );
+	 			 
+		 }
+		else if( hours >48 && xendduration >10){
+			
+			   var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
+		}
+    
+
+	else if( hours >62 && xendduration <10){
+            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
+         }
+        
+  
         this.$el.html($('<span style="color:red;">' +   hours+":"+ minutes+":"+ seconds  + '</span>'));
     },
 });
