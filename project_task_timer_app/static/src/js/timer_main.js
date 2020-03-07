@@ -8,17 +8,24 @@ var time = require('web.time');
 var _t = core._t;
 var xduration=0;
 var xendduration=0;
+//var counter=0;
 var TimeCounter = AbstractField.extend({
     supportedFieldTypes: [],
-    
+
     willStart: function () {
         var self = this;
+		var nowDate = new Date();
+//		console.log(nowDate);
+		var before6day= nowDate ;
+		 before6day.setDate( nowDate.getDate() -10 );
+//		console.log(before6day);
         var def = this._rpc({
             model: 'project.calculate.duration',
             method: 'search_read',
             domain: [
                 ['production_id', '=', this.record.data.id],
-             
+				['date_start', '>=',  before6day],
+
             ],
         }).then(function (result) {
             if (self.mode === 'readonly') {
@@ -44,7 +51,7 @@ var TimeCounter = AbstractField.extend({
                 });
             }
         });
-		console.log(def);
+//		console.log(def);
         return $.when(this._super.apply(this, arguments), def);
     },
     destroy: function () {
@@ -65,9 +72,9 @@ var TimeCounter = AbstractField.extend({
         clearTimeout(this.timer);
         if (this.record.data.is_user_working) {
             this.timer = setTimeout(function () {
-                self.duration += 1000;
+                self.duration += 10000;
                 self._startTimeCounter();
-            }, 1000);
+            }, 10000);
         } else {
             clearTimeout(this.timer);
         }
@@ -84,32 +91,34 @@ var TimeCounter = AbstractField.extend({
 //         else if (xendduration >16 && xendduration < 85 ){
 //            var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
 //         }
-        console.log("hi..");
-        console.log(this.Eduration/(60*60*1000));
+//        console.log("hi..");
+//        console.log(this.Eduration/(60*60*1000));
+
         xendduration =this.Eduration/(60*60*1000);
-		
+
 
             var x=this.duration;
         var hours = Math.floor((x / (1000 * 60 * 60 ) ));
   var minutes = Math.floor((x % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((x % (1000 * 60)) / 1000);
-  
+//    counter +=1;
       if( hours <=48 ){
 			  var $record = this.$el.parent().parent().parent().parent().css("background-color", '#ffffff' );
-	 			 
+
 		 }
 		else if( hours >48 && xendduration >10){
-			
+
 			   var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
 		}
-    
+
 
 	else if( hours >62 && xendduration <10){
             var $record = this.$el.parent().parent().parent().parent().css("background-color", '#f58590' );
          }
-        
-  
+
+
         this.$el.html($('<span style="color:red;">' +   hours+":"+ minutes+":"+ seconds  + '</span>'));
+//        console.log(counter);
     },
 });
 
