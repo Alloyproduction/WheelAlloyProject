@@ -1,5 +1,30 @@
 <odoo>
     <data>
+ 
+
+<!--        <record id="project_task_kanban2_inherit" model="ir.actions.act_window">-->
+<!--            <field name="name">Tasks</field>-->
+<!--            <field name="res_model">project.task</field>-->
+<!--            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>-->
+<!--            <field name="view_id" ref="project.act_project_project_2_project_task_all"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--          -->
+<!--               <xpath expr="//field[@name='context']" position="replace">-->
+<!--            <field name="context">{-->
+<!--                'search_default_project_id': [active_id],-->
+<!--                'default_project_id': active_id,-->
+<!--                'is_user_working': False,-->
+<!--            }</field>-->
+
+<!--</xpath>-->
+
+
+<!--&lt;!&ndash;                <xpath expr="//templates" attrs="{'invisible':[('can_invisible_delivery_stage', '=', False)]}">&ndash;&gt;-->
+
+<!--&lt;!&ndash;           </xpath>&ndash;&gt;-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="project_task_form_inherit" model="ir.ui.view">
             <field name="name">project.task</field>
