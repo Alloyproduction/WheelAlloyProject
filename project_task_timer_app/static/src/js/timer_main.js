@@ -102,11 +102,11 @@ var TimeCounter = AbstractField.extend({
   var minutes = Math.floor((x % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((x % (1000 * 60)) / 1000);
 //    counter +=1;
-      if( hours <=48 ){
+      if( hours <48 ){
 			  var $record = this.$el.parent().parent().parent().parent().css("background-color", '#ffffff' );
 
 		 }
-		else if( hours >48 && xendduration >10){
+		else if( hours >=48 && xendduration >10){
 
 			   var $record = this.$el.parent().parent().parent().parent().css("background-color", '#feffbb' );
 		}
