@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import datetime,timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -11,12 +11,18 @@ class ProjectTask(models.Model):
     stage_time_ids = fields.One2many('project.task.time', 'project_task_id')
     alloy_digital_signature = fields.Binary(string='Signature', widget="signature")
     is_delivery_stage = fields.Boolean(compute="get_delivery_stage")
+    stage_date_2 =fields.Datetime(string='Stage Date')
+    is_delete_stage =fields.Boolean(string='Delete Task ',default=False)
 
     @api.depends('stage_id')
     def get_delivery_stage(self):
+        d1=fields.Datetime.now()
         for record in self:
             if record.stage_id.name == 'Delivery':
                 record.is_delivery_stage = True
+                if self.stage_date_2 <= d1 :
+                    record.is_delete_stage =True
+
 
     @api.multi
     def write(self, values):
@@ -33,7 +39,10 @@ class ProjectTask(models.Model):
                 'date_from': self.stage_date,
                 'date_to': fields.Datetime.now(),
             })
+
             self.stage_date = fields.Datetime.now()
+            self.stage_date_2 =   self.stage_date+timedelta(days=2)
+
             if self.env.user.stage_ids and values['stage_id'] in self.env.user.stage_ids.ids:
             
                 if self.stage_id.id != 73 or self.task_run == True:

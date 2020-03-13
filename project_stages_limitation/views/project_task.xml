@@ -1,7 +1,10 @@
 <odoo>
     <data>
  
+<record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
 
+         <field name="domain"> [ ("is_delete_stage","=",False)]</field>
+ </record>
 <!--        <record id="project_task_kanban2_inherit" model="ir.actions.act_window">-->
 <!--            <field name="name">Tasks</field>-->
 <!--            <field name="res_model">project.task</field>-->
@@ -18,6 +21,7 @@
 <!--            }</field>-->
 
 <!--</xpath>-->
+<!--         ("stage_date_2",">=",(time.strftime('%Y-%m-%d %H:%M:%S'))),("stage_id.name","!=","Delivery")]-->
 
 
 <!--&lt;!&ndash;                <xpath expr="//templates" attrs="{'invisible':[('can_invisible_delivery_stage', '=', False)]}">&ndash;&gt;-->
