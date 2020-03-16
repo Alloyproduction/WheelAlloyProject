@@ -2,6 +2,7 @@
 from datetime import datetime,timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from dateutil import parser
 
 
 class ProjectTask(models.Model):
@@ -20,7 +21,7 @@ class ProjectTask(models.Model):
         for record in self:
             if record.stage_id.name == 'Delivery':
                 record.is_delivery_stage = True
-                if  (self.stage_date_2 and (self.stage_date_2 - d1) < 0 ):
+                if  (self.stage_date_2 and (self.stage_date_2  < parser.parse(d1[:-6]) ) ):
                     record.is_delete_stage =True
 
 
