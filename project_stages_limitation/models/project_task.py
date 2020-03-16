@@ -2,7 +2,7 @@
 from datetime import datetime,timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from dateutil import parser
+
 
 
 class ProjectTask(models.Model):
@@ -17,12 +17,12 @@ class ProjectTask(models.Model):
 
     @api.depends('stage_id')
     def get_delivery_stage(self):
-       d1=datetime.now()
+        d1=datetime.now()
         for record in self:
             if record.stage_id.name == 'Delivery':
                 record.is_delivery_stage = True
                 if self.stage_date_2 :
-                    if ( self.stage_date_2  < d1  ):
+                    if  self.stage_date_2  < d1 :
                         record.is_delete_stage =True
 
 
@@ -43,7 +43,7 @@ class ProjectTask(models.Model):
             })
 
             self.stage_date = fields.Datetime.now()
-            self.stage_date_2 =   self.stage_date+timedelta(days=2)
+            self.stage_date_2 =  self.stage_date + timedelta(days=2)
 
             if self.env.user.stage_ids and values['stage_id'] in self.env.user.stage_ids.ids:
             
