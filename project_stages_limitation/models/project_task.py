@@ -17,12 +17,13 @@ class ProjectTask(models.Model):
 
     @api.depends('stage_id')
     def get_delivery_stage(self):
-        d1=fields.Datetime.now()
+       d1=datetime.now()
         for record in self:
             if record.stage_id.name == 'Delivery':
                 record.is_delivery_stage = True
-                if  (self.stage_date_2 and (self.stage_date_2  < parser.parse(d1[:-6]) ) ):
-                    record.is_delete_stage =True
+                if self.stage_date_2 :
+                    if ( self.stage_date_2  < d1  ):
+                        record.is_delete_stage =True
 
 
     @api.multi
