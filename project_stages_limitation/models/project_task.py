@@ -20,7 +20,7 @@ class ProjectTask(models.Model):
         for record in self:
             if record.stage_id.name == 'Delivery':
                 record.is_delivery_stage = True
-                if  (self.stage_date_2 and self.stage_date_2 - d1) < 0 :
+                if  (self.stage_date_2 and (self.stage_date_2 - d1) < 0 :
                     record.is_delete_stage =True
 
 
