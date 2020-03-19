@@ -143,6 +143,14 @@ class SprogroupPurchaseRequest(models.Model):
                                  compute="_compute_is_editable",
                                  readonly=True)
 
+
+    @api.onchange('department_id')
+    def get_head_Office(self):
+        res=self.env['hr.department'].search([('id','=',self.department_id.id)])
+        self.assigned_to=res.department_manager_id
+
+
+
     @api.model
     def create(self, vals):
         request = super(SprogroupPurchaseRequest, self).create(vals)
@@ -362,6 +370,10 @@ class purchaseorderwizard(models.Model):
     Approver_leader_id =fields.Many2one('res.users','Aprover Name')
 
 
+class department_headOffice(models.Model):
+    _inherit ='hr.department'
+
+    department_manager_id=  fields.Many2one('res.users', 'Head Office',required=True, track_visibility='onchange')
 
 class SprogroupPurchaseRequestLine(models.Model):
 
