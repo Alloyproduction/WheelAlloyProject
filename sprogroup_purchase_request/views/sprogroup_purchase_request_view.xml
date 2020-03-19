@@ -246,6 +246,7 @@
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="purchase_request_id" />
                   <field name="employee_name_id" />
+                  <field name="Approver_leader_id" />
             </xpath>
 
             </field>

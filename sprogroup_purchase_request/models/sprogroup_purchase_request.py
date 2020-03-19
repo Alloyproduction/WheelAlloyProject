@@ -75,12 +75,12 @@ class SprogroupPurchaseRequest(models.Model):
                 self.assigned_to = None
                 return
 
-            employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.email)])
-            if(len(employee) > 0):
-                if(employee[0].department_id and employee[0].department_id.manager_id):
-                    assigned_to = employee[0].department_id.manager_id.user_id
-
-        self.assigned_to =  assigned_to
+        #     employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.email)])
+        #     if(len(employee) > 0):
+        #         if(employee[0].department_id and employee[0].department_id.manager_id):
+        #             assigned_to = employee[0].department_id.manager_id.user_id
+        #
+        # self.assigned_to =  assigned_to
 
     @api.multi
     # @api.depends('requested_by')
@@ -166,11 +166,34 @@ class SprogroupPurchaseRequest(models.Model):
     @api.multi
     def button_to_approve(self):
         self.is_editable_employee_name=False
+        # partners = self.env['res.users'].search([])
+        # for m in partners:
+        #     print(m.name,m.partner_id.id )
+
+        recipient_partners = []
+        if self.assigned_to.partner_id.id and self.assigned_to.partner_id.id not in recipient_partners:
+            recipient_partners.append(self.assigned_to.partner_id.id)
+        # if self.requested_by.partner_id.id and self.requested_by.partner_id.id not in recipient_partners:
+        #     recipient_partners.append(self.requested_by.partner_id.id)
+        # # recipient_partners.append(4424)
+
+        # if self.employee_name.id and self.employee_name.id not in recipient_partners:
+        #             recipient_partners.append(self.employee_name.work_email)
+
+        print(recipient_partners)
+
+        if len(recipient_partners):
+            self.message_post(body='New purchase request require your approval',
+                             subtype='mt_comment',
+                             subject='Approve Purchase Request',
+                             partner_ids=recipient_partners  ,
+                             message_type='comment')
+
         return self.write({'state': 'to_approve'})
 
     # @api.multi
     # def button_leader_approved(self):
-    #     return self.write({'state': 'leader_approved'})
+    # return self.write({'state': 'leader_approved'})
 
 
     @api.multi
@@ -193,6 +216,64 @@ class SprogroupPurchaseRequest(models.Model):
         for pr in self:
             if not pr.line_ids.filtered(lambda l: l.cancelled is False):
                 pr.write({'state': 'rejected'})
+    def get_partners(self):
+        all_data={'recipient_partners':[],'Subject':"", "Body":""}
+        res_conf = self.env['res.config.settings'].sudo()
+        recipient_partners = []
+        max_manager = res_conf.get_values()
+        # print(max_manager['maximum_amount_leader'])
+        # print(max_manager['maximum_amount'])
+        # print(self.amount_total)
+        all_data['Subject'] = "Purchase Order "+str(self.name)
+        all_data['Body'] = "This Purchase Order Need Approve from you"
+        # all_data['recipient_partners'].append(self.Approver_leader_id.partner_id.id)
+        if self.need_CEO_Approve != True and max_manager['maximum_amount'] > self.amount_total:
+            if max_manager['maximum_amount_leader'] > self.amount_total:
+                all_data ['recipient_partners'].append(self.Approver_leader_id.partner_id.id )
+
+
+            else:
+                all_data ['recipient_partners'].append(self.Approver_leader_id.partner_id.id)
+                # all_data ['recipient_partners'].append(299) #ibrahim parner_id
+
+        else:
+            all_data ['recipient_partners'].append(self.Approver_leader_id.partner_id.id)
+            # all_data ['recipient_partners'].append(299)  # ibrahim parner_id
+            # all_data ['recipient_partners'].append(298)  # Prince parner_id
+
+        print(all_data)
+        return all_data
+
+    def send_m(self,msubj="",mbody=""):
+        dic=self.get_partners()
+        print(dic)
+        recipient_partners = dic["recipient_partners"]
+
+        msgsubject= dic["Subject"]
+        msgbody = dic["Body"]
+        if msubj != "":
+            msgsubject = msubj
+
+        if mbody != "":
+            msgbody = mbody
+
+        # if self.assigned_to.partner_id.id and self.assigned_to.partner_id.id not in recipient_partners:
+        #     recipient_partners.append(self.assigned_to.partner_id.id)
+        # if self.requested_by.partner_id.id and self.requested_by.partner_id.id not in recipient_partners:
+        #     recipient_partners.append(self.requested_by.partner_id.id)
+        # # recipient_partners.append(4424)
+
+        # if self.employee_name.id and self.employee_name.id not in recipient_partners:
+        #             recipient_partners.append(self.employee_name.work_email)
+
+        print(recipient_partners)
+
+        if len(recipient_partners):
+            self.message_post(body=msgbody,
+                              subtype='mt_comment',
+                              subject=msgsubject,
+                              partner_ids=recipient_partners,
+                              message_type='comment')
 
     @api.multi
     def make_purchase_quotation(self):
@@ -241,11 +322,12 @@ class SprogroupPurchaseRequest(models.Model):
             order_line.append(product_line)
 
         # vals = {
-        #     'order_line' : order_line
+        #     # 'order_line' : order_line
+        #
         # }
         #
         # po = self.env['purchase.order'].create(vals)
-
+        #
 
         return {
             'name': _('New Quotation'),
@@ -253,6 +335,7 @@ class SprogroupPurchaseRequest(models.Model):
             'res_model': 'purchase.order',
             'view_type': 'form',
             'view_mode': 'form',
+
             'target': 'new',
             'view_id': view_id.id,
             'views': [(view_id.id, 'form')],
@@ -263,14 +346,22 @@ class SprogroupPurchaseRequest(models.Model):
                 'default_partner_id': self.partner_id.id,
                 'default_purchase_request_id': self.id,
                 'default_employee_name_id': self.employee_name.id,
+                'default_Approver_leader_id': self.assigned_to.id,
+                'lang': 'en_US',
+                'tz': 'Asia/Riyadh',
+                'uid': self.env.user.id,
 
             }
         }
+
 class purchaseorderwizard(models.Model):
     _inherit='purchase.order'
 
     purchase_request_id=fields.Many2one('sprogroup.purchase.request','Purchase Request')
     employee_name_id=fields.Many2one('hr.employee','Employee Name')
+    Approver_leader_id =fields.Many2one('res.users','Aprover Name')
+
+
 
 class SprogroupPurchaseRequestLine(models.Model):
 
