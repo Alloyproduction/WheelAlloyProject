@@ -7,9 +7,11 @@
     'website': "http://www.yourcompany.com",
     'category': 'purchase',
     'version': '0.1',
-    'depends': ['base', 'purchase'],
+    'depends': ['base','mail', 'purchase'],
     'data': [
+         # 'security/ir.model.access.csv',
         'security/security.xml',
         'views/purchase_view.xml',
+       # 'views/mail_template.xml',
     ],
 }
