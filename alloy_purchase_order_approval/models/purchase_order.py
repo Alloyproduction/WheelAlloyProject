@@ -242,7 +242,7 @@ class PurchaseOrder(models.Model):
             else:
 
 
-                if record.need_CEO_Approve == True and record.is_ceo == False  :
+                if  record.is_ceo == False  :
                    raise UserError(_("CEO Approval is needed"))
                 else:
                     return res
