@@ -54,6 +54,7 @@
             </field>
         </record>
 
+
         <!-- Inherit sale order Form View to Modify it -->
         <record id="view_order_form_inherit" model="ir.ui.view">
             <field name="name">sale.order.form</field>
@@ -61,9 +62,20 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="options">{'no_create': True}</attribute>
-                </xpath>
+
+
+<!--                <xpath expr="//field[@name='partner_id']" position="attributes" >-->
+<!--                    <attribute name="options" >{'no_create': True }</attribute>-->
+
+<!--                </xpath>-->
+<!--                 <xpath expr="//field[@name='partner_id']" position="attributes"  >-->
+
+<!--&lt;!&ndash;                     <attribute name="groups"></attribute>&ndash;&gt;-->
+<!--                    <attribute name="attrs">{'readonly':  [('is_insured','=',True)]}</attribute>-->
+<!--&lt;!&ndash;         <attribute name="options">{'no_create': True}</attribute>&ndash;&gt;-->
+<!--&lt;!&ndash;                     <groups>sales_alloywheel.group_sales_no_create</groups>&ndash;&gt;-->
+<!--                </xpath>-->
+
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="is_person" invisible="1"/>
                     <field name="source" attrs="{'required':[('is_person','=',True)]}" />
@@ -97,5 +109,22 @@
             </field>
         </record>
 
+
+
+<!--            <template id="assets_backend" name="disable_quick_create_assets" inherit_id="web.assets_backend">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <script type="text/javascript" src="/sales_alloywheel/static/src/js/disable_quick_create.js"></script>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--            <record id="view_model_form_inherited" model="ir.ui.view">-->
+<!--        <field name="model">res.users</field>-->
+<!--        <field name="inherit_id" ref="base.view_users_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="selection" position="after">-->
+<!--                <field name="disable_create_edit"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
     </data>
 </odoo>
