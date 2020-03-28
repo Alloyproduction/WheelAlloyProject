@@ -528,6 +528,7 @@ class InheritSale(models.Model):
                      'date_deadline': fields.Date.today() + timedelta(hours=90) ,
                       'date_task_deadline': fields.Datetime.now() + timedelta(hours=72) })
                 task.start_play()
+            self.action_done()
 
                 #                 self.env['subtask.component'].create(
                 #                     {'task': task.id, 'product_id': line.product_id.id, 'price_subtotal': line.price_subtotal,
