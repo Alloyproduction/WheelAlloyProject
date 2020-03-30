@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//notebook" position="inside">
-                    <page string="Signature">
+                    <page string="Signature" name="alloy_sign" groups="project_stages_limitation.group_sales_hide_Cost">
                         <label for="alloy_digital_signature" string="Signature" />
                         <h2>
                             <field name="alloy_digital_signature" widget="signature"/>
