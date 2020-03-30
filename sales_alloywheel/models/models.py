@@ -15,10 +15,20 @@ class AccountInvoice(models.Model):
                 self.source = sale_id.source
 
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     source = fields.Char()
     is_person = fields.Boolean(compute="get_source_type")
+
+    # partner_id = fields.Many2one('res.partner', string='Customer', readonly=True,
+    #                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+    #                                  required=True,
+    #                                  change_default=True, index=True, track_visibility='always', track_sequence=1,
+    #                                  help="You can find a customer by its Name, TIN, Email or Internal Reference.",
+    #                                  read=['sales_team.group_sale_salesman'], write=['sales_team.group_sale_manager'])
+
+
 
     @api.depends('partner_id')
     def get_source_type(self):
@@ -67,11 +77,13 @@ class ProductTemplate(models.Model):
         product_ids = product_obj.search([])
         product_ids = product_ids.filtered(lambda r: r.qty_available <= r.minimum_qty and r.minimum_qty >= 0)
         print('sdjfhssdf', product_ids)
-        group =  groups = self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
+        group = self.env['res.groups'].search([('name', '=', 'ceo')])  #self.env.ref('stock.group_stock_manager')
         print(group)
         recipients = []
         for recipient in group.users:
-            recipients.append((4, recipient.partner_id.id))
+            if recipient.partner_id.id not in recipients:
+                recipients.append(recipient.partner_id.id)
+
         # Notification message body
         body = """  
         <table class="table table-bordered">
@@ -97,10 +109,18 @@ class ProductTemplate(models.Model):
         post_vars = {'subject': "Low stock notification",
                      'body': body,
                      'partner_ids': recipients, }
-        self.message_post(
-            type="notification",
-            subtype="mt_comment",
-            **post_vars)
+        # print(body)
+        # self.message_post(
+        #     type="notification",
+        #     subtype="mail.mt_comment",
+        #     message_type='comment'
+        #     **post_vars)
+        if len(recipients):
+            self.message_post(body=body,
+                              subtype='mail.mt_comment',
+                              subject="Low stock notification",
+                              partner_ids=recipients,
+                              message_type='comment')
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -111,3 +131,9 @@ class StockPicking(models.Model):
     def get_current_access_partner(self):
         """"get current access partner related to current user"""
         self.partner_id = self.current_user_id.partner_id
+
+#
+# class ResUsers(models.Model):
+#     _inherit = "res.users"
+#
+#     disable_create_edit = fields.Boolean(string='Disable Create and Edit',)
