@@ -9,10 +9,11 @@ class AccountInvoice(models.Model):
 
     @api.depends('origin')
     def get_source_value(self):
-        if self.origin:
-            sale_id = self.env['sale.order'].search([('name', '=', self.origin)])
-            if sale_id:
-                self.source = sale_id.source
+        for rec in self:
+            if rec.origin:
+                sale_id = self.env['sale.order'].search([('name', '=', rec.origin)])
+                if sale_id:
+                    rec.source = sale_id.source
 
 
 
