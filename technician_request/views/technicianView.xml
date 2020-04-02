@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+
+        <record model="ir.ui.view" id="view_Technician_request_form">
+            <field name="name">Technician.request.form</field>
+            <field name="model">tech.request</field>
+            <field name="arch" type="xml">
+                <form string="Technician Request" version="1.0">
+                    <header>
+                        <button name="button_to_draft"
+                                states="draft,sent,rejected,done"
+                                string="Reset"
+                                type="object"
+                                groups="technician_request.group_Technician_request_manager"/>
+
+                        <button name="button_send" states="draft"
+                                string="Send Request" type="object"
+                                class="oe_highlight"/>
+
+                        <button name="button_ready"
+                                states="sent"
+                                string="Ready"
+                                type="object"
+                                class="oe_highlight"
+                                groups="technician_request.group_Technician_request_manager"
+                        />
+
+                        <button name="button_to_rejected"
+                                string="Reject"
+                                type="object"
+                                 states="sent"
+                                 groups="technician_request.group_Technician_request_manager"
+                        />
+
+                        <button string="New Transfer" states="ready,done" name="make_transfer" type="object"
+                            groups="technician_request.group_Technician_request_manager"
+                        />
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,sent,done,rejected"
+                               statusbar_colors='{"done":"blue"}'/>
+
+
+                    </header>
+                    <sheet>
+                        <field name="can_editable"  invisible="1"/>
+                        <div class="oe_edit_only">
+                            <label for="name" class="oe_inline"/>
+                        </div>
+                        <h1>
+                            <field name="name" class="oe_inline" attrs="{'readonly': [('can_editable','=', False)]}"/>
+                            <label for="space" name="Space" string="-"/>
+                            <field name="Requestcode" class="oe_inline" attrs="{'readonly': [('can_editable','=', False)]}"/>
+                        </h1>
+                        <group>
+                            <group>
+
+                                <field name="request_by" readonly="1"/>
+
+
+                            </group>
+                            <group>
+                                <field name="start_date"
+                                   attrs="{'readonly': [('can_editable','=', False)]}"/>
+
+                            </group>
+                        </group>
+
+
+                         <header >
+
+                <button name="%(act_open_choose_products_view)d" type="action" string="Select Products"
+                         attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        class="oe_highlight" />
+            </header>
+                        <notebook>
+                            <page string="Products">
+                                <field name="products_line_ids" attrs="{'readonly': [('state','in', ['sent','ready','done','rejected'])]}" options="{'no_create':True, 'no_open':True}"  >
+
+                                    <tree decoration-muted="iscancel== True" editable="bottom">
+                                        <field name="product_id" options="{'no_create':True, 'no_open':True}" />
+                                        <field name="name" options="{'no_create':True, 'no_open':True}" />
+                                          <field name="product_image"  widget="image" style="height:50px ;width:50px;" readonly="1"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom_id"  options="{'no_create':True, 'no_open':True}" />
+
+                                        <field name="iscancel" invisible="1"/>
+                                        <field name="can_editable" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="can_editable" invisible="1"/>
+                                                    <field name="product_id"/>
+                                                    <field name="name"/>
+                                                    <label for="product_qty" />
+                                                    <field name="product_qty"/>
+                                                    <field name="product_uom_id"/>
+
+                                                    <field name="iscancel" invisible="1"/>
+
+                                                </group>
+                                                <group>
+                                                    <field name="product_image"  widget="image" style="height:350px ;width:350px;" readonly="1"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <separator string="Specification"/>
+                                                <newline/>
+                                                <field name="specifica" nolabel="1" attrs="{'readonly': [('can_editable','=', False)]}"/>
+                                            </group>
+                                            <notebook>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+
+
+                                </field>
+
+                            </page>
+                            <page string="Description page">
+                                <field name="desc" attrs="{'readonly': [('can_editable','=', False)]}"/>
+                            </page>
+
+                            <page string="Other Information">
+                                <group>
+                                    <group>
+                                         <field name="create_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                         <field name="create_uid" readonly="1"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                      <field name="message_follower_ids" widget="mail_followers"/>
+                      <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_technician_request_tree">
+            <field name="name">technician.request.tree</field>
+            <field name="model">tech.request</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="message_needaction==True"
+                      decoration-info="state in ('draft','sent')"
+                      decoration-muted="state in ('rejected')"
+                      string="Technician Request" default_order="start_date desc">
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="request_by"/>
+                    <field name="state"/>
+                </tree>
+          </field>
+        </record>
+
+        <record id="view_sprogroup_purchase_request_search" model="ir.ui.view">
+            <field name="name">Technician.request.list.select</field>
+            <field name="model">tech.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Technician Request">
+                    <field name="name" string="Technician Request"/>
+                    <separator/>
+                    <field name="state"/>
+
+                    <field name="request_by" />
+
+                    <filter name="state_draft" string="Draft"
+                            domain="[('state','=','draft')]"
+                            help="Request is to be ready"/>
+                    <filter name="state_to_be_ready" string="To ready"
+                            domain="[('state','=','ready')]"
+                            help="Request is to be ready"/>
+                    <filter name="state_rejected" string="Rejected"
+                            domain="[('state','=','rejected')]"
+                            help="Request is rejected"/>
+                    <filter name="state_done" string="Done"
+                            domain="[('state','=','done')]"
+                            help="Request is done"/>
+
+                    <filter string="Unread Messages"
+                            name="message_needaction"
+                            domain="[('message_needaction','=',True)]"/>
+
+                    <filter domain="[('request_by','=', uid)]" name="my_request"
+                            help="My requests"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Requested by" icon="terp-personal" name="request_by"
+                                domain="[]"
+                                context="{'group_by':'request_by'}"/>
+
+                        <filter string="Start Date" name="start_date" icon="terp-go-month" domain="[]" context="{'group_by':'start_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+  </data>
+</odoo>

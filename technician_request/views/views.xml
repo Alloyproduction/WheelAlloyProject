@@ -1,0 +1,147 @@
+<odoo>
+  <data>
+
+     <record id="view_model_location_form_inherited" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+
+
+             <xpath expr="//page[2]" position="after">
+                 <page  string="Access Location" name="access_location" >
+                     <group>
+                                <group  >
+                                    <field name="location_from"/>
+                   <field name="location_to"/>
+                                </group>
+                     <group>
+                         <field name="operation_type" />
+                     </group>
+                     </group>
+
+                    </page>
+
+                </xpath>
+
+
+        </field>
+    </record>
+
+
+
+
+ <record id="view_stock_Location_form_inherited" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+
+
+               <xpath expr="//field[@name='partner_id']" position="after">
+                  <field name="manager_ids" widget="many2many_tags"/>
+
+                </xpath>
+
+
+        </field>
+    </record>
+
+
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="technician_request.action_window">
+      <field name="name">Techician Requests</field>
+      <field name="res_model">tech.request</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Techician Requests" id="technician_request.menu_root"
+              web_icon="technician_request,static/description/icon.png"/>
+
+
+<!--    <menuitem name="Menu 1" id="technician_request.menu_1" parent="technician_request.menu_root"/>-->
+
+
+    <menuitem name="All Requests" id="technician_request.menu_1_list" parent="technician_request.menu_root"
+              action="technician_request.action_window"/>
+
+
+<!---->
+<!--select from products add image -->
+
+       <record id="view_product_add_image_form_inherited" model="ir.ui.view">
+         <field name="name">product.product.image.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+
+        <field name="arch" type="xml">
+
+<!--style="height:100px ;width:100px;"-->
+             <field name="name" position="after">
+           <field name="image_medium" widget="image"   class="oe_avatar" options="{'preview_image': 'image_medium', 'size': [100, 100]}"/>
+
+             </field>
+            <field name="lst_price" position="replace"/>
+            <field name="standard_price" position="replace"/>
+<!--             <field name="virtual_avaliable" position="replace"/>-->
+
+        </field>
+
+
+    </record>
+<!--      view of select products -->
+
+        <record id="view_choose_products_form" model="ir.ui.view">
+        <field name="name">choose.products.form</field>
+        <field name="model">choose.products</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Select Products">
+                <group string="Products">
+                    <field name="product_ids" nolabel="1"  options="{'no_create':True, 'no_open':True}"  >
+                            <tree String="Products.."  options="{'no_create':True, 'no_open':True}"  >
+                                <field name="default_code" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="uom_id" options="{'no_create':True, 'no_open':True}"  readonly="1"/>
+                                <field name="image_medium" widget="image" style="height:100px ;width:100px;" readonly="1"/>
+                                <field name="barcode" readonly="1"/>
+
+                            </tree>
+                         <form String="Products.."  options="{'no_create':True, 'no_open':True}"  >
+                                <field name="default_code"/>
+                                <field name="name" />
+                                <field name="uom_id"  options="{'no_create':True, 'no_open':True}" readonly="1" />
+                                <field name="image" widget="image" style="height:100px ;width:100px;" readonly="1"/>
+                                <field name="barcode"/>
+
+                            </form>
+                    </field>
+
+                </group>
+                <footer>
+                    <button name="choose_products" string="Add Products" type="object" class="oe_highlight" />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_open_choose_products_view">
+        <field name="name">Select Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">choose.products</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="act_open_choose_products_view_form">
+        <field name="act_window_id" ref="act_open_choose_products_view" />
+        <field name="sequence" eval="10" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_choose_products_form" />
+    </record>
+
+  </data>
+</odoo>

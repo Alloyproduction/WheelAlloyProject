@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="seq_Technincian_request" model="ir.sequence">
+            <field name="name">Technincian Request</field>
+            <field name="code">tech.request</field>
+            <field name="prefix">R-</field>
+            <field name="padding">5</field>
+        </record>
+
+
+           <record id="seq_Technincian_request_name" model="ir.sequence">
+            <field name="name">Technincian Request Name</field>
+            <field name="code">tech.request.name</field>
+            <field name="prefix">Tec-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tech_request,tech.request,model_tech_request,base.group_user,1,1,1,1
+access_tech_request_line,tech.request.line,model_tech_request_line,base.group_user,1,1,1,1
+access_choose_products,choose.products,model_choose_products,base.group_user,1,1,1,1
