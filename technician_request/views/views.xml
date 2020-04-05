@@ -79,16 +79,38 @@
 
 <!--style="height:100px ;width:100px;"-->
              <field name="name" position="after">
+            <field name="description" />
            <field name="image_medium" widget="image"   class="oe_avatar" options="{'preview_image': 'image_medium', 'size': [100, 100]}"/>
 
              </field>
             <field name="lst_price" position="replace"/>
             <field name="standard_price" position="replace"/>
+             <field name="virtual_available"  position="replace" />
 <!--             <field name="virtual_avaliable" position="replace"/>-->
+            <tree position="attributes">
+                    <attribute name="decoration-danger">type == 'product'  </attribute>
+                    <attribute name="decoration-info">type != 'product'  </attribute>
+                </tree>
 
         </field>
 
 
+    </record>
+
+
+<!--Search-->
+       <record id="product_template_search_view2" model="ir.ui.view">
+        <field name="name">product.template.search</field>
+        <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="replace">
+         <field name="description"/>
+      <field name="name" string="Product" filter_domain="['|','|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self),('description', 'ilike', self)]"/>
+
+            </xpath>
+        </field>
     </record>
 <!--      view of select products -->
 
@@ -104,7 +126,9 @@
                                 <field name="default_code" readonly="1"/>
                                 <field name="name" readonly="1"/>
                                 <field name="uom_id" options="{'no_create':True, 'no_open':True}"  readonly="1"/>
+                                <field name="description"   readonly="1"/>
                                 <field name="image_medium" widget="image" style="height:100px ;width:100px;" readonly="1"/>
+
                                 <field name="barcode" readonly="1"/>
 
                             </tree>
@@ -112,6 +136,7 @@
                                 <field name="default_code"/>
                                 <field name="name" />
                                 <field name="uom_id"  options="{'no_create':True, 'no_open':True}" readonly="1" />
+                               <field name="description"  readonly="1"/>
                                 <field name="image" widget="image" style="height:100px ;width:100px;" readonly="1"/>
                                 <field name="barcode"/>
 
