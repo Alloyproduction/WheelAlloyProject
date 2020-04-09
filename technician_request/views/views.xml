@@ -90,7 +90,8 @@
             <tree position="attributes">
                     <attribute name="decoration-danger">type == 'product'  </attribute>
                     <attribute name="decoration-info">type != 'product'  </attribute>
-                </tree>
+
+           </tree>
 
         </field>
 
@@ -103,6 +104,8 @@
         <field name="name">product.template.search</field>
         <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_search_view"/>
+   <field name="context">{'default_type': 'product'}</field>
+
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='name']" position="replace">

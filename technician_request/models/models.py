@@ -310,7 +310,7 @@ class TechnicianRequestLine(models.Model):
     _inherit = ['mail.thread']
 
     product_id = fields.Many2one(  'product.product', 'Product ID',
-        domain=[('purchase_ok', '=', True)], required=True,
+        domain=[('purchase_ok', '=', True),('type','=','product')], required=True,
         track_visibility='onchange')
     name = fields.Char('Description', size=250, track_visibility='onchange')
     product_image = fields.Binary(string="Image", related="product_id.image_medium")
@@ -364,7 +364,9 @@ class SelectProducts1(models.TransientModel):
 
     _name = 'choose.products'
 
-    product_ids = fields.Many2many('product.product', string='Products',default=[])
+    product_ids = fields.Many2many('product.product', string='Products'
+                                   ,domain=[('purchase_ok', '=', True),
+                                            ('type','like','product')] ,default=[])
 
 
     @api.multi
