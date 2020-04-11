@@ -175,7 +175,7 @@ class TechicianRequest(models.Model):
         # price_unit = 0.0
         for rec in self.products_line_ids:
             product = rec.product_id
-
+            print(rec.product_amount_qty)
             product_line = (0, 0, {'product_id': rec.product_id.id,
                                    'state': 'draft',
                                    'product_uom': rec.product_id.uom_po_id.id,
@@ -183,6 +183,15 @@ class TechicianRequest(models.Model):
                                    'product_uom_qty': rec.product_qty,
                                    'date_expected':fields.Datetime.now(),
                                    'name': rec.product_id.name,
+                                   'cost_move': rec.product_amount_qty,
+                                   'old_qty_move': rec.product_old_qty,
+                                   'new_qty_move': rec.product_new_qty,
+                                   'amount_qty_move': rec.product_amount_qty,
+                                   'source_request_move': self.id,
+
+                                   'employee_user_id_move': self.request_by.id,
+                                   'manager_by_move': self.env.uid,
+
                                    })
             products_order_line.append(product_line)
 
@@ -303,6 +312,7 @@ class stocklocationmanager(models.Model):
 
 
 
+
 class TechnicianRequestLine(models.Model):
 
     _name = "tech.request.line"
@@ -319,6 +329,10 @@ class TechnicianRequestLine(models.Model):
     product_uom_id = fields.Many2one('uom.uom', 'Volume',    track_visibility='onchange')
 
     product_qty = fields.Float(string='Quantity', track_visibility='onchange', default=1,digits=dp.get_precision('Product Unit of Measure'))
+    product_old_qty = fields.Float(string='Old Quantity', track_visibility='onchange',digits=dp.get_precision('Product Unit of Measure'))
+    product_new_qty = fields.Float(string='new Quantity', track_visibility='onchange',digits=dp.get_precision('Product Unit of Measure'))
+    product_amount_qty = fields.Float(string='amount', track_visibility='onchange',digits=dp.get_precision('Product Unit of Measure'))
+
     request_line_id = fields.Many2one('tech.request', 'Technician Request',     ondelete='cascade', readonly=True)
     company_id = fields.Many2one('res.company',        string='Company',      store=True, readonly=True)
 
@@ -337,6 +351,14 @@ class TechnicianRequestLine(models.Model):
             self.product_qty = 1
             self.product_image = self.product_id.image_medium
             self.name = name
+            self.product_old_qty=self.product_id.qty_available
+            self.product_amount_qty=self.product_id.standard_price
+            self.product_new_qty= self.product_old_qty-self.product_qty
+
+    @api.onchange('product_qty')
+    def onchange_product_idqty(self):
+        if self.product_id and self.product_qty and self.product_old_qty :
+            self.product_new_qty= self.product_old_qty-self.product_qty
 
     @api.multi
     def cancel(self):
@@ -381,9 +403,22 @@ class SelectProducts1(models.TransientModel):
 
         order_id = self.env['tech.request'].browse(self._context.get('active_id', False))
         for product in self.product_ids:
+
+            if product:
+                name = product.name
+                if product.code:
+                    name = '[%s] %s' % (name, product.code)
+                if product.description_purchase:
+                    name += '\n' + product.description_purchase
+
             self.env['tech.request.line'].create({
                 'product_id': product.id,
                 'product_uom_id': product.uom_id.id,
-                'name': product.name,
+                'product_qty': 1,
+                'product_image':  product.image_medium,
+                'product_old_qty': product.qty_available,
+                'product_new_qty': product.qty_available - 1,
+                'product_amount_qty': product.standard_price,
+                'name': name,
                 'request_line_id': order_id.id
             })

@@ -19,6 +19,10 @@
         </field>
     </record>
 
+
+
+
+
   <record id="view_stock_pick_tree_inherited" model="ir.ui.view">
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.vpicktree"/>
@@ -33,6 +37,43 @@
 <!--            <xpath expr="//tree" position="attributes">-->
 <!--                    <attribute name="default_order">date_start desc</attribute>-->
 <!--            </xpath>-->
+
+        </field>
+    </record>
+  <record id="view_stock_picking_tree_inherited2" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='quantity_done']" position="after">
+                   <field name="cost_move"  invisible="1"/>
+                    <field name="old_qty_move" invisible="1"/>
+                   <field name="new_qty_move" invisible="1"/>
+                   <field name="amount_qty_move" invisible="1"/>
+                   <field name="source_request_move" invisible="1"/>
+                   <field name="employee_user_id_move" invisible="1"/>
+                   <field name="manager_by_move" invisible="1"/>
+               </xpath>
+
+        </field>
+    </record>
+      <record id="view_stock_move_tree_inherited2" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                   <field name="old_qty_move" />
+                   <field name="new_qty_move" />
+                   <field name="amount_qty_move" />
+                   <field name="source_request_move" />
+                   <field name="employee_user_id_move" />
+                   <field name="manager_by_move" />
+
+               </xpath>
+
+
+
 
         </field>
     </record>
