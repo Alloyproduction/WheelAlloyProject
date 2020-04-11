@@ -1,0 +1,76 @@
+<odoo>
+  <data>
+
+
+            <record id="cron_do_task" forcecreate='True' model="ir.cron">
+              <field name="name">Do -Task_send_Mail</field>
+              <field eval="True" name="active"/>
+              <field name="user_id" ref="base.user_root"/>
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field name="model_id" ref="model_alloy_send"/>
+              <field name="state">code</field>
+              <field name="function">model.cron_do_task()</field>
+              <field name="code">model.cron_do_task()</field>
+        </record>
+
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="send_mail.list">
+      <field name="name">sendMail list</field>
+      <field name="model">send_mail.send_mail</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="send_mail.action_window">
+      <field name="name">sendMail window</field>
+      <field name="res_model">send_mail.send_mail</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="send_mail.action_server">
+      <field name="name">sendMail server</field>
+      <field name="model_id" ref="model_send_mail_send_mail"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="sendMail" id="send_mail.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="send_mail.menu_1" parent="send_mail.menu_root"/>
+    <menuitem name="Menu 2" id="send_mail.menu_2" parent="send_mail.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="send_mail.menu_1_list" parent="send_mail.menu_1"
+              action="send_mail.action_window"/>
+    <menuitem name="Server to list" id="send_mail" parent="send_mail.menu_2"
+              action="send_mail.action_server"/>
+    -->
+  </data>
+</odoo>
