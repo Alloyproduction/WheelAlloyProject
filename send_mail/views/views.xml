@@ -2,7 +2,7 @@
   <data>
 
 
-            <record id="cron_do_task" forcecreate='True' model="ir.cron">
+            <record id="cron_do_task1" forcecreate='True' model="ir.cron">
               <field name="name">Do -Task_send_Mail</field>
               <field eval="True" name="active"/>
               <field name="user_id" ref="base.user_root"/>
@@ -13,6 +13,21 @@
               <field name="state">code</field>
               <field name="function">model.cron_do_task()</field>
               <field name="code">model.cron_do_task()</field>
+        </record>
+
+
+
+         <record id="cron_do_task2" forcecreate='True' model="ir.cron">
+              <field name="name">Do -send_Mail_outgoing</field>
+              <field eval="True" name="active"/>
+              <field name="user_id" ref="base.user_root"/>
+              <field name="interval_number">1</field>
+              <field name="interval_type">days</field>
+              <field name="numbercall">-1</field>
+              <field name="model_id" ref="model_alloy_send"/>
+              <field name="state">code</field>
+              <field name="function">model.cron_do_task_outgoing()</field>
+              <field name="code">model.cron_do_task_outgoing()</field>
         </record>
 
 

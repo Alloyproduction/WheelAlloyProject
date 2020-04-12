@@ -9,7 +9,12 @@ class send_mail(models.Model):
     @api.model
     def cron_do_task(self):
         # self.server_do_action()
-        self.send_low_stock_via_email()
+        self.send_low_stock_via_email()\
+
+    @api.model
+    def cron_do_task_outgoing(self):
+        # self.server_do_action()
+        self.send_all_outgoing()
 
     @api.multi
     def send_low_stock_via_email(self):
@@ -67,6 +72,13 @@ class send_mail(models.Model):
                               partner_ids=recipients,
                               message_type='comment',
                               author_id=adminuser.partner_id.id)
+
+    @api.multi
+    def send_all_outgoing(self):
+
+        msg_ids = self.env['mail.mail'].search([('state', '=', 'outgoing')])  # self.env.ref('stock.group_stock_manager')
+        for msg in msg_ids:
+            msg.send()
 
 
 
