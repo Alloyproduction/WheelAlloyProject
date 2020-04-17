@@ -302,7 +302,7 @@
                         </div>
                     </div  >
 
-                       <div style="margin-left:200px;margin-bottom:150px;">
+                       <div style="margin-left:200px;margin-bottom:130px;">
                          <img class="img-fluid" style="width:150px;height:150px; margin-bottom:10px;" dir="ltr" src="account_prince/static/web/image/Stamp.jpeg"/>
                           <t t-set="payments_vals" t-value="doc._get_payments_vals()"/>
                            <t t-if="len(payments_vals) > 0">
