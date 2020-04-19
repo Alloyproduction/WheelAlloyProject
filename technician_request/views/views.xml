@@ -56,7 +56,7 @@
     </record>
 
     <!-- Top menu item -->
-    <menuitem name="Techician Requests" id="technician_request.menu_root"
+    <menuitem name="Stockroom Request" id="technician_request.menu_root"
               web_icon="technician_request,static/description/icon.png"/>
 
 
