@@ -58,8 +58,8 @@ class KSGlobalDiscountPurchases(models.Model):
                     # rec.ks_amount_discount = (rec.amount_untaxed + rec.amount_tax) * rec.ks_global_discount_rate / 100
                 else:
                     rec.ks_amount_discount = 0
-            rec.amount_tax = ((sum(line.price_subtotal for line in rec.order_line) - rec.ks_amount_discount)\
-                              * tax_id) / 100
+            # rec.amount_tax = ((sum(line.price_subtotal for line in rec.order_line) - rec.ks_amount_discount)\
+            #                   * tax_id) / 100
             rec.price_after_discount = rec.amount_untaxed - rec.ks_amount_discount
             rec.amount_total = rec.amount_untaxed - rec.ks_amount_discount + rec.amount_tax
 
