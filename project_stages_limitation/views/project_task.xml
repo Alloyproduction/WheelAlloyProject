@@ -51,7 +51,7 @@
                 </xpath>
 
                 <xpath expr="//form" position="attributes">
-                <attribute name="create">false</attribute>
+<!--                <attribute name="create">false</attribute>-->
 
                  <attribute name="edit">false</attribute>
                      <attribute name="no_create">true</attribute>
@@ -60,7 +60,7 @@
 
 
                   <xpath expr="//tree" position="attributes">
-                <attribute name="create">false</attribute>
+<!--                <attribute name="create">false</attribute>-->
 
                  <attribute name="edit">false</attribute>
                      <attribute name="no_create">true</attribute>
