@@ -178,7 +178,7 @@ class TechicianRequest(models.Model):
             print(rec.product_amount_qty)
             product_line = (0, 0, {'product_id': rec.product_id.id,
                                    'state': 'draft',
-                                   'product_uom': rec.product_id.uom_po_id.id,
+                                   'product_uom': rec.product_id.uom_id.id,
                                    'date_planned': datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    'product_uom_qty': rec.product_qty,
                                    'date_expected':fields.Datetime.now(),
@@ -352,13 +352,14 @@ class TechnicianRequestLine(models.Model):
             self.product_image = self.product_id.image_medium
             self.name = name
             self.product_old_qty=self.product_id.qty_available
-            self.product_amount_qty=self.product_id.standard_price
+            self.product_amount_qty=self.product_id.standard_price* self.product_qty
             self.product_new_qty= self.product_old_qty-self.product_qty
 
     @api.onchange('product_qty')
     def onchange_product_idqty(self):
         if self.product_id and self.product_qty and self.product_old_qty :
             self.product_new_qty= self.product_old_qty-self.product_qty
+            self.product_amount_qty = self.product_id.standard_price * self.product_qty
 
     @api.multi
     def cancel(self):
@@ -418,7 +419,7 @@ class SelectProducts1(models.TransientModel):
                 'product_image':  product.image_medium,
                 'product_old_qty': product.qty_available,
                 'product_new_qty': product.qty_available - 1,
-                'product_amount_qty': product.standard_price,
+                'product_amount_qty': product.standard_price ,
                 'name': name,
                 'request_line_id': order_id.id
             })

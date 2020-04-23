@@ -18,6 +18,34 @@
 
         </field>
     </record>
+       <record id="view_stock_move_Line_list_inherited" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+
+
+               <xpath expr="//field[@name='location_dest_id']" position="after">
+                  <field name="employee_user_id_move_line" />
+
+                </xpath>
+
+
+        </field>
+    </record>
+       <record id="view_stock_move_Line_form_inherited" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+
+
+               <xpath expr="//field[@name='package_id']" position="after">
+                  <field name="employee_user_id_move_line" />
+
+                </xpath>
+
+
+        </field>
+    </record>
 
 
 
