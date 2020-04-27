@@ -16,7 +16,7 @@ class Picking(models.Model):
 
     _inherit = "stock.move"
 
-    cost_move =fields.Float( 'Cost' ,store=True )
+    cost_move =fields.Float( 'Amount Cost' ,store=True )
 
     old_qty_move = fields.Float(string='Old Quantity', track_visibility='onchange',
                                    digits=dp.get_precision('Product Unit of Measure') ,store=True )
@@ -24,6 +24,8 @@ class Picking(models.Model):
                                    digits=dp.get_precision('Product Unit of Measure'),store=True)
     amount_qty_move = fields.Float(string='amount', track_visibility='onchange',
                                       digits=dp.get_precision('Product Unit of Measure'),store=True)
+    cost_qty_move = fields.Float(string='amount New ....', track_visibility='onchange',
+                                      digits=dp.get_precision('Product Unit of Measure')  ,store=True,compute='calc_amount')
 
 
     source_request_move = fields.Many2one('tech.request',
@@ -42,6 +44,12 @@ class Picking(models.Model):
 
                                  track_visibility='onchange',store=True
                                   )
+
+    @api.onchange('product_qty')
+    def calc_amount(self):
+        if self.product_qty and self.product_id.standard_price :
+            for rec in self:
+                rec.cost_qty_move =  rec.product_id.standard_price * rec.product_qty
 
     def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
         self.ensure_one()

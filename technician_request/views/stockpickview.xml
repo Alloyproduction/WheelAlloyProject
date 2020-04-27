@@ -77,7 +77,7 @@
                    <field name="cost_move"  invisible="1"/>
                     <field name="old_qty_move" invisible="1"/>
                    <field name="new_qty_move" invisible="1"/>
-                   <field name="amount_qty_move" invisible="1"/>
+                   <field name="amount_qty_move"  invisible="1"/>
                    <field name="source_request_move" invisible="1"/>
                    <field name="employee_user_id_move" invisible="1"/>
                    <field name="manager_by_move" invisible="1"/>
@@ -94,6 +94,11 @@
                    <field name="old_qty_move" />
                    <field name="new_qty_move" />
                    <field name="amount_qty_move" />
+<!--                   <field name="cost_move" />-->
+<!--                   <field name="cost_move" />-->
+<!--                   <field name="cost_qty_move" />-->
+
+
                    <field name="source_request_move" />
                    <field name="employee_user_id_move" />
                    <field name="manager_by_move" />

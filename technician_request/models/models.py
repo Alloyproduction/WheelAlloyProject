@@ -353,6 +353,7 @@ class TechnicianRequestLine(models.Model):
             self.name = name
             self.product_old_qty=self.product_id.qty_available
             self.product_amount_qty=self.product_id.standard_price* self.product_qty
+            print(self.product_id.standard_price ,"  ," ,self.product_qty)
             self.product_new_qty= self.product_old_qty-self.product_qty
 
     @api.onchange('product_qty')
