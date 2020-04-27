@@ -44,7 +44,7 @@ class Picking(models.Model):
 
                                  track_visibility='onchange',store=True
                                   )
-
+    @api.multi
     @api.onchange('product_qty')
     def calc_amount(self):
         if self.product_qty and self.product_id.standard_price :
