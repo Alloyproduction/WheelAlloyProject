@@ -315,7 +315,7 @@
 <!--                                  </div>-->
 
                                 <t t-foreach="payments_vals" t-as="payment_vals">
-                              <div style="position:relative; top:-43px;left:25px;margin-left:20px;margin-bottom:10px;" dir="ltr"><strong  >  <t t-esc="payment_vals['date']" /></strong></div>
+                              <div style="position:relative; top:-43px;left:25px;margin-left:20px;margin-bottom:10px;" dir="ltr"><strong  >  <t t-esc="payment_vals['date']" t-options='{"widget": "date"}' /></strong></div>
                            </t>
                            </t>
 
