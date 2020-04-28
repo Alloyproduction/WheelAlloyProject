@@ -301,23 +301,26 @@
                             </div>
                         </div>
                     </div  >
+<div>
+                       <div style="margin-left:200px;margin-bottom:130px;" >
+                         <img  style="width:150px;height:150px; margin-bottom:10px;" dir="ltr" src="account_prince/static/web/image/paid2.png"/>
 
-                       <div style="margin-left:200px;margin-bottom:130px;">
-                         <img class="img-fluid" style="width:150px;height:150px; margin-bottom:10px;" dir="ltr" src="account_prince/static/web/image/paid2.png"/>
+
                           <t t-set="payments_vals" t-value="doc._get_payments_vals()"/>
                            <t t-if="len(payments_vals) > 0">
-                                <div style="font-family: 'Meie Script', cursive;">
-                                        <p>Prince Mischal Al Saud</p>
-                                  <img class="img-fluid" style="width:150px;height:50px; margin-bottom:10px;" dir="ltr" src="account_prince/static/web/image/sig.jpg"/>
+<!--                                <div style="font-family: 'Meie Script', cursive;">-->
+<!--                                        <p>Prince Mischal Al Saud</p>-->
+<!--                                  <img class="img-fluid" style="width:150px;height:50px; margin-bottom:10px;" dir="ltr" src="account_prince/static/web/image/sig.jpg"/>-->
 
-                                  </div>
+<!--                                  </div>-->
 
                                 <t t-foreach="payments_vals" t-as="payment_vals">
-                               <strong> Paid on </strong><t t-esc="payment_vals['date']" />
+                              <div style="position:relative; top:-43px;left:25px;margin-left:20px;margin-bottom:10px;" dir="ltr"><strong  >  <t t-esc="payment_vals['date']" /></strong></div>
                            </t>
                            </t>
 
                     </div>
+    </div>
                     <p t-if="doc.reference">
                         Please use the following communication for your payment : <b><span t-field="doc.reference"/></b>
                     </p>
