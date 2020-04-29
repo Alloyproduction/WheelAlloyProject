@@ -28,7 +28,7 @@
                           groups="vehicle_project.view_confirm_order_button"
                           attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
             </xpath>
-            <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+            <xpath expr="//button[@name='action_confirm'][1]" position="after">
                  <button name="action_confirm_replica" string="Confirm" type="object"
                          groups="vehicle_project.view_confirm_order_button"
                          attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>

@@ -15,6 +15,7 @@
     "data": [
         "security/ir.model.access.csv",
         "view/view.xml",
+        "view/viewConfigSales.xml",
 'view/assets.xml',
     ],
     "installable": True,

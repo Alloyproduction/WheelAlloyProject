@@ -494,13 +494,19 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id = 73 #73  1  #  stage_id = 1
+            stage_id =  73 #1 #73  1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
             #             task = self.env['project.task'].create(
             #                 {'name': self.partner_id.name + '-' + self.name, 'sale': self.id, 'stage_id': stage_id,
             #                  'project_id': self.project.id})
+            res_conf = self.env['res.config.settings'].sudo()
+
+            Salesconf = res_conf.get_values()
+            print(Salesconf['No_of_hours'])
+            task_limit_hours =Salesconf['No_of_hours']
+
 
             for line in self.order_line:
                 tax_list = []
@@ -526,7 +532,7 @@ class InheritSale(models.Model):
                      'sales_person_id': self.user_id.id,
                      'project_id': self.project.id, 'date_assign': fields.Datetime.now(),
                      'date_deadline': fields.Date.today() + timedelta(hours=90) ,
-                      'date_task_deadline': fields.Datetime.now() + timedelta(hours=72) })
+                      'date_task_deadline': fields.Datetime.now() + timedelta(hours=task_limit_hours) })
                 task.start_play()
             self.action_done()
 
