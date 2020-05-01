@@ -28,7 +28,7 @@
                           groups="vehicle_project.view_confirm_order_button"
                           attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
             </xpath>
-            <xpath expr="//button[@name='action_confirm'][1]" position="after">
+            <xpath expr="//button[@name='action_confirm'][1]" position="replace">
                  <button name="action_confirm_replica" string="Confirm" type="object"
                          groups="vehicle_project.view_confirm_order_button"
                          attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
@@ -41,18 +41,20 @@
           <field name="model">sale.order</field>
           <field name="inherit_id" ref="sale_management.sale_order_view_form"/>
           <field name="arch" type="xml">
-              <!--<xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">-->
-                  <!--<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"-->
-                    <!--type="action" class="btn-primary"-->
-                    <!--groups="vehicle_project.group_view_create_invoice_button"-->
-                    <!--/>-->
-                  <!--&lt;!&ndash;attrs="{'invisible': [('is_task_delivered', '=', True)]}"&ndash;&gt;-->
-              <!--</xpath>-->
+<!--              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">-->
+<!--                  <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"-->
+<!--                    type="action" class="btn-primary"-->
+<!--                    groups="vehicle_project.group_view_create_invoice_button"-->
+<!--                    />-->
+<!--                  &lt;!&ndash;attrs="{'invisible': [('is_task_delivered', '=', True)]}"&ndash;&gt;-->
+<!--              </xpath>-->
               <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
                     <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
+            <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>
               </xpath>
               <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">
                     <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
+                      <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>
               </xpath>
           </field>
       </record>

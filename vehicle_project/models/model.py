@@ -444,25 +444,37 @@ class InheritSale(models.Model):
 
     project = fields.Many2one('project.project', string='Project')
     agency_name = fields.Many2one('res.partner', string='Agency Name')
-    is_task_delivered = fields.Boolean(compute='get_delivered_task', default=True)
+    is_task_delivered = fields.Boolean(compute='get_delivered_task', default=False)
 
     task_duration = fields.Float()
     # full_url=fields.char('full_url',default="")
 
     def get_delivered_task(self):
+        c=0
         for rec in self:
-            if rec.invoice_count > 0:
-                rec.is_task_delivered = True
-            else:
-                task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
-                if task_ids:
-                    for line in task_ids:
-                        if line.stage_id.name != 'Finished and QC':
-                            rec.is_task_delivered = True
-                            break
-                else:
+            task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+            if task_ids:
+                for line in task_ids:
+                    if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
+                        c+=1
+                if(c==len(task_ids)):
                     rec.is_task_delivered = True
-                    break
+
+
+
+
+            # if rec.invoice_count > 0:
+            #     rec.is_task_delivered = True
+            # else:
+            #     task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+            #     if task_ids:
+            #         for line in task_ids:
+            #             if line.stage_id.name != 'Finished and QC':
+            #                 rec.is_task_delivered = True
+            #                 break
+            #     else:
+            #         rec.is_task_delivered = True
+            #         break
 
 
 
@@ -494,7 +506,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id =  73 #1 #73  1  #  stage_id = 1
+            stage_id =    73  #1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
