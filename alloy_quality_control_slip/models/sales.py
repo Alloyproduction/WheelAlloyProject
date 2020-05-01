@@ -49,6 +49,14 @@ class QualityControlSlip(models.Model):
             rec.confirmation_date = fields.date.today()
             rec.state = 'accept'
 
+            for rec in self.sale_id:
+                task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+                if task_ids and self.state == 'accept':
+                    for line in task_ids:
+                        if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
+                            line.is_delete_stage = True
+
+
     @api.multi
     def deny_qc_slip(self):
         for rec in self:
@@ -60,7 +68,17 @@ class QualityControlSlip(models.Model):
         for rec in self:
             rec.state = 'draft'
 
-
+    # @api.multi
+    # @api.depends('state')
+    # def _change_is_delete_stage(self):
+    #    print("reach ....before .. ")
+    #    for rec in self.sale_id:
+    #         task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+    #         if task_ids and self.state == 'accept':
+    #             for line in task_ids:
+    #                 if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
+    #                      line.is_delete_stage = True
+    #                      print("reach ...... ")
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
