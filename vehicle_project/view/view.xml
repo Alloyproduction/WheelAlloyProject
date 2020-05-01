@@ -52,10 +52,10 @@
                     <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
             <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>
               </xpath>
-              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">
-                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
-                      <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>
-              </xpath>
+<!--              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">-->
+<!--                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>-->
+<!--                      <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>-->
+<!--              </xpath>-->
           </field>
       </record>
 
@@ -70,6 +70,7 @@
                 <xpath expr="//field[@name='user_id']" position="after">
                     <field name="sales_person_id" />
                 </xpath>
+
                 <xpath expr="//header" position="inside">
                     <field name="is_task_finished" invisible="1"/>
                     <field name="sale" invisible="1"></field>
