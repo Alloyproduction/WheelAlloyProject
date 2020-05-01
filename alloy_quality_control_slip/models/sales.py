@@ -3,6 +3,25 @@
 from odoo import models, fields, api, _
 
 
+class InheritDeSale(models.Model):
+    _inherit = 'sale.order'
+
+
+    is_task_Q_delivered = fields.Boolean(compute='get_delivered_Q_task', default=False)
+
+
+
+    def get_delivered_Q_task(self):
+        c=0
+        for rec in self:
+            task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
+            if task_ids:
+                for line in task_ids:
+                    if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
+                        c+=1
+                if(c==len(task_ids)):
+                    rec.is_task_Q_delivered = True
+
 class QualityControlSlip(models.Model):
     _name = 'quality.control.slip'
     _inherit = ['mail.thread', 'mail.activity.mixin']
