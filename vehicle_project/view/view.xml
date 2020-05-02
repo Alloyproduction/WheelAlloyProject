@@ -50,11 +50,11 @@
 <!--              </xpath>-->
               <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
                     <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
-            <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>
+         <attribute name="attrs">{'invisible': ['|',('invoice_count', '=', 1),('is_task_delivered', '=', False)]}</attribute>
               </xpath>
 <!--              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">-->
 <!--                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>-->
-<!--                      <attribute name="attrs">{'invisible': [('is_task_delivered', '=', False)]}</attribute>-->
+<!--                      <attribute name="attrs">{'invisible': ['|',('invoice_count', '=', 1),('is_task_delivered', '=', False)]}</attribute>-->
 <!--              </xpath>-->
           </field>
       </record>
@@ -77,6 +77,7 @@
 
                      <button name="close_task" string="Close Task" attrs="{'invisible': [('is_task_finished', '=', True)]}" type="object"/>
                      <button name="create_invoice" class="oe_highlight"  string="Create Invoice" attrs="{'invisible': [('is_task_finished', '=', False)]}" type="object"/>
+
 
                 </xpath>
                      <xpath expr="//div[@name='button_box']" position="inside">
