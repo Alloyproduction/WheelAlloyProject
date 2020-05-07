@@ -120,13 +120,13 @@ class TechicianRequest(models.Model):
 
     @api.multi
     def button_send(self):
-        self.send_m('New Technician request Request from '+self.request_by.name,'New Technician request require to be ready')
+        self.send_m('New Technician request Request from '+str(self.request_by.name),'New Technician request require to be ready')
         return self.write({'state': 'sent'})
 
 
     @api.multi
     def button_ready(self):
-        self.send_m('The Request('+self.name+') is ready', ''+'The Request('+self.name+') is ready from '+self.request_by.location_from.name )
+        self.send_m('The Request('+str(self.name)+') is ready', ''+'The Request('+str(self.name)+') is ready from '+str(self.request_by.location_from.name) )
         return self.write({'state': 'done'})
 
 
@@ -134,7 +134,7 @@ class TechicianRequest(models.Model):
     @api.multi
     def button_to_rejected(self):
         self.mapped('products_line_ids').cancel()
-        self.send_m('The Request('+self.name+') is rejected ', ''+'The Request('+self.name+') is rejected  ' )
+        self.send_m('The Request('+str(self.name)+') is rejected ', ''+'The Request('+str(self.name)+') is rejected  ' )
         return self.write({'state': 'rejected'})
 
 
