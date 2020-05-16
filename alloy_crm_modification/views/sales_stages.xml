@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+<record id="example_order_kanban_inherit" model="ir.ui.view">
+            <field name="name">example.order.kanban.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sale_order_kanban"/>
+
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_group_by" class="o_kanban_small_column o_opportunity_kanban" >sales_stage</attribute>
+                    <attribute name="archivable">false</attribute>
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+
+
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data noupdate="1">
+
+
+
+        <record model="sales.stages" id="stage1">
+            <field name="name">New</field>
+            <field name="sequence">1</field>
+         </record>
+        <record model="sales.stages" id="stage2">
+            <field name="name">Waiting for pickup</field>
+            <field name="sequence">2</field>
+         </record>
+        <record model="sales.stages" id="stage3">
+            <field name="name">Finished</field>
+            <field name="sequence">3</field>
+         </record>
+        <record model="sales.stages" id="stage4">
+            <field name="name">Reschedule and follow ups</field>
+            <field name="sequence">4</field>
+         </record>
+
+
+    </data>
+
+
+</odoo>

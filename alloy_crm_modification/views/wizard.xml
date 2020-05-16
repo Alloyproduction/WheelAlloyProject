@@ -1,0 +1,32 @@
+
+<odoo>
+
+<data>
+<record model="ir.ui.view" id="wizard_salesman_form_view">
+            <field name="name">salesman.wizard</field>
+            <field name="model">salesman.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Choose Sales Man">
+                    <group>
+<!--                        invisible="1"-->
+                        <field name="sale_order_id" invisible="1"/>
+                        <field name="sales_id"/>
+                    </group>
+                    <footer>
+                        <button name="choose" type="object"
+                                string="choose" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+<!--<act_window id="launch_salesman_wizard"-->
+<!--                    name="Choose Sales Man"-->
+<!--                    binding_model="sale.order"-->
+<!--                    res_model="salesman.wizard"-->
+<!--                    view_mode="form"-->
+<!--                    target="new"/>-->
+ </data>
+</odoo>
