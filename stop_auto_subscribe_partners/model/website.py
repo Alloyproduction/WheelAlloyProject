@@ -11,15 +11,17 @@ class WebsiteConfig(models.TransientModel):
 
     @api.model
     def get_values(self):
-        ir_config = self.env['ir.config_parameter']
+        res = super(WebsiteConfig, self).get_values()
+        ir_config = self.env['ir.config_parameter'].sudo()
         app_stop_subscribe = True if ir_config.sudo().get_param('app_stop_subscribe') == "True" else False
 
-        return dict(
+        res.update(
             app_stop_subscribe=app_stop_subscribe,
         )
+        return res
 
     def set_values(self):
-        self.ensure_one()
-        ir_config = self.env['ir.config_parameter']
+        res = super(WebsiteConfig, self).set_values()
+        ir_config = self.env['ir.config_parameter'].sudo()
         ir_config.set_param("app_stop_subscribe", self.app_stop_subscribe or "False")
-        return True
+        return res
