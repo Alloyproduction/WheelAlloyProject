@@ -496,6 +496,32 @@ class InheritSale(models.Model):
     # @api.multi
     # def action_confirm_replica2(self):
     #     pass
+    @api.multi
+    def action_sign(self):
+        return self.write({'state':'sign'})
+
+    @api.multi
+    @api.depends('state')
+    def _compute_type_name(self):
+        for record in self:
+            record.type_name = _('Quotation') if record.state in ('draft', 'sent', 'sign', 'cancel') else _(
+                'Sales Order')
+
+
+    @api.multi
+    def action_sign_logistic(self):
+        for rec in self:
+            logistic = self.env['crm.stage'].search([('name', '=', 'logistic')])
+            if rec.opportunity_id:
+                rec.opportunity_id.write({
+                    'stage_id': logistic.id
+                })
+            rec.action_sign()
+
+        print("hi..??..Shaliby5997?")
+
+
+
 
     @api.multi
     def action_confirm_replica(self):
@@ -506,7 +532,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id =    73  #1  #  stage_id = 1
+            stage_id =  73  #1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id

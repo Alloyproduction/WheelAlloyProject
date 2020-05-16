@@ -26,7 +26,7 @@
                   <button name="action_confirm_replica" id="action_confirm"
                           string="Confirm" class="btn-primary" type="object"
                           groups="vehicle_project.view_confirm_order_button"
-                          attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                          attrs="{'invisible': [('state', 'not in', ['sent','sign'])]}"/>
             </xpath>
             <xpath expr="//button[@name='action_confirm'][1]" position="replace">
                  <button name="action_confirm_replica" string="Confirm" type="object"

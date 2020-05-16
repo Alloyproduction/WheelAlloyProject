@@ -81,7 +81,8 @@ odoo.define('portal.signature_form', function (require){
 
                var res = rpc.query({
                     model: 'sale.order',
-                    method: 'action_confirm_replica',
+                    method: 'action_sign_logistic',
+//                    method: 'action_confirm_replica',
                      args: [[this.options.resId]]
 
                 } ).then(function (data) {
