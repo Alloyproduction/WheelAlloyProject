@@ -191,7 +191,7 @@
                  <xpath expr="//header" position="after">
                      <header>
                         <button name="send_salesman" type="object"
-                                string="Send to salesman" class="oe_highlight"/>
+                                string="Send to salesman" class="oe_highlight"  groups="alloy_crm_modification.view_send_logistic_button" />
                      </header>
                 </xpath>
             </field>
