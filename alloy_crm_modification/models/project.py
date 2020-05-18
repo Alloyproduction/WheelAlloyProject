@@ -14,7 +14,8 @@ class ProjectTask(models.Model):
             print(record.sale)
             sales_id =self.env['sale.order'].search([('id', '=', record.sale)])
             if sales_id:
-                recipient_partners.append(sales_id.sales_user_id.partner_id.id)
+                if sales_id.sales_user_id.partner_id.id:
+                    recipient_partners.append(sales_id.sales_user_id.partner_id.id)
                 if len(recipient_partners)>0 :
                     if record.stage_id.name == 'Delivery' :
                         sales_id.message_post(body="The Tasks are in Delivery Stages",
