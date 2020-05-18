@@ -9,18 +9,19 @@ class ProjectTask(models.Model):
     def get_delivery_stage2(self):
         print("hi..>>..??..??")
         recipient_partners=[]
+        print()
         for record in self:
+            print(record.sale)
             sales_id =self.env['sale.order'].search([('id', '=', record.sale)])
             if sales_id:
-                print( sales_id.sales_user_id.partner_id.id)
-                print(sales_id)
                 recipient_partners.append(sales_id.sales_user_id.partner_id.id)
-                if record.stage_id.name == 'Delivery':
-                    sales_id.message_post(body="The Tasks are in Delivery Stages",
-                                 subtype='mail.mt_comment',
-                                 subject="The Tasks are in delivery stages of [  " + str(self.name)+" ]",
-                                 partner_ids=recipient_partners,
-                                 message_type='comment')
+                if len(recipient_partners)>0 :
+                    if record.stage_id.name == 'Delivery' :
+                        sales_id.message_post(body="The Tasks are in Delivery Stages",
+                                     subtype='mail.mt_comment',
+                                     subject="The Tasks are in delivery stages of [  " + str(self.name)+" ]",
+                                     partner_ids=recipient_partners,
+                                     message_type='comment')
 
 
 
