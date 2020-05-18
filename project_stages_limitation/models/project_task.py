@@ -32,8 +32,9 @@ class ProjectTask(models.Model):
             new_stage = self.env['project.task.type'].browse(values['stage_id'])
             old_stage = self.stage_id.name
             stage_time_id = self.env['project.task.time']
-            if new_stage.name == 'Delivery' and old_stage != 'Finished and QC':
-                raise UserError(_("You must go to Finished and QC stage first"))
+            if new_stage.name == 'Delivery' and  old_stage != 'Finished and QC' :
+                if  old_stage != 'Waiting':
+                    raise UserError(_("You must go to Finished and QC stage first"))
             stage_time_id.create({
                 'project_task_id': self.id,
                 'stage_from_id': self.stage_id.id,
