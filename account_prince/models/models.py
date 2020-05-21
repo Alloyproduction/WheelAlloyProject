@@ -3,7 +3,13 @@
 from odoo import models, fields, api ,_
 from odoo.exceptions import UserError, ValidationError
 
-
+class accountinvoice(models.Model):
+    _inherit = "account.invoice"
+    amount_tax_signed = fields.Monetary(string='Tax in Invoice Currency', currency_field='currency_id',
+                                        readonly=True, compute='_compute_sign_taxes', store=True)
+    amount_untaxed_invoice_signed = fields.Monetary(string='Untaxed Amount in Invoice Currency',
+                                                    currency_field='currency_id',
+                                                    readonly=True, compute='_compute_sign_taxes' , store=True)
 class account_payment2(models.Model):
 
     _inherit = "account.payment"
