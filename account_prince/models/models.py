@@ -10,7 +10,7 @@ class accountinvoice(models.Model):
     amount_untaxed_invoice_signed = fields.Monetary(string='Untaxed Amount in Invoice Currency',
                                                     currency_field='currency_id',
                                                     readonly=True, compute='_compute_sign_taxes' , store=True)
-    origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document")
+    origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document Link")
 
 class PurchaseOrder2(models.Model):
     _inherit = "purchase.order"
