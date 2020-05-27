@@ -243,27 +243,57 @@ class SalesOrdercrm(models.Model):
         return res
 
     @api.multi
-    def action_confirm_replica(self):
-        # if not self.alloy_digital_signature:
-        #     raise UserError(_("You must add Your signature"))
-        if self.alloy_digital_signature:
-            super(SalesOrdercrm, self).action_confirm_replica()
-            if self.is_insured == False:
-                for rec in self:
-                    won = self.env['crm.stage'].search([('name', '=', 'Won')])
-                    rec.opportunity_id.write({
-                        'stage_id': won.id
-                    })
-            else:
-                for rec in self:
-                    won = self.env['crm.stage'].search([('name', '=', 'Won')])
-                    rec.opportunity_id.write({
-                        'stage_id': won.id
-                    })
-            self.send_notification("The Quotation Was confirmed",str(self.name) +"The Quotation Was confirmed"+ '.')
-        else:
-            raise UserError(_("You must add Your signature"))
+    def action_confirm2(self):
+        if self._get_forbidden_state_confirm() & set(self.mapped('state')):
+            raise UserError(_(
+                'It is not allowed to confirm an order in the following states: %s'
+            ) % (', '.join(self._get_forbidden_state_confirm())))
 
+        for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+            order.message_subscribe([order.partner_id.id])
+        self.write({
+            'state': 'sale',
+            'confirmation_date': fields.Datetime.now()
+        })
+        self._action_confirm()
+        if self.env['ir.config_parameter'].sudo().get_param('sale.auto_done_setting'):
+            self.action_done()
+        return True
+
+    @api.multi
+    def action_confirm_replica(self):
+        c=0
+        print(len(self.order_line))
+        for rec in self.order_line:
+            if rec.product_id.type == 'product':
+                c+=1
+        if c== len(self.order_line) :
+            self.action_confirm2()
+            print(" hi .. iam storable ")
+        else:
+           if c == 0 :
+
+                # if not self.alloy_digital_signature:
+                #     raise UserError(_("You must add Your signature"))
+                if self.alloy_digital_signature:
+                    super(SalesOrdercrm, self).action_confirm_replica()
+                    if self.is_insured == False:
+                        for rec in self:
+                            won = self.env['crm.stage'].search([('name', '=', 'Won')])
+                            rec.opportunity_id.write({
+                                'stage_id': won.id
+                            })
+                    else:
+                        for rec in self:
+                            won = self.env['crm.stage'].search([('name', '=', 'Won')])
+                            rec.opportunity_id.write({
+                                'stage_id': won.id
+                            })
+                    self.send_notification("The Quotation Was confirmed",str(self.name) +"The Quotation Was confirmed"+ '.')
+                else:
+                    raise UserError(_("You must add Your signature"))
+           else:
+               raise UserError(_("All Products must be storable products or Services"))
     # @api.multi
     # def action_confirm(self):
     #     if self.alloy_digital_signature:
