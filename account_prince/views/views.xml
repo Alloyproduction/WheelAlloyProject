@@ -14,7 +14,7 @@
                   <div attrs="{'invisible': [('state', '!=', 'paid')]}">
             <img  style="width:120px;height:120px; margin-bottom:5px;" dir="ltr" src="account_prince/static/web/image/paid2.png"/>
 
-        <div style="position:relative; top:-30px;left:15px;margin-left:10px;margin-bottom:10px;" dir="ltr"><strong  >   <field name="date_invoice" t-options='{"widget": "date"}' /></strong></div>
+        <div style="position:relative; top:-30px;left:15px;margin-left:10px;margin-bottom:10px;" dir="ltr"><strong  >   <field name="first_payment_date" t-options='{"widget": "date"}' /></strong></div>
 
                     </div>
 
