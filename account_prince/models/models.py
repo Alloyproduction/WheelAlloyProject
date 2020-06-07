@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api ,_
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import email_re, email_split, email_escape_char, float_is_zero, float_compare, \
+    pycompat, date_utils
 
 class accountinvoice(models.Model):
     _inherit = "account.invoice"
@@ -11,6 +13,9 @@ class accountinvoice(models.Model):
                                                     currency_field='currency_id',
                                                     readonly=True, compute='_compute_sign_taxes' , store=True)
     origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document Link")
+    first_payment_date =fields.Date(string="Payment Date", readonly=True, related="payment_move_line_ids.date")
+
+
 
 class PurchaseOrder2(models.Model):
     _inherit = "purchase.order"
