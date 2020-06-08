@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+     <record id="invoice_Source_move" model="ir.ui.view">
+        <field name="name">account.move.source</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+
+<xpath expr="//header" position="inside">
+  <button name="action_print" string="print" type="object" groups="account.group_account_invoice"/>
+
+</xpath>
+
+            <xpath expr="//sheet" position="after">
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </xpath>
+
+
+        </field>
+     </record>
+
+
+  </data>
+</odoo>

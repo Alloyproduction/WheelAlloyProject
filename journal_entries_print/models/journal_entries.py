@@ -3,7 +3,8 @@ from odoo import api, models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _name = "account.move"
+    _inherit = ['account.move','mail.thread', 'mail.activity.mixin']
 
     @api.multi
     def total_debit_credit(self):
@@ -16,3 +17,7 @@ class AccountMove(models.Model):
                 cr_total += line.credit
             res.update({'dr_total': dr_total, 'cr_total': cr_total})
         return res
+
+    @api.multi
+    def action_print(self):
+        return self.env.ref('journal_entries_print.journal_entries_moce_print_id').report_action(self)

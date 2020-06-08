@@ -11,11 +11,14 @@
     """,
     'author': "Hunain Ahmed",
     'website': "http://telenoc.org",
-    'depends': ['account'],
+    'depends': ['account','mail'],
     'license': 'AGPL-3',
     'data': [
-            'report/report_menu.xml'
+            'report/report_menu.xml',
+            'views/views.xml',
             ],
+
+
     "images": [
         'static/description/telenoc.jpeg'
     ],
