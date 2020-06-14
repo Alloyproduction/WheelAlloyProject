@@ -48,13 +48,15 @@
 <!--                    />-->
 <!--                  &lt;!&ndash;attrs="{'invisible': [('is_task_delivered', '=', True)]}"&ndash;&gt;-->
 <!--              </xpath>-->
-              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
-                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
-         <attribute name="attrs">{'invisible': [ '&amp;','|',('invoice_count', '=', 1),('is_task_delivered', '=', False),('delivery_count', '=', 0)]}</attribute>
-              </xpath>
+     <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="attributes">
+       <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>
+       <attribute name="attrs">{'invisible': ['|',  ('invoice_count', '=', 1), '&amp;',('is_task_delivered', '=', False),('delivery_count', '=', 0)]}</attribute>
+<!--       <attribute name="attrs">{'invisible': [ '&amp;','|',('invoice_count', '=', 1),('is_task_delivered', '=', False) ,('delivery_count', '=', 0)]}</attribute>-->
+<!--          '&amp;',('invoice_count', '=', 1),-->
+       </xpath>
 <!--              <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="attributes">-->
 <!--                    <attribute name="groups">vehicle_project.group_view_create_invoice_button</attribute>-->
-<!--                      <attribute name="attrs">{'invisible': ['|',('invoice_count', '=', 1),('is_task_delivered', '=', False)]}</attribute>-->
+<!--                      <attribute name="attrs">{'invisible': ['|',('invoice_count', '=', 1),('is_task_delivered', '=', False),('delivery_count', '=', 1)]}</attribute>-->
 <!--              </xpath>-->
           </field>
       </record>

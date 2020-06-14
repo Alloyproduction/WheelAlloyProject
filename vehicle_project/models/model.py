@@ -450,6 +450,14 @@ class InheritSale(models.Model):
     # full_url=fields.char('full_url',default="")
 
     def get_delivered_task(self):
+        # if self.invoice_count==1 or self.delivery_count == 1:
+        #     print('hi invoice')
+        #     for rec in self:
+        #         rec.is_task_delivered = True
+        #     print('hi invoice' ,self.is_task_delivered)
+        #     print(self.invoice_count)
+        #     print(self.delivery_count)
+        #     return
         c=0
         for rec in self:
             task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
@@ -459,7 +467,7 @@ class InheritSale(models.Model):
                         c+=1
                 if(c==len(task_ids)):
                     rec.is_task_delivered = True
-
+            print('hi invoice2', self.is_task_delivered)
 
 
 
@@ -532,7 +540,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id =  73  #1  #  stage_id = 1
+            stage_id =  1 # 73  #1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
