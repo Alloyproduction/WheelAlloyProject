@@ -540,7 +540,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id =  1 # 73  #1  #  stage_id = 1
+            stage_id =   73  #1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
