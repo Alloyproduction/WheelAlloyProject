@@ -171,7 +171,8 @@ class SalesOrdercrm(models.Model):
 
     lead_user_id = fields.Many2one(comodel_name="res.users" ,string ="Lead Creator", )
     sales_stage = fields.Many2one(comodel_name="sales.stages" ,string ="Sales stages",group_expand='_read_group_stage_ids')
-    sales_user_id = fields.Many2one(comodel_name="res.users", string="CIP", )
+    sales_user_id = fields.Many2one(comodel_name="res.users", string="Sales Man", )
+    user_id = fields.Many2one('res.users', string='CIP', index=True, track_visibility='onchange', track_sequence=2, default=lambda self: self.env.user)
 
     state = fields.Selection([
         ('draft', 'Quotation'),
