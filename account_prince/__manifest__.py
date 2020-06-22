@@ -27,7 +27,8 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/report_invoice1.xml',
+        'views/templates.xml',
+        'security/cancel_account.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

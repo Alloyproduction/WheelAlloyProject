@@ -13,7 +13,7 @@ class accountinvoice(models.Model):
                                                     currency_field='currency_id',
                                                     readonly=True, compute='_compute_sign_taxes' , store=True)
     origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document Link")
-    first_payment_date =fields.Date(string="Payment Date", readonly=True, related="payment_move_line_ids.date")
+    first_payment_date =fields.Date(string="Payment Date", readonly=True,  related="payment_move_line_ids.date")
 
 
 
