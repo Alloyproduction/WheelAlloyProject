@@ -50,6 +50,24 @@
 <!--            </field>-->
 
 
+        <record id="invoice_form_tax_inherit2" model="ir.ui.view">
+            <field name="name">invoice.form.tax.inherit2</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//button[@name='action_invoice_draft']" position="before">-->
+<!--                    <button name="action_invoice_cancel" type="object" states="draft,open,in_payment,paid" string="Cancel" groups="account.group_account_invoice"/>-->
+<!--                </xpath>-->
+<!--                -->
+
+               <xpath expr="//field[@name='amount_tax_signed']" position="replace">
+               <field name="amount_tax" />
+                 </xpath>
+  <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="replace">
+               <field name="amount_untaxed" />
+                 </xpath>
+            </field>
+        </record>
 
 
 
