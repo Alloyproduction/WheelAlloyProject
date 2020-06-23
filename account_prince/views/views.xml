@@ -61,10 +61,10 @@
 <!--                -->
 
                <xpath expr="//field[@name='amount_tax_signed']" position="replace">
-               <field name="amount_tax" />
+               <field name="amount_tax"  sum="amount tax total" />
                  </xpath>
   <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="replace">
-               <field name="amount_untaxed" />
+               <field name="amount_untaxed" sum="amount untaxed total"/>
                  </xpath>
             </field>
         </record>
@@ -79,10 +79,10 @@
 <!--                -->
 
                <xpath expr="//field[@name='amount_tax_signed']" position="replace">
-               <field name="amount_tax" />
+               <field name="amount_tax" sum="amount tax total" />
                  </xpath>
   <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="replace">
-               <field name="amount_untaxed" />
+               <field name="amount_untaxed"  sum="amount untaxed total"/>
                  </xpath>
             </field>
         </record>
