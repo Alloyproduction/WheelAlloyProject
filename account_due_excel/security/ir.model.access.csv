@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_due_excel_account_due_excel,account_due_excel.account_due_excel,model_account_due_excel_account_due_excel,,1,0,0,0
+access_report_account_due_excel_report_due_xlsx,report.account_due_excel.report_due_xlsx,model_report_account_due_excel_report_due_xlsx,,1,1,1,1
