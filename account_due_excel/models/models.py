@@ -189,7 +189,8 @@ class PartnerDueXlsx(models.AbstractModel):
                   if len(list) >2:
                     sheet.write(i, j, list['name'],red_mark)
                   else:
-                    sheet.write(i, j, list['name'], normal)
+                      if list['name'] !=False:
+                        sheet.write(i, j, list['name'], normal)
                   j+=1
                 i+=1
                     #     sheet.write(i, j, list['name'],normal)
