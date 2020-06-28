@@ -14,27 +14,39 @@ class PartnerDueXlsx(models.AbstractModel):
 
     _inherit =  'report.report_xlsx.abstract'
 
-
-    def _get_columns_name(self, options):
+    def _get_columns_name1(self, options):
         """
         Override
         Return the name of the columns of the follow-ups report
         """
+        # headers = [{},
+        #            {'name': _('Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap; '},
+        #            {'name': _('Due Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap;'},
+        #            {'name': _('Source Document'), 'style': 'text-align:center; white-space:nowrap;'},
+        #            {'name': _('Communication'), 'style': 'text-align:right; white-space:nowrap;'},
+        #            {'name': _('Expected Date'), 'class': 'date', 'style': 'white-space:nowrap;'},
+        #            {'name': _('Excluded'), 'class': 'date', 'style': 'white-space:nowrap;'},
+        #            {'name': _('Total Due'), 'class': 'number o_price_total',
+        #             'style': 'text-align:right; white-space:nowrap;'},
+        #            ]
+        # if self.env.context.get('print_mode'):
         headers = [{},
-                   {'name': _('Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap;'},
-                   {'name': _('Due Date'), 'class': 'date', 'style': 'text-align:center; white-space:nowrap;'},
-                   {'name': _('Source Document'), 'style': 'text-align:center; white-space:nowrap;'},
-                   {'name': _('Communication'), 'style': 'text-align:right; white-space:nowrap;'},
-                   {'name': _('Expected Date'), 'class': 'date', 'style': 'white-space:nowrap;'},
-                   {'name': _('Excluded'), 'class': 'date', 'style': 'white-space:nowrap;'},
+                   {'name': _('Date'), 'class': 'date',
+                    'style': 'text-align:center; white-space:nowrap; font-size:11px;'},
+                   {'name': _('Car Type Name'), 'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Plate Number'), 'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Claim No'), 'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Job Card'), 'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Due Date'), 'class': 'date',
+                    'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Source Document'), 'style': 'text-align:center; white-space:nowrap;font-size:11px;'},
+                   {'name': _('Communication'), 'style': 'text-align:right; white-space:nowrap;font-size:11px;'},
                    {'name': _('Total Due'), 'class': 'number o_price_total',
-                    'style': 'text-align:right; white-space:nowrap;'}
+                    'style': 'text-align:right; white-space:nowrap;font-size:11px;'},
                    ]
-        if self.env.context.get('print_mode'):
-            headers = headers[:5] + headers[7:]  # Remove the 'Expected Date' and 'Excluded' columns
         return headers
 
-    def _get_lines(self, options, line_id=None):
+    def _get_lines1(self, options, line_id=None):
         """
         Override
         Compute and return the lines of the columns of the follow-ups report.
@@ -70,27 +82,42 @@ class PartnerDueXlsx(models.AbstractModel):
                     total_issued += not aml.blocked and amount or 0
                 if is_overdue:
                     date_due = {'name': date_due, 'class': 'color-red date',
-                                'style': 'white-space:nowrap;text-align:center;color: red;'}
+                                'style': 'white-space:nowrap;text-align:center;color: red;font-size:11px;'}
                 if is_payment:
                     date_due = ''
                 move_line_name = aml.invoice_id.name or aml.name
                 if self.env.context.get('print_mode'):
-                    move_line_name = {'name': move_line_name, 'style': 'text-align:right; white-space:normal;'}
+                    move_line_name = {'name': move_line_name,
+                                      'style': 'text-align:right; white-space:normal;font-size:11px;'}
                 amount = formatLang(self.env, amount, currency_obj=currency)
                 line_num += 1
                 expected_pay_date = format_date(self.env, aml.expected_pay_date,
                                                 lang_code=lang_code) if aml.expected_pay_date else ''
+                # columns = [
+                #
+                #     format_date(self.env, aml.date, lang_code=lang_code),
+                #     date_due,
+                #     aml.invoice_id.origin,
+                #     move_line_name,
+                #     expected_pay_date + ' ' + (aml.internal_note or ''),
+                #     {'name': aml.blocked, 'blocked': aml.blocked},
+                #     amount,
+                #
+                # ]
+                # if self.env.context.get('print_mode'):
                 columns = [
+
                     format_date(self.env, aml.date, lang_code=lang_code),
+                    aml.invoice_id.x_studio_car_type_name or '',
+                    aml.invoice_id.x_studio_plate_num or '',
+                    aml.invoice_id.x_studio_claim_num or '',
+                    aml.invoice_id.x_studio_job_card_1 or '',
                     date_due,
                     aml.invoice_id.origin,
                     move_line_name,
-                    expected_pay_date + ' ' + (aml.internal_note or ''),
-                    {'name': aml.blocked, 'blocked': aml.blocked},
                     amount,
+
                 ]
-                if self.env.context.get('print_mode'):
-                    columns = columns[:4] + columns[6:]
                 lines.append({
                     'id': aml.id,
                     'invoice_id': aml.invoice_id.id,
@@ -112,8 +139,9 @@ class PartnerDueXlsx(models.AbstractModel):
                 'class': 'total',
                 'unfoldable': False,
                 'level': 0,
-                'columns': [{'name': v} for v in [''] * (3 if self.env.context.get('print_mode') else 5) + [
-                    total >= 0 and _('Total Due') or '', total_due]],
+                'columns': [{'name': v, 'style': 'text-align:right;white-space:normal; font-size:11px;', } for v in
+                            [''] * (7 if self.env.context.get('print_mode') else 5) + [
+                                total >= 0 and _('Total Due') or '', total_due]],
             })
             if total_issued > 0:
                 total_issued = formatLang(self.env, total_issued, currency_obj=currency)
@@ -124,8 +152,8 @@ class PartnerDueXlsx(models.AbstractModel):
                     'class': 'total',
                     'unfoldable': False,
                     'level': 0,
-                    'columns': [{'name': v} for v in
-                                [''] * (3 if self.env.context.get('print_mode') else 5) + [_('Total Overdue'),
+                    'columns': [{'name': v, 'style': 'text-align:right;white-space:normal; font-size:11px;', } for v in
+                                [''] * (7 if self.env.context.get('print_mode') else 5) + [_('Total Overdue'),
                                                                                            total_issued]],
                 })
             # Add an empty line after the total to make a space between two currencies
@@ -136,11 +164,12 @@ class PartnerDueXlsx(models.AbstractModel):
                 'class': '',
                 'unfoldable': False,
                 'level': 0,
-                'columns': [{} for col in columns],
+                'columns': [{'style': 'text-align:right;white-space:normal; font-size:11px;', } for col in columns],
             })
         # Remove the last empty line
         if lines:
             lines.pop()
+
         return lines
 
     def generate_xlsx_report(self, workbook, data, partners):
@@ -156,8 +185,8 @@ class PartnerDueXlsx(models.AbstractModel):
             bold = workbook.add_format({'bold': True})
             sheet.write(0, 0, obj.name, bold)
             options['partner_id']=obj.id
-            print(self._get_columns_name(options))
-            dic =self._get_columns_name(options)
+            print(self._get_columns_name1(options))
+            dic =self._get_columns_name1(options)
             i=2
             j=0;
             sheet.write(i, j, ' ', bold)
@@ -176,7 +205,8 @@ class PartnerDueXlsx(models.AbstractModel):
 # Thank you in advance for your cooperation.\
 # Best Regards,"
 #             sheet.write(2,1, str, normal_size)
-            dic_lines = self._get_lines(options)
+            dic_lines = self._get_lines1(options)
+            print(dic_lines)
             i = 3
             j = 0;
             for col_lines in dic_lines:
@@ -189,7 +219,6 @@ class PartnerDueXlsx(models.AbstractModel):
                   if len(list) >2:
                     sheet.write(i, j, list['name'],red_mark)
                   else:
-                      if list['name'] !=False:
                         sheet.write(i, j, list['name'], normal)
                   j+=1
                 i+=1
