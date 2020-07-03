@@ -463,7 +463,7 @@ class InheritSale(models.Model):
             task_ids = self.env['project.task'].search([('sale', '=', rec.id)])
             if task_ids:
                 for line in task_ids:
-                    if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
+                    if line.stage_id.name == 'Delivery' or  line.stage_id.name == 'Cancel' or line.stage_id.name == 'Reject' :  # line.stage_id.name == 'Finished and QC' or
                         c+=1
                 if(c==len(task_ids)):
                     rec.is_task_delivered = True
@@ -540,7 +540,7 @@ class InheritSale(models.Model):
             'confirmation_date': fields.Datetime.now()
         })
         if self.project:
-            stage_id =   73  #1  #  stage_id = 1
+            stage_id =  1 # 73  #1  #  stage_id = 1
             stage = self.env['project.task.type'].search([('name', '=', 'New')], limit=1)
             if stage:
                 stage_id = stage.id
