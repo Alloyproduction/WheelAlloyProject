@@ -3,7 +3,7 @@
     <report
     id="partner_Due_xlsx"
     model="res.partner"
-    string="Print Due to XLSX"
+    string="DUE SHEET IN EXCEL"
     report_type="xlsx"
     name="account_due_excel.report_due_xlsx"
     file="report_due"
@@ -18,7 +18,7 @@
 
 <xpath expr="//sheet" position="before">
 <header>
-        <button name="print_quotation_xls" string="Print Due Excel" type="object"  class="btn-primary o_sale_print"  groups="account.group_account_manager,account.group_account_user" />
+        <button name="print_quotation_xls" string="DUE SHEET IN EXCEL" type="object"  class="btn-primary o_sale_print"  groups="account.group_account_manager,account.group_account_user" />
 </header>
 </xpath>
 
