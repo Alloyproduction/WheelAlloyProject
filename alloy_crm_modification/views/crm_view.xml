@@ -1,5 +1,11 @@
 <odoo>
     <data>
+ <template id="assets_backend_timer" name="timer assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/alloy_crm_modification/static/src/js/change_color.js"></script>
+            <!--     <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>   -->
+            </xpath>
+        </template>
 
         <record id="crm_lead_form_inherit2" model="ir.ui.view">
             <field name="name">crm.lead</field>
@@ -38,6 +44,9 @@
                     <field name="is_insured" />
                     <field name="claim_number" attrs="{'invisible':[('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
                     <field name="is_company" invisible="1"/>
+                    <field name="is_lost_blue" invisible="1"/>
+                    <field name="is_lost_green" invisible="1"/>
+                    <field name="is_lost" invisible="1"/>
                     <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
                     <field name="city_id" required="1"/>
@@ -182,6 +191,11 @@
                         <field name="sales_stage" />
 
                 </xpath>
+
+                <xpath expr="//field[@name='qc_slip_id']" position="after">
+                     <field name="offer_valid" />
+                </xpath>
+
    <xpath expr="//field[@name='state']" position="attributes">
 
 <attribute name="statusbar_visible">"draft,sent,sign,sale"</attribute>
@@ -211,6 +225,28 @@
                 </xpath>
             </field>
         </record>
+
+
+
+             <record id="crm_inherit" model="ir.ui.view">
+            <field name="name">crm.leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                 <field name="partner_id" position="attributes">
+                            <attribute name="class"> .o_kanban_record_title</attribute>
+                    </field>
+                <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[2]/div[4]/div[1]/field[@name='activity_ids']" position="after"  >
+
+ <field name="is_lost_blue" widget="boolean" invisible="1"/>
+                     <field name="is_lost_green" widget="boolean" invisible="1"/>
+    				   <field name="is_lost"   widget="change_color"  />
+            	</xpath>
+
+            </field>
+         </record>
+
+
 
     </data>
 </odoo>

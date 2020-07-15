@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import datetime
-from odoo.exceptions import UserError, ValidationError
 
+from odoo.exceptions import UserError, ValidationError
+import datetime
+from datetime import datetime, timedelta
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
@@ -13,11 +14,167 @@ class CrmLead(models.Model):
     car_type_id = fields.Many2one(comodel_name="vehicle")
     is_insured = fields.Boolean(string="insured")
     is_company = fields.Boolean(compute='get_type_of_partner_id')
+    is_lost = fields.Boolean(string='get_lost1')
+    is_lost_blue =fields.Boolean(string="is lost Blue",default=False)
+    is_lost_green =fields.Boolean(string="is lost green" ,default=False)
     claim_number = fields.Char(string="Claim #")
     crm_source_id = fields.Many2one(comodel_name="sale.order.source", string="source",)
     city_id = fields.Many2one('res.city', 'City')
     sales_id=fields.Many2one('sale.order', string='Quotation/SO')
 
+    # @api.model
+    # def get_lost(self):
+    #     b = False
+    #     for rec in self:
+    #         print(rec.sales_id)
+    #         print(rec.sales_id.name)
+    #         print(rec.sales_id.date_order)
+    #         print(rec.sales_id.offer_valid)
+    #         if rec.sales_id.date_order:
+    #             date1 = rec.sales_id.date_order
+    #             date2 = fields.Datetime.now()
+    #             print("date1",date1)
+    #             print(date2)
+    #
+    #             # code to get hours and minutes
+    #             datetimeFormat = '%Y-%m-%d %H:%M:%S'
+    #             date11 = datetime.strptime(str(date1), datetimeFormat)
+    #
+    #             date12 = datetime.strptime(str(date2), datetimeFormat)
+    #
+    #             diff = date12 - date11
+    #             hour1 = diff.days * 24
+    #
+    #             hours = (diff.seconds) // 3600
+    #             minutes = ((diff.seconds) % 3600) // 60
+    #             totalhours = hour1 + hours
+    #             # task.task_hours =totalhours
+    #
+    #             if rec.sales_id.offer_valid == '24hrs' :
+    #                 if totalhours > 24:
+    #                     b=True
+    #                     print('lost24')
+    #             elif   rec.sales_id.offer_valid == '3days' :
+    #                 if totalhours > 72:
+    #                     b=True
+    #                     print('lost72')
+    #             elif  rec.sales_id.offer_valid == '1Week':
+    #                 if totalhours > 168:
+    #                     b = True
+    #                     print('lost168')
+    #
+    #             elif rec.sales_id.offer_valid == '2Week':
+    #                 if totalhours > 336:  #336
+    #                     b = True
+    #                     print('lost336')
+    #
+    #             if totalhours > 336:  # 336
+    #                 b = True
+    #                 rec.is_lost_blue = True
+    #             print(totalhours)
+    #             print(b)
+    #             rec.is_lost = b
+    #
+    #             stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
+    #             print(stage.name)
+    #             for record in rec:
+    #                 print(record.is_lost)
+    #                 if record.is_lost == True:
+    #                     if stage:
+    #                         record.stage_id= stage.id
+    #                         record.write({'stage_id': stage.id})
+    #                         record.write({'is_lost': True })
+    #
+    #
+    #     return b
+
+    @api.multi
+    def review_all_lead(self):
+        crm_leads_ids = self.search([])
+        print(crm_leads_ids)
+        print("haytham Fadar")
+        stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
+        for record in crm_leads_ids:
+            print(record.name)
+            b = False
+            for rec in record:
+                print(rec.sales_id)
+                for myrec in rec.sales_id:
+                    print(myrec.name)
+                    print(myrec.state)
+                    if myrec.date_order:
+                        date1 = myrec.date_order
+                        date2 = fields.Datetime.now()
+                        print("date1", date1)
+                        print(date2)
+
+                        # code to get hours and minutes
+                        datetimeFormat = '%Y-%m-%d %H:%M:%S'
+                        date11 = datetime.strptime(str(date1), datetimeFormat)
+
+                        date12 = datetime.strptime(str(date2), datetimeFormat)
+
+                        diff = date12 - date11
+                        hour1 = diff.days * 24
+
+                        hours = (diff.seconds) // 3600
+                        minutes = ((diff.seconds) % 3600) // 60
+                        totalhours = hour1 + hours
+                        # task.task_hours =totalhours
+
+                        if myrec.offer_valid == '24hrs':
+                            if totalhours > 24:
+                                b = True
+                                print('lost24')
+                        elif myrec.offer_valid == '3days':
+                            if totalhours > 72:
+                                b = True
+                                print('lost72')
+                        elif myrec.offer_valid == '1Week':
+                            if totalhours > 168:
+                                b = True
+                                print('lost168')
+
+                        elif myrec.offer_valid == '2Week':
+                            if totalhours > 336:  # 336
+                                b = True
+                                print('lost336')
+
+                        if totalhours > 336:  # 336
+                            b = True
+                            rec.is_lost_blue = True
+                        if  myrec.state == 'cancel':  # 336
+                            print("hi cancel")
+                            rec.is_lost_green = True
+                            rec.stage_id = stage.id
+                            rec.write({'stage_id': stage.id,'is_lost_green':True})
+
+                        print(totalhours)
+                        print(myrec.state)
+                        rec.is_lost = b
+
+
+                    print(stage.name)
+                    for r  in record:
+                        print(r.is_lost)
+                        if r.is_lost == True:
+                            if stage:
+                                r.stage_id = stage.id
+                                r.write({'stage_id': stage.id})
+
+    @api.multi
+    @api.model
+    def cron_do_task_crm(self):
+        # self.server_do_action()
+        self.review_all_lead()
+
+    # @api.depends('is_lost')
+    # def change_stages(self):
+    #     stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
+    #     for record in self:
+    #         if record.is_lost ==True:
+    #             if stage:
+    #                 record.write({'stage_id': stage.id})
     @api.model
     def _get_lead_creation(self):
 
@@ -173,6 +330,13 @@ class SalesOrdercrm(models.Model):
     sales_stage = fields.Many2one(comodel_name="sales.stages" ,string ="Sales stages",group_expand='_read_group_stage_ids')
     sales_user_id = fields.Many2one(comodel_name="res.users", string="Sales Man", )
     user_id = fields.Many2one('res.users', string='CIP', index=True, track_visibility='onchange', track_sequence=2, default=lambda self: self.env.user)
+    offer_valid = fields.Selection([
+        ('24hrs', '24 Hrs'),
+        ('3days', '3 Days'),
+        ('1Week', '1 Week'),
+        ('2Week', '2 Week'),
+    ], 'Validity', default='3days')
+
 
     state = fields.Selection([
         ('draft', 'Quotation'),
