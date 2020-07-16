@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="journal_entries_report_id2">
+		<t t-call="web.html_container">
+			<t t-call="web.external_layout">
+				<style>
+					table {
+					font-family: arial;
+					border-collapse: collapse;
+					width: 100%;
+					margin: auto;
+					}
+					th {
+					border: 1px solid black;
+					text-align: left;
+					padding: 8px;
+					}
+					td{
+					border: 1px solid black;
+					text-align: left;
+					padding: 9px;
+					}
+
+					.img-responsive, .thumbnail &gt; img, .thumbnail a &gt; img, .carousel-inner &gt; .item &gt; img, .carousel-inner &gt; .item &gt; a &gt; img {
+					width :200px !important;
+					}
+
+				</style>
+				<t t-foreach="docs" t-as="o">
+					<div align="center" style="font-size:20px;">
+<!--						<strong><span t-field="o.name"/></strong>-->
+						<strong><span t-field="o.move_line_ids[0].move_id.name"/></strong>
+					</div>
+
+					<div class="page" style="font-size:15px;">
+						<div class="row"  style="margin-top:10px;font-size:15px;margin-left:8px;">
+							<span> <b>Journal: </b><span t-field="o.journal_id.name"/></span><br></br>
+							<span> <b>Date: </b><span t-field="o.payment_date"/></span><br></br>
+							<span><b> Partner: </b><span t-field="o.partner_id.name"/></span><br></br>
+							<span><b> Payment AMount: </b><span t-field="o.amount"/></span><br></br>
+						</div>
+						<table style="margin-top:20px">
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Account</th>
+
+									<th>Date</th>
+									<th>Partner Code</th>
+									<th>Partner</th>
+									<th>Reference Number</th>
+									<th>Lable</th>
+									<th>Analytic Account</th>
+									<th>Debit</th>
+									<th>Credit</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="o.move_line_ids" t-as="line">
+									<tr>
+										<td>
+											<span t-field="line.account_id.code"/>
+										</td>
+										<td>
+											<span t-field="line.account_id.name"/>
+										</td>
+										<td>
+											<span t-field="line.date"/>
+										</td>
+										<td>
+									<span t-field="line.partner_id.customer_code"/>
+										</td>
+										<td>
+											<span t-field="line.partner_id.name"/>
+										</td>
+										<td>
+											<span t-field="line.ref"/>
+										</td>
+										<td>
+											<span t-field="line.name"/>
+										</td>
+										<td>
+											<span t-field="line.account_id.name"/>
+										</td>
+										<td>
+											<span t-field="line.debit"/>
+
+										</td>
+										<td>
+											<span t-field="line.credit"/>
+
+										</td>
+									</tr>
+								</t>
+							</tbody>
+							<tfooter>
+								<tr>
+									<td colspan="8"></td>
+									<td>
+										<span t-esc="o.total_debit_credit().get('dr_total')"/>
+									</td>
+									<td>
+										<span t-esc="o.total_debit_credit().get('cr_total')"/>
+									</td>
+								</tr>
+							</tfooter>
+						</table>
+
+
+
+						<div class="row"  style="margin-top:50px;font-size:18px;margin-left:8px;">
+
+							<span> <b>PREPARED BY: </b> </span>
+
+							<span  style="margin-left:300px;" ><b> CHECKED BY: </b> </span><br></br><br></br>
+
+							<span style ="width: 200px;border-bottom: 1px solid black;position:absolute; "> </span>
+							<span style ="margin-left:408px;width: 200px;border-bottom: 1px solid black; position:absolute;">    </span><br></br>
+						</div>
+
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+	<report
+			id="journal_entries_moce_print_id2"
+			model = "account.payment"
+			string = "Journal Entries2"
+			report_type = "qweb-pdf"
+			name = "journal_entries_print.journal_entries_report_id2"
+			file = "journal_entries_print.journal_entries_report_id2"
+	/>
+
+<!--	<record id="journal_entries_paperformat" model="report.paperformat">-->
+<!--		<field name="name">Journal Entries</field>-->
+<!--		<field name="default" eval="True"/>-->
+<!--		<field name="format">custom</field>-->
+<!--		<field name="page_height">297</field>-->
+<!--		<field name="page_width">210</field>-->
+<!--		<field name="orientation">Landscape</field>-->
+<!--		<field name="margin_top">35</field>-->
+<!--		<field name="margin_bottom">20</field>-->
+<!--		<field name="margin_left">5</field>-->
+<!--		<field name="margin_right">5</field>-->
+<!--		<field name="header_line" eval="False"/>-->
+<!--		<field name="header_spacing">34</field>-->
+<!--		<field name="dpi">90</field>-->
+<!--		<field name="report_ids" eval="[(4, ref('journal_entries_moce_print_id'))]"/>-->
+<!--	</record>-->
+</odoo>

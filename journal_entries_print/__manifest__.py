@@ -15,6 +15,7 @@
     'license': 'AGPL-3',
     'data': [
             'report/report_menu.xml',
+            'report/report_menu2.xml',
             'views/views.xml',
             ],
 
