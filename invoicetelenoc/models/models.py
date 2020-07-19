@@ -42,6 +42,8 @@ class invoicetelenoc(models.Model):
             'x_studio_plate_num': self.vehicle.license_plate,
             'x_studio_claim_num': self.claim_no,
             'sale_id': self.id,
+            'x_studio_customer_source': self.x_studio_source_2.name,
+
 
             'x_studio_is_insured':self.is_insured,
             'x_studio_service_provider': self.service_advisor.id,
