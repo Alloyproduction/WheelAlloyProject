@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+
+     <record id="account_invoice_filter_inherit_report" model="ir.ui.view">
+        <field name="name">account.invoice.select.inherit.report</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//filter[@name='supplier']" position='after'>
+            <filter name="cartype2" string="Make" domain="[('cartype2', '!=', False)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='category_product']" position='after'>
+            <filter name='cartype22' string="Make" context="{'group_by':'cartype2'}"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='supplier']" position='after'>
+            <filter name="cartype1" string="Car Type" domain="[('cartype1', '!=', False)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='category_product']" position='after'>
+            <filter name='cartype11' string="Car Type" context="{'group_by':'cartype1'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+  </data>
+</odoo>

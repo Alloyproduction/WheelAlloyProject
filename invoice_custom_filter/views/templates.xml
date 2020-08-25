@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <template id="demo_report_invoice_document_inherit" inherit_id="account.report_invoice_document">-->
+<!--            <xpath expr="//div[@id='informations']" position="after">-->
+<!--                <div>-->
+<!--                    <h3>TESST</h3>-->
+<!--                    <h3>TESST</h3>-->
+<!--                </div>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+    </data>
+</odoo>
