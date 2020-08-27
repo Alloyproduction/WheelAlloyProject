@@ -9,6 +9,7 @@ class AccountInvoiceReport(models.Model):
 
     cartype1 = fields.Char(string='Car Type')
     cartype2 = fields.Char(string='Make')
+    team_id = fields.Many2one('crm.team', 'Sales Team')
 
     _depends = {
         'account.invoice': [
@@ -38,7 +39,8 @@ class AccountInvoiceReport(models.Model):
                 sub.product_qty, sub.price_total as price_total, sub.price_average as price_average, sub.amount_total / COALESCE(cr.rate, 1) as amount_total,
                 COALESCE(cr.rate, 1) as currency_rate, sub.residual as residual, sub.commercial_partner_id as commercial_partner_id,
                 sub.car_type as cartype1,
-                sub.MAKE as cartype2
+                sub.MAKE as cartype2,
+                sub.team_id as team_id 
         """
         return select_str
 
@@ -66,7 +68,8 @@ class AccountInvoiceReport(models.Model):
                     ai.commercial_partner_id as commercial_partner_id,
                     coalesce(partner.country_id, partner_ai.country_id) AS country_id,
                     ai.x_studio_car_type_name as car_type,
-                    b.name as Make
+                    b.name as Make,
+                    resu.sale_team_id as team_id 
         """
         return select_str
 
@@ -78,6 +81,8 @@ class AccountInvoiceReport(models.Model):
                 join vehicle v on v.id =so.vehicle 
                 join vehicle_model_brand as b on  b.id=v.brand_id
                 JOIN res_partner partner ON ai.commercial_partner_id = partner.id
+                Join res_users resu on resu.id=so.user_id
+                Join crm_team ct on ct.id=resu.sale_team_id
                 JOIN res_partner partner_ai ON ai.partner_id = partner_ai.id
                 LEFT JOIN product_product pr ON pr.id = ail.product_id
                 left JOIN product_template pt ON pt.id = pr.product_tmpl_id
@@ -101,7 +106,7 @@ class AccountInvoiceReport(models.Model):
 
     def _group_by(self):
         group_by_str = """
-                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, b.name, ai.id,
+                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, b.name, ai.id,resu.sale_team_id,
                     ai.partner_id, ai.payment_term_id, u2.name, u2.id, ai.currency_id, ai.journal_id,
                     ai.fiscal_position_id, ai.user_id, ai.company_id, ai.id, ai.type, invoice_type.sign, ai.state, pt.categ_id,
                     ai.date_due, ai.account_id, ail.account_id, ai.partner_bank_id, ai.residual_company_signed,
