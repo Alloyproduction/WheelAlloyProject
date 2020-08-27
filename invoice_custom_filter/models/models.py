@@ -9,7 +9,7 @@ class AccountInvoiceReport(models.Model):
 
     cartype1 = fields.Char(string='Car Type')
     cartype2 = fields.Char(string='Make')
-    team_id = fields.Many2one('crm.team', 'Sales Team')
+    team_id1 = fields.Many2one('crm.team', 'Sales Team')
 
     _depends = {
         'account.invoice': [
@@ -40,7 +40,7 @@ class AccountInvoiceReport(models.Model):
                 COALESCE(cr.rate, 1) as currency_rate, sub.residual as residual, sub.commercial_partner_id as commercial_partner_id,
                 sub.car_type as cartype1,
                 sub.MAKE as cartype2,
-                sub.team_id as team_id 
+                sub.team as team_id1 
         """
         return select_str
 
@@ -69,7 +69,7 @@ class AccountInvoiceReport(models.Model):
                     coalesce(partner.country_id, partner_ai.country_id) AS country_id,
                     ai.x_studio_car_type_name as car_type,
                     b.name as Make,
-                    resu.sale_team_id as team_id 
+                    resu.sale_team_id as team 
         """
         return select_str
 
