@@ -9,7 +9,9 @@ class AccountInvoiceReport(models.Model):
 
     cartype1 = fields.Char(string='Car Type')
     cartype2 = fields.Char(string='Make')
-    team_id1 = fields.Many2one('crm.team', 'Sales Team')
+    # team_id1 = fields.Many2one('crm.team', 'Sales Team')
+    # partner_type =  fields.Selection([('True','Yes'),('False','No')],string='Company / Individual',default='False')
+    company1 = fields.Boolean(string="Company / Individual")
 
     _depends = {
         'account.invoice': [
@@ -40,10 +42,11 @@ class AccountInvoiceReport(models.Model):
                 COALESCE(cr.rate, 1) as currency_rate, sub.residual as residual, sub.commercial_partner_id as commercial_partner_id,
                 sub.car_type as cartype1,
                 sub.MAKE as cartype2,
-                sub.team as team_id1 
+            
+                sub.is_company as company1
         """
         return select_str
-
+    # sub.team as team_id1 ,
     def _sub_select(self):
         select_str = """
                 SELECT ail.id AS id,
@@ -69,10 +72,12 @@ class AccountInvoiceReport(models.Model):
                     coalesce(partner.country_id, partner_ai.country_id) AS country_id,
                     ai.x_studio_car_type_name as car_type,
                     b.name as Make,
-                    resu.sale_team_id as team 
+                   
+                    partner.is_company as is_company 
         """
         return select_str
 
+    # resu.sale_team_id as team ,
     def _from(self):
         from_str = """
                 FROM account_invoice_line ail
@@ -104,10 +109,11 @@ class AccountInvoiceReport(models.Model):
         """
         return from_str
 
+    # resu.sale_team_id,
     def _group_by(self):
         group_by_str = """
-                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, b.name, ai.id,resu.sale_team_id,
-                    ai.partner_id, ai.payment_term_id, u2.name, u2.id, ai.currency_id, ai.journal_id,
+                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, b.name, ai.id,   
+                    ai.partner_id, ai.payment_term_id, u2.name, u2.id, ai.currency_id, ai.journal_id, partner.is_company ,
                     ai.fiscal_position_id, ai.user_id, ai.company_id, ai.id, ai.type, invoice_type.sign, ai.state, pt.categ_id,
                     ai.date_due, ai.account_id, ail.account_id, ai.partner_bank_id, ai.residual_company_signed,
                     ai.amount_total_company_signed, ai.commercial_partner_id, coalesce(partner.country_id, partner_ai.country_id)

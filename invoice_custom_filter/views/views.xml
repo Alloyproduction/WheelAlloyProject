@@ -25,13 +25,13 @@
 
 
 
-            <xpath expr="//filter[@name='supplier']" position='after'>
-            <filter name="team_id11" string="Sales Team" domain="[('team_id1', '!=', False)]"/>
-            </xpath>
+<!--            <xpath expr="//filter[@name='supplier']" position='after'>-->
+<!--            <filter name="team_id11" string="Sales Team" domain="[('team_id1', '!=', False)]"/>-->
+<!--            </xpath>-->
 
-           <xpath expr="//group/filter[2]" position="replace">
-            <filter name='team_id11' string="Sales Team" context="{'group_by':'team_id1'}"/>
-            </xpath>
+<!--           <xpath expr="//group/filter[2]" position="replace">-->
+<!--            <filter name='team_id11' string="Sales Team" context="{'group_by':'team_id1'}"/>-->
+<!--            </xpath>-->
 
         </field>
     </record>
