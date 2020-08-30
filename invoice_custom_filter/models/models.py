@@ -86,8 +86,6 @@ class AccountInvoiceReport(models.Model):
                 join vehicle v on v.id =so.vehicle 
                 join vehicle_model_brand as b on  b.id=v.brand_id
                 JOIN res_partner partner ON ai.commercial_partner_id = partner.id
-                Join res_users resu on resu.id=so.user_id
-                Join crm_team ct on ct.id=resu.sale_team_id
                 JOIN res_partner partner_ai ON ai.partner_id = partner_ai.id
                 LEFT JOIN product_product pr ON pr.id = ail.product_id
                 left JOIN product_template pt ON pt.id = pr.product_tmpl_id
