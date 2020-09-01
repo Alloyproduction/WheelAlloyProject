@@ -68,24 +68,24 @@
                  </xpath>
             </field>
         </record>
-      <!--  <record id="invoice_form_tax_Customer1_inherit2" model="ir.ui.view">
-            <field name="name">invoice.form.tax.customer.inherit2</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_tree_with_onboarding"/>
-            <field name="arch" type="xml">
-<!--                <xpath expr="//button[@name='action_invoice_draft']" position="before">-->
-<!--                    <button name="action_invoice_cancel" type="object" states="draft,open,in_payment,paid" string="Cancel" groups="account.group_account_invoice"/>-->
-<!--                </xpath>-->
-<!--                
+<!--        <record id="invoice_form_tax_Customer1_inherit2" model="ir.ui.view">-->
+<!--            <field name="name">invoice.form.tax.customer.inherit2</field>-->
+<!--            <field name="model">account.invoice</field>-->
+<!--            <field name="inherit_id" ref="account.invoice_tree_with_onboarding"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--&lt;!&ndash;                <xpath expr="//button[@name='action_invoice_draft']" position="before">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button name="action_invoice_cancel" type="object" states="draft,open,in_payment,paid" string="Cancel" groups="account.group_account_invoice"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--&lt;!&ndash;                &ndash;&gt;-->
 
-                <xpath expr="//field[@name='amount_tax_signed']" position="replace">
-               <field name="amount_tax" sum="amount tax total" />
-                 </xpath> 
-  <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="replace">
-               <field name="amount_untaxed"  sum="amount untaxed total"/>
-                 </xpath>
-            </field>
-        </record>  -->
+<!--               <xpath expr="//field[@name='amount_tax_signed']" position="replace">-->
+<!--               <field name="amount_tax" sum="amount tax total" />-->
+<!--                 </xpath>-->
+<!--  <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="replace">-->
+<!--               <field name="amount_untaxed"  sum="amount untaxed total"/>-->
+<!--                 </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
 
 
