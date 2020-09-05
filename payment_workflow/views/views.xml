@@ -1,0 +1,40 @@
+<odoo>
+  <data>
+    <record id="journal_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml"/>
+
+
+                <xpath expr="//header" position="after"/>
+                    <header>
+                          <button string="Leader Approve" name="action_Leader"
+                            type="object" class="oe_highlight"
+                            groups="alloy_purchase_order_approval.group_view_purchase_leader_button"
+                              attrs="{'invisible':[('state_approve','in',['Leader','Manager','CEO'])]}"
+                          states=""/>
+
+                    <button string="Manager Approve" name="action_Manager"
+                            type="object" class="oe_highlight"
+                            groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
+                            states=""
+                       attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>
+<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
+
+
+<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
+<!--                            />-->
+                    <button string="CEO Approve" name="action_CEO"
+                            type="object" class="oe_highlight"
+                            groups="alloy_purchase_order_approval.group_view_purchase_ceo_button"
+                           states=""
+                      attrs="{'invisible':['|',('state_approve','in',['CEO']),('need_CEO_Approve','=',False)]}"/>
+<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
+<!--                            />-->
+                    <field name="state_approve" widget="statusbar" statusbar_colors='{"Leader":"red","Manager":"blue","CEO":"green"}' />
+                    </header>
+
+       </record>
+  </data>
+</odoo>
