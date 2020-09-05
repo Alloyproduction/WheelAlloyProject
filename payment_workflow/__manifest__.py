@@ -27,7 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/mail_temp.xml',
+        # 'views/mail_temp.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
