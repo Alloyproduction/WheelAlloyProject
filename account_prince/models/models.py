@@ -15,6 +15,49 @@ class accountinvoice(models.Model):
     origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document Link")
     first_payment_date =fields.Date(string="Payment Date", readonly=True,  related="payment_move_line_ids.date")
 
+    @api.multi
+    def action_invoice_sent(self):
+        """ Open a window to compose an email, with the edi invoice template
+            message loaded by default
+        """
+        self.ensure_one()
+        # template = self.env.ref('account.email_template_edi_invoice', False)
+        template = self.env['mail.template'].browse(53)
+        compose_form = self.env.ref('account.account_invoice_send_wizard_form', False)
+        # have model_description in template language
+        lang = self.env.context.get('lang')
+        if template and template.lang:
+            lang = template._render_template(template.lang, 'account.invoice', self.id)
+        self = self.with_context(lang=lang)
+        TYPES = {
+            'out_invoice': _('Invoice'),
+            'in_invoice': _('Vendor Bill'),
+            'out_refund': _('Credit Note'),
+            'in_refund': _('Vendor Credit note'),
+        }
+        ctx = dict(
+            default_model='account.invoice',
+            default_res_id=self.id,
+            default_use_template=bool(template),
+            default_template_id=template and template.id or False,
+            default_composition_mode='comment',
+            mark_invoice_as_sent=True,
+            model_description=TYPES[self.type],
+            custom_layout="mail.mail_notification_paynow",
+            force_email=True
+        )
+        return {
+            'name': _('Send Invoice'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.invoice.send',
+            'views': [(compose_form.id, 'form')],
+            'view_id': compose_form.id,
+            'target': 'new',
+            'context': ctx,
+        }
+
 
 
 class PurchaseOrder2(models.Model):
