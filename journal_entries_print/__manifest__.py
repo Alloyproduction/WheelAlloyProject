@@ -14,6 +14,8 @@
     'depends': ['account','mail'],
     'license': 'AGPL-3',
     'data': [
+            'security/groups.xml',
+            'security/ir.model.access.csv',
             'report/report_menu.xml',
             'report/report_menu2.xml',
             'views/views.xml',
