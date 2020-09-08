@@ -22,7 +22,7 @@
      </record>
 
       <menuitem id="main_petty_cash" name="Petty Cash"/>
-      <menuitem action="account.action_move_journal_line" name="Journal Entry"
+      <menuitem action="account.action_view_bank_statement_tree" name="Journal Entry"
                 id="menu_journal_entry" parent="main_petty_cash" groups="group_petty_cash"/>
 
 
