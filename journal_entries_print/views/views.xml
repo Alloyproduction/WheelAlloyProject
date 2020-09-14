@@ -30,9 +30,9 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//header" position="inside">
-                    <button name="print" string="Prepar" type="object"/>
-                    <button name="print" string="Review" type="object"/>
-                    <button name="print" string="approve" type="object"/>
+<!--                    <button name="print" string="Prepar" type="object"/>-->
+<!--                    <button name="print" string="Review" type="object"/>-->
+<!--                    <button name="print" string="approve" type="object"/>-->
 
                 </xpath>
 
