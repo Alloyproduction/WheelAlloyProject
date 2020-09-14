@@ -71,7 +71,7 @@ class AccountInvoiceReport(models.Model):
                     ai.commercial_partner_id as commercial_partner_id,
                     coalesce(partner.country_id, partner_ai.country_id) AS country_id,
                     ai.x_studio_car_type_name as car_type,
-                    b.name as Make,
+                    ai.x_studio_car_type_name as Make,
                    
                     partner.is_company as is_company 
         """
@@ -82,9 +82,7 @@ class AccountInvoiceReport(models.Model):
         from_str = """
                 FROM account_invoice_line ail
                 JOIN account_invoice ai ON ai.id = ail.invoice_id
-                join sale_order so on ai.sale_id=so.id
-                join vehicle v on v.id =so.vehicle 
-                join vehicle_model_brand as b on  b.id=v.brand_id
+              
                 JOIN res_partner partner ON ai.commercial_partner_id = partner.id
                 JOIN res_partner partner_ai ON ai.partner_id = partner_ai.id
                 LEFT JOIN product_product pr ON pr.id = ail.product_id
@@ -110,7 +108,7 @@ class AccountInvoiceReport(models.Model):
     # resu.sale_team_id,
     def _group_by(self):
         group_by_str = """
-                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, b.name, ai.id,   
+                GROUP BY ail.id, ail.product_id, ail.account_analytic_id, ai.date_invoice, ai.id,   
                     ai.partner_id, ai.payment_term_id, u2.name, u2.id, ai.currency_id, ai.journal_id, partner.is_company ,
                     ai.fiscal_position_id, ai.user_id, ai.company_id, ai.id, ai.type, invoice_type.sign, ai.state, pt.categ_id,
                     ai.date_due, ai.account_id, ail.account_id, ai.partner_bank_id, ai.residual_company_signed,
