@@ -9,7 +9,10 @@
                 <t t-foreach="docs" t-as="doc">
                     <t t-call="web.external_layout">
                         <!--                        <div class="page">-->
-                        <h2>Petty Cash</h2>
+                        <div align="center" style="font-size:20px;">
+                            <h1>Petty Cash</h1>
+                        </div>
+
 
                         <style>
                             table {
@@ -36,19 +39,58 @@
 
                         </style>
                         <t t-foreach="docs" t-as="o">
-                            <div align="center" style="font-size:20px;">
-                                <!--						<strong><span t-field="o.name"/></strong>-->
-                                <!--						<strong><span t-field="o.move_line_ids[0].move_id.name"/></strong>-->
-                            </div>
+
+                                  <div align="left" style="font-size:15px;">
+                                    <td>
+                                        <b>Journal:</b>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.journal_id"/>
+                                    </td>
+
+                                    <br></br>
+
+                                    <td>
+                                        <b>Date:</b>
+                                    </td>
+                                      <td>
+                                          <span t-field="o.date"/>
+                                      </td>
+                                  </div>
+                            <br></br>
+
+                            <aside align="left" style="font-size:15px;">
+                                <td>
+                                    <b>Starting Balance:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.balance_start"/>
+                                </td>
+
+                                <br></br>
+                                <td>
+                                    <b>Ending Balance:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.balance_end_real"/>
+                                </td>
+                            </aside>
+
+
+                            <!--						<strong><span t-field="o.name"/></strong>-->
+                            <!--						<strong><span t-field="o.move_line_ids[0].move_id.name"/></strong>-->
+
 
                             <div class="page" style="font-size:15px;">
 
-                                      <caption>Petty Cash1</caption>
+
+
+
 
                                 <table style="margin-top:20px">
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
+                                        <th>Date</th>
                                             <th>Label</th>
                                             <th>Partner</th>
                                             <th>Reference Number</th>

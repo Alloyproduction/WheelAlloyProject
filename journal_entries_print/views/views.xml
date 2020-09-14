@@ -30,22 +30,27 @@
             <field name="arch" type="xml">
 
              <xpath expr="//header" position="after">
-                    <header>
-<!--                        <button name="action_draft" type="object"-->
-<!--                                string="Reset to draft"-->
-<!--                                states="open,confirmed,done"/>-->
-
-
-<!--                        <button name="action_confirm" type="object"-->
-<!--                                string="Confirm" states="draft"-->
-<!--                                class="oe_highlight"/>-->
-
-
-<!--                        <button name="action_process" type="object"-->
-<!--                                string="Mark as done" states="confirm, confirmed"-->
-<!--                                class="oe_highlight"/>-->
-                    </header>
+                 <header>
+                     <button name="action_draft" type="object"
+                             string="Prepare"
+                             states="open"/>
+                     <button name="action_confirm" type="object"
+                             string="Review" states="open,process"
+                             class="oe_highlight"/>
+                     <button name="action_process" type="object"
+                             string="Approve" states="open,Confirmed,confirm"
+                             class="oe_highlight"/>
+                 </header>
              </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]/field[@name='date']"
+                       position="after">
+                    <field name="po_number" string="PO Number "/>
+                </xpath>
+
+<!--              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]/field[@name='ref']" position="after">-->
+<!--    <field name="x_studio_invoice_image_1" options="{&quot;size&quot;: [0, 90]}" widget="image" string="Invoice Image"/>-->
+<!--  </xpath>-->
 
                 <xpath expr="//sheet" position="after">
 
