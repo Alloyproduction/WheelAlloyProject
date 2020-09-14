@@ -18,8 +18,6 @@
             'security/ir.model.access.csv',
             'report/report_menu.xml',
             'report/report_menu2.xml',
-            'report/profial.xml',
-            'report/claim_report.xml',
             'views/views.xml',
             ],
 
