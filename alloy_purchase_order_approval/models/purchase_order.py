@@ -10,7 +10,7 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     # _inherit = ['purchase.order','mail.thread']
 
-    need_CEO_Approve =fields.Boolean(string="Need CEO Approve ",default=True)
+    need_CEO_Approve =fields.Boolean(string="Need CEO Approve ",default=False)
     state_approve = fields.Selection([
         ('NotApprove', "NotApprove"),
         ('Leader', "Leader"),
