@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+
+        <template id="claim_profile_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <!--                        <div class="page">-->
+                        <div align="center" style="font-size:20px;">
+                            <h1>Petty Cash</h1>
+                        </div>
+
+
+                        <style>
+                            table {
+                            font-family: arial;
+                            border-collapse: collapse;
+                            width: 100%;
+                            margin: auto;
+                            }
+                            th {
+                            border: 1px solid black;
+                            text-align: left;
+                            padding: 8px;
+                            }
+                            td{
+                            border: 1px solid black;
+                            text-align: left;
+                            padding: 9px;
+                            }
+
+                            .img-responsive, .thumbnail &gt; img, .thumbnail a &gt; img, .carousel-inner &gt; .item &gt;
+                            img, .carousel-inner &gt; .item &gt; a &gt; img {
+                            width :200px !important;
+                            }
+
+                        </style>
+                        <t t-foreach="docs" t-as="o">
+
+                                  <div align="left" style="font-size:15px;">
+                                    <td>
+                                        <b>Journal:</b>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.journal_id"/>
+                                    </td>
+
+                                    <br></br>
+
+                                    <td>
+                                        <b>Date:</b>
+                                    </td>
+                                      <td>
+                                          <span t-field="o.date"/>
+                                      </td>
+                                  </div>
+                            <br></br>
+
+                            <aside align="left" style="font-size:15px;">
+                                <td>
+                                    <b>Starting Balance:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.balance_start"/>
+                                </td>
+
+                                <br></br>
+                                <td>
+                                    <b>Ending Balance:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.balance_end_real"/>
+                                </td>
+                            </aside>
+
+
+                            <!--						<strong><span t-field="o.name"/></strong>-->
+                            <!--						<strong><span t-field="o.move_line_ids[0].move_id.name"/></strong>-->
+
+
+                            <div class="page" style="font-size:15px;">
+
+
+
+
+
+                                <table style="margin-top:20px">
+                                    <thead>
+                                        <tr>
+                                        <th>Date</th>
+                                            <th>Label</th>
+                                            <th>Partner</th>
+                                            <th>Reference Number</th>
+                                            <th>PO Reference</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.line_ids" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <span t-field="line.date"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="line.name"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-field="line.partner_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="line.name"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-field="line.ref"/>
+                                                </td>
+
+                                                <td>
+                                                    <span t-field="line.amount"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                    </tbody>
+
+                                    <tfooter>
+								<tr>
+									<td colspan="5"></td>
+									<td>
+										<span t-esc="o.balance_end"/>
+									</td>
+								</tr>
+							</tfooter>
+
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

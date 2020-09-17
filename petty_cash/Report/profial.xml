@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Report Definition -->
+        <report
+                id="claim_report_template"
+                model="account.bank.statement"
+                string="Petty Cash"
+                report_type="qweb-pdf"
+                name="petty_cash.claim_profile_template"
+                file="petty_cash.claim_report"/>
+<!--                attachment_use="True"/>-->
+<!--                attachment="(object.state in ('open','paid')) and-->
+<!--        ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+        />
+
+
+
+    </data>
+
+</odoo>
