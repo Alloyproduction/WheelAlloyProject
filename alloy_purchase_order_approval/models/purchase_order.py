@@ -10,15 +10,13 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     # _inherit = ['purchase.order','mail.thread']
 
-    need_CEO_Approve =fields.Boolean(string="Need CEO Approve ",default=False)
+    need_CEO_Approve =fields.Boolean(string="Need CEO Approve ",default=True)
     state_approve = fields.Selection([
         ('NotApprove', "NotApprove"),
         ('Leader', "Leader"),
         ('Manager', "Manager"),
         ('CEO', "CEO"),
     ], default='NotApprove')
-
-
 
     is_manager = fields.Boolean(string="Manager Approval")
     is_leader = fields.Boolean(string="Leader Approval")
@@ -43,7 +41,6 @@ class PurchaseOrder(models.Model):
         # print("hi..................................")
         # print(m)
 
-
     @api.multi
     def action_Manager(self):
         self.is_leader = True
@@ -62,6 +59,8 @@ class PurchaseOrder(models.Model):
         self.is_manager = True
         self.is_ceo = True
         self.state_approve = 'CEO'
+
+
         # post_vars = {'subject': "Message subject", 'body': "Approved By CEO"}
         # self.message_post(type="notification", subtype="mt_comment", context=self._context, **post_vars)
         self.send_m("Purchase Order "+self.name,"Approved By CEO ( "+self.env.user.name+")")
@@ -103,7 +102,53 @@ class PurchaseOrder(models.Model):
         print(dic)
         recipient_partners = dic["recipient_partners"]
 
-        msgsubject= dic["Subject"]
+        ###########
+        # mo. edit ceo approve
+        ###########
+        msg_body = "<br><b>Request Name:</b> " + str(
+            self.name) + " / "\
+                   + "<b><br>Purchase Request:</b> " + str(self.purchase_request_id.name) \
+                   + "<b><br>Employee Name: </b>" + str(self.employee_name_id.name) \
+                   + "<b><br>Vendor: </b>" + str(self.partner_id.name) \
+                   + "<b><br>Deliver To: </b>" + str(self.picking_type_id.name) \
+                   + "<b><br>Total Amount: </b>" + str(self.amount_total) \
+                   + "<b><br>Order Date: </b>" + str(self.date_order)
+
+        activities = {}
+        list = []
+        task_description = ""
+        # total = 0
+        for i in self.order_line:
+            # total += i.product_qty * i.price
+            activities.update(
+                {'Product': i.product_id.name, 'Description': i.name,
+                 'Quantity': i.product_qty, 'Price': i.price})
+            list.append(activities)
+            task_description += "<tr>   <td  align=""center""> <font size=""2"">{3}</font></td>" \
+                                "<td  align=""center""> <font size=""2"">{2}</font></td>" \
+                                "<td  align=""center""> <font size=""2"">{1}</font></td>    " \
+                                "<td  align=""center""> <font size=""2"">{0}</font></td>  </tr>" \
+                .format(str(i.price), str(i.product_qty), str(i.name), str(i.product_id.name), )
+
+            print(task_description)
+
+            status_table = " <font size=""2"">   <p> {0}<br>---------------------------- </p>" \
+                           "<table style=""width:80%"" border="" 1px solid black"">" \
+                           "<tr> <th><font size=""2"">Product</font> </th>    " \
+                           "<th><font size=""2"">Description</font> </th>    " \
+                           "<th><font size=""2"">Quantity</font> </th>    " \
+                           "<th><font size=""2"">Price</font> </th>    </tr>{1}" \
+                           "</table>" \
+                           "<p> <p>Regards,</p> </font>" \
+                .format(msg_body, task_description, i.price, i.product_qty, i.name, i.product_id.name)
+            print(status_table)
+
+        msg_sub = ", Request:" + self.purchase_request_id.name + ", Vendor:" + self.partner_id.name + ", Total:" + str(self.amount_total)
+        ###########
+        # mo. edit
+        ###########
+
+        msgsubject = dic["Subject"]
         msgbody = dic["Body"]
         if msubj != "":
             msgsubject = msubj
@@ -120,6 +165,9 @@ class PurchaseOrder(models.Model):
         # if self.employee_name.id and self.employee_name.id not in recipient_partners:
         #             recipient_partners.append(self.employee_name.work_email)
 
+
+
+
         print(recipient_partners)
         print(self.name)
         # if len(recipient_partners)  :
@@ -134,9 +182,9 @@ class PurchaseOrder(models.Model):
         #
             # self.env['send.purchase.order'].send_mail_msg(msgsubject,msgbody,recipient_partners)
             # print(" hI. Sending")
-            self.message_post(body=msgbody,
+            self.message_post(body=msgbody+status_table,
                               subtype='mail.mt_comment',
-                              subject=msgsubject,
+                              subject=msgsubject+msg_sub,
                               partner_ids=recipient_partners,
                               message_type='comment')
             # print(x)
@@ -250,7 +298,7 @@ class PurchaseOrder(models.Model):
                 else :
                     return res
 
-            if  self.partner_id.is_need_approval ==True  and self.is_manager and  max_manager['maximum_amount'] >  self.amount_total:
+            if self.partner_id.is_need_approval == True and self.is_manager and max_manager['maximum_amount'] > self.amount_total:
                 return res
             else:
                 if self.partner_id.is_need_approval ==True and not self.is_manager:
@@ -258,12 +306,12 @@ class PurchaseOrder(models.Model):
                 else:
                     return res
         else:
-
-
             if self.partner_id.is_need_approval ==True and  self.is_ceo == False  :
                raise UserError(_("CEO Approval is needed"))
             else:
                 return res
+
+
 
 
 class SPurchaseOrder(models.Model):
