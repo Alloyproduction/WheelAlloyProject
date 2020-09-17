@@ -23,10 +23,9 @@ class AccountMove(models.Model):
         return self.env.ref('journal_entries_print.journal_entries_moce_print_id').report_action(self)
 
 
-
 class AccountMove(models.Model):
     _name = "account.payment"
-    _inherit = ['account.payment','mail.thread', 'mail.activity.mixin']
+    _inherit = ['account.payment', 'mail.thread', 'mail.activity.mixin']
 
     @api.multi
     def total_debit_credit(self):
