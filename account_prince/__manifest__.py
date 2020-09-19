@@ -29,6 +29,7 @@
         'views/templates.xml',
         'views/templates.xml',
         'security/cancel_account.xml',
+        # 'Data/mail_temp.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

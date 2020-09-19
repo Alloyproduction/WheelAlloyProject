@@ -15,6 +15,49 @@ class accountinvoice(models.Model):
     origin_purchase_id = fields.Many2one(comodel_name="purchase.order",string="Source Document Link")
     first_payment_date =fields.Date(string="Payment Date", readonly=True,  related="payment_move_line_ids.date")
 
+    @api.multi
+    def action_invoice_sent(self):
+        """ Open a window to compose an email, with the edi invoice template
+            message loaded by default
+        """
+        self.ensure_one()
+        # template = self.env.ref('account.email_template_edi_invoice', False)
+        template = self.env['mail.template'].browse(53)
+        compose_form = self.env.ref('account.account_invoice_send_wizard_form', False)
+        # have model_description in template language
+        lang = self.env.context.get('lang')
+        if template and template.lang:
+            lang = template._render_template(template.lang, 'account.invoice', self.id)
+        self = self.with_context(lang=lang)
+        TYPES = {
+            'out_invoice': _('Invoice'),
+            'in_invoice': _('Vendor Bill'),
+            'out_refund': _('Credit Note'),
+            'in_refund': _('Vendor Credit note'),
+        }
+        ctx = dict(
+            default_model='account.invoice',
+            default_res_id=self.id,
+            default_use_template=bool(template),
+            default_template_id=template and template.id or False,
+            default_composition_mode='comment',
+            mark_invoice_as_sent=True,
+            model_description=TYPES[self.type],
+            custom_layout="mail.mail_notification_paynow",
+            force_email=True
+        )
+        return {
+            'name': _('Send Invoice'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.invoice.send',
+            'views': [(compose_form.id, 'form')],
+            'view_id': compose_form.id,
+            'target': 'new',
+            'context': ctx,
+        }
+
 
 
 class PurchaseOrder2(models.Model):
@@ -94,26 +137,8 @@ class account_payment2(models.Model):
                               subject=msgsubject,
                               partner_ids=recipient_partners,
                               message_type='comment')
-
-
-
     @api.multi
     def action_validate_invoice_payment(self):
-
-        payment_sub = "{0} / {1} / {2}" \
-            .format(self.partner_id.name,
-                    self.amount, self.payment_date)
-
-        payment_body = "<b><br>---------------Details---------------</b>" \
-                       "<br><b>Partner Name:</b> {0}" \
-                       "<br><b>Payment Amount:</b> {1}" \
-                       "<br><b>Payment Journal:</b> {2}" \
-                       "<br><b>Payment Date:</b> {3}" \
-                       "<br><b>Memo:</b> {4}" \
-            .format(self.partner_id.name, self.amount,
-                    self.journal_id.name, self.payment_date,
-                    self.communication, )
-
         res =super(account_payment2, self).action_validate_invoice_payment()
         print(self)
         recipients = self.get_recipients()
@@ -122,7 +147,7 @@ class account_payment2(models.Model):
             print(x)
 
         recipients =[300, 280]
-        self.send_m("Bill Paid / " + payment_sub,"This Bill paid" + payment_body,recipients)
+        self.send_m("Bill Paid","This Bill paid",recipients)
         return   res
 
 # class account_prince(models.Model):
