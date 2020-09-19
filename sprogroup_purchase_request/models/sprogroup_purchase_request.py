@@ -172,7 +172,7 @@ class SprogroupPurchaseRequest(models.Model):
 
 
     @api.multi
-    def button_to_approve(self, line_ids):
+    def button_to_approve(self):
 
         self.is_editable_employee_name=False
         # partners = self.env['res.users'].search([])
