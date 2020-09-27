@@ -189,7 +189,7 @@ class SprogroupPurchaseRequest(models.Model):
         # if self.employee_name.id and self.employee_name.id not in recipient_partners:
         #             recipient_partners.append(self.employee_name.work_email)
 
-        print(recipient_partners)
+        print("hi",recipient_partners)
 
         #########
         # mo. edit
@@ -237,12 +237,12 @@ class SprogroupPurchaseRequest(models.Model):
         # mo. edit
         ##########
         if len(recipient_partners):
-            self.message_post(body = status_table,
-                             subtype='mt_comment',
-                             subject= msg_sub,
-                             partner_ids=recipient_partners ,
-                             message_type='comment')
-
+            current = self.browse(self._context.get('active_id', False))
+            current.message_post(body=status_table,
+                                 subtype='mt_comment',
+                                 subject=msg_sub,
+                                 partner_ids=recipient_partners,
+                                 message_type='comment')
         return self.write({'state': 'to_approve'})
 
     # @api.multi
