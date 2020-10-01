@@ -191,13 +191,20 @@ class SprogroupPurchaseRequest(models.Model):
 
         print("hi",recipient_partners)
 
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url += '/web#id=%d&view_type=form&model=%s' % (self.id, self._name)
+
         #########
         # mo. edit
         #########
-        msg_body = "<b>New purchase request require your approval</b>" + "<br><b>Request Name:</b> " + str(self.name) + " / " + str(self.code) \
-                   + "<b><br>Requested By:</b> " + str(self.requested_by.name)\
+
+        msg_body = "<b>New purchase request require your approval</b><br>" \
+                   + "<div><a style='padding: 10px;font-size: 15px;color: #ffffff;text-decoration: none !important;font-weight: bold;background-color: #875a7b !important;border: 0px solid #875a7b;border-radius: 3px;' href=" + str(
+            base_url) + ">Check From Here</a></div>" \
+                   + "<br><b>Request Name:</b> " + str(self.name) + " / " + str(self.code) \
+                   + "<b><br>Requested By:</b> " + str(self.requested_by.name) \
                    + "<b><br>Employee Name: </b>" + str(self.employee_name.name) \
-                   + "<b><br>Vendor: </b>" + str(self.partner_id.name)\
+                   + "<b><br>Vendor: </b>" + str(self.partner_id.name) \
                    + "<b><br>Department: </b>" + str(self.department_id.name) \
                    + "<b><br>Start/End Date: </b>" + str(self.date_start) + " : " + str(self.end_start)
 
