@@ -56,19 +56,16 @@ class SprogrouppurcaseRequest(models.Model):
         # mo. edit
         ###########
 
-        # for rec in self:
         for rec in self.browse(self._context.get('active_id', False)):
             msg_body = "New purchase request require your approval" + status_table
 
             msg_sub = "Approve Purchase Request" + " / " + msg_sub
-            # groups = self.env['res.groups'].search([('name', '=', 'Sprogroup Purchase Request Manager')])
+            groups = self.env['res.groups'].search([('name', '=', 'Sprogroup Purchase Request Manager')])
             recipient_partners = []
-            # for group in groups:
-            #     for recipient in group.users:
-            #         if recipient.partner_id.id not in recipient_partners:
-            #             recipient_partners.append(recipient.partner_id.id)
-            if self.assign_to:
-                recipient_partners.append(self.assign_to.partner_id.id)
+            for group in groups:
+                for recipient in group.users:
+                    if recipient.partner_id.id not in recipient_partners:
+                        recipient_partners.append(recipient.partner_id.id)
             if len(recipient_partners):
                 rec.message_post(body=msg_body,
                                  subtype='mt_comment',

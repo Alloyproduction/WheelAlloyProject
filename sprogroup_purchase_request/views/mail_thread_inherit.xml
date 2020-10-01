@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+        <!-- mo. edit -->
+        <template id="mail_thread_form_inherit" inherit_id="mail.message_notification_email">
+            <xpath expr="//div/table/tbody/tr/td/a[@t-if='has_button_access']" position="attributes">
+                     <attribute name="t-if"/>
+            </xpath>
+        </template>
+        <!-- mo. edit -->
+</data>
+</odoo>
