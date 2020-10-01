@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Eficent Business and IT Consulting Services S.L.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0).
-from gi.overrides.Gtk import Button
 from odoo.tools import pycompat, ustr, formataddr
 from odoo import api, fields, models, _ , SUPERUSER_ID
 from odoo.addons import decimal_precision as dp
@@ -9,7 +8,6 @@ from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.exceptions import UserError
 from requests import exceptions
-from urllib3 import request
 
 _STATES = [
     ('draft', 'Draft'),
@@ -51,7 +49,7 @@ class SprogroupPurchaseRequest(models.Model):
                                    default=_get_default_requested_by)
     employee_name = fields.Many2one('hr.employee','Employee Name') #, domain=[('supplier','=',False) ,('customer','=',False) ]
     assigned_to = fields.Many2one('res.users', 'Approver', required=True,
-                                  track_visibility='onchange', )
+                                  track_visibility='onchange')
     partner_id = fields.Many2one('res.partner', 'Vendor', required=True, domain=[('supplier','=',True) ])
     description = fields.Text('Description')
 
@@ -68,7 +66,6 @@ class SprogroupPurchaseRequest(models.Model):
                              copy=False,
                              default='draft')
     is_editable_employee_name = fields.Boolean(string='Is editable emp Name',default=True)
-
 
 
     @api.onchange('state')
@@ -152,6 +149,7 @@ class SprogroupPurchaseRequest(models.Model):
         self.assigned_to=res.department_manager_id
 
 
+
     @api.model
     def create(self, vals):
         request = super(SprogroupPurchaseRequest, self).create(vals)
@@ -180,9 +178,9 @@ class SprogroupPurchaseRequest(models.Model):
         # partners = self.env['res.users'].search([])
         # for m in partners:
         #     print(m.name,m.partner_id.id )
+
         recipient_partners = []
-        recipient_partners.clear()
-        if self.assigned_to.partner_id.id not in recipient_partners:
+        if self.assigned_to.partner_id.id and self.assigned_to.partner_id.id not in recipient_partners:
             recipient_partners.append(self.assigned_to.partner_id.id)
         # if self.requested_by.partner_id.id and self.requested_by.partner_id.id not in recipient_partners:
         #     recipient_partners.append(self.requested_by.partner_id.id)
@@ -191,28 +189,24 @@ class SprogroupPurchaseRequest(models.Model):
         # if self.employee_name.id and self.employee_name.id not in recipient_partners:
         #             recipient_partners.append(self.employee_name.work_email)
 
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        base_url += '/web#id=%d&view_type=form&model=%s' % (self.id, self._name)
-
+        print("hi",recipient_partners)
 
         #########
         # mo. edit
         #########
-
-        msg_body = "<b>New purchase request require your approval</b><br>"\
-                   + "<div><a style='padding: 10px;font-size: 15px;color: #ffffff;text-decoration: none !important;font-weight: bold;background-color: #875a7b !important;border: 0px solid #875a7b;border-radius: 3px;' href=" + str(base_url) + ">Check From Here</a></div>"\
-                   + "<br><b>Request Name:</b> " + str(self.name) + " / " + str(self.code) \
+        msg_body = "<b>New purchase request require your approval</b>" + "<br><b>Request Name:</b> " + str(self.name) + " / " + str(self.code) \
                    + "<b><br>Requested By:</b> " + str(self.requested_by.name)\
                    + "<b><br>Employee Name: </b>" + str(self.employee_name.name) \
                    + "<b><br>Vendor: </b>" + str(self.partner_id.name)\
                    + "<b><br>Department: </b>" + str(self.department_id.name) \
                    + "<b><br>Start/End Date: </b>" + str(self.date_start) + " : " + str(self.end_start)
 
+
+
         activities = {}
         list = []
         task_description = ""
         total=0
-        status_table = ''
         for i in self.line_ids:
             # total += i.product_qty
             activities.update(
@@ -225,6 +219,7 @@ class SprogroupPurchaseRequest(models.Model):
                                 "<td  align=""center""> <font size=""2"">{0}</font></td>  </tr>" \
                 .format(str(i.date_required),str(i.product_qty),str(i.name),str(i.product_id.name),)
 
+            print(task_description)
 
             status_table = " <font size=""2"">   <p> {0}<br>---------------------------- </p>" \
                            "<table style=""width:80%"" border="" 1px solid black"">" \
@@ -235,7 +230,7 @@ class SprogroupPurchaseRequest(models.Model):
                            "</table>" \
                            "<p> <p>Regards,</p> </font>" \
                 .format(msg_body,task_description, i.date_required, i.product_qty, i.name, i.product_id.name)
-
+            print(status_table)
         msg_sub = "Approve Purchase Request" + " / " + self.name + "/" + self.code \
                   + " / " + self.requested_by.name + " / " + self.state
         ##########
@@ -243,13 +238,13 @@ class SprogroupPurchaseRequest(models.Model):
         ##########
         if len(recipient_partners):
             current = self.browse(self._context.get('active_id', False))
-            current.message_post(body = status_table,
+            current.message_post(body=status_table,
                                  subtype='mt_comment',
-                                 subject= msg_sub,
+                                 subject=msg_sub,
                                  partner_ids=recipient_partners,
                                  message_type='comment')
-
         return self.write({'state': 'to_approve'})
+
     # @api.multi
     # def button_leader_approved(self):
     # return self.write({'state': 'leader_approved'})
@@ -302,8 +297,7 @@ class SprogroupPurchaseRequest(models.Model):
             # all_data ['recipient_partners'].append(299)  # ibrahim parner_id
             # all_data ['recipient_partners'].append(298)  # Prince parner_id
 
-        print('2', recipient_partners)
-        print('2', all_data)
+        print(all_data)
         return all_data
 
     def send_m(self,msubj="",mbody=""):
@@ -374,7 +368,7 @@ class SprogroupPurchaseRequest(models.Model):
         # if self.employee_name.id and self.employee_name.id not in recipient_partners:
         #             recipient_partners.append(self.employee_name.work_email)
 
-        print('3', recipient_partners)
+        print(recipient_partners)
 
         if len(recipient_partners):
             self.message_post(body=msgbody+status_table,
@@ -521,7 +515,7 @@ class SprogroupPurchaseRequestLine(models.Model):
     assigned_to = fields.Many2one('res.users',
                                   related='request_id.assigned_to',
                                   string='Assigned to',
-                                  readonly=True)
+                                  store=True, readonly=True)
     date_start = fields.Date(related='request_id.date_start',
                              string='Request Date', readonly=True,
                              store=True)
