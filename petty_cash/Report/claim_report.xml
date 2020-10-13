@@ -128,22 +128,38 @@
                                     </tbody>
 
                                     <tfooter>
-								<tr>
-									<td colspan="5"></td>
-									<td>
-										<span t-esc="o.balance_end"/>
-									</td>
-								</tr>
-							</tfooter>
+
+                                        <tr>
+                                            <th>Balance</th>
+                                            <td colspan="4"></td>
+                                            <td>
+                                                <span t-esc="o.balance_end"/>
+                                            </td>
+                                        </tr>
+                                    </tfooter>
+
+                                    <t t-foreach="docs" t-as="o">
+
+                                        <tfooter>
+                                            <tr>
+                                                <th>Total</th>
+                                                <td colspan="4"></td>
+                                                <td>
+                                                    <span t-esc="o.total_entry_encoding"/>
+                                                </td>
+                                            </tr>
+                                        </tfooter>
+                                    </t>
 
                                 </table>
                             </div>
-                        </t>
+
                     </t>
                 </t>
             </t>
-        </template>
+        </t>
+    </template>
 
 
-    </data>
+</data>
 </odoo>
