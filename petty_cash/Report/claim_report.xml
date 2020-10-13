@@ -116,7 +116,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <span t-field="line.ref"/>
+                                                    <span t-field="line.x_studio_po_number"/>
                                                 </td>
 
                                                 <td>
