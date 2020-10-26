@@ -25,7 +25,7 @@
      </record>
 
 
-
+<!--
 
         <record id="invoice_form_cancel_inherit2" model="ir.ui.view">
             <field name="name">invoice.form.cancel.inherit2</field>
@@ -35,15 +35,15 @@
 <!--                <xpath expr="//button[@name='action_invoice_draft']" position="before">-->
 <!--                    <button name="action_invoice_cancel" type="object" states="draft,open,in_payment,paid" string="Cancel" groups="account.group_account_invoice"/>-->
 <!--                </xpath>-->
-<!--                -->
-
+<!--               
+ 
 <xpath expr="//button[@name='action_invoice_cancel']" position="attributes">
      <attribute name="groups">account_prince.group_journal_invoice_cancel_manager</attribute>
-<!--    <attribute name="string">Cancel55</attribute>-->
-                 </xpath>
+                  </xpath>
 
             </field>
         </record>
+		-->
 
 <!--            <field name="amount_tax_signed" position="attributes">-->
 <!--                <attribute name="sum">"Total sha"</attribute>-->
