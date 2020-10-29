@@ -4,42 +4,46 @@ from odoo import tools
 from odoo import models, fields, api
 
 
-class AccountInvoice(models.Model):
+class AccountInvoiceXx(models.Model):
     _name = "generic.location"
 
     name = fields.Char()
-class AccountInvoice(models.Model):
+
+class AccountInvoicing(models.Model):
     _inherit = "account.invoice"
 
     agency_location_id = fields.Many2one('generic.location')
 
-
-class AccountInvoiceReport(models.Model):
-    _inherit = "account.invoice.report"
-
-    agency_location_id = fields.Many2one('generic.location')
-
-    def _sub_select(self):
-        res = super(AccountInvoiceReport, self)._sub_select()
-        res += """,ai.agency_location_id as agency_location_id"""
-        print("resssss:", res)
-        return res
-
-    # def _from(self):
-    #     res = super(AccountInvoiceReport, self)._from()
-    #     print("from:", res)
-    #     return res
-
-    def _group_by(self):
-        res = super(AccountInvoiceReport, self)._group_by()
-        res += """,ai.agency_location_id"""
-        print("group_by:", res)
-        return res
-
-    @api.model_cr
-    def init(self):
-        res = super(AccountInvoiceReport, self).init()
-        return res
+#
+# class AccountInvoiceReport(models.Model):
+#     _inherit = "account.invoice.report"
+#
+#     agency_location_id = fields.Many2one('generic.location')
+#
+#     def _sub_select(self):
+#         print('test select')
+#         res = super(AccountInvoiceReport, self)._sub_select()
+#         res += """,ai.agency_location_id as agency_location_id"""
+#         print("resssss:", res)
+#         return res
+#
+#     # def _from(self):
+#     #     res = super(AccountInvoiceReport, self)._from()
+#     #     print("from:", res)
+#     #     return res
+#
+#     def _group_by(self):
+#         print('test group')
+#         res = super(AccountInvoiceReport, self)._group_by()
+#         res += """,ai.agency_location_id"""
+#         print("group_by:", res)
+#         return res
+#
+#     @api.model_cr
+#     def init(self):
+#         print('test init')
+#         res = super(AccountInvoiceReport, self).init()
+#         return res
 
 
 # class SaleOrder(models.Model):
