@@ -7,6 +7,7 @@ from odoo import models, fields, api
 class AccountInvoiceReport(models.Model):
     _inherit = "account.invoice.report"
 
+    agency_location_id = fields.Char(string='Agency Location')
     cartype1 = fields.Char(string='Car Type')
     cartype2 = fields.Char(string='Make')
     # team_id1 = fields.Many2one('crm.team', 'Sales Team')
@@ -42,6 +43,7 @@ class AccountInvoiceReport(models.Model):
                 COALESCE(cr.rate, 1) as currency_rate, sub.residual as residual, sub.commercial_partner_id as commercial_partner_id,
                 sub.car_type as cartype1,
                 sub.MAKE as cartype2,
+                sub.agency_location as agency_location_id,
             
                 sub.is_company as company1
         """
@@ -72,7 +74,7 @@ class AccountInvoiceReport(models.Model):
                     coalesce(partner.country_id, partner_ai.country_id) AS country_id,
                     ai.x_studio_car_type_name as car_type,
                     ai.x_studio_car_type_name as Make,
-                   
+                    ai.x_studio_agency_location as agency_location,
                     partner.is_company as is_company 
         """
         return select_str
@@ -112,7 +114,9 @@ class AccountInvoiceReport(models.Model):
                     ai.partner_id, ai.payment_term_id, u2.name, u2.id, ai.currency_id, ai.journal_id, partner.is_company ,
                     ai.fiscal_position_id, ai.user_id, ai.company_id, ai.id, ai.type, invoice_type.sign, ai.state, pt.categ_id,
                     ai.date_due, ai.account_id, ail.account_id, ai.partner_bank_id, ai.residual_company_signed,
-                    ai.amount_total_company_signed, ai.commercial_partner_id, coalesce(partner.country_id, partner_ai.country_id)
+                    ai.amount_total_company_signed, ai.commercial_partner_id,
+                    coalesce(partner.country_id, partner_ai.country_id)
+                    
         """
         return group_by_str
 
