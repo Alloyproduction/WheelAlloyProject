@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+ <!-- Workflow Model -->
+        <record id="wkf_claim" model="workflow">
+            <field name="name">claim.workflow</field>
+            <field name="osv">crm.claim</field>
+            <field name="on_create">True</field>
+        </record>
+
+		<!-- Activities -->
+		<record id="claim_draft_flow" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_claim"/>
+            <field name="flow_start">True</field>
+            <field name="name">Draft</field>
+            <field name="action">action_draft()</field>
+
+        </record>
+
+        <record id="claim_Confirm_flow" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_claim"/>
+            <field name="name">Confirm</field>
+            <field name="kind">function</field>
+            <field name="action">action_confirm()</field>
+<!--            <field name="action">write({'state':'stat_confirm_claim'})</field>-->
+        </record>
+
+		<record id="claim_process_flow" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_claim"/>
+            <field name="name">Processing</field>
+            <field name="kind">function</field>
+            <field name="action">action_process()</field>
+<!--            <field name="action">write({'state':'stat_Processing_claim'})</field>-->
+        </record>
+
+		<record id="claim_won_flow" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_claim"/>
+            <field name="name">Won</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">action_won()</field>
+<!--            <field name="action">write({'state':'stat_won_claim'})</field>-->
+        </record>
+
+		<record id="claim_lost_flow" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_claim"/>
+            <field name="name">Lost</field>
+            <field name="kind">function</field>
+			<field name="flow_stop">True</field>
+            <field name="action">action_lost()</field>
+<!--            <field name="action">write({'state':'stat_lost_claim'})</field>-->
+        </record>
+
+		<!--transitions -->
+		<record id="trans_confirm_claim" model="workflow.transition">
+            <field name="act_from" ref="claim_draft_flow"/>
+            <field name="act_to" ref="claim_Confirm_flow"/>
+            <field name="signal">sig_confirm_claim</field>
+        </record>
+
+		<record id="trans_process_claim" model="workflow.transition">
+            <field name="act_from" ref="claim_Confirm_flow"/>
+            <field name="act_to" ref="claim_process_flow"/>
+            <field name="signal">sig_process_claim</field>
+        </record>
+
+        <record id="trans_won_claim" model="workflow.transition">
+            <field name="act_from" ref="claim_process_flow"/>
+            <field name="act_to" ref="claim_won_flow"/>
+            <field name="signal">sig_won_claim</field>
+        </record>
+
+		<record id="trans_lost_claim" model="workflow.transition">
+            <field name="act_from" ref="claim_process_flow"/>
+            <field name="act_to" ref="claim_lost_flow"/>
+            <field name="signal">sig_lost_claim</field>
+        </record>
+
+</odoo>

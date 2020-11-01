@@ -1,0 +1,22 @@
+<odoo>
+
+    <!-- define access group category -->
+    <record id="crm_claim_access_categ" model="ir.module.category">
+        <field name="name">Claim Management</field>
+    </record>
+
+    <!-- define access group for manger  -->
+    <record id="group_user" model="res.groups">
+        <field name="name">Claim / User</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+    </record>
+
+    <!-- group of user -->
+    <record id="group_manager" model="res.groups">
+        <field name="name">Claim / Manager</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="seq_bi_crm_seq" model="ir.sequence">
+            <field name="name">utm campaign </field>
+            <field name="code">utm.campaign</field>
+            <field name="prefix">u-</field>
+            <field name="padding">5</field>
+        </record>
+
+
+
+    </data>
+
+</odoo>
