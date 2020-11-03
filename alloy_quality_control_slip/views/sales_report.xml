@@ -164,7 +164,7 @@
                                  <tr style="border: 1px solid #32CD32;">
                                     <td style="border: 1px solid #32CD32;" colspan="6">
                                         <h6 style="text-align:center;">by signing this quality control slip you are here by verifying that the service provided by
-                                        awts are of high quality and acceptable to AWRS agent/customer</h6>
+                                        AWRS are of high quality and acceptable to AWRS agent/customer</h6>
                                         <h6 style="text-align:center;">من خلال التوقيع علي كرت استلام الجوده علي الخدمه المقدمه من تقنيون الجنوط انها مقبوله وذات جوده عاليه وليس بها عيوب</h6>
                                     </td>
                                  </tr>
@@ -216,6 +216,30 @@
               name="Quality Control Slip"
               parent="sale.sale_order_menu"
               action="quality_control_slip_action" />
+
+
+
+        <record model="ir.ui.view" id="qc_search_view">
+            <field name="name">quality.control.slip.filter</field>
+            <field name="model">quality.control.slip</field>
+            <field name="arch" type="xml">
+
+                <search string="Search QC Slip">
+                    <field name="state"/>
+                     <field name="alloy_digital_signature"/>
+
+                    <group string="Filter By">
+<!--                        <filter name="by_won" string="Won" domain="[('state','=','stat_won'),('user_id','=',uid)]"/>-->
+                    </group>
+
+                    <group string="Group By">
+                        <filter name="state" string="QC State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="alloy_digital_signature" string="Signature" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
 
 </data>
 </odoo>
