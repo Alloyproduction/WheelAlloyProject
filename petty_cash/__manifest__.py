@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "petty_cash",
+    'name': "Petty Cash",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -24,9 +24,9 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
         'Report/profial.xml',
         'Report/claim_report.xml',
         'views/views.xml',

@@ -40,23 +40,34 @@
                         </style>
                         <t t-foreach="docs" t-as="o">
 
-                                  <div align="left" style="font-size:15px;">
-                                    <td>
-                                        <b>Journal:</b>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.journal_id"/>
-                                    </td>
 
-                                    <br></br>
+                            <div align="left" style="font-size:15px;">
 
-                                    <td>
-                                        <b>Date:</b>
-                                    </td>
-                                      <td>
-                                          <span t-field="o.date"/>
-                                      </td>
-                                  </div>
+                                <td>
+                                    <b>Code:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.code"/>
+                                </td>
+                            </div>
+
+                            <div align="left" style="font-size:15px;">
+                                <td>
+                                    <b>Journal:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.journal_id"/>
+                                </td>
+
+                                <br></br>
+
+                                <td>
+                                    <b>Date:</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.date"/>
+                                </td>
+                            </div>
                             <br></br>
 
                             <aside align="left" style="font-size:15px;">
@@ -116,7 +127,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <span t-field="line.x_studio_po_number"/>
+                                                    <span t-field="line.ref"/>
                                                 </td>
 
                                                 <td>

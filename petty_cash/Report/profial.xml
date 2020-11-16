@@ -13,7 +13,7 @@
 <!--                attachment_use="True"/>-->
 <!--                attachment="(object.state in ('open','paid')) and-->
 <!--        ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
-        />
+<!--        />-->
 
 
 
