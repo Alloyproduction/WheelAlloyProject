@@ -24,11 +24,11 @@
 
     # always loaded
     'data': [
+        'security/cancel_account.xml',
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'views/templates.xml',
-        'security/cancel_account.xml',
         # 'Data/mail_temp.xml',
     ],
     # only loaded in demonstration mode

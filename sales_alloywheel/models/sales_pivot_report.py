@@ -4,10 +4,10 @@ from odoo import tools
 from odoo import models, fields, api
 
 
-class AccountInvoiceXx(models.Model):
-    _name = "generic.location"
-
-    name = fields.Char()
+# class AccountInvoiceXx(models.Model):
+#     _name = "generic.location"
+#
+#     name = fields.Char()
 
 class AccountInvoicing(models.Model):
     _inherit = "account.invoice"

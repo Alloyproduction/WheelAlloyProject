@@ -3,22 +3,10 @@
 <odoo>
 <data noupdate="0">
 
-    <record model="ir.module.category" id="module_category_Cancel_Journal">
-        <field name="name">Journal Options</field>
-
-        <field name="sequence">10</field>
-    </record>
-
-    <record id="group_journal_invoice_cancel" model="res.groups">
-        <field name="name">Journal Cancel invoice User </field>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-        <field name="category_id" ref="module_category_Cancel_Journal"/>
-    </record>
 
    <record id="group_journal_invoice_cancel_manager" model="res.groups">
-        <field name="name">Journal Cancel invoice Manager</field>
-        <field name="implied_ids" eval="[(4, ref('account_prince.group_journal_invoice_cancel'))]"/>
-        <field name="category_id" ref="module_category_Cancel_Journal"/>
+        <field name="name">Cancel invoice Manager Button</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
 </data>
