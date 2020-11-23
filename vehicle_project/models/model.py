@@ -445,6 +445,7 @@ class InheritSale(models.Model):
     project = fields.Many2one('project.project', string='Project')
     agency_name = fields.Many2one('res.partner', string='Agency Name')
     is_task_delivered = fields.Boolean(compute='get_delivered_task', default=False)
+    red_if_rejected = fields.Boolean(compute='get_delivered_task', default=False)
 
     task_duration = fields.Float()
     # full_url=fields.char('full_url',default="")
@@ -465,9 +466,13 @@ class InheritSale(models.Model):
                 for line in task_ids:
                     if line.stage_id.name == 'Delivery' or  line.stage_id.name == 'Cancel' or line.stage_id.name == 'Reject' :  # line.stage_id.name == 'Finished and QC' or
                         c+=1
+
+                    if line.stage_id.name == 'Reject':
+                        rec.red_if_rejected = True
+
                 if(c==len(task_ids)):
                     rec.is_task_delivered = True
-            print('hi invoice2', self.is_task_delivered)
+            print('hi invoice2')
 
 
 

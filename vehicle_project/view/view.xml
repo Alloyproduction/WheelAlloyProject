@@ -113,6 +113,19 @@
             </field>
         </record>
 
+        <record id="sale_order_inherit_red_record" model="ir.ui.view">
+            <field name="name">sale.order.inherit.red.record</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="red_if_rejected" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">red_if_rejected</attribute>
+                </xpath>
+            </field>
+        </record>
 
 
 

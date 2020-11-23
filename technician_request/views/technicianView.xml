@@ -10,7 +10,7 @@
                 <form string="Technician Request" version="1.0">
                     <header>
                         <button name="button_to_draft"
-                                states="draft,sent,rejected,done"
+                                states="draft,sent,rejected,trans,done"
                                 string="Reset"
                                 type="object"
                                 groups="technician_request.group_Technician_request_manager"/>
@@ -34,14 +34,14 @@
                                  groups="technician_request.group_Technician_request_manager"
                         />
 
+
                         <button string="New Transfer" states="ready,done" name="make_transfer" type="object"
                             groups="technician_request.group_Technician_request_manager"
                         />
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,sent,done,rejected"
+                               statusbar_visible="draft,sent,done,trans,rejected"
                                statusbar_colors='{"done":"blue"}'/>
-
 
                     </header>
                     <sheet>
@@ -190,6 +190,10 @@
                     <filter name="state_done" string="Done"
                             domain="[('state','=','done')]"
                             help="Request is done"/>
+
+                    <filter name="state_transferred" string="Transferred"
+                            domain="[('state','=','trans')]"
+                            help="Request is Transferred"/>
 
                     <filter string="Unread Messages"
                             name="message_needaction"

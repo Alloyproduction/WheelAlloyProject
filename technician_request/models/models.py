@@ -9,6 +9,7 @@ _REQUESTSTATES = [
     ('draft', 'Draft'),
     ('sent', 'Sent'),
     ('done', 'Done'),
+    ('trans', 'Transferred'),
     ('rejected', 'Rejected')
 ]
 
@@ -226,6 +227,8 @@ class TechicianRequest(models.Model):
             }
         }
 
+        if products_order_line:
+            self.write({'state': 'trans'})
 
         return res
 
