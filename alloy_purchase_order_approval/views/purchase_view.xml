@@ -104,10 +104,12 @@
                           states=""/>
 
                     <button string="Manager Approve" name="action_Manager"
+                            invisible="1"
                             type="object" class="oe_highlight"
                             groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
                             states=""
-                       attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>
+                            />
+<!--                       attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>-->
 <!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
 
 
