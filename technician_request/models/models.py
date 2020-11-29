@@ -268,17 +268,18 @@ class stockpickUser(models.Model):
         # for i in self.location_dest_id.manager_ids:
         #     print(i.id)
         recipient_partners = []
-        if self.location_dest_id.manager_ids:
-            for i in self.location_dest_id.manager_ids:
-                recipient_partners.append(i.id)
+        # if self.location_dest_id.manager_ids:
+        for i in self.location_dest_id.manager_ids:
+            recipient_partners.append(i.id)
             print('Testing Func0099999')
             print('Testing Func004')
+            print(recipient_partners)
         if len(recipient_partners):
             print('Testing Func005')
             self.message_post(body="This Purchase Is Validated",
                               subtype='mail.mt_comment',
                               subject="Purchase Validated [ " + str(self.name) + " ]",
-                              partner_ids=recipient_partners,
+                              partner_ids=['mohammed.alwasefy@gmail.com'],
                               message_type='comment')
 
         if picking_type.use_create_lots or picking_type.use_existing_lots:
