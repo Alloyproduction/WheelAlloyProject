@@ -23,9 +23,9 @@ class account_journal1(models.Model):
     _rec_name = 'code'
 
     state = fields.Selection([('open','New'),('stat_prepar', 'Prepare'),
-                              ('stat_check', 'Check'),
-                              ('stat_audit', 'Audit'),
-                              ('stat_review', 'Review'), ('confirm', 'Approve and Validated')],
+                            ('stat_check', 'Check'),
+                            ('stat_review', 'Review'),
+                            ('stat_approve', 'Approve'),('confirm','Validated')],
                              string='Status', required=True, readonly=True, copy=False,
                              default='open')
     # """ READ ME """
@@ -100,7 +100,7 @@ class account_journal1(models.Model):
     @api.multi
     def button_confirm_bank(self):
         self._balance_check()
-        statements = self.filtered(lambda r: r.state == 'stat_review')
+        statements = self.filtered(lambda r: r.state == 'stat_approve')
         for statement in statements:
             moves = self.env['account.move']
             # `line.journal_entry_ids` gets invalidated from the cache during the loop
@@ -170,6 +170,8 @@ class account_journal1(models.Model):
             for recipient in group.users:
                 if recipient.partner_id.id not in recipient_partners:
                     recipient_partners.append(recipient.partner_id.id)
+
+        print(recipient_partners)
         if len(recipient_partners):
             self.message_post(body=msg_body,
                               subtype='mt_comment',
@@ -183,27 +185,6 @@ class account_journal1(models.Model):
     def action_check(self):
 
         msg_body = " Checked by... " + "" + self.env.user.name
-        msg_sub = "Audit Petty Cash [" + self.code + "]"
-
-        groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Audit')])
-        recipient_partners = []
-        for group in groups:
-            for recipient in group.users:
-                if recipient.partner_id.id not in recipient_partners:
-                    recipient_partners.append(recipient.partner_id.id)
-        if len(recipient_partners):
-            self.message_post(body=msg_body,
-                              subtype='mt_comment',
-                              subject=msg_sub,
-                              partner_ids=recipient_partners,
-                              message_type='comment')
-
-        return self.write({'state': 'stat_check'})
-
-    @api.multi
-    def action_audit(self):
-
-        msg_body = "Audit by... " + "" + self.env.user.name
         msg_sub = "Review Petty Cash [" + self.code + "]"
 
         groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Review')])
@@ -219,14 +200,35 @@ class account_journal1(models.Model):
                               partner_ids=recipient_partners,
                               message_type='comment')
 
-        return self.write({'state': 'stat_audit'})
+        return self.write({'state': 'stat_check'})
 
     @api.multi
     def action_review(self):
 
-        msg_body = " Review by... " + self.env.user.name
+        msg_body = "Review by... " + "" + self.env.user.name
+        msg_sub = "Approve Petty Cash [" + self.code + "]"
 
-        msg_sub = "Approve and Validate Petty Cash [" + self.code + "]"
+        groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Approve')])
+        recipient_partners = []
+        for group in groups:
+            for recipient in group.users:
+                if recipient.partner_id.id not in recipient_partners:
+                    recipient_partners.append(recipient.partner_id.id)
+        if len(recipient_partners):
+            self.message_post(body=msg_body,
+                              subtype='mt_comment',
+                              subject=msg_sub,
+                              partner_ids=recipient_partners,
+                              message_type='comment')
+
+        return self.write({'state': 'stat_review'})
+
+    @api.multi
+    def action_approve(self):
+
+        msg_body = " Approved by... " + self.env.user.name
+
+        msg_sub = "Validate Petty Cash [" + self.code + "]"
 
         groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Validate')])
         recipient_partners = []
@@ -241,7 +243,7 @@ class account_journal1(models.Model):
                               partner_ids=recipient_partners,
                               message_type='comment')
 
-        return self.write({'state': 'stat_review'})
+        return self.write({'state': 'stat_approve'})
 
     @api.multi
     def action_validate(self):
@@ -312,8 +314,8 @@ class account_journal1(models.Model):
 #
 #     @api.multi
 #     def action_review(self):
-#         # self.state = 'stat_recheck'
-#         return self.write({'state': 'stat_recheck'})
+#         # self.state = 'stat_review'
+#         return self.write({'state': 'stat_review'})
 #         # self.ldate = datetime.now()
 #
 #

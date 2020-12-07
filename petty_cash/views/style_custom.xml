@@ -1,0 +1,16 @@
+<odoo>
+<data>
+
+    <template id="assets_common" inherit_id="web.assets_common">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/css" href="/petty_cash/static/src/scss/style_custom.css"/>
+        </xpath>
+    </template>
+<!--    <template id="assets_backend" name="petty_cash assets" inherit_id="web.assets_backend">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <link rel="stylesheet" type="text/css" href="/petty_cash/static/src/scss/style_custom.css"/>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+</data>
+</odoo>

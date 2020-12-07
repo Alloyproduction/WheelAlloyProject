@@ -80,20 +80,20 @@
                                 states="stat_prepar"
                                 class="oe_highlight"/>
 
-                        <button name="action_audit" type="object"
-                                groups="petty_cash.group_cash_audit,petty_cash.group_cash_manager"
-                                string="Audit"
-                                states="stat_check"
-                                class="oe_highlight"/>
-
                         <button name="action_review" type="object"
                                 groups="petty_cash.group_cash_review,petty_cash.group_cash_manager"
                                 string="Review"
-                                states="stat_audit"
+                                states="stat_check"
                                 class="oe_highlight"/>
 
-                        <button name="check_confirm_bank" string="Approve and Validate" type="object" class="oe_highlight"
-                                attrs="{'invisible':['|','|',('all_lines_reconciled','=',False),('line_ids','=',[]),('state', '!=', 'stat_review')]}"
+                        <button name="action_approve" type="object"
+                                groups="petty_cash.group_cash_approve,petty_cash.group_cash_manager"
+                                string="Approve"
+                                states="stat_review"
+                                class="oe_highlight"/>
+
+                        <button name="check_confirm_bank" string="Validate" type="object" class="oe_highlight"
+                                attrs="{'invisible':['|','|',('all_lines_reconciled','=',False),('line_ids','=',[]),('state', '!=', 'stat_approve')]}"
                                 groups="petty_cash.group_cash_validate,petty_cash.group_cash_manager"/>
 
                         <button name="button_draft"
@@ -101,7 +101,7 @@
                                 string="Reset to New" type="object"
                                 groups="petty_cash.group_cash_validate,petty_cash.group_cash_manager"/>
 
-                    <field name="state" widget="statusbar" statusbar_visible="open,stat_prepar,stat_check,stat_audit,stat_review,confirm"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,stat_prepar,stat_check,stat_review,stat_approve,confirm"/>
                 </header>
 
                 </xpath>
@@ -109,7 +109,7 @@
 
 <!--                <xpath expr="//field[@name='state']" position="replace">-->
 <!--                    <field name="state" widget="statusbar"-->
-<!--                           statusbar_visible="open,stat_prepar,stat_check,stat_recheck,stat_approve,confirm"/>-->
+<!--                           statusbar_visible="open,stat_prepar,stat_check,stat_review,stat_approve,confirm"/>-->
 <!--                </xpath>-->
 
 

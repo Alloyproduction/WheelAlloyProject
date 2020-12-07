@@ -1,0 +1,3 @@
+.o_thread_composer:not(.o_chat_mini_composer):not(.o_chat_inline_composer) .o_composer_button_send{
+display: inline-block !important;
+}

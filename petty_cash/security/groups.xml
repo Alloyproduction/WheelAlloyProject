@@ -39,14 +39,14 @@
          <field name="implied_ids" eval="[(4, ref('petty_cash.group_petty_cash'))]"/>
      </record>
 
-    <record id="group_cash_audit" model="res.groups">
-        <field name="name">Petty Cash Audit</field>
+    <record id="group_cash_review" model="res.groups">
+        <field name="name">Petty Cash Review</field>
         <field name="category_id" ref="petty_cash_access_categ"/>
         <field name="implied_ids" eval="[(4, ref('petty_cash.group_petty_cash'))]"/>
     </record>
 
-    <record id="group_cash_review" model="res.groups">
-        <field name="name">Petty Cash Review</field>
+    <record id="group_cash_approve" model="res.groups">
+        <field name="name">Petty Cash Approve</field>
         <field name="category_id" ref="petty_cash_access_categ"/>
          <field name="implied_ids" eval="[(4, ref('petty_cash.group_petty_cash'))]"/>
     </record>
