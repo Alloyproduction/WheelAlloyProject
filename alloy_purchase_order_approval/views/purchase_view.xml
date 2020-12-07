@@ -103,12 +103,12 @@
                               attrs="{'invisible':[('state_approve','in',['Leader','Manager','CEO'])]}"
                           states=""/>
 
-                    <button string="Manager Approve" name="action_Manager"
-                            invisible="1"
-                            type="object" class="oe_highlight"
-                            groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
-                            states=""
-                            />
+<!--                    <button string="Manager Approve" name="action_Manager"-->
+<!--                            invisible="1"-->
+<!--                            type="object" class="oe_highlight"-->
+<!--                            groups="alloy_purchase_order_approval.group_view_purchase_manager_button"-->
+<!--                            states=""-->
+<!--                            />-->
 <!--                       attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>-->
 <!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
 
@@ -122,7 +122,7 @@
                       attrs="{'invisible':['|',('state_approve','in',['CEO']),('need_CEO_Approve','=',False)]}"/>
 <!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
 <!--                            />-->
-                    <field name="state_approve" widget="statusbar" statusbar_colors='{"Leader":"red","Manager":"blue","CEO":"green"}' />
+                    <field name="state_approve" widget="statusbar" statusbar_colors='{"Leader":"red","CEO":"green"}' />
                     </header>
 
 

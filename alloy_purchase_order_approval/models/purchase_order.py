@@ -14,7 +14,6 @@ class PurchaseOrder(models.Model):
     state_approve = fields.Selection([
         ('NotApprove', "NotApprove"),
         ('Leader', "Leader"),
-        ('Manager', "Manager"),
         ('CEO', "CEO"),
     ], default='NotApprove')
 
@@ -41,11 +40,11 @@ class PurchaseOrder(models.Model):
         # print("hi..................................")
         # print(m)
 
-    @api.multi
-    def action_Manager(self):
-        self.is_leader = True
-        self.is_manager = True
-        self.state_approve = 'Manager'
+    # @api.multi
+    # def action_Manager(self):
+    #     self.is_leader = True
+    #     self.is_manager = True
+    #     self.state_approve = 'Manager'
         # post_vars = {'subject': "Message subject", 'body': "Approved By Manager"}
         # self.message_post(type="notification", subtype="mt_comment", context=self._context, **post_vars)
         # self.send_m("Purchase Order " + self.name, "Approved By Manager ( "+self.env.user.name+")")
