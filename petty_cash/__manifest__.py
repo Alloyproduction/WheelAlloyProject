@@ -31,7 +31,6 @@
         'Report/claim_report.xml',
         'views/views.xml',
         'views/templates.xml',
-        'views/style_custom.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
