@@ -27,6 +27,7 @@
         'security/groups.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
+        'views/style_custom1.xml',
         'Report/profial.xml',
         'Report/claim_report.xml',
         'views/views.xml',
