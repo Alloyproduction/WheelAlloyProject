@@ -107,7 +107,7 @@
                             </div>
 
                             <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
-                                <span t-esc="o.sale_id.x_studio_field_icWOZ"/>
+                                <span t-esc="o.sale_id.agency_name.name"/>
                             </div>
 
                             <div class="right" style="float: right;white-space: nowrap;">
@@ -353,11 +353,10 @@
                     </div>
                 </div>
                    <div>
-                       <strong>This invoice automatically generated in our system and should be considered as an
-                           original/ يتم انشاء هذ الفاتورة تلقائيا في نظامنا و يجب اعتبارها فاتورة أصلية
-                       </strong>
+
+                       <span>This invoice automatically generated in our system and should be considered as an original/ يتم انشاء هذ الفاتورة تلقائيا في نظامنا و يجب اعتبارها فاتورة أصلية‬</span>
                    </div>
-            </xpath>
+               </xpath>
 
         </template>
 
