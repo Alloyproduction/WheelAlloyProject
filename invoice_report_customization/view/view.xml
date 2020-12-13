@@ -12,100 +12,104 @@
                                 <span t-esc="o.partner_id.name"/>
 
                             </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.customer_arabic_name"></span>
-                                <span style="font-weight:bold;">اسم ‫العميل‬: ‫‬</span>
-
-                            </div>
-                        </div>
-                    <t t-if="o.partner_id.mobile">
-                   <div style="overflow:hidden">
-                      <div class="left" style="float: left;white-space: nowrap;">
-                                <span style="font-weight:bold;">Mobile:</span>
-                                <span t-esc="o.partner_id.mobile"/>
-
-                            </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.mobile"></span>
-                                <span style="font-weight:bold;">التليفون المحمول: ‫‬</span>
-
-                            </div>
-                        </div>
-               </t>
-                 <t t-if="o.partner_id.email">
-                 <div style="overflow:hidden">
-                  <div class="left" style="float: left;">
-                   <span style="font-weight:bold;">Email:</span>
-                      <span t-esc="o.partner_id.email"/>
-
-                            </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.email"></span>
-                                <span style="font-weight:bold;">البريد الإلكتروني ‬: ‫‬</span>
-                            </div>
-                        </div>
-                 </t>
-                 <t t-if="o.partner_id.vat">
-                     <div style="overflow:hidden">
-
-                            <div class="left" style="float: left;white-space: nowrap;">
-                                <span style="font-weight:bold;">Vat:</span>
-                                <span t-esc="o.partner_id.vat"/>
-
-                            </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.vat"></span>
-                                <span style="font-weight:bold;">  ‫الرقم‬ ‫الضريبة‬ :‬ ‫‬</span>
-
-                            </div>
-                        </div>
-                 </t>
-                 <t t-if="o.partner_id.street">
-                     <div style="overflow:hidden">
-
-                            <div class="left" style="float: left;white-space: nowrap;">
-                                <span style="font-weight:bold;">Address :</span>
-                                <span t-esc="o.partner_id.street"/>
-
-                            </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.street1_arbi"></span>
-                                <span style="font-weight:bold;">  ‫عنوان‬ :‫‬</span>
-
-                            </div>
-                        </div>
-                 </t>
-                 <t t-if="o.partner_id.street2">
-                      <div style="overflow:hidden">
-
-                            <div class="left" style="float: left;white-space: nowrap;">
-                                <span style="font-weight:bold;">Address:</span>
-                                <span t-esc="o.partner_id.street2"/>
-
-                            </div>
-                            <div class="right" style="float: right;white-space: nowrap;">
-                                <span style="font-weight:bold;" t-esc="o.partner_id.street2_arbi"></span>
-                                <span style="font-weight:bold;">  ‫عنوان‬ :‫‬</span>
-
-                            </div>
-                        </div>
-                 </t>
+                          <div class="right" style="float: right;white-space: nowrap;">
+                              <span style="font-weight:bold;">اسم ‫العميل‬: ‫‬</span>
+                              <span style="font-weight:bold;" t-esc="o.partner_id.customer_arabic_name"></span>
 
 
-                </div>
-            </xpath>
+                          </div>
+                      </div>
+                      <t t-if="o.partner_id.mobile">
+                          <div style="overflow:hidden">
+                              <div class="left" style="float: left;white-space: nowrap;">
+                                  <span style="font-weight:bold;">Mobile:</span>
+                                  <span t-esc="o.partner_id.mobile"/>
+
+                              </div>
+                              <div class="right" style="float: right;white-space: nowrap;">
+                                  <span style="font-weight:bold;" t-esc="o.partner_id.mobile"></span>
+                                  <span style="font-weight:bold;">التليفون المحمول: ‫‬</span>
+
+                              </div>
+                          </div>
+                      </t>
+                      <t t-if="o.partner_id.email">
+                          <div style="overflow:hidden">
+                              <div class="left" style="float: left;">
+                                  <span style="font-weight:bold;">Email:</span>
+                                  <span t-esc="o.partner_id.email"/>
+
+                              </div>
+                              <div class="right" style="float: right;white-space: nowrap;">
+                                  <span style="font-weight:bold;" t-esc="o.partner_id.email"></span>
+                                  <span style="font-weight:bold;">البريد الإلكتروني ‬: ‫‬</span>
+                              </div>
+                          </div>
+                      </t>
+                      <t t-if="o.partner_id.vat">
+                          <div style="overflow:hidden">
+
+                              <div class="left" style="float: left;white-space: nowrap;">
+                                  <span style="font-weight:bold;">Vat:</span>
+                                  <span t-esc="o.partner_id.vat"/>
+
+                              </div>
+                              <div class="right" style="float: right;white-space: nowrap;">
+                                  <span style="font-weight:bold;" t-esc="o.partner_id.vat"></span>
+                                  <span style="font-weight:bold;">‫الرقم‬ ‫الضريبة‬ :‬ ‫‬</span>
+
+                              </div>
+                          </div>
+                      </t>
+                      <t t-if="o.partner_id.street">
+                          <div style="overflow:hidden">
+
+                              <div class="left" style="float: left;white-space: nowrap;">
+                                  <span style="font-weight:bold;">Address :</span>
+                                  <span t-esc="o.partner_id.street"/>
+
+                              </div>
+                              <div class="right" style="float: right;white-space: nowrap;">
+                                  <span style="font-weight:bold;" t-esc="o.partner_id.street1_arbi"></span>
+                                  <span style="font-weight:bold;">‫عنوان‬ :‫‬</span>
+
+                              </div>
+                          </div>
+                      </t>
+                      <t t-if="o.partner_id.street2">
+                          <div style="overflow:hidden">
+
+                              <div class="left" style="float: left;white-space: nowrap;">
+                                  <span style="font-weight:bold;">Address:</span>
+                                  <span t-esc="o.partner_id.street2"/>
+
+                              </div>
+                              <div class="right" style="float: right;white-space: nowrap;">
+                                  <span style="font-weight:bold;" t-esc="o.partner_id.street2_arbi"></span>
+                                  <span style="font-weight:bold;">‫عنوان‬ :‫‬</span>
+
+                              </div>
+                          </div>
+                      </t>
+
+
+                  </div>
+             </xpath>
 
             <xpath expr="//div[hasclass('page')]/div[1]" position="after">
                 <br/>
-                 <div>
+                <div>
                     <t>
                         <div style="overflow:hidden">
 
                             <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Agency Name:</span>
-                                <span t-esc="o.sale_id.agency_name.name"/>
-
                             </div>
+
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
+                                <span t-esc="o.sale_id.x_studio_field_icWOZ"/>
+                            </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="font-weight:bold;" t-esc="o.partner_id.agency_name_arbi"></span>
                                 <span style="font-weight:bold;">:اسم الوكالة</span>
@@ -113,14 +117,18 @@
                             </div>
                         </div>
                     </t>
+
                     <t>
                         <div style="overflow:hidden">
-                            <div class="left" style="float: left;white-space: nowrap;">
+                            <div class="left" style="float: left;white-space: nowrap;" >
                                 <span style="font-weight:bold;">Claim# :</span>
+                            </div>
 
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
                                 <span t-esc="o.sale_id.claim_no"/>
 
                             </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="font-weight:bold;" t-esc="o.partner_id.claim_no_arbi"></span>
                                 <span style="font-weight:bold;">: رقم‬ ‫المطالبة
@@ -135,8 +143,12 @@
                             <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Service Advisor :</span>
 
+                            </div>
+
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
                                 <span t-esc="o.sale_id.service_advisor.name"/>
                             </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;"
                                       t-esc="o.partner_id.service_advisor_arbi"></span>
@@ -151,10 +163,12 @@
                             <div class="left" style="float: left;white-space: nowrap;">
 
                                 <span style="font-weight:bold;">Job Card # :</span>
-
-                                <span t-esc="o.partner_id.jobcard_no"/>
-
                             </div>
+
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px;  text-align: left;" >
+                                <span t-esc="o.sale_id.x_studio_agency_job_card"/>
+                            </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;"
                                       t-esc="o.partner_id.jobcard_no_arbi"></span>
@@ -168,13 +182,15 @@
                         <div style="overflow:hidden">
                             <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Plate # :</span>
-
-                                <span t-esc="o.sale_id.vehicle.license_plate"/>
-
                             </div>
+
+                            <div class="left" style="float: left; margin-left:50px; text-align: left;" >
+                                <span t-esc="o.sale_id.vehicle.license_plate"/>
+                            </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;" t-esc="o.partner_id.plate_no_arbi"></span>
-                                <span style="font-weight:bold;">: رقم ة اللوح
+                                <span style="font-weight:bold;">: رقم اللوحة
                                 </span>
 
 
@@ -185,8 +201,12 @@
                         <div style="overflow:hidden">
                             <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Car Type:</span>
+                            </div>
+
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
                                 <span t-esc="o.sale_id.vehicle.model_id.name"/>
                             </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;" t-esc="o.partner_id.car_type_arbi"></span>
                                 <span style="font-weight:bold;">: اسم الوكالة</span>
@@ -198,13 +218,16 @@
                         <div style="overflow:hidden">
                             <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Chasis # :</span>
-                                <span t-esc="o.sale_id.vehicle.vin_sn"/>
 
                             </div>
+
+                        <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;">
+                                <span t-esc="o.sale_id.vehicle.vin_sn"/>
+                            </div>
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;" t-esc="o.partner_id.chasis_no_arbi"></span>
-                                <span style="font-weight:bold;">: ‫‫رقم الشاصية
-                                </span>
+                                <span style="font-weight:bold;">: ‫‫رقم الشاصية</span>
 
                             </div>
                         </div>
@@ -214,12 +237,18 @@
                             <div class="left" style="float: left;">
                                 <span style="font-weight:bold;">Odoo Meter :</span>
 
-                                <span t-esc="o.sale_id.vehicle.odometer"/>
                             </div>
+
+                         <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
+                                <span t-esc="o.sale_id.vehicle.odometer"/>
+
+                            </div>
+
+
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;"
                                       t-esc="o.partner_id.odoo_meter_arbi"></span>
-                                <span style="font-weight:bold;">: قراءة د العدا</span>
+                                <span style="font-weight:bold;">: قراءة العداد</span>
 
                             </div>
                         </div>
@@ -228,8 +257,10 @@
                 </div>
 
             </xpath>
-             <xpath expr="//div[hasclass('page')]/table[1]/thead[1]/tr[1]/th[6]" position="replace">
-               <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>VAT</span></th>
+            <xpath expr="//div[hasclass('page')]/table[1]/thead[1]/tr[1]/th[6]" position="replace">
+                <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span>VAT</span>
+                </th>
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[1]/thead[1]/tr[1]" position="replace">
@@ -299,7 +330,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt32 ml16 mr16" name="signature">
+<!--                   <div>-->
+<!--                       <img src='static\img\Stamp.jpeg'-->
+<!--                            style="max-height: 150px; margin-left:50px; margin-right:20px; margin-top:50px;"-->
+<!--                       />-->
+<!--                   </div>-->
+
+                   <div class="mt32 ml16 mr16" name="signature">
                     <div class="offset-8">
                         <strong>Customer Sign</strong>
                         <br/>
@@ -310,9 +347,18 @@
                           border-top: 1px solid #000;
                           width: 200px;
                           text-align: right;"></span>
+
+
+
                     </div>
                 </div>
+                   <div>
+                       <strong>This invoice automatically generated in our system and should be considered as an
+                           original/ يتم انشاء هذ الفاتورة تلقائيا في نظامنا و يجب اعتبارها فاتورة أصلية
+                       </strong>
+                   </div>
             </xpath>
+
         </template>
 
 

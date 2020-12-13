@@ -17,4 +17,7 @@
         "view/view.xml",
     ],
     "installable": True,
+
+    "images": ["static\img\Stamp.jpeg"],
+
 }
