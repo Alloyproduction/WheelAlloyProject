@@ -107,7 +107,7 @@
                             </div>
 
                             <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
-                                <span t-esc="o.sale_id.agency_name.name"/>
+                                <span t-esc="o.sale_id.x_studio_field_icWOZ.name"/>
                             </div>
 
                             <div class="right" style="float: right;white-space: nowrap;">
@@ -124,7 +124,7 @@
                                 <span style="font-weight:bold;">Claim# :</span>
                             </div>
 
-                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;" >
                                 <span t-esc="o.sale_id.claim_no"/>
 
                             </div>
@@ -165,7 +165,7 @@
                                 <span style="font-weight:bold;">Job Card # :</span>
                             </div>
 
-                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px;  text-align: left;" >
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:60px;  text-align: left;" >
                                 <span t-esc="o.sale_id.x_studio_agency_job_card"/>
                             </div>
 
@@ -184,7 +184,7 @@
                                 <span style="font-weight:bold;">Plate # :</span>
                             </div>
 
-                            <div class="left" style="float: left; margin-left:50px; text-align: left;" >
+                            <div class="left" style="float: left; margin-left:60px; text-align: left;" >
                                 <span t-esc="o.sale_id.vehicle.license_plate"/>
                             </div>
 
@@ -203,7 +203,7 @@
                                 <span style="font-weight:bold;">Car Type:</span>
                             </div>
 
-                            <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;" >
                                 <span t-esc="o.sale_id.vehicle.model_id.name"/>
                             </div>
 
@@ -221,7 +221,7 @@
 
                             </div>
 
-                        <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;">
+                        <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;">
                                 <span t-esc="o.sale_id.vehicle.vin_sn"/>
                             </div>
 
@@ -239,7 +239,7 @@
 
                             </div>
 
-                         <div class="left" style="float: left;white-space: nowrap; margin-left:50px; text-align: left;" >
+                         <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;" >
                                 <span t-esc="o.sale_id.vehicle.odometer"/>
 
                             </div>
