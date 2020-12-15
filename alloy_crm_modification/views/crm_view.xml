@@ -181,6 +181,10 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='user_id']" position="after">
                         <field name="lead_user_id"  readonly="1"/>
                         <field name="sales_user_id" readonly="1"/>
@@ -210,6 +214,19 @@
                 </xpath>
             </field>
          </record>
+
+        <record id="sales_order_view_field_security_inherit" model="ir.ui.view">
+            <field name="name">sales_order_view_field_security_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>
+        </record>
+
 
 
 <record id="sales_order_list_salesman_inherit" model="ir.ui.view">

@@ -202,5 +202,33 @@
                 </xpath>
             </field>
         </record>
+
+<!--        _____________________ -->
+
+
+        <record id="acc_statement_bank_line_petty_cash" model="ir.ui.view">
+            <field name="name">acc.statement.bank.line.petty.cash1</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='statement_line_ids']/field[@name='line_ids']/tree[1]" position="after">
+                    <form string="Statement Line" create="false">
+                      <group col="4" name="studio_group_dfdf91">
+                        <field name="statement_id"/>
+                        <field name="date"/>
+                        <field name="x_studio_po_number"/>
+                        <field name="name"/>
+                        <field name="ref"/>
+                        <field name="partner_id"/>
+                        <field name="amount"/>
+                        <field name="journal_currency_id" invisible="1"/>
+                        <field name="sequence"/>
+                        <field name="note"/>
+                      </group>
+                    </form>
+                  </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
