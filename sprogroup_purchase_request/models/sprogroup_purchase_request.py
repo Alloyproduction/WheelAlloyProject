@@ -67,6 +67,12 @@ class SprogroupPurchaseRequest(models.Model):
                              default='draft')
     is_editable_employee_name = fields.Boolean(string='Is editable emp Name',default=True)
 
+    def name_get(self):
+        # name get function for the model executes automatically
+        res = []
+        for rec in self:
+            res.append((rec.id, '%s [%s]' % (rec.name, rec.code)))
+        return res
 
     @api.onchange('state')
     def onchange_state(self):
@@ -426,7 +432,7 @@ class SprogroupPurchaseRequest(models.Model):
                                    'date_planned' :  datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    # 'taxes_id' : ((6,0,[taxes_id.id])),
                                    'product_qty' : line.product_qty,
-                                   'name' : line.product_id.name,
+                                   'name' : line.name,
                                    })
             order_line.append(product_line)
 
