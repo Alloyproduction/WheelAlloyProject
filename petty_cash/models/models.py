@@ -224,22 +224,21 @@ class account_journal1(models.Model):
     @api.multi
     def action_review(self):
 
-        # msg_body = " Review by... " + self.env.user.name
-        #
-        # msg_sub = "Approve and Validate Petty Cash [" + self.code + "]"
-        #
-        # groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Validate')])
-        # recipient_partners = []
-        # for group in groups:
-        #     for recipient in group.users:
-        #         if recipient.partner_id.id not in recipient_partners:
-        #             recipient_partners.append(recipient.partner_id.id)
-        # if len(recipient_partners):
-        #     self.message_post(body=msg_body,
-        #                       subtype='mt_comment',
-        #                       subject=msg_sub,
-        #                       partner_ids=recipient_partners,
-        #                       message_type='comment')
+        msg_body = " Review by... " + self.env.user.name
+        msg_sub = "Approve and Validate Petty Cash [" + self.code + "]"
+
+        groups = self.env['res.groups'].search([('name', '=', 'Petty Cash Manager')])
+        recipient_partners = []
+        for group in groups:
+            for recipient in group.users:
+                if recipient.partner_id.id not in recipient_partners:
+                    recipient_partners.append(recipient.partner_id.id)
+        if len(recipient_partners):
+            self.message_post(body=msg_body,
+                              subtype='mt_comment',
+                              subject=msg_sub,
+                              partner_ids=recipient_partners,
+                              message_type='comment')
 
         return self.write({'state': 'stat_review'})
 

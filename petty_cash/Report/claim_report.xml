@@ -139,6 +139,17 @@
                                     </tbody>
 
                                     <tfooter>
+                                        <tr>
+                                            <th>Total</th>
+                                            <td colspan="4"></td>
+                                            <td>
+                                                <span t-esc="o.total_entry_encoding"/>
+                                            </td>
+                                        </tr>
+                                    </tfooter>
+
+
+                                    <tfooter>
 
                                         <tr>
                                             <th>Balance</th>
@@ -151,15 +162,6 @@
 
                                     <t t-foreach="docs" t-as="o">
 
-                                        <tfooter>
-                                            <tr>
-                                                <th>Total</th>
-                                                <td colspan="4"></td>
-                                                <td>
-                                                    <span t-esc="o.total_entry_encoding"/>
-                                                </td>
-                                            </tr>
-                                        </tfooter>
                                     </t>
 
                                 </table>
