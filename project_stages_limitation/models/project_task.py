@@ -8,22 +8,13 @@ from dateutil import parser
 class ProjectTask(models.Model):
     _inherit = "project.task"
 
-    stage_date = fields.Datetime(string='Stage Date', default=fields.Datetime.now())
+    stage_date = fields.Datetime(string='Stage Date', default=lambda self: fields.Datetime.now())
     stage_time_ids = fields.One2many('project.task.time', 'project_task_id')
     alloy_digital_signature = fields.Binary(string='Signature', widget="signature")
-    is_delivery_stage = fields.Boolean(compute="get_delivery_stage")
-    stage_date_2 =fields.Datetime(string='Stage Date')
-    is_delete_stage =fields.Boolean(string='Delete Task ',default=False)
+    is_delivery_stage = fields.Boolean()
+    stage_date_2 = fields.Datetime(string='Stage Date')
+    is_delete_stage = fields.Boolean(string='Delete Task',default=False)
 
-    @api.depends('stage_id')
-    def get_delivery_stage(self):
-        d1=datetime.now()
-        for record in self:
-            if record.stage_id.name == 'Delivery':
-                record.is_delivery_stage = True
-                if self.stage_date_2 :
-                    if  self.stage_date_2  < d1 :
-                        record.is_delete_stage =True
 
 
     @api.multi
@@ -32,7 +23,7 @@ class ProjectTask(models.Model):
             new_stage = self.env['project.task.type'].browse(values['stage_id'])
             old_stage = self.stage_id.name
             stage_time_id = self.env['project.task.time']
-            if new_stage.name == 'Delivery' and  old_stage != 'Finished and QC' :
+            if new_stage.name == 'Delivery' and old_stage != 'Finished and QC' :
                 if  old_stage != 'Waiting':
                     raise UserError(_("You must go to Finished and QC stage first"))
             stage_time_id.create({
@@ -42,16 +33,36 @@ class ProjectTask(models.Model):
                 'date_from': self.stage_date,
                 'date_to': fields.Datetime.now(),
             })
-
+            d1 = datetime.now()
+            stage_tasks = self.env['project.task'].search(
+                [('stage_date_2', '<', d1), ('is_delete_stage', '=', False), ('stage_id.name','=','Delivery')])
             self.stage_date = fields.Datetime.now()
-            self.stage_date_2 =  self.stage_date + timedelta(days=2)
+            if new_stage.name == 'Delivery':
+                self.stage_date_2 = self.stage_date + timedelta(days=2)
+                print(self.stage_date_2)
+                for line in stage_tasks:
+                    print(line)
+                    print(line.stage_date_2)
+                    line.is_delete_stage = True
+                    print(line.is_delete_stage)
+
+                # x = self.env['project.task'].search([])
+                # for i in x:
+                #     if new_stage.name == 'Delivery':
+                #         if i.stage_date_2:
+                #             if i.stage_date_2 < d1:
+                #                i.is_delete_stage = True
 
             if self.env.user.stage_ids and values['stage_id'] in self.env.user.stage_ids.ids:
-            
+
                 if self.stage_id.id != 73 or self.task_run == True:
                     return super(ProjectTask, self).write(values)
                 else :
-                    raise UserError(_("You aren't allowed to change to this stage press run Task"))
+                    return super(ProjectTask, self).write(values)
+                # if self.stage_id.id != 73 or self.task_run == True:
+                #     return super(ProjectTask, self).write(values)
+                # else :
+                #     raise UserError(_("You aren't allowed to change to this stage press run Task"))
             else:
                 raise UserError(_("You aren't allowed to change to this stage"))
         elif 'alloy_digital_signature' in values:

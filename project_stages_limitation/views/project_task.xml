@@ -127,6 +127,19 @@
 <!--            </field>-->
 <!--        </record>-->
 
+<!--        <record model="ir.cron" id="ir_cron_delivery_stage_archiving">-->
+<!--            <field name="name">Delivery Stage Archive After 48h</field>-->
+<!--            <field name="interval_number">2</field>-->
+<!--            <field name="interval_type">minutes</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field name="doall" eval="False"/>-->
+<!--            <field name="model_id" ref="model_project_task"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.delete_stage()</field>-->
+<!--        </record>-->
+
+
+
         <record id="project_task_form_inherit" model="ir.ui.view">
             <field name="name">project.task</field>
             <field name="model">project.task</field>
@@ -136,7 +149,9 @@
                 <xpath expr="//notebook" position="inside">
                     <page string="Time stamp">
                         <field name="stage_date" invisible="1"/>
+                        <field name="stage_date_2" invisible="1"/>
                         <field name="is_delivery_stage" invisible="1"/>
+                        <field name="is_delete_stage" invisible="1"/>
                         <field name="stage_time_ids">
                             <tree string="Time stamp">
                                 <field name="project_task_id" invisible="1"/>
@@ -163,6 +178,19 @@
                     </page>
                 </xpath>
 
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="project_task_kanban_inherit" model="ir.ui.view">
+            <field name="name">project.task.kanban.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+
+            <field name="arch" type="xml">
+              <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[1]/div[3]/div[1]/field[@name='activity_ids']" position="after">
+                <field name="is_delete_stage" widget="boolean" invisible="True"/>
+              </xpath>
             </field>
         </record>
 
