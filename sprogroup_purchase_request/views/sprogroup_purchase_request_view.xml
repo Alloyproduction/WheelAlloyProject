@@ -10,7 +10,7 @@
                 <form string="Purchase Request" version="7.0">
                     <header>
                         <button name="button_draft"
-                                states="to_approve,leader_approved,manager_approved,rejected,done"
+                                states="to_approve,leader_approved,manager_approved,rejected,done,done_q"
                                 string="Reset"
                                 type="object"
                                 groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>
@@ -42,12 +42,12 @@
                                 attrs="{'invisible': [('can_reject', '=', False)]}"
                         />
 
-                        <button string="New Quotation" states="done" name="make_purchase_quotation" type="object"
+                        <button string="New Quotation" states="done,done_q" name="make_purchase_quotation" type="object"
                             groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"
                         />
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,to_approve,done,rejected"
+                               statusbar_visible="draft,to_approve,done,done_q,rejected"
                                statusbar_colors='{"manager_approved":"blue"}'/>
 
 
@@ -79,6 +79,13 @@
                                    attrs="{'readonly': [('is_editable','=', False)]}"/>
                                 <field name="end_start"
                                    attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                <field name="created_po" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                </tree>
+                                </field>
+
                             </group>
                         </group>
                         <notebook>

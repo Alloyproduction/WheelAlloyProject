@@ -15,6 +15,7 @@ _STATES = [
     ('leader_approved', 'Leader Approved'),
     ('manager_approved', 'Manager Approved'),
     ('done', 'Done'),
+    ('done_q', 'Done & PO Created'),
     ('rejected', 'Rejected')
 ]
 
@@ -58,6 +59,7 @@ class SprogroupPurchaseRequest(models.Model):
                                readonly=False,
                                copy=True,
                                track_visibility='onchange')
+
     state = fields.Selection(selection=_STATES,
                              string='Status',
                              index=True,
@@ -67,12 +69,24 @@ class SprogroupPurchaseRequest(models.Model):
                              default='draft')
     is_editable_employee_name = fields.Boolean(string='Is editable emp Name',default=True)
 
+    created_po = fields.One2many('purchase.order', 'purchase_request_id', string="Created PO")
+
     def name_get(self):
         # name get function for the model executes automatically
         res = []
         for rec in self:
-            res.append((rec.id, '%s [%s]' % (rec.name, rec.code)))
+            res.append((rec.id, '%s [%s]' % (rec.code, rec.name)))
         return res
+
+    # overridden to allow searching both on model name (field 'model') and model
+    # description (field 'name')
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100):
+        if args is None:
+            args = []
+        domain = args + ['|', ('code', operator, name), ('name', operator, name)]
+        return super(SprogroupPurchaseRequest, self).search(domain, limit=limit).name_get()
+
 
     @api.onchange('state')
     def onchange_state(self):
@@ -265,6 +279,7 @@ class SprogroupPurchaseRequest(models.Model):
 
     @api.multi
     def button_manager_approved(self):
+
         return self.write({'state': 'done'})
 
 
@@ -435,7 +450,8 @@ class SprogroupPurchaseRequest(models.Model):
                                    'name' : line.name,
                                    })
             order_line.append(product_line)
-
+        print(self.created_po)
+        print('asd')
         # vals = {
         #     # 'order_line' : order_line
         #
@@ -443,6 +459,10 @@ class SprogroupPurchaseRequest(models.Model):
         #
         # po = self.env['purchase.order'].create(vals)
         #
+
+        self.write({'state': 'done_q'})
+
+        # self.created_po.purchase_request_code = str(self.code)
 
         return {
             'name': _('New Quotation'),

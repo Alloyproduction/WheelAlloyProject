@@ -14,6 +14,7 @@ class PurchaseOrder(models.Model):
     state_approve = fields.Selection([
         ('NotApprove', "NotApprove"),
         ('Leader', "Leader"),
+        ('Manager', "Manager"),
         ('CEO', "CEO"),
     ], default='NotApprove')
 
@@ -40,11 +41,11 @@ class PurchaseOrder(models.Model):
         # print("hi..................................")
         # print(m)
 
-    # @api.multi
-    # def action_Manager(self):
-    #     self.is_leader = True
-    #     self.is_manager = True
-    #     self.state_approve = 'Manager'
+    @api.multi
+    def action_Manager(self):
+        self.is_leader = True
+        self.is_manager = True
+        self.state_approve = 'Manager'
         # post_vars = {'subject': "Message subject", 'body': "Approved By Manager"}
         # self.message_post(type="notification", subtype="mt_comment", context=self._context, **post_vars)
         # self.send_m("Purchase Order " + self.name, "Approved By Manager ( "+self.env.user.name+")")
@@ -228,6 +229,11 @@ class PurchaseOrder(models.Model):
         # x = self.env['purchase.order'].search([('id', '=',res.id)])
         # print("hi x. ..")
         # print(x.name)
+
+        # adding the created PO to the purchase request view
+        x = self.env['sprogroup.purchase.request'].browse(ctx.get('active_id'))
+        x.write({'created_po': [(4, res.id)] })
+        print('xDD')
 
         if res.state_approve and res.state_approve == 'NotApprove':
             print(" if hi")
