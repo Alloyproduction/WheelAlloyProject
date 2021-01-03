@@ -41,6 +41,8 @@ class QualityControlSlip(models.Model):
     alloy_digital_signature = fields.Binary(widget="signature")
     state = fields.Selection(string="state", selection=[('draft', 'Draft'),('accept', 'Accept'), ('deny', 'Deny')],
                              default='draft', track_visibility='always',)
+    job_card = fields.Char()
+
 
     @api.multi
     def accept_qc_slip(self):
@@ -92,28 +94,47 @@ class SaleOrder(models.Model):
         for rec in self:
             qc_search_obj = qc_obj.search([('id','=',self.qc_slip_id.id)])
             if qc_search_obj:
-               return {
-                'type': 'ir.actions.act_window',
-                'name': 'Quality Control Slip',
-                'res_model': 'quality.control.slip',
-                'res_id': qc_search_obj.id,
-                'view_type': 'form',
-                'view_mode': 'form',
-                'target': 'self',
-            }
+                print("done1")
+                qc_search_obj.update({
+                    'name': rec.name,
+                    'invoice_number': rec.invoice_ids.number,
+                    'claim_no': rec.claim_no,
+                    'license_plate': rec.vehicle.license_plate,
+                    'confirmation_date': str(rec.confirmation_date),
+                    'no_of_pieces': total_qty,
+                    'insurance_company': rec.vehicle.insurance_company.id,
+                    'agency_name': rec.x_studio_field_icWOZ.id,
+                    'job_card': rec.x_studio_agency_job_card,
+                    'vehicle': rec.vehicle.id,
+                    'sale_id': rec.id,
+                    # 'service_advisor': rec.service_advisor.id,
+                    'user_id': rec.user_id.id,
+                })
+
+                return {
+                    'type': 'ir.actions.act_window',
+                    'name': 'Quality Control Slip',
+                    'res_model': 'quality.control.slip',
+                    'res_id': qc_search_obj.id,
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'target': 'self',
+                }
             else:
+                print("done2")
                 for line in rec.order_line:
                     total_qty += line.product_uom_qty
                 qc_id = qc_obj.create({
                   'name': rec.name,
-                  'invoice_number': rec.name,
+                  'invoice_number': rec.invoice_ids.number,
                   'claim_no': rec.claim_no,
                   'license_plate': rec.vehicle.license_plate,
                   'confirmation_date': rec.confirmation_date,
                   'no_of_pieces': total_qty,
                   'insurance_company': rec.vehicle.insurance_company.id,
                   'agency_name': rec.x_studio_field_icWOZ.id,
-                  'vehicle': rec.vehicle.id,
+                  'job_card': rec.x_studio_agency_job_card,
+                    'vehicle': rec.vehicle.id,
                   'sale_id': rec.id,
                   # 'service_advisor': rec.service_advisor.id,
                   'user_id': rec.user_id.id,

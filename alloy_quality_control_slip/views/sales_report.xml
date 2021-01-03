@@ -65,8 +65,8 @@
                        <table style="border: 1px solid #32CD32;width:105%">
                                  <tr style="border: 1px solid #32CD32;">
                                     <td colspan="6" style="border: 1px solid #32CD32;text-align: center;">
-                                        <h3>كرت استلام الجوده</h3><br/>
-                                        <h3 style="margin-top: -40;">Quality control slip</h3>
+                                        <h3>مذكرة تسليم / كرت استلام الجوده</h3><br/>
+                                        <h3 style="margin-top: -40;">Dlivery Note / Quality Control Slip</h3>
                                     </td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
@@ -102,18 +102,18 @@
                                     <td style="text-align:center;" width="200">عدد القطع</td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
-                                    <td style="border: 1px solid #32CD32;" >AWRS JC#</td>
+                                    <td style="border: 1px solid #32CD32;" >Job card#</td>
                                     <td style="border: 1px solid #32CD32;text-align:center;" colspan="4">
-                                        <field name="license_plate"/>
+                                        <field name="job_card"/>
                                     </td>
-                                    <td width="200" style="border: 1px solid #32CD32; text-align:center;">رقم كرت اصلاح اللوي</td>
+                                    <td width="200" style="border: 1px solid #32CD32; text-align:center;">رقم كرت العمل </td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
-                                    <td style="border: 1px solid #32CD32;" width="250">Insurance Co. Name</td>
+                                    <td style="border: 1px solid #32CD32;" width="250">Customer/Insurance Co. Name</td>
                                     <td style="border: 1px solid #32CD32;text-align:center;" colspan="4">
                                         <field name="insurance_company"/>
                                     </td>
-                                    <td width="200" style="border: 1px solid #32CD32;text-align:center;">اسم شركه التامين</td>
+                                    <td width="200" style="border: 1px solid #32CD32;text-align:center;">اسم العميل/ شركه التامين</td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
                                     <td style="border: 1px solid #32CD32;">Agency Name</td>
