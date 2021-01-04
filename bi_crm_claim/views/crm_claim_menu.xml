@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-        <menuitem id="main_crm_claim_menu" name="Customer Claim"  web_icon="bi_crm_claim,static/description/icon.png"/>/>
+        <menuitem id="main_crm_claim_menu" name="Customer Claim"  groups="bi_crm_claim.group_manager" web_icon="bi_crm_claim,static/description/icon.png"/>  groups="bi_crm_claim.group_manager"/>
 
 
         <menuitem id="menu_aftersale" name="After-Sale"
@@ -108,7 +108,7 @@
             </field>
         </record>
 	<!-- Claim Stages -->
-        <menuitem id="menu_claim_stage_view" name="Stages" action="crm_claim_stage_act" parent="main_crm_claim_menu" sequence="20"  groups="bi_crm_claim.group_manager"/>
+<!--        <menuitem id="menu_claim_stage_view" name="Stages" action="crm_claim_stage_act" parent="main_crm_claim_menu" sequence="20"  groups="bi_crm_claim.group_manager"/>-->
 
 <!--________________________________________________________________________________________________________________________________________________________-->
 
@@ -234,9 +234,9 @@
                                 </group>
                                 <group colspan="2" col="2">
                                     <separator colspan="2" string="Dates"/>
-                                    <field name="create_date"/>
-                                    <field name="date_closed" invisible="1"/>
-                                    <field name="write_date"/>
+<!--                                    <field name="create_date"/>-->
+<!--                                    <field name="date_closed" invisible="1"/>-->
+<!--                                    <field name="write_date"/>-->
                                 </group>
 
                                 <group colspan="2" col="2">
@@ -399,8 +399,8 @@
                             <div class="oe_kanban_details">
 
                                 <div class="row">
-
                                     <div class="col-md-6">
+
                                         <strong>
                                             <field name="name"/>
                                         </strong>
