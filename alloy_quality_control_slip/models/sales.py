@@ -85,10 +85,54 @@ class QualityControlSlip(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    is_qc_created = fields.Boolean('Is Qc Created', default=False)
     qc_slip_id = fields.Many2one(comodel_name="quality.control.slip")
+
+    def qc_mail_reminder(self):
+        """Sending Email notification to make invoice to the sale order"""
+        print('......')
+        so_inv_created = self.env['sale.order'].search([('is_qc_created','=' ,True)], limit=500)
+        for i in so_inv_created:
+            print(so_inv_created)
+            print(i.is_qc_created)
+            if i.invoice_ids.number:
+                print('worked22')
+                i.is_qc_created = False
+            else:
+                groups = self.env['res.groups'].search([('name', '=', "QC invoice reminder")])
+                recipient_partners = []
+                print(groups)
+                for group in groups:
+                    for recipient in group.users:
+                        if recipient.partner_id.id not in recipient_partners:
+                            recipient_partners.append(recipient.partner_id.id)
+                            print(recipient.login)
+                            print(recipient_partners)
+
+                msg_sub = "QualityControl Without Invoice"
+                msg_body = "Please Create Invoice To This Sale Order. " + i.name
+                print(recipient_partners)
+                print('wanted1 still')
+                if len(recipient_partners):
+                    print('worked33 and sent')
+                    i.sudo().message_post(body=msg_body,
+                                      subtype='mt_comment',
+                                      subject=msg_sub,
+                                      partner_ids=recipient_partners,
+                                      message_type='comment')
+
+                i.is_qc_created = False
+
+
 
     @api.multi
     def make_quality_control_slip(self):
+
+
+        # qc_search_obj2 = self.search([('invoice_ids', '=', False),('qc_slip_id', '!=', False)])
+        if not self.invoice_ids.number:
+            self.is_qc_created = True
+
         total_qty = 0.0
         qc_obj = self.env['quality.control.slip']
         for rec in self:
