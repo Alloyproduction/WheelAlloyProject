@@ -11,7 +11,7 @@ from requests import exceptions
 
 _STATES = [
     ('draft', 'Draft'),
-    ('to_approve', 'To be approved'),
+        ('to_approve', 'To be approved'),
     ('leader_approved', 'Leader Approved'),
     ('manager_approved', 'Manager Approved'),
     ('done', 'Done'),
@@ -280,6 +280,20 @@ class SprogroupPurchaseRequest(models.Model):
     @api.multi
     def button_manager_approved(self):
 
+        # mo. edit01
+        recipient_partners=[]
+        msg_sub = "Approved Purchase Request"
+        msg_body = "This Purchase Request Have Been Approved."
+        if self.department_id:
+            recipient_partners.append(self.department_id.create_quotation_manager_id.id)
+
+        if len(recipient_partners):
+            self.message_post(body=msg_body,
+                         subtype='mt_comment',
+                         subject=msg_sub,
+                         partner_ids=recipient_partners,
+                         message_type='comment')
+
         return self.write({'state': 'done'})
 
 
@@ -500,9 +514,8 @@ class purchaseorderwizard(models.Model):
 class department_headOffice(models.Model):
     _inherit ='hr.department'
 
-    department_manager_id=  fields.Many2one('res.users', 'Head Office',required=True, track_visibility='onchange')
-
-
+    department_manager_id = fields.Many2one('res.users', 'Head Office',required=True, track_visibility='onchange')
+    create_quotation_manager_id = fields.Many2one('res.users', 'Create Quotation Manager', track_visibility='onchange')
 
 
 class SprogroupPurchaseRequestLine(models.Model):
