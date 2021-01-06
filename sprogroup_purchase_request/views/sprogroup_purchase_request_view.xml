@@ -265,7 +265,7 @@
 
             <xpath expr="//field[@name='parent_id']" position="after">
                 <field name="department_manager_id" />
-                <field name="create_quotation_manager_id" />
+
             </xpath>
 
             </field>
