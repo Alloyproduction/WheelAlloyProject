@@ -2,7 +2,7 @@
 <!-- Copyright 2016 Eficent Business and IT Consulting Services S.L.
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
 <odoo>
-
+<data>
         <record model="ir.ui.view" id="view_sprogroup_purchase_request_form">
             <field name="name">sprogroup.purchase.request.form</field>
             <field name="model">sprogroup.purchase.request</field>
@@ -257,7 +257,7 @@
             </field>
         </record>
 
-  <record model="ir.ui.view" id="purchase_department_hr_request_form_view">
+        <record model="ir.ui.view" id="purchase_department_hr_request_form_view">
             <field name="name">department_head_office</field>
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_form"/>
@@ -265,7 +265,7 @@
 
             <xpath expr="//field[@name='parent_id']" position="after">
                 <field name="department_manager_id" />
-
+                <field name="create_quotation_manager_id" />
             </xpath>
 
             </field>
@@ -300,5 +300,5 @@
             res_model="sprogroup.purchase.request.line"
             src_model="product.product"
             groups="base.group_user"/>
-
+</data>
 </odoo>
