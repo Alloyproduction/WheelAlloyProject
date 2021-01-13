@@ -1,76 +1,72 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * sale_commission
+# 	* sale_commission
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-22 08:15+0000\n"
-"PO-Revision-Date: 2020-02-25 09:13+0000\n"
-"Last-Translator: Marcel Savegnago <marcel.savegnago@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2019-09-18 17:02+0000\n"
+"Last-Translator: 黎伟杰 <674416404@qq.com>\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__quantity
 msgid "# of Qty"
-msgstr "# Quantidade de"
+msgstr "# 数量"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission_mixin.py:65
 #, python-format
 msgid "%s commission agents"
-msgstr "%s agentes de comissão"
+msgstr "%s 代理商佣金"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_make_invoice_form
 msgid "(keep empty for invoicing all the settlements)"
-msgstr "(Manter vazio para faturar todos os abatimentos)"
+msgstr "(为所有结算开具发票时保留为空)"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 msgid "(keep empty for making the settlement of all agents)"
-msgstr "(Manter vazio para fazer o abatimento de todos representantes)"
+msgstr "(为所有代理商结算时留空)"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission_mixin.py:63
 #, python-format
 msgid "1 commission agent"
-msgstr "1 agente de comissão"
+msgstr "1佣金代理"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "<strong>Agent:</strong>"
-msgstr "<strong>Agente:</strong>"
+msgstr "<strong>代理商：</strong>"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "<strong>From:</strong>"
-msgstr "<strong>De:</strong>"
+msgstr "<strong>从：</strong>"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "<strong>To:</strong>"
-msgstr "<strong>Para:</strong>"
+msgstr "<strong>到：</strong>"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "<strong>Total</strong>"
-msgstr "<strong>Total</strong>"
+msgstr "<strong>合计</strong>"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__active
 msgid "Active"
-msgstr "Ativo"
+msgstr "有效"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__agent
@@ -84,23 +80,23 @@ msgstr "Ativo"
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_search
 msgid "Agent"
-msgstr "Representante"
+msgstr "代理商"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__agent_line
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__agent_line
 msgid "Agent Line"
-msgstr "Linha Agente"
+msgstr "代理商行"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_res_partner_filter
 msgid "Agent Partners"
-msgstr "Parceiros Representantes"
+msgstr "代理合作伙伴"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_partner_form_agent
 msgid "Agent information"
-msgstr "Informações do Representante"
+msgstr "代理商信息"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission_mixin.py:91
@@ -114,80 +110,80 @@ msgstr "Informações do Representante"
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 #, python-format
 msgid "Agents"
-msgstr "Representantes"
+msgstr "代理商"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line__agents
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_mixin__agents
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line__agents
 msgid "Agents & commissions"
-msgstr "Representantes & Comissões"
+msgstr "代理商和佣金"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_account_invoice_line__agents
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_mixin__agents
 #: model:ir.model.fields,help:sale_commission.field_sale_order_line__agents
 msgid "Agents/Commissions related to the invoice line."
-msgstr "Representantes/Comissões relacionados à linha da fatura."
+msgstr "与发票行相关的代理商/佣金。"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__amount
 msgid "Amount"
-msgstr "Montante"
+msgstr "金额"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "Amount settled"
-msgstr "Montante liquidado"
+msgstr "结算金额"
 
 #. module: sale_commission
 #: selection:res.partner,settlement:0
 msgid "Annual"
-msgstr "Anual"
+msgstr "每年"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line__any_settled
 msgid "Any Settled"
-msgstr "Qualquer Liquidado"
+msgstr "任何结算"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__amount_base_type
 msgid "Base"
-msgstr "base"
+msgstr "基础"
 
 #. module: sale_commission
 #: selection:sale.commission,commission_type:0
 msgid "By sections"
-msgstr "Por Seções"
+msgstr "按阶梯"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_form
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "取消"
 
 #. module: sale_commission
 #: selection:sale.commission.settlement,state:0
 msgid "Canceled"
-msgstr "Cancelado"
+msgstr "已取消"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:52
 #, python-format
 msgid "Cannot cancel an invoiced settlement."
-msgstr "Não é possível cancelar uma fatura liquidada."
+msgstr "无法取消已开票结算。"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__categ_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Category of Product"
-msgstr "Categoria do Produto"
+msgstr "产品类别"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_res_partner__agent
 #: model:ir.model.fields,help:sale_commission.field_res_users__agent
 msgid "Check this field if the partner is a creditor or an agent."
-msgstr "Verifique nesse campo se o parceiro é um credor ou um representante."
+msgstr "如果合作伙伴是贷方或代理商，请选中此字段。"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission_mixin.py:59
@@ -196,7 +192,7 @@ msgstr "Verifique nesse campo se o parceiro é um credor ou um representante."
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line__commission_free
 #, python-format
 msgid "Comm. free"
-msgstr "Livre de comissão"
+msgstr "免佣金"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line__commission_status
@@ -212,7 +208,7 @@ msgstr "Livre de comissão"
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_form
 msgid "Commission"
-msgstr "Comissão"
+msgstr "佣金"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__amount
@@ -220,46 +216,46 @@ msgstr "Comissão"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__settled_amount
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__amount
 msgid "Commission Amount"
-msgstr "Total de Comissão"
+msgstr "佣金金额"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.action_sale_commission_analysis_report
 #: model:ir.ui.menu,name:sale_commission.menu_sale_commissions_analysis
 msgid "Commission Analysis"
-msgstr "Análise de Comissão"
+msgstr "佣金分析"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission
 msgid "Commission in sales"
-msgstr "Comissão nas vendas"
+msgstr "销售佣金"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_form
 msgid "Commission lines"
-msgstr "Linhas de comissão"
+msgstr "佣金行"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_section
 msgid "Commission section"
-msgstr "Seção de comissão"
+msgstr "佣金项"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.action_commission
 #: model:ir.ui.menu,name:sale_commission.menu_sale_commissions_types
 msgid "Commission types"
-msgstr "Tipos de comissão"
+msgstr "佣金类型"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice__commission_total
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order__commission_total
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_tree
 msgid "Commissions"
-msgstr "Commissões"
+msgstr "佣金"
 
 #. module: sale_commission
 #: model:ir.ui.menu,name:sale_commission.menu_sale_commissions_management
 msgid "Commissions Management"
-msgstr "Gerenciamento de comissões"
+msgstr "佣金管理"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__company_id
@@ -269,46 +265,46 @@ msgstr "Gerenciamento de comissões"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__company_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Company"
-msgstr "Empresa"
+msgstr "公司"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:193
 #, python-format
 msgid "Company must be the same"
-msgstr "A empresa deve ser a mesma"
+msgstr "公司必须相同"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_make_invoice__company_id
 msgid "Company related to this journal"
-msgstr "Empresa relacionada a este periódico"
+msgstr "与此日记帐相关的公司"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_res_partner
 msgid "Contact"
-msgstr "Contato"
+msgstr "联系人"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.action_commission_make_invoices
 #: model:ir.ui.menu,name:sale_commission.menu_commission_make_invoices
 msgid "Create commission invoices"
-msgstr "Criar faturas de comissão"
+msgstr "创建佣金发票"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_make_invoice_form
 msgid "Create invoices"
-msgstr "Criar faturas"
+msgstr "创建发票"
 
 #. module: sale_commission
 #: code:addons/sale_commission/wizard/wizard_invoice.py:59
 #, python-format
 msgid "Created Invoices"
-msgstr "Faturas criadas"
+msgstr "创建的发票"
 
 #. module: sale_commission
 #: code:addons/sale_commission/wizard/wizard_settle.py:117
 #, python-format
 msgid "Created Settlements"
-msgstr "Abatimentos criados"
+msgstr "创建的结算"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__create_uid
@@ -320,7 +316,7 @@ msgstr "Abatimentos criados"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__create_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__create_uid
 msgid "Created by"
-msgstr "Criado por"
+msgstr "创建者"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__create_date
@@ -332,13 +328,13 @@ msgstr "Criado por"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__create_date
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__create_date
 msgid "Created on"
-msgstr "Criado em"
+msgstr "创建时间"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_partner__agent
 #: model:ir.model.fields,field_description:sale_commission.field_res_users__agent
 msgid "Creditor/Agent"
-msgstr "Credor/Representante"
+msgstr "贷方/代理商"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__currency_id
@@ -347,37 +343,37 @@ msgstr "Credor/Representante"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__currency_id
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__currency_id
 msgid "Currency"
-msgstr "Moeda"
+msgstr "货币"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Customer"
-msgstr "Cliente"
+msgstr "客户"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_make_invoice__date
 msgid "Date"
-msgstr "Data"
+msgstr "日期"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__date_invoice
 msgid "Date Invoice"
-msgstr "Data da Fatura"
+msgstr "发票日期"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_search
 msgid "Date from month"
-msgstr "Data do mês"
+msgstr "起始月份"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_search
 msgid "Date month"
-msgstr "Mês da data"
+msgstr "日期月份"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_mixin_agent_only
 msgid "Discard"
-msgstr "Descartar"
+msgstr "丢弃"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__display_name
@@ -392,72 +388,72 @@ msgstr "Descartar"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__display_name
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__display_name
 msgid "Display Name"
-msgstr "Nome para Exibição"
+msgstr "显示名称"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Draft"
-msgstr "Rascunho"
+msgstr "草稿"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Extended Filters"
-msgstr "Filtros Extendidos"
+msgstr "扩展筛选"
 
 #. module: sale_commission
 #: selection:res.partner,agent_type:0
 msgid "External agent"
-msgstr "Agente externo"
+msgstr "外部代理商"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__fix_qty
 #: selection:sale.commission,commission_type:0
 msgid "Fixed percentage"
-msgstr "Porcentagem fixa"
+msgstr "固定百分比"
 
 #. module: sale_commission
 #: selection:sale.commission,commission_type:0
 msgid "Formula"
-msgstr "Fórmula"
+msgstr "公式"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_product_product__commission_free
 #: model:ir.model.fields,field_description:sale_commission.field_product_template__commission_free
 msgid "Free of commission"
-msgstr "Livre de comissão"
+msgstr "免佣金"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_section__amount_from
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__date_from
 msgid "From"
-msgstr "De"
+msgstr "从"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_make_invoice__from_settlement
 msgid "From Settlement"
-msgstr "Do Acordo"
+msgstr "来自结算"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_form
 msgid "General information"
-msgstr "Informações gerais"
+msgstr "一般信息"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__invoice
 msgid "Generated invoice"
-msgstr "Fatura criada"
+msgstr "生成的发票"
 
 #. module: sale_commission
 #: selection:sale.commission,amount_base_type:0
 msgid "Gross Amount"
-msgstr "Montante bruto"
+msgstr "总金额"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_search
 msgid "Group By"
-msgstr "Agrupar Por"
+msgstr "分组"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__id
@@ -480,68 +476,68 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__invoice
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "Invoice"
-msgstr "Fatura"
+msgstr "发票"
 
 #. module: sale_commission
 #: selection:sale.commission,invoice_state:0
 msgid "Invoice Based"
-msgstr "Fatura baseada em"
+msgstr "基于发票"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Linha da Fatura"
+msgstr "发票行"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Invoice Month"
-msgstr "Mês da Fatura"
+msgstr "发票月份"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__invoice_state
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__invoice_state
 msgid "Invoice Status"
-msgstr "Situação da Fatura"
+msgstr "发票状态"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__invoice_date
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__date
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "Invoice date"
-msgstr "Data da Fatura"
+msgstr "发票日期"
 
 #. module: sale_commission
 #: selection:sale.commission.settlement,state:0
 msgid "Invoice exception"
-msgstr "Exceção da faturamento"
+msgstr "发票异常"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__invoice_line_id
 #: model_terms:ir.ui.view,arch_db:sale_commission.report_settlement
 msgid "Invoice line"
-msgstr "Linha de Fatura"
+msgstr "发票行"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.invoice_line_agent_tree
 msgid "Invoice line agents and commissions"
-msgstr "Representantes e comissões na linha da fatura"
+msgstr "发票行代理商和佣金"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 #: selection:sale.commission.settlement,state:0
 msgid "Invoiced"
-msgstr "Faturado"
+msgstr "已开票"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_make_invoice__journal
 msgid "Journal"
-msgstr "Diário"
+msgstr "日记账"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_account_invoice_line_agent__invoice_date
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_settlement_line__date
 msgid "Keep empty to use the current date"
-msgstr "Deixe em branco para usar a data atual"
+msgstr "保留空以使用当前日期"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent____last_update
@@ -556,7 +552,7 @@ msgstr "Deixe em branco para usar a data atual"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line____last_update
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent____last_update
 msgid "Last Modified on"
-msgstr "Última Modificação em"
+msgstr "最后修改时间"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__write_uid
@@ -568,7 +564,7 @@ msgstr "Última Modificação em"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__write_uid
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__write_uid
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr "最后更新者"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__write_date
@@ -580,71 +576,68 @@ msgstr "Última atualização por"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__write_date
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__write_date
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr "最后更新时间"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_settlement_line
 msgid "Line of a commission settlement"
-msgstr "Linha de uma solução de comissão"
+msgstr "佣金结算行"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:67
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_form
 #, python-format
 msgid "Make invoice"
-msgstr "Gerar Fatura"
+msgstr "开发票"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_make_invoice_form
 msgid "Make invoices"
-msgstr "Gerar Faturas"
+msgstr "开发票"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 msgid "Make settlements"
-msgstr "Fazer abatimentos"
+msgstr "结算"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_mixin
 msgid "Mixin model for applying to any object that wants to handle commissions"
-msgstr ""
-"Modelo Mixin para aplicar a qualquer objeto que queira lidar com comissões"
+msgstr "Mixin模型适用于任何想要处理佣金的对象"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_line_mixin
 msgid ""
 "Mixin model for having commission agent lines in any object inheriting from "
 "this one"
-msgstr ""
-"Modelo de mixim para ter linhas de agente de comissão em qualquer objeto "
-"herdando deste"
+msgstr "Mixin模型，用于在从此继承的任何对象中具有佣金代理行"
 
 #. module: sale_commission
 #: selection:res.partner,settlement:0
 msgid "Monthly"
-msgstr "Mensalmente"
+msgstr "每月"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__name
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__name
 msgid "Name"
-msgstr "Nome"
+msgstr "名称"
 
 #. module: sale_commission
 #: selection:sale.commission,amount_base_type:0
 msgid "Net Amount"
-msgstr "Montante líquido"
+msgstr "净额"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission_mixin.py:61
 #, python-format
 msgid "No commission agents"
-msgstr "Sem agentes de comissão"
+msgstr "无佣金代理商"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Not Settled"
-msgstr "Não Liquidado"
+msgstr "未结算"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__object_id
@@ -652,48 +645,49 @@ msgstr "Não Liquidado"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__invoice_line
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line_agent__object_id
 msgid "Parent"
-msgstr "Pai"
+msgstr "上级"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__partner_id
 msgid "Partner"
-msgstr "Parceiro"
+msgstr "业务伙伴"
 
 #. module: sale_commission
 #: selection:sale.commission,invoice_state:0
 msgid "Payment Based"
-msgstr "Baseado no pagamento"
+msgstr "基于付款"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_section__percent
 msgid "Percent"
-msgstr "Percentual"
+msgstr "百分比"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__percentage
 msgid "Percentage of commission"
-msgstr "Percentual de comissão"
+msgstr "佣金百分比"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:110
 #, python-format
 msgid "Period: from %s to %s"
-msgstr "Período: de %s a %s"
+msgstr "期间：从 %s 到 %s"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__price_subtotal
 msgid "Price subtotal"
-msgstr "Subtotal"
+msgstr "价格小计"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__price_subtotal_signed
+#, fuzzy
 msgid "Price subtotal signed"
-msgstr "Subtotal do preço assinado"
+msgstr "价格小计"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__price_unit
 msgid "Price unit"
-msgstr "Preço Unitário"
+msgstr "单价"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line__product_id
@@ -701,96 +695,96 @@ msgstr "Preço Unitário"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_mixin__product_id
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order_line__product_id
 msgid "Product"
-msgstr "Produto"
+msgstr "产品"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_product_template
 msgid "Product Template"
-msgstr "Modelo de Produto"
+msgstr "产品模板"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_make_invoice__product
 msgid "Product for invoicing"
-msgstr "Produto para faturar"
+msgstr "用于开发票的产品"
 
 #. module: sale_commission
 #: selection:res.partner,settlement:0
 msgid "Quarterly"
-msgstr "Trimestralmente"
+msgstr "每季"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_form
 msgid "Rates definition"
-msgstr "Definição das Taxas"
+msgstr "费率定义"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.invoice_form_agent
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_order_agent_form_inherit
 msgid "Recompute lines agents"
-msgstr "Recalcular representantes nas linhas"
+msgstr "重新计算行代理商"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_graph
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_pivot
 msgid "Sale Commission Analysis"
-msgstr "Análise de Comissão de Venda"
+msgstr "销售佣金分析"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_analysis_report
 msgid "Sale Commission Analysis Report"
-msgstr "Relatório de Análise de Comissão de Venda"
+msgstr "销售佣金分析报告"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_order
 msgid "Sale Order"
-msgstr "Pedido de Venda"
+msgstr "销售订单"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__commission_id
 msgid "Sale commission"
-msgstr "Comissão de venda"
+msgstr "销售佣金"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Sales Commission Analysis"
-msgstr "Análise de Comissão de Venda"
+msgstr "销售佣金分析"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Linha de Pedidos de Venda"
+msgstr "销售订单行"
 
 #. module: sale_commission
 #: selection:res.partner,agent_type:0
 msgid "Salesman (employee)"
-msgstr "Vendedor (funcionário)"
+msgstr ""
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_mixin_agent_only
 msgid "Save"
-msgstr "Salvar"
+msgstr "保存"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__sections
 msgid "Sections"
-msgstr "Seções"
+msgstr "项"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 msgid "Select the date up to which you want to make the settlements:"
-msgstr "Selecione a data até a qual deseja realizar os abatimentos:"
+msgstr "选择您要进行结算的日期："
 
 #. module: sale_commission
 #: selection:res.partner,settlement:0
 msgid "Semi-annual"
-msgstr "Semestral"
+msgstr "每半年"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.action_agents_settlement
 #: model:ir.ui.menu,name:sale_commission.menu_agents_settlement
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 msgid "Settle commissions"
-msgstr "Abater comissões"
+msgstr "结算佣金"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_account_invoice_line_agent__settled
@@ -798,61 +792,61 @@ msgstr "Abater comissões"
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 #: selection:sale.commission.settlement,state:0
 msgid "Settled"
-msgstr "Liquidado"
+msgstr "结算"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_partner_form_agent
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_tree
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_tree
 msgid "Settled total"
-msgstr "Total abatido"
+msgstr "结算合计"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_settlement
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement_line__settlement
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_form
 msgid "Settlement"
-msgstr "Abatimento"
+msgstr "结算"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_graph
 msgid "Settlement analysis"
-msgstr "Análise de abatimentos"
+msgstr "结算分析"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__lines
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_form
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_tree
 msgid "Settlement lines"
-msgstr "Linhas de abatimento"
+msgstr "结算行"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_search
 msgid "Settlement lines search"
-msgstr "Pesquisar linhas de abatimento"
+msgstr "结算行搜索"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_partner__settlement
 #: model:ir.model.fields,field_description:sale_commission.field_res_users__settlement
 msgid "Settlement period"
-msgstr "Período de abatimento"
+msgstr "结算期"
 
 #. module: sale_commission
 #: code:addons/sale_commission/wizard/wizard_settle.py:34
 #: code:addons/sale_commission/wizard/wizard_settle.py:48
 #, python-format
 msgid "Settlement period not valid."
-msgstr "Período de abatimento não é válido."
+msgstr "结算期无效。"
 
 #. module: sale_commission
 #: model:ir.actions.report,name:sale_commission.action_report_settlement
 msgid "Settlement report"
-msgstr "Relatório de Liquidação"
+msgstr "结算报告"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_search
 msgid "Settlement search"
-msgstr "Pesquisar abatimentos"
+msgstr "结算搜索"
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.action_settle_commission
@@ -865,28 +859,28 @@ msgstr "Pesquisar abatimentos"
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_partner_form_agent
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_tree
 msgid "Settlements"
-msgstr "Abatimentos"
+msgstr "结算"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__state
 msgid "State"
-msgstr "Situação"
+msgstr "状态"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "Status"
-msgstr "Estado"
+msgstr "状态"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/sale_commission.py:53
 #, python-format
 msgid "The lower limit cannot be greater than upper one."
-msgstr "O limite inferior não pode ser maior do que o superior."
+msgstr "下限不能大于上限。"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_sale_commission_analysis_search
 msgid "This Year"
-msgstr "Este ano"
+msgstr "今年"
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_res_partner__commission
@@ -895,8 +889,7 @@ msgid ""
 "This is the default commission used in the sales where this agent is "
 "assigned. It can be changed on each operation if needed."
 msgstr ""
-"Esta é a comissão padrão usada nas vendas onde este representante está "
-"atribuído. Pode ser alterada em cada operação, se necessário."
+"这是分配此代理商在销售中使用的默认佣金。如果需要，可以在每次操作中更改。"
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.action_sale_commission_analysis_report
@@ -906,28 +899,25 @@ msgid ""
 "product category, aget, etc. Use this report to perform analysis on invoice "
 "lines agents not beeing settled yet."
 msgstr ""
-"Este relatório realiza a análise de suas comissões adicionadas nas linhas de "
-"fatura. Você pode verificar a quantidade e as linhas que serão liquidadas "
-"por data, produto, categoria de produto, aget etc. Use esse relatório para "
-"executar a análise em agentes de linhas de faturas que ainda não foram "
-"liquidados."
+"此报告会对发票行中添加的佣金进行分析。您可以检查将按日期，产品，产品类别，年"
+"龄等结算的金额和行数。使用此报表对尚未结算的发票行代理商进行分析。"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_line_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settlement_search
 msgid "This year"
-msgstr "Esse ano"
+msgstr "今年"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_section__amount_to
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__date_to
 msgid "To"
-msgstr "Para"
+msgstr "到"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__total
 msgid "Total"
-msgstr "Total"
+msgstr "合计"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_partner__agent_type
@@ -935,57 +925,57 @@ msgstr "Total"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission__commission_type
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_settlement__agent_type
 msgid "Type"
-msgstr "Tipo"
+msgstr "类型"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_analysis_report__uom_id
 msgid "Unit of Measure"
-msgstr "Unidade de Medida"
+msgstr "计量单位"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_make_settle__date_to
 msgid "Up to"
-msgstr "Até"
+msgstr "取决于"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:151
 #, python-format
 msgid "Value cannot be negative"
-msgstr "O valor não pode ser negativo"
+msgstr "值不能为负"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_make_invoice
 msgid "Wizard for making an invoice from a settlement"
-msgstr "Assistente para fazer uma fatura de um acordo"
+msgstr "从结算生成发票的向导"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_make_settle
 msgid "Wizard for settling commissions in invoices"
-msgstr "Assistente para liquidação de comissões em faturas"
+msgstr "发票佣金结算向导"
 
 #. module: sale_commission
 #: sql_constraint:account.invoice.line.agent:0
 #: sql_constraint:sale.commission.line.mixin:0
 #: sql_constraint:sale.order.line.agent:0
 msgid "You can only add one time each agent."
-msgstr "Você só pode adicionar um representante de cada vez."
+msgstr "每个代理商只能添加一次。"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/settlement.py:60
 #, python-format
 msgid "You can't delete invoiced settlements."
-msgstr "Você não pode deletar faturas liquidadas."
+msgstr "您无法删除已开具发票的结算。"
 
 #. module: sale_commission
 #: code:addons/sale_commission/models/account_invoice.py:179
 #, python-format
 msgid "You can't modify a settled line"
-msgstr "Você não pode modificar uma linha estabelecida"
+msgstr "您无法修改已结算的行"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_make_invoice_form
 msgid "_Cancel"
-msgstr "_Cancelar"
+msgstr "取消"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_account_invoice_line_agent
@@ -996,7 +986,7 @@ msgstr "account.invoice.line.agent"
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_make_invoice_form
 #: model_terms:ir.ui.view,arch_db:sale_commission.view_settled_wizard
 msgid "or"
-msgstr "ou"
+msgstr "或"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_order_line_agent
@@ -1006,24 +996,4 @@ msgstr "sale.order.line.agent"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_form
 msgid "sections"
-msgstr "Seções"
-
-#~ msgid "Quotation"
-#~ msgstr "Cotação"
-
-#, fuzzy
-#~ msgid "Source Product"
-#~ msgstr "Produto"
-
-#, fuzzy
-#~ msgid "Subtotal"
-#~ msgstr "Total"
-
-#~ msgid "sale.commission.make.invoice"
-#~ msgstr "sale.commission.make.invoice"
-
-#~ msgid "sale.commission.make.settle"
-#~ msgstr "sale.commission.make.settle"
-
-#~ msgid "Sale Line"
-#~ msgstr "Linha de Venda"
+msgstr "项"

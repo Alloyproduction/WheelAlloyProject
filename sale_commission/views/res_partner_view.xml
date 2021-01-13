@@ -10,12 +10,12 @@
             <xpath expr="//page[@name='sales_purchases']//field[@name='supplier']" position="after">
                 <field name="agent" string="Agent" />
             </xpath>
-            <field name="user_id" position="after">
+            <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
                 <field name="agents"
                        attrs="{'invisible': [('customer', '=', False)]}"
                        widget="many2many_tags"
                        context="{'default_agent': True}"/>
-            </field>
+            </xpath>
             <page name="sales_purchases" position="after">
                 <page name="agent_information"
                       string="Agent information"
@@ -23,12 +23,12 @@
                       attrs="{'invisible': [('agent', '=', False)]}">
                     <group>
                         <group>
-                            <field name="agent_type"/>
+                            <field name="agent_type" required="1"/>
                             <field name="commission"
                                    attrs="{'required': [('agent', '=', True)]}"/>
                         </group>
                         <group>
-                            <field name="settlement"/>
+                            <field name="settlement" required="1"/>
                         </group>
                         <group colspan="4"
                                string="Settlements">
