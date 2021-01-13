@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="qc_email_template" model="mail.template">
+            <field name="name">Quality Control: Send by email</field>
+            <field name="model_id" ref="alloy_quality_control_slip.model_quality_control_slip"/>
+            <field name="email_from">${object.user_id.email_formatted |safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="subject">${object.company_id.name} Quality Control (Ref ${object.number or 'n/a'})</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear ${object.partner_id.name}
+        <br /><br />
+        Here is your Quality Control With Reference
+        <br /><br />
+        Do not hesitate to contact us if you have any question.
+    </p>
+</div>
+            </field>
+            <field name="report_template" ref="sale_order_form_inherit"/>
+            <field name="report_name">Quality Control_${(object.number)}</field>
+        </record>
+    </data>
+</odoo>
