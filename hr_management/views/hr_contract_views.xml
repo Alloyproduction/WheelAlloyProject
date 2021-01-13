@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="hr_contract_form_additional_allowance" model="ir.ui.view">
+        <field name="name">hr.contract.view.additional.allowance</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='salary_and_advantages']" position="after">
+                <group string="Monthly Advantages in Cash" name='allowances'>
+                    <label for="hra"/>
+                    <div class="o_row">
+                        <field name="hra" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="conv_allowance"/>
+                    <div class="o_row">
+                        <field name="conv_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="travel_allowance"/>
+                    <div class="o_row">
+                        <field name="travel_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+
+                    <label for="insurances"/>
+                    <div class="o_row">
+                        <field name="insurances" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="loan_allowance"/>
+                    <div class="o_row">
+                        <field name="loan_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="advance_allowance"/>
+                    <div class="o_row">
+                        <field name="advance_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="gosi_allowance"/>
+                    <div class="o_row">
+                        <field name="gosi_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                    <label for="other_deduction"/>
+                    <div class="o_row">
+                        <field name="other_deduction" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+
+                    <label for="other_allowance"/>
+                    <div class="o_row">
+                        <field name="other_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
