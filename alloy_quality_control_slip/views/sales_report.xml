@@ -59,6 +59,9 @@
                     <button name="deny_qc_slip" string="Deny"
                             type="object" class="oe_highlight"
                             states="draft"/>
+
+                     <button name="action_send_qc" string="Send By Email"
+                            type="object" class="oe_highlight"/>
                     <field name="state" widget="statusbar" state="draft,accept,deny"/>
                 </header>
                 <sheet>

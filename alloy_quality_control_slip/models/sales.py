@@ -58,7 +58,6 @@ class QualityControlSlip(models.Model):
                         if line.stage_id.name == 'Delivery':  # line.stage_id.name == 'Finished and QC' or
                             line.is_delete_stage = True
 
-
     @api.multi
     def deny_qc_slip(self):
         for rec in self:
@@ -69,6 +68,11 @@ class QualityControlSlip(models.Model):
     def set_to_draft(self):
         for rec in self:
             rec.state = 'draft'
+
+    def action_send_qc(self):
+        print("Sending email")
+        template_id = self.env.ref('alloy_quality_control_slip.qc_email_template').id
+        self.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)
 
     # @api.multi
     # @api.depends('state')
