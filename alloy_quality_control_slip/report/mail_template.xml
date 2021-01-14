@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="qc_email_template" model="mail.template">
+            <field name="name">Quality Control: Send by email</field>
+            <field name="model_id" ref="alloy_quality_control_slip.model_quality_control_slip"/>
+            <field name="email_from">${object.user_id.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.id}</field>
+            <field name="subject">Quality Control Ref :${object.name}</field>
+            <field name="body_html" type="html">
+
+                <div style="margin: 0px;padding: 0px;">
+                    <p style="margin: 0px;padding: 0px;font-size: 13px;">
+                        Dear ${object.partner_id.name}
+
+                        Best regards,
+
+
+                    </p>
+
+
+                </div>
+
+            </field>
+            <field name="report_template" ref="sale_order_form_inherit"/>
+            <field name="report_name">Quality Control_${(object.number)}</field>
+        </record>
+
+
+    </data>
+
+
+</odoo>

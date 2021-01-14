@@ -16,7 +16,7 @@
         'security/ir.model.access.csv',
         'views/sales_report.xml',
         'views/mail_notification.xml',
-        'views/email_templete.xml',
         'report/sales_report.xml',
+        'report/mail_template.xml',
     ],
 }
