@@ -19,7 +19,7 @@
     </p>
 </div>
             </field>
-            <field name="report_template" ref="sale_order_form_inherit"/>
+            <field name="report_template" ref="sales_report_id"/>
             <field name="report_name">Quality Control_${(object.number)}</field>
         </record>
 </odoo>
