@@ -63,12 +63,12 @@ class MsReportStock(models.TransientModel):
             ('Product', 30, 'char', 'char'),
             ('Product Category', 20, 'char', 'char'),
             ('Location', 30, 'char', 'char'),
-            ('Incoming Date', 20, 'char', 'char'),
+            ('Incoming Date', 20, 'date', 'date'),
             ('Stock Age', 20, 'number', 'char'),
             ('Total Stock', 20, 'float', 'float'),
             ('Available', 20, 'float', 'float'),
             ('Reserved', 20, 'float', 'float'),
-            ('Date', 30, 'char', 'char'),
+            ('Date', 20, 'date', 'date'),
         ]
 
         datetime_format = '%Y-%m-%d %H:%M:%S'
@@ -158,6 +158,9 @@ class MsReportStock(models.TransientModel):
                 if column_type == 'char' :
                     col_value = res[index_alphabet-1] if res[index_alphabet-1] else ''
                     wbf_value = wbf['content']
+                elif column_type == 'date' :
+                    col_value = res[index_alphabet-1] if res[index_alphabet-1] else ''
+                    wbf_value = wbf['content_date']
                 elif column_type == 'no' :
                     col_value = no
                     wbf_value = wbf['content']
