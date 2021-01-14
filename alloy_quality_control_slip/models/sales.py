@@ -38,6 +38,8 @@ class QualityControlSlip(models.Model):
     service_advisor = fields.Many2one('res.users')
     user_id = fields.Many2one('res.users', track_visibility='always',)
     sale_id = fields.Many2one('sale.order')
+    partner_id = fields.Many2one('res.partner')
+    company_id = fields.Many2one('res.company')
     alloy_digital_signature = fields.Binary(widget="signature")
     state = fields.Selection(string="state", selection=[('draft', 'Draft'),('accept', 'Accept'), ('deny', 'Deny')],
                              default='draft', track_visibility='always',)
