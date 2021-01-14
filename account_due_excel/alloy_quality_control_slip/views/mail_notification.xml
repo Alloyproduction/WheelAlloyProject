@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.cron" id="quality_control_slip_data_reminder2">
+            <field name="name">Quality Control Slip Email</field>
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.qc_mail_reminder()</field>
+        </record>
+
+    </data>
+</odoo>

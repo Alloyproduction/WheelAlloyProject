@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+<!--        New Group > email reminder for creating invoice to the so-->
+
+         <record id="qc_invoice_reminder" model="res.groups">
+             <field name="name">QC invoice reminder</field>
+             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+         </record>
+
+    </data>
+</odoo>
