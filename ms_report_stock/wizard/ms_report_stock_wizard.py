@@ -10,8 +10,8 @@ class MsReportStock(models.TransientModel):
     _name = "ms.report.stock"
     _description = "Report Stock .xlsx"
 
-    date_from = fields.Datetime('Date From')
-    date_to = fields.Datetime('Date to')
+    date_from = fields.Datetime('Date From', required=True)
+    date_to = fields.Datetime('Date to', required=True)
 
     @api.model
     def get_default_date_model(self):
