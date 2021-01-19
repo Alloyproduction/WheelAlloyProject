@@ -48,7 +48,23 @@
 		                    <th style="border: 1px solid black;" class="text-center">Ending</th>
                                     <th style="border: 1px solid black;" class="text-center">Valuation</th>
                             </tr>
+                            <t t-set="sum_cost_price" t-value="0"/>
+                            <t t-set="sum_beginning" t-value="0"/>
+                            <t t-set="sum_internal" t-value="0"/>
+                            <t t-set="sum_incoming" t-value="0"/>
+                            <t t-set="sum_sale_value" t-value="0"/>
+                            <t t-set="sum_outgoing" t-value="0"/>
+                            <t t-set="sum_net_on_hand" t-value="0"/>
+                            <t t-set="sum_total_value" t-value="0"/>
                             <tr t-foreach="get_lines(data)" t-as="line">
+                                        <t t-set="sum_cost_price" t-value="sum_cost_price + line.get('cost_price')"/>
+                                        <t t-set="sum_beginning" t-value="sum_beginning + line.get('beginning')"/>
+                                        <t t-set="sum_internal" t-value="sum_internal + line.get('internal')"/>
+                                        <t t-set="sum_incoming" t-value="sum_incoming + line.get('incoming')"/>
+                                        <t t-set="sum_sale_value" t-value="sum_sale_value + line.get('sale_value')"/>
+                                        <t t-set="sum_outgoing" t-value="sum_outgoing + line.get('outgoing')"/>
+                                        <t t-set="sum_net_on_hand" t-value="sum_net_on_hand + line.get('net_on_hand')"/>
+                                        <t t-set="sum_total_value" t-value="sum_total_value + line.get('total_value')"/>
                                         <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('sku')"/></td>
                                         <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('name')"/></td>
                                         	<td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('category')"/></td>
@@ -61,7 +77,23 @@
                                        <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('outgoing')"/></td>
                                        <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('net_on_hand')"/></td>
                                        <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="line.get('total_value')"/></td>
+
                                     </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_cost_price"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_beginning"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_internal"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_incoming"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_sale_value"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_outgoing"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_net_on_hand"/></td>
+                                       <td style="border-bottom: 2px solid black; border-top:2px solid black; border-left:2px solid black; border-right:2px solid black;" class="text-center"><span t-esc="sum_total_value"/></td>
+
+                            </tr>
                             
                         </table>
                     
