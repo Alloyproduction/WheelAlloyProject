@@ -119,6 +119,7 @@
             </field>
         </record>
 
+        <menuitem id="menu_mo_hr_types" name="Types" parent="hr_management_system.menu_hr_informations" sequence="100"/>
 
         <menuitem id="menu_mo_hr_insurance"
                   parent="hr_management_system.menu_hr_informations"
