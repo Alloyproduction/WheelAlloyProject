@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+
+<!--        <record model="hr.recruitment.stage" id="stage_job4_00">-->
+<!--            <field name="name">Review</field>-->
+<!--            <field name="sequence">3</field>-->
+<!--        </record>-->
+
+
+    </data>
+</odoo>

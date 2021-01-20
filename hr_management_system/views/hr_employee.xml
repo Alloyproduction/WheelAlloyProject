@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<data>
+
+
+<!--    <record id="remove_restriction" model="ir.rule">-->
+<!--        <field name="name">Remove Restriction</field>-->
+<!--        <field ref="hr.model_hr_employee" name="model_id"/>-->
+<!--        <field name="domain_force">[]</field>-->
+<!--        <field name="groups" eval="[(4, ref('base.group_user'))]"/>-->
+<!--    </record>-->
+
+<!--    <record id="employee_restriction_department" model="ir.rule">-->
+<!--        <field name="name">Employee Restriction Department Manager</field>-->
+<!--        <field ref="hr.model_hr_employee" name="model_id"/>-->
+<!--        <field name="domain_force"> ['|',('user_id','=',user.id),('department_id.manager_id.user_id', '=', user.id)] </field>-->
+<!--        <field name="groups" eval="[(4, ref('base.group_user'))]"/>-->
+<!--    </record>-->
+
+    <record id="hr_employee_form_view_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tz']" position="after">
+                <field name="emp_lang"/>
+            </xpath>
+            <xpath expr="//field[@name='study_school']" position="after">
+                <field name="emp_exp"/>
+            </xpath>
+            <xpath expr="//field[@name='permit_no']" position="after">
+                <field name="emp_date_start"/>
+            </xpath>
+            <xpath expr="//field[@name='emergency_contact']" position="after">
+                <field name="emp_insurance_num"/>
+            </xpath>
+            <xpath expr="//field[@name='certificate']" position="after">
+                <field name="emp_job_data"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_informations"
+              parent="hr.menu_hr_root"
+              name="Employees Info" sequence="110"
+              groups="hr.group_hr_user"/>
+
+</data>
+</odoo>
