@@ -38,13 +38,20 @@ class QualityControlSlip(models.Model):
     service_advisor = fields.Many2one('res.users')
     user_id = fields.Many2one('res.users', track_visibility='always',)
     sale_id = fields.Many2one('sale.order')
-    partner_id = fields.Many2one('res.partner')
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
     company_id = fields.Many2one('res.company')
     alloy_digital_signature = fields.Binary(widget="signature")
     state = fields.Selection(string="state", selection=[('draft', 'Draft'),('accept', 'Accept'), ('deny', 'Deny')],
                              default='draft', track_visibility='always',)
     job_card = fields.Char()
 
+    type_name = fields.Char('Type Name', compute='_compute_type_name')
+
+    @api.multi
+    @api.depends('state')
+    def _compute_type_name(self):
+        for record in self:
+            record.type_name = _('Quotation') if record.state in ('draft', 'accept', 'deny') else _('Quality Control')
 
     @api.multi
     def accept_qc_slip(self):
@@ -71,10 +78,60 @@ class QualityControlSlip(models.Model):
         for rec in self:
             rec.state = 'draft'
 
+    @api.multi
     def action_send_qc(self):
-        print("Sending email")
-        template_id = self.env.ref('alloy_quality_control_slip.qc_email_template').id
-        self.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)
+
+        '''
+        This function opens a window to compose an email, with the edi sale template message loaded by default
+        '''
+
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('alloy_quality_control_slip', 'qc_email_template')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        lang = self.env.context.get('lang')
+        template = template_id and self.env['mail.template'].browse(template_id)
+        if template and template.lang:
+            lang = template._render_template(template.lang, 'quality.control.slip', self.ids[0])
+        ctx = {
+            'default_model': 'quality.control.slip',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'model_description': self.with_context(lang=lang).type_name,
+            'custom_layout': "mail.mail_notification_borders",
+            'proforma': self.env.context.get('proforma', False),
+            'force_email': True
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+        # template_id = self.env.ref('alloy_quality_control_slip.qc_email_template').id
+        # template = self.env['mail.template'].browse(template_id)
+        # template.send_mail(self.id, force_send=True)
+        #
+        # print("Sending email")
+        # self.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)
+
+
+
+
 
     # @api.multi
     # @api.depends('state')
