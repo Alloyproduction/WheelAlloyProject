@@ -59,6 +59,9 @@
                     <button name="deny_qc_slip" string="Deny"
                             type="object" class="oe_highlight"
                             states="draft"/>
+
+                     <button name="action_send_qc" string="Send By Email"
+                            type="object" class="oe_highlight"/>
                     <field name="state" widget="statusbar" state="draft,accept,deny"/>
                 </header>
                 <sheet>
@@ -67,15 +70,15 @@
                                  <tr style="border: 1px solid #32CD32;">
                                     <td colspan="6" style="border: 1px solid #32CD32;text-align: center;">
                                         <h3>مذكرة تسليم / كرت استلام الجوده</h3><br/>
-                                        <h3 style="margin-top: -40;">Dlivery Note / Quality Control Slip</h3>
+                                        <h3 style="margin-top: -40;">Delivery Note / Quality Control Slip</h3>
                                     </td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
-                                    <td style="border: 1px solid #32CD32;">Sale Order</td>
+                                    <td style="border: 1px solid #32CD32;">QC Number</td>
                                      <td style="border: 1px solid #32CD32;text-align:center;" width="300">
                                          <field name="name" />
                                      </td>
-                                    <td width="120" style="border: 1px solid #32CD32;text-align:center;">رقم الطلب</td>
+                                    <td width="120" style="border: 1px solid #32CD32;text-align:center;">رقم كرت الجودة</td>
                                     <td colspan="3" style="border: 1px solid #32CD32;"></td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
