@@ -26,7 +26,9 @@ class QualityControlSlip(models.Model):
     _name = 'quality.control.slip'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char()
+
+    name = fields.Char(string='Reference', required=True, copy=False,
+                           readonly=True, index=True, default=lambda self: _('New'))
     invoice_number = fields.Char()
     claim_no = fields.Char()
     license_plate = fields.Char()
@@ -52,6 +54,13 @@ class QualityControlSlip(models.Model):
     def _compute_type_name(self):
         for record in self:
             record.type_name = _('Quotation') if record.state in ('draft', 'accept', 'deny') else _('Quality Control')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('quality.control.slip') or _('New')
+        result = super(QualityControlSlip, self).create(vals)
+        return result
 
     @api.multi
     def accept_qc_slip(self):
@@ -200,10 +209,11 @@ class SaleOrder(models.Model):
         qc_obj = self.env['quality.control.slip']
         for rec in self:
             qc_search_obj = qc_obj.search([('id','=',self.qc_slip_id.id)])
+            print("Reference")
+            print(qc_search_obj.name)
             if qc_search_obj:
                 print("done1")
                 qc_search_obj.update({
-                    'name': rec.name,
                     'invoice_number': rec.invoice_ids.number,
                     'claim_no': rec.claim_no,
                     'license_plate': rec.vehicle.license_plate,
@@ -231,8 +241,9 @@ class SaleOrder(models.Model):
                 print("done2")
                 for line in rec.order_line:
                     total_qty += line.product_uom_qty
+                print("Reference")
+                print(qc_search_obj.name)
                 qc_id = qc_obj.create({
-                  'name': rec.name,
                   'invoice_number': rec.invoice_ids.number,
                   'claim_no': rec.claim_no,
                   'license_plate': rec.vehicle.license_plate,

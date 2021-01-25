@@ -13,7 +13,7 @@
                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
                         Dear ${object.partner_id.name}
                         <br /><br />
-                        Here is your Quality Control With Reference
+                        Here is your Quality Control With Reference ${object.name}
                         <br /><br />
                         Do not hesitate to contact us if you have any question.
                     </p>
