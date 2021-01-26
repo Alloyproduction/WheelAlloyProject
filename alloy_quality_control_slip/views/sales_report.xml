@@ -74,11 +74,11 @@
                                     </td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
-                                    <td style="border: 1px solid #32CD32;">QC Number</td>
+                                    <td style="border: 1px solid #32CD32;">DN Number</td>
                                      <td style="border: 1px solid #32CD32;text-align:center;" width="300">
                                          <field name="name" />
                                      </td>
-                                    <td width="120" style="border: 1px solid #32CD32;text-align:center;">رقم كرت الجودة</td>
+                                    <td width="120" style="border: 1px solid #32CD32;text-align:center;">رقم مذكرة الإستلام</td>
                                     <td colspan="3" style="border: 1px solid #32CD32;"></td>
                                  </tr>
                                  <tr style="border: 1px solid #32CD32;">
