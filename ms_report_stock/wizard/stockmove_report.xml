@@ -1,0 +1,37 @@
+<odoo>
+
+
+
+    <record model="ir.ui.view" id="stockmove_lines_wizard">
+        <field name="name">Stock Move Report</field>
+        <field name="model">stockmove.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Stock Move Report">
+                <group>
+                    <group>
+                        <field name="prod_categ" widget="many2many_tags"/>
+                        <field name="move_location" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_stockmove_report" string="Get Report" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_stockmove_report_wizard"
+                name="Stock Move Report"
+                res_model="stockmove.report.wizard"
+                view_mode="form"
+                target="new"/>
+
+
+
+     <menuitem id="menu_stockmove_report_wizard_main" action="action_stockmove_report_wizard"
+               sequence="999" parent="stock.menu_warehouse_report"
+               groups="account.group_account_manager" />
+
+</odoo>

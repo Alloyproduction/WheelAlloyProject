@@ -13,9 +13,12 @@
     "depends"       : [
         "product",
         "stock",
+        "account",
     ],
     "data"          : [
         "wizard/ms_report_stock_wizard.xml",
+        "wizard/stockmove_report.xml",
+        "wizard/stockmove_report_report.xml",
     ],
     "demo"          : [],
     "test"          : [],
