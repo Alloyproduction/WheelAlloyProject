@@ -13,7 +13,7 @@
                                 states="to_approve,leader_approved,manager_approved,rejected,done,done_q"
                                 string="Reset"
                                 type="object"
-                                groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>
+                                groups="sprogroup_purchase_request.group_sprogroup_purchase_reject_reset_button"/>
                         <button name="button_to_approve" states="draft"
                                 string="Request approval" type="object"
                                 class="oe_highlight"/>
@@ -39,7 +39,8 @@
                         <button name="button_rejected"
                                 string="Reject"
                                 type="object"
-                                attrs="{'invisible': [('can_reject', '=', False)]}"
+                                attrs="{'invisible': [('can_reject', '=', True)]}"
+                                groups="sprogroup_purchase_request.group_sprogroup_purchase_reject_reset_button"
                         />
 
                         <button string="New Quotation" states="done,done_q" name="make_purchase_quotation" type="object"
