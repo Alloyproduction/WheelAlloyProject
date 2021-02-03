@@ -1,0 +1,140 @@
+<odoo>
+<!--    <record model="report.paperformat" id="paperformat_stockmove_report_report">-->
+<!--        <field name="name">paperformat.stockmove.report.report</field>-->
+<!--        <field name="default" eval="True"/>-->
+<!--        <field name="format">A4</field>-->
+<!--        <field name="page_width">0</field>-->
+<!--        <field name="page_width">0</field>-->
+<!--        <field name="orientation">Portrait</field>-->
+<!--        <field name="margin_top">5</field>-->
+<!--        <field name="margin_right">5</field>-->
+<!--        <field name="margin_bottom">23</field>-->
+<!--        <field name="margin_left">5</field>-->
+<!--        <field name="header_line" eval="False"/>-->
+<!--        <field name="header_spacing">15</field>-->
+<!--        <field name="dpi">90</field>-->
+<!--    </record>-->
+    <record id="paperformat_stockmove_report_report" model="report.paperformat">
+	    <field name="name">European A4 low margin</field>
+	    <field name="default" eval="True" />
+	    <field name="format">A4</field>
+	    <field name="page_height">0</field>
+	    <field name="page_width">0</field>
+	    <field name="orientation">Landscape</field>
+	    <field name="margin_top">15</field>
+	    <field name="margin_bottom">15</field>
+	    <field name="margin_left">5</field>
+	    <field name="margin_right">5</field>
+	    <field name="header_line" eval="False" />
+	    <field name="header_spacing">25</field>
+	    <field name="dpi">90</field>
+	</record>
+
+
+    <report id="stockmove_report_report"
+            model="stockmove.report.wizard"
+            string="Cost of Goods Sold Report"
+            report_type="qweb-pdf"
+            name="ms_report_stock.stockmove_report_report_view"
+            paperformat="paperformat_stockmove_report_report"
+            menu="False"/>
+
+    <template id="stockmove_report_report_view">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+
+                <br/>
+                <div>
+                    <h2 class="text-center" style="font-weight:bold">Cost of Goods Sold Report</h2>
+                <br/>
+
+                    <h4 class="text-center">
+                        <span style="font-weight:bold" t-if="date_from">Date From: </span>
+                        <span t-if="date_from">
+                            <t t-esc="date_from"/>
+                        </span>
+
+                        <span style="font-weight:bold" t-if="date_to">Date To: </span>
+                        <span t-if="date_to">
+                            <t t-esc="date_to"/>
+                        </span>
+                    </h4>
+<!--                    <h4 class="text-center">-->
+<!--                        <span style="font-weight:bold" t-if="prod_categ">Product Category: </span>-->
+<!--                        <span t-if="prod_categ" t-foreach="prod_categ" t-as="item">-->
+<!--                            <t t-esc="item"/><span>, </span>-->
+<!--                        </span>-->
+
+<!--                        <span style="font-weight:bold" t-if="move_location">Location: </span>-->
+<!--                        <span t-if="move_location" t-foreach="move_location" t-as="item">-->
+<!--                            <t t-esc="item"/><span>, </span>-->
+<!--                        </span>-->
+<!--                    </h4>-->
+                </div>
+
+                <br/>
+
+            <div class="page">
+                <table  style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+                                    <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:18%">Product</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Consumed<br/>Qty</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Previous<br/>Qty</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">In Hand<br/>Qty</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Rate</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Amount</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Source<br/>Request</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Requested<br/>By</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Manage<br/>By</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Status</th>
+                                    </tr>
+                                   <t t-set="seq" t-value="1"/>
+                                   <tr t-foreach="docs" t-as="doc" >
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="seq"/>
+                                           <t t-set="seq" t-value="seq+1"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['date']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['prod_name']"/>
+                                       </td>
+                                      <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                                           <span t-esc="doc['consumed_qty']"/>
+                                       </td>
+                                        <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['previous_qty']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['inhand_qty']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['rate']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['amount']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['source_request']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['requested_by']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['manage_by']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['state']"/>
+                                       </td>
+                                   </tr>
+                                </table>
+
+            </div>
+
+        </t>
+        </t>
+    </template>
+</odoo>

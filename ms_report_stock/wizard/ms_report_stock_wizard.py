@@ -9,20 +9,24 @@ import pytz
 class MsReportStock(models.TransientModel):
     _name = "ms.report.stock"
     _description = "Report Stock .xlsx"
-    
+
+    date_from = fields.Datetime('Date From', required=True)
+    date_to = fields.Datetime('Date to', required=True)
+
     @api.model
     def get_default_date_model(self):
         return pytz.UTC.localize(datetime.now()).astimezone(timezone(self.env.user.tz or 'UTC'))
     
     datas = fields.Binary('File', readonly=True)
     datas_fname = fields.Char('Filename', readonly=True)
+    # mo_date = fields.Date('Date')
     product_ids = fields.Many2many('product.product', 'ms_report_stock_product_rel', 'ms_report_stock_id',
         'product_id', 'Products')
     categ_ids = fields.Many2many('product.category', 'ms_report_stock_categ_rel', 'ms_report_stock_id',
         'categ_id', 'Categories')
     location_ids = fields.Many2many('stock.location', 'ms_report_stock_location_rel', 'ms_report_stock_id',
         'location_id', 'Locations')
-        
+
     def print_excel_report(self):
         data = self.read()[0]
         product_ids = data['product_ids']
@@ -44,7 +48,11 @@ class MsReportStock(models.TransientModel):
         if location_ids :
             where_location_ids = " quant.location_id in %s"%str(tuple(location_ids)).replace(',)', ')')
             where_location_ids2 = " location_id in %s"%str(tuple(location_ids)).replace(',)', ')')
-        
+
+        if self.date_from and self.date_to:
+            where_date_between = " move.date >= '%s' and move.date <= '%s'"%(str(self.date_from),str(self.date_to))
+            print(where_date_between)
+
         datetime_string = self.get_default_date_model().strftime("%Y-%m-%d %H:%M:%S")
         date_string = self.get_default_date_model().strftime("%Y-%m-%d")
         report_name = 'Stock Report'
@@ -55,11 +63,12 @@ class MsReportStock(models.TransientModel):
             ('Product', 30, 'char', 'char'),
             ('Product Category', 20, 'char', 'char'),
             ('Location', 30, 'char', 'char'),
-            ('Incoming Date', 20, 'char', 'char'),
+            ('Incoming Date', 20, 'date', 'date'),
             ('Stock Age', 20, 'number', 'char'),
             ('Total Stock', 20, 'float', 'float'),
             ('Available', 20, 'float', 'float'),
             ('Reserved', 20, 'float', 'float'),
+            ('Date', 20, 'date', 'date'),
         ]
 
         datetime_format = '%Y-%m-%d %H:%M:%S'
@@ -83,7 +92,8 @@ class MsReportStock(models.TransientModel):
                 date_part('days', now() - (quant.in_date + interval '%s')) as aging,
                 sum(quant.quantity) as total_product, 
                 sum(quant.quantity-quant.reserved_quantity) as stock, 
-                sum(quant.reserved_quantity) as reserved
+                sum(quant.reserved_quantity) as reserved,
+                move.date as date_between
             FROM 
                 stock_quant quant
             LEFT JOIN 
@@ -94,17 +104,24 @@ class MsReportStock(models.TransientModel):
                 product_template prod_tmpl on prod_tmpl.id=prod.product_tmpl_id
             LEFT JOIN 
                 product_category categ on categ.id=prod_tmpl.categ_id
+            LEFT JOIN 
+                stock_move move on move.product_id=prod_tmpl.id
             WHERE 
-                %s and %s
+                
+                %s and %s and %s 
             GROUP BY 
-                product, prod_categ, location, date_in
+                product, prod_categ, location, date_in, date_between
             ORDER BY 
                 date_in
         """
-        
-        self._cr.execute(query%(hours,hours,where_product_ids,where_location_ids))
+
+        print('test44')
+        print(where_product_ids)
+        print(where_location_ids)
+        self._cr.execute(query%(hours,hours,where_product_ids,where_location_ids,where_date_between))
         result = self._cr.fetchall()
-        
+        print('result')
+        print(result)
         fp = BytesIO()
         workbook = xlsxwriter.Workbook(fp)
         wbf, workbook = self.add_workbook_format(workbook)
@@ -141,6 +158,9 @@ class MsReportStock(models.TransientModel):
                 if column_type == 'char' :
                     col_value = res[index_alphabet-1] if res[index_alphabet-1] else ''
                     wbf_value = wbf['content']
+                elif column_type == 'date' :
+                    col_value = res[index_alphabet-1] if res[index_alphabet-1] else ''
+                    wbf_value = wbf['content_date']
                 elif column_type == 'no' :
                     col_value = no
                     wbf_value = wbf['content']
