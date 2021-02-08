@@ -1,7 +1,5 @@
 <odoo>
 
-
-
     <record model="ir.ui.view" id="stockmove_lines_wizard">
         <field name="name">Cost of Goods Sold Report</field>
         <field name="model">stockmove.report.wizard</field>
@@ -31,8 +29,6 @@
                 res_model="stockmove.report.wizard"
                 view_mode="form"
                 target="new"/>
-
-
 
      <menuitem id="menu_stockmove_report_wizard_main" action="action_stockmove_report_wizard"
                sequence="999" parent="stock.menu_warehouse_report" name="Cost of Goods Sold Report"

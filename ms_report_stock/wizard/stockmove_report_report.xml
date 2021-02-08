@@ -21,12 +21,12 @@
 	    <field name="page_height">0</field>
 	    <field name="page_width">0</field>
 	    <field name="orientation">Landscape</field>
-	    <field name="margin_top">15</field>
+	    <field name="margin_top">50</field>
 	    <field name="margin_bottom">15</field>
 	    <field name="margin_left">5</field>
 	    <field name="margin_right">5</field>
 	    <field name="header_line" eval="False" />
-	    <field name="header_spacing">25</field>
+	    <field name="header_spacing">45</field>
 	    <field name="dpi">90</field>
 	</record>
 
@@ -41,7 +41,7 @@
 
     <template id="stockmove_report_report_view">
         <t t-call="web.html_container">
-            <t t-call="web.internal_layout">
+            <t t-call="web.external_layout">
 
                 <br/>
                 <div>
@@ -79,25 +79,39 @@
                                     <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Reference</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:18%">Product</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Consumed<br/>Qty</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Previous<br/>Qty</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">In Hand<br/>Qty</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Rate</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Amount</th>
-                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Source<br/>Request</th>
-                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Requested<br/>By</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Source<br/>Request</th>
+                                        <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Requested<br/>By</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Manage<br/>By</th>
                                         <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Status</th>
                                     </tr>
                                    <t t-set="seq" t-value="1"/>
+                                   <t t-set="sum_consumed_qty" t-value="0"/>
+                                   <t t-set="sum_previous_qty" t-value="0"/>
+                                   <t t-set="sum_inhand_qty" t-value="0"/>
+                                   <t t-set="sum_rate" t-value="0"/>
+                                   <t t-set="sum_amount" t-value="0"/>
                                    <tr t-foreach="docs" t-as="doc" >
+                                       <t t-set="sum_consumed_qty" t-value="sum_consumed_qty + doc['consumed_qty']"/>
+                                       <t t-set="sum_previous_qty" t-value="sum_previous_qty + doc['previous_qty']"/>
+                                       <t t-set="sum_inhand_qty" t-value="sum_inhand_qty + doc['inhand_qty']"/>
+                                       <t t-set="sum_rate" t-value="sum_rate + doc['rate']"/>
+                                       <t t-set="sum_amount" t-value="sum_amount + doc['amount']"/>
                                        <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                                            <span t-esc="seq"/>
                                            <t t-set="seq" t-value="seq+1"/>
                                        </td>
                                        <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                                            <span t-esc="doc['date']"/>
+                                       </td>
+                                       <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                           <span t-esc="doc['reference']"/>
                                        </td>
                                        <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                                            <span t-esc="doc['prod_name']"/>
@@ -130,6 +144,33 @@
                                            <span t-esc="doc['state']"/>
                                        </td>
                                    </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                        <span t-esc="'{0:,.2f}'.format(sum_consumed_qty)"/>
+                                    </td>
+                                    <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                        <span t-esc="'{0:,.2f}'.format(sum_previous_qty)"/>
+                                    </td>
+                                    <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                        <span t-esc="'{0:,.2f}'.format(sum_inhand_qty)"/>
+                                    </td>
+                                    <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                        <span t-esc="'{0:,.2f}'.format(sum_rate)"/>
+                                    </td>
+                                    <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                        <span t-esc="'{0:,.2f}'.format(sum_amount)"/>
+                                    </td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                                 </table>
 
             </div>

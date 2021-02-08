@@ -63,6 +63,7 @@ class StockMovesReportReportView(models.AbstractModel):
             # guarantee_type = dict(sm._fields['guarantee_type'].selection).get(sm.guarantee_type)
             docs.append({
                 'date': sm.date,
+                'reference': sm.reference,
                 'prod_name': sm.product_id.name,
                 'consumed_qty': sm.product_uom_qty,
                 'previous_qty': sm.old_qty_move,
