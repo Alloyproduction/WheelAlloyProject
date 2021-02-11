@@ -18,5 +18,12 @@
         <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
     </record>
 
+     <record id="group_confirm" model="res.groups">
+        <field name="name">Claim / Confirm</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
+    </record>
+
+
 
 </odoo>
