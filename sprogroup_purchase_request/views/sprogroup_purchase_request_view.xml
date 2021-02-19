@@ -37,6 +37,7 @@
                                 <!--class="oe_highlight"-->
                                 <!--groups="sprogroup_purchase_request.group_sprogroup_purchase_request_manager"/>-->
                         <button name="button_rejected"
+                                states="to_approve"
                                 string="Reject"
                                 type="object"
                                 attrs="{'invisible': [('can_reject', '=', True)]}"
@@ -61,7 +62,7 @@
                         <h1>
                             <field name="name" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
                             <label for="space" name="Space" string="-"/>
-                            <field name="code" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                            <field name="code" class="oe_inline" readonly="True"/>
                         </h1>
                         <group>
                             <group>

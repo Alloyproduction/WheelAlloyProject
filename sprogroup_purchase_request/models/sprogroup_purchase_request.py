@@ -36,7 +36,8 @@ class SprogroupPurchaseRequest(models.Model):
         return self.env['ir.sequence'].next_by_code('sprogroup.purchase.request')
 
     name = fields.Char('Request Name', size=32, required=True, track_visibility='onchange')
-    code = fields.Char('Code', size=32, required=True, default=_get_default_name, track_visibility='onchange')
+    code = fields.Char(string='Code', copy=False, readonly=True, index=True,
+                       default=lambda self: _('New'))
     date_start = fields.Date('Start date',
                              help="Date when the user initiated the request.",
                              default=fields.Date.context_today,
@@ -172,6 +173,8 @@ class SprogroupPurchaseRequest(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('code', _('New')) == _('New'):
+            vals['code'] = self.env['ir.sequence'].next_by_code('sprogroup.purchase.request') or _('New')
         request = super(SprogroupPurchaseRequest, self).create(vals)
         if vals.get('assigned_to'):
             request.message_subscribe(partner_ids=[request.assigned_to.partner_id.id])
