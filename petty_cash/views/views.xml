@@ -56,6 +56,13 @@
             <field name="inherit_id" ref="account.view_bank_statement_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='balance_end']" position="replace">
+                    <field name="balance_end" nolabel="1"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[@name='sale_total']/div[1]" position="before">
+                    <field class="oe_subtotal_footer_separator" name="total_entry_encoding"/>
+                </xpath>
+
                 <xpath expr="//header" position="replace">
                 <header>
                     <field name="all_lines_reconciled" invisible="1" />
