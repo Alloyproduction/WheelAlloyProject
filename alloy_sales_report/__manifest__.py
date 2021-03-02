@@ -13,5 +13,6 @@
     'depends': ['base', 'sale'],
     'data': [
         'report/sales_report.xml',
+        'report/coupon_report.xml',
     ],
 }
