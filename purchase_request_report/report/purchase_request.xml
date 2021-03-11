@@ -85,7 +85,7 @@
                                         <span t-field="employee_data.product_qty"/>
                                     </td>
                                     <td class="td-y" style="border-color:#000000;text-align: center;">
-                                           <span t-field="employee_data.product_id.name"/>
+                                        <span t-field="employee_data.name"/>
                                     </td>
                                     <td class="td-y" style="border-color:#000000;text-align: center;">
                                         <span t-field="employee_data.product_id"/>
