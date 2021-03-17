@@ -21,5 +21,11 @@
         <field name="category_id" ref="module_category_Technician_request"/>
     </record>
 
+     <record id="group_Technician_request_reset" model="res.groups">
+        <field name="name"> Request Reset</field>
+        <field name="implied_ids" eval="[(4, ref('technician_request.group_Technician_request_user'))]"/>
+        <field name="category_id" ref="module_category_Technician_request"/>
+    </record>
+
 </data>
 </odoo>
