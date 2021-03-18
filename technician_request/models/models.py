@@ -169,8 +169,6 @@ class TechicianRequest(models.Model):
     @api.multi
     def make_transfer(self):
         view_id = self.env.ref('stock.view_picking_form')
-        return self.write({'state': 'trans'})
-
 
         products_order_line = []
         # price_unit = 0.0
