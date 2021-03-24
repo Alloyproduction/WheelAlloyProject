@@ -15,13 +15,11 @@ import odoo.addons.decimal_precision as dp
 
 _CLAIMSTATES = [
     ('stat_draft', 'Draft'),
-    ('stat_confirmed', 'Confirmed'),
-    ('stat_process', 'process'),
-    ('stat_won', 'won'),
-    ('stat_lost', 'lost'),
+    ('stat_confirmed', 'First Action'),
+    ('stat_process', 'Second Action'),
+    ('stat_won', 'Final Action'),
+    ('stat_lost', 'Close'),
 ]
-
-
 
 class crm_claim_stage(models.Model):
     _name = "crm.claim.stage"
@@ -48,6 +46,16 @@ class crm_claim(models.Model):
     _description = "Claim"
     _order = "priority,date desc"
     _inherit = ['mail.thread']
+    _rec_name = "code"
+
+    def salesman_wizard2(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Send To Salesman'),
+                'res_model': 'salesman.wizard2',
+                'target': 'new',
+                'view_mode': 'form',
+                'view_type': 'form',
+                }
 
     ##################################################################################################################
     @api.onchange('type_action')
@@ -74,14 +82,15 @@ class crm_claim(models.Model):
     id = fields.Integer('ID', readonly=True)
     code = fields.Char('Code', size=32, required=True, default=_get_default_name, track_visibility='onchange')
     # states = {'draft': [('readonly', False)]},
-    name = fields.Char('Claim Subject', required=True)
+    # name = fields.Char('Claim Subject', required=True)
+    subject_id = fields.Many2one('crm.claim.subject', 'Claim Subject',  track_visibility = 'always')
     active = fields.Boolean('Active',default=lambda *a: 1)
     action_next = fields.Char('Next Action')
     date_action_next = fields.Datetime('Next Action Date')
     description = fields.Text('Description')
-    create_date = fields.Datetime('Creation Date' , readonly=True)
+    create_date = fields.Datetime('Creation Date')
     write_date = fields.Datetime('Update Date' , readonly=True)
-    date_deadline = fields.Datetime('Deadline')
+    date_deadline = fields.Datetime('Address')
     date_closed = fields.Datetime('Closed', readonly=True)
     date = fields.Datetime('Claim Date', select=True,default=lambda self: self._context.get('date', fields.Datetime.now()))
     categ_id = fields.Many2one('crm.claim.category', 'Category')
@@ -97,7 +106,7 @@ class crm_claim(models.Model):
                                                 " Define Responsible user and Email account for" \
                                                 " mail gateway.")  # ,default=lambda self: self.env['crm.team']._get_default_team_id()
     company_id = fields.Many2one('res.company', 'Company',default=lambda self: self.env['res.company']._company_default_get('crm.case'))
-    partner_id = fields.Many2one('res.partner', 'Partner')
+    partner_id = fields.Many2one('res.partner', 'Client')
     sale_id = fields.Many2one('sale.order', 'Sales Order')
     email_cc = fields.Text('Watchers Emails', size=252, help="These email addresses will be added to the CC field of all inbound and outbound emails for this record before being sent. Separate multiple email addresses with a comma")
     email_from = fields.Char(related="partner_id.email", string= 'Email', size=128, help="Destination email for email gateway.")
@@ -128,7 +137,7 @@ class crm_claim(models.Model):
 ###########################################################################################################################
 
 
-###################################################################################################
+###########################################################################################################################
     @api.multi
     def action_draft(self):
         # self.state = 'stat_draft'
@@ -337,7 +346,18 @@ class UtmCampaign(models.Model):
     name = fields.Char(string='Campaign Name', required=True, translate=True)
 
 
+class crm_claim_subject(models.Model):
+    _name = "crm.claim.subject"
+    _description = "Subject of claim"
+    _rec_name = "subject_id"
 
+    subject_id = fields.Char('Name', required=True, translate=True)
+
+
+class InheritclaimSale(models.Model):
+    _inherit = 'sale.order'
+
+    code = fields.Many2one('crm.claim', 'Claim')
 
 # class crm_claim(models.Model):
 #     _name = "action.claim"
@@ -352,5 +372,4 @@ class UtmCampaign(models.Model):
     #     for rec in self:
     #         if rec.type_action:
     #             rec.addition_deit = rec.type_action.resolution
-
 
