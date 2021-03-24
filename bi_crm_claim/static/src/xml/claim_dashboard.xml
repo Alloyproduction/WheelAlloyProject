@@ -68,7 +68,7 @@
                                 <i class="fas fa-grin-stars" style="align-content:center "></i>
                             </div>
                             <div class="dash-box-body">                                    
-                                <span class="dash-box-title">Confirm Claims</span>
+                                <span class="dash-box-title">First Action Claims</span>
                                 <span class="dash-box-count"><t t-esc="widget.crm_data.tot_confirm"/></span>
                             </div>
                             <div class="line">
@@ -82,7 +82,7 @@
                                     <i class="fas fa-calculator" style="padding-left:5px"></i>
                                 </div>
                                 <div class="dash-box-body">
-									<span class="dash-box-title">Process Claims</span>
+									<span class="dash-box-title">Second Action Claims</span>
                                     <span class="dash-box-count"><t t-esc="widget.crm_data.tot_process"/></span>
                                 </div>
                                 <div class="line">
@@ -102,7 +102,7 @@
                                     <i class="fas fa-grin-tears"></i>
                                 </div>
                                 <div class="dash-box-body">								    
-									<span class="dash-box-title">Loss Count</span>
+									<span class="dash-box-title">Close Claim</span>
                                     <span class="dash-box-count"><t t-esc="widget.crm_data.tot_lost"/></span>                                    
                                 </div>
                                 <div class="line">
@@ -116,7 +116,7 @@
                                     <i class="fas fa-trophy"></i>
                                 </div>
                                 <div class="dash-box-body">
-									<span class="dash-box-title">Won Count</span>
+									<span class="dash-box-title">Final Action Claim</span>
                                     <span class="dash-box-count"><t t-esc="widget.crm_data.tot_won"/></span>
                                 </div>
                                 <div class="line">
