@@ -10,12 +10,29 @@
             <field name="priority" eval="50"/>
             <field name="arch" type="xml">
                 <div name="button_box" position="inside">
-                    <button class="oe_stat_button" name="claim_button" type="object" icon="fa-comments" attrs="{'invisible': [('claim_count', '=', 0)]}">
-	                        <field name="claim_count" widget="statinfo" string="Claim"/>
-	                </button>
-	                    
+                    <button class="oe_stat_button" name="claim_button" type="object" icon="fa-comments">
+
+<!--                    <button class="oe_stat_button" name="claim_button" type="object" icon="fa-comments"-->
+<!--                            attrs="{'invisible': [('claim_count', '=', 0)]}">-->
+                        <field name="claim_count" widget="statinfo" string="Claim"/>
+                    </button>
+
                 </div>
             </field>
         </record>
+
+
+        <record id="sale_form_claim_inherit" model="ir.ui.view">
+            <field name="name">sale.order11</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='confirmation_date']" position="after">
+                    <field name="code" string="Warranty"/>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </odoo>
