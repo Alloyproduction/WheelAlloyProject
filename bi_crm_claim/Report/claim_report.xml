@@ -32,7 +32,7 @@
                                             <b>Name:</b>
                                         </td>
                                         <td width="50%">
-                                            <t t-esc="doc.subject_id"/>
+                                            <t t-esc="doc.subject_id.name"/>
                                             <!--                                            <span t-field="o.name"/>-->
                                         </td>
                                     </tr>
@@ -52,7 +52,7 @@
                                             <b>Customer Name:</b>
                                         </td>
                                         <td width="50%">
-                                            <t t-esc="doc.partner_id"/>
+                                            <t t-esc="doc.partner_id.name"/>
                                             <!--                                            <span t-field="o.user_id"/>-->
                                         </td>
                                     </tr>
