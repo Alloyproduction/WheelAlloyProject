@@ -23,23 +23,23 @@
 
         <!-- Claims categories  -->
 
-        <record id="salesman_wizard2_view_form" model="ir.ui.view">
-            <field name="name">salesman.wiz.view.form</field>
-            <field name="model">salesman.wizard2</field>
-            <field name="arch" type="xml">
-                <form string="salesman_wiz_form">
-                    <sheet>
-                        <group>
-                            <field name="sales_man" style="width:50%"/>
-                        </group>
-                    <footer>
-                        <button name="send_msg" string="Send" type="object" class="oe_highlight"/>
-                        <button name="cancel" string="Cancel" special="cancel"/>
-                    </footer>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+<!--        <record id="salesman_wizard2_view_form" model="ir.ui.view">-->
+<!--            <field name="name">salesman.wiz.view.form</field>-->
+<!--            <field name="model">salesman.wizard2</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="salesman_wiz_form">-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name="sales_man" style="width:50%"/>-->
+<!--                        </group>-->
+<!--                    <footer>-->
+<!--                        <button name="send_msg" string="Send" type="object" class="oe_highlight"/>-->
+<!--                        <button name="cancel" string="Cancel" special="cancel"/>-->
+<!--                    </footer>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="crm_claim_view_kanban" model="ir.ui.view">
             <field name="name">crm.claim.kanban</field>
@@ -234,6 +234,11 @@
 
                          <button name="salesman_wizard2" type="object"
                                 string="Send to The Responsible"
+                                class="oe_highlight"
+                         />
+
+                          <button name="action_send_email" type="object"
+                                string="Send By Email"
                                 class="oe_highlight"
                          />
 
