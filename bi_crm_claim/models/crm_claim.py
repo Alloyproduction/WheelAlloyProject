@@ -49,13 +49,16 @@ class crm_claim(models.Model):
     _rec_name = "code"
 
     def salesman_wizard2(self):
-        return {'type': 'ir.actions.act_window',
-                'name': _('Send To Salesman'),
-                'res_model': 'salesman.wizard2',
-                'target': 'new',
-                'view_mode': 'form',
-                'view_type': 'form',
-                }
+        msubj = "Check This Activity"
+        mbody = " This Activity will be check by.. " + "" + self.user_id.name
+
+        if self.user_id:
+            self.message_post(body=mbody,
+                             subtype='mt_comment',
+                             subject=msubj,
+                             partner_ids=self.user_id,
+                             message_type='comment')
+
 
     ##################################################################################################################
     @api.onchange('type_action')
@@ -302,6 +305,53 @@ class crm_claim(models.Model):
 
             print("CRM________________", crm_details)
         return crm_details
+    ####################################################################################################################
+
+    @api.multi
+    def action_send_email(self):
+
+        '''
+        This function opens a window to compose an email, with the edi sale template message loaded by default
+        '''
+
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        try:
+            template_id = ir_model_data.get_object_reference('bi_crm_claim', 'claim_email_template')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        lang = self.env.context.get('lang')
+        template = template_id and self.env['mail.template'].browse(template_id)
+        if template and template.lang:
+            lang = template._render_template(template.lang, 'crm.claim', self.ids[0])
+        ctx = {
+            'default_model': 'crm.claim',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'custom_layout': "mail.mail_notification_borders",
+            'proforma': self.env.context.get('proforma', False),
+            'force_email': True
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+
+    ####################################################################################################################
 
 
 
@@ -351,7 +401,7 @@ class crm_claim_subject(models.Model):
     _description = "Subject of claim"
     _rec_name = "subject_id"
 
-    subject_id = fields.Char('Name', required=True, translate=True)
+    subject_id = fields.Char('Subject Name', required=True, translate=True)
 
 
 class InheritclaimSale(models.Model):
