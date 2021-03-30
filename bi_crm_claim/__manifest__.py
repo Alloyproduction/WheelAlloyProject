@@ -21,6 +21,7 @@
         'views/crm_claim_data.xml',
         'views/res_partner_view.xml',
         'views/claim_dashboard.xml',
+        'views/email_template.xml',
         'Report/profial.xml',
         'Report/claim_report.xml',
         # 'workflow/workflow.xml',
