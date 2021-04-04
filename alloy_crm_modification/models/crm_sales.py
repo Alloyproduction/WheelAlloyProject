@@ -345,18 +345,24 @@ class SalesOrdercrm(models.Model):
         ('sign', 'Quotation Signed'),
         ('sale', 'Sales Order'),
         ('done', 'Locked'),
+        ('reject', 'Rejected'),
         ('cancel', 'Cancelled'),
         ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', track_sequence=4, default='draft')
 
     @api.multi
-    def send_notification(self,msummary,mnote):
+    def action_reject(self):
+
+        return self.write({'state': 'reject'})
+
+    @api.multi
+    def send_notification(self, msummary, mnote):
         if self.sales_user_id:
             user_Obj = self.env['res.users'].browse(self.sales_user_id.id)
             for i in user_Obj:
                 act_type_xmlid = 'mail.mail_activity_data_todo'
                 date_deadline = datetime.now().strftime('%Y-%m-%d')
-                summary = msummary  #'The Quotation is Confirmed'
-                note = mnote #'New Quotation Need Follow ' + str(self.sale_order_id.name) + '.'
+                summary = msummary  # 'The Quotation is Confirmed'
+                note = mnote  # 'New Quotation Need Follow ' + str(self.sale_order_id.name) + '.'
 
                 if act_type_xmlid:
                     activity_type = self.sudo().env.ref(act_type_xmlid)
