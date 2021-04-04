@@ -254,7 +254,7 @@
                 <xpath expr="//header" position="inside">
 
                     <button name="action_reject" string="Reject"
-                            type="object" class="oe_highlight"  states="draft,sent,sign,sale"/>
+                            type="object" class="oe_highlight"  states="draft,sent,sign,sale,done"/>
                     <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
 
                 </xpath>
