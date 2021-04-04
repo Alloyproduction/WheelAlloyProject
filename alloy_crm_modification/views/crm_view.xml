@@ -238,6 +238,7 @@
                 <xpath expr="//field[@name='user_id']" position="after">
 
                         <field name="sales_user_id" readonly="1"/>
+                       <button name="department_id" attrs="{'readonly': [('is_editable_employee_name','=', False)]}" />
 
                 </xpath>
 
@@ -254,11 +255,12 @@
                 <xpath expr="//header" position="inside">
 
                     <button name="action_reject" string="Reject"
-                            type="object" class="oe_highlight"  states="draft,sent,sign,sale,done"/>
+                            type="object" class="oe_highlight" states="draft,sent,sign,sale,done,cancel"/>
                     <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
 
                 </xpath>
 
+                <field name="order_line" attrs="{'readonly': [('state','in', ['reject','done')]}"/>
 
 
             </field>
