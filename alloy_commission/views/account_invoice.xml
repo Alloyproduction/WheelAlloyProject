@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_form_inherit" model="ir.ui.view">
+        <field name="name">account.invoice</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_open_commission_account"
+                        class="oe_stat_button" icon="fa-arrows" >
+                    <field string="Commission Count" name="commission_count" widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="x_studio_service_provider" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

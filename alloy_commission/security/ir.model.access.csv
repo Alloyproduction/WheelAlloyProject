@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_commission,account_commission,model_account_commission,,1,1,1,1
+account_commission_line,account_commission_line,model_account_commission_line,,1,1,1,1
+

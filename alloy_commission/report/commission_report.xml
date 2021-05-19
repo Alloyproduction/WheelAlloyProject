@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_account_commission"
+            model="account.move"
+            string="Invoice Total"
+            report_type="qweb-pdf"
+            name="alloy_commission.report_account_commission"
+            file="alloy_commission.report_account_commission"
+            menu ="False"
+            />
+    </data>
+</odoo>

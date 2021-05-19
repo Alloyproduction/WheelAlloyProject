@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_commission">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" >
+                <t t-lang="lang">
+                <br/>
+                <h3 class="text-center">
+                    Account Commission Report From
+                    <span t-esc="date_from" /> To <span t-esc="date_to" />
+                </h3>
+                <div class="page">
+                    <table class='table table-sm table-bordered' style="font-size:12px !important;width:100%;border: 1px solid #000000">
+                        <thead>
+                            <tr class="table-active text-center" style="border: 1px solid black">
+                                <th style="border: 1px solid black">Serial Number</th>
+                                <th style="border: 1px solid black">Date</th>
+                                <th style="border: 1px solid black">service advisor</th>
+                                <th style="border: 1px solid black">Customer</th>
+                                <th style="border: 1px solid black">Invoice Number</th>
+                                <th style="border: 1px solid black">Invoice Date</th>
+                                <th style="border: 1px solid black">product</th>
+<!--                                <th style="border: 1px solid black">Description</th>-->
+<!--                                <th style="border: 1px solid black">analytic account</th>-->
+                                <th style="border: 1px solid black">analytic tags</th>
+                                <th style="border: 1px solid black">repair cost</th>
+                                <th style="border: 1px solid black">rims quantity</th>
+                                <th style="border: 1px solid black">commission rate</th>
+                                <th style="border: 1px solid black">commission amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="account_commissions" t-as="commission">
+                                <tr style="text-align:center;border: 1px solid #000000 !important;border-bottom: 0px solid #000000 !important;font-weight: bold;">
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['name']" />
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['date']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['advisor_id']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['customer_id']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['invoice_number']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['invoice_date']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['product_id']"/>
+                                        </td>
+<!--                                        <td style="border: 1px solid black">-->
+<!--                                            <span t-esc="commission['analytic_account_id']"/>-->
+<!--                                        </td>-->
+                                        <td style="border: 1px solid black">
+                                            <span t-if="commission['analytic_tags_ids']" t-esc="commission['analytic_tags_ids']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['repair_cost']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['rims_quantity']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['commission_rate']"/>
+                                        </td>
+                                        <td style="border: 1px solid black">
+                                            <span t-esc="commission['commission_amount']"/>
+                                        </td>
+
+                                    </tr>
+                            </tr>
+                        </tbody>
+                        <tfooter>
+                            <tr class="table-active">
+                                <th style="border: 1px solid black;color:darkblue" class="text-center" colspan="8">
+                                    <span>Total</span>
+                                </th>
+                                <th style="border: 1px solid black;color:darkblue" class="text-center">
+                                    <span t-esc="total_cost"/>
+                                </th>
+                                <th style="border: 1px solid black;color:darkblue" class="text-center">
+                                    <span t-esc="total_qty"/>
+                                </th>
+                                <th style="border: 1px solid black;color:darkblue" class="text-center">
+                                    <span t-esc="total_rate"/>
+                                </th>
+                                <th style="border: 1px solid black;color:darkblue" class="text-center">
+                                    <span t-esc="total_commission"/>
+                                </th>
+
+                            </tr>
+                        </tfooter>
+                    </table>
+                </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--    account.commission Form-->
+    <record id="account_commission_form" model="ir.ui.view">
+        <field name="name">account.commission.form</field>
+        <field name="model">account.commission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_create_journal" class="oe_highlight"
+                            string="Create Journal" states="draft"
+                    />
+                    <button type="object" name="action_reconcile" class="oe_highlight"
+                            string="Reconcile" states="completed"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,completed,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="advisor_id" />
+                            <field name="customer_id" />
+                        </group>
+                        <group>
+                            <field name="date" />
+                            <field name="invoice_number" invisible="1"/>
+                            <field name="invoice_id" />
+                            <field name="so_number"/>
+                            <field name="journal_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Commission Items" name="account_commission" >
+                            <field name="account_commission_ids">
+                                <tree editable="bottom" >
+                                    <field name="product_id" />
+                                    <field name="description"/>
+                                    <field name="analytic_account_id"/>
+                                    <field name="analytic_tags_ids" widget="many2many_tags"/>
+                                    <field name="repair_cost" sum="total"/>
+                                    <field name="rims_quantity" sum="total"/>
+                                    <field name="commission_rate" sum="total"/>
+                                    <field name="commission_amount" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id" />
+                                        <field name="description"/>
+                                        <field name="analytic_account_id"/>
+                                        <field name="analytic_tags_ids" widget="many2many_tags"/>
+                                        <field name="repair_cost"/>
+                                        <field name="rims_quantity"/>
+                                        <field name="commission_rate"/>
+                                        <field name="commission_amount" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_commission_tree" model="ir.ui.view">
+        <field name="name">account.commission.tree</field>
+        <field name="model">account.commission</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="advisor_id" />
+                <field name="customer_id" />
+                <field name="date" />
+                <field name="invoice_number" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_commission_action" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.commission</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    account.commission Form-->
+
+    <menuitem id="account_commission_root_menu"
+              name="Account Commission"
+              parent="account.menu_finance_entries"
+              sequence="10"
+    />
+
+    <menuitem id="account_commission_child_menu"
+              name="Commissions"
+              action="account_commission_action"
+              parent="account_commission_root_menu"
+              sequence="2"
+    />
+
+</odoo>
