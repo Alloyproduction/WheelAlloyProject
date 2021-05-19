@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_emp_train" model="ir.sequence">
+            <field name="name">Employee Trains</field>
+            <field name="code">hr.train</field>
+            <field name="prefix">TR</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_assign" model="ir.sequence">
+            <field name="name">Employee Assign</field>
+            <field name="code">hr.assign</field>
+            <field name="prefix">AS</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_insurance" model="ir.sequence">
+            <field name="name">Employee Insurance</field>
+            <field name="code">hr.insurance</field>
+            <field name="prefix">SU</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_mandate" model="ir.sequence">
+            <field name="name">Employee Mandate</field>
+            <field name="code">hr.mandate</field>
+            <field name="prefix">MD</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_membership" model="ir.sequence">
+            <field name="name">Employee Membership</field>
+            <field name="code">hr.membership</field>
+            <field name="prefix">MS</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_protection" model="ir.sequence">
+            <field name="name">Employee Benefits</field>
+            <field name="code">hr.protection</field>
+            <field name="prefix">PR</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_resignation" model="ir.sequence">
+            <field name="name">Employee Resignation</field>
+            <field name="code">hr.resignation</field>
+            <field name="prefix">RS</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="seq_emp_ticket" model="ir.sequence">
+            <field name="name">Employee Ticket</field>
+            <field name="code">hr.ticket</field>
+            <field name="prefix">TC</field>
+            <field name="padding">3</field>
+        </record>
+
+
+    </data>
+</odoo>

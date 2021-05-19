@@ -1,0 +1,50 @@
+<odoo>
+
+
+
+    <record model="ir.ui.view" id="salary_lines_wizard">
+        <field name="name">Salary Report</field>
+        <field name="model">salary.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Salary Report">
+                <group>
+                    <group>
+                        <field name="start_date" attrs="{'invisible': [('print_all','=',True)],'required':[('print_all','!=',True)]}"/>
+                        <field name="end_date" attrs="{'invisible': [('print_all','=',True)],'required':[('print_all','!=',True)]}"/>
+                    </group>
+                    <group>
+                        <field name="print_all"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_salary_report" string="Get Report" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_salary_report_wizard"
+                name="Salary Report"
+                res_model="salary.report.wizard"
+                view_mode="form"
+                target="new"/>
+
+
+
+    <menuitem id="hr_salary_report_root_menu"
+              name="Reports"
+              parent="hr.menu_hr_root"
+              sequence="25"
+              groups="hr_contract.group_hr_contract_manager"/>
+
+    <menuitem id="hr_salary_report_menu"
+              name="Salary Report"
+              action="action_salary_report_wizard"
+              parent="hr_salary_report_root_menu"
+              sequence="1"
+              groups="hr_contract.group_hr_contract_manager"/>
+
+
+</odoo>
