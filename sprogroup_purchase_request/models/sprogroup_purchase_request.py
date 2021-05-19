@@ -287,7 +287,7 @@ class SprogroupPurchaseRequest(models.Model):
 
         recipient_partners=[]
         msg_sub = "Approved Purchase Request"
-        msg_body = "This Purchase Request Have Been Approved."
+        msg_body = "This Purchase Request Have Been Approved." + self.code
         if self.department_id.create_quotation_manager_id:
             recipient_partners.append(self.department_id.create_quotation_manager_id.partner_id.id)
 
