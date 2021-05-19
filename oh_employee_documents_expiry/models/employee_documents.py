@@ -39,15 +39,16 @@ class HrEmployeeDocument(models.Model):
             if i.expiry_date:
                 exp_date = fields.Date.from_string(i.expiry_date) - timedelta(days=7)
                 if date_now >= exp_date:
-                    mail_content = "  Hello  " + i.employee_ref.name + ",<br>Your Document " + i.name + "is going to expire on " + \
-                                   str(i.expiry_date) + ". Please renew it before expiry date"
+                    mail_content = " Hello <br> Our employee <b>" + i.employee_ref.name + "</b> has an <b>" + i.doc_type.name + " ["+i.name+"]" + "</b> going to expire on <b>" + \
+                                   str(i.expiry_date) + "</b>. Please ask him/her to renew it before expiry date."
                     main_content = {
-                        'subject': _('Document-%s Expired On %s') % (i.name, i.expiry_date),
+                        'subject': _('Document-%s Expires On %s') % (i.doc_type.name, i.expiry_date),
                         'author_id': self.env.user.partner_id.id,
                         'body_html': mail_content,
-                        'email_to': i.employee_ref.work_email,
+                        'email_to': i.employee_ref.parent_id.work_email,
                     }
-                    self.env['mail.mail'].create(main_content).send()
+                    if i.employee_ref.parent_id.work_email:
+                        self.env['mail.mail'].create(main_content).send()
 
     @api.constrains('expiry_date')
     def check_expr_date(self):
@@ -57,14 +58,25 @@ class HrEmployeeDocument(models.Model):
                 if exp_date < date.today():
                     raise Warning('Your Document Is Expired.')
 
-    name = fields.Char(string='Document Number', required=True, copy=False, help='You can give your'
-                                                                                 'Document number.')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('hr.employee.document') or _('New')
+        res = super(HrEmployeeDocument, self).create(vals)
+        return res
+
+    name = fields.Char(string='Reference', required=True, copy=False, readonly=True, index=True,
+                       default=lambda self: _('New'))
+
     description = fields.Text(string='Description', copy=False)
-    expiry_date = fields.Date(string='Expiry Date', copy=False)
-    employee_ref = fields.Many2one('hr.employee', invisible=1, copy=False)
+    expiry_date = fields.Date(string='Expiry Date', required=1,copy=False)
+    employee_ref = fields.Many2one('hr.employee', copy=False,required=True)
     doc_attachment_id = fields.Many2many('ir.attachment', 'doc_attach_rel', 'doc_id', 'attach_id3', string="Attachment",
                                          help='You can attach the copy of your document', copy=False)
-    issue_date = fields.Char(string='Issue Date', default=fields.datetime.now(), copy=False)
+    issue_date = fields.Date(string='Issue Date', copy=False)
+    active = fields.Boolean(default=True)
+    doc_type = fields.Many2one('document.type',required=1,string="Document Type")
 
 
 class HrEmployee(models.Model):
@@ -93,7 +105,7 @@ class HrEmployee(models.Model):
                            Click to Create for New Documents
                         </p>'''),
             'limit': 80,
-            'context': "{'default_employee_ref': '%s'}" % self.id
+            'context': "{'default_employee_ref': %s}" % self.id
         }
 
     document_count = fields.Integer(compute='_document_count', string='# Documents')

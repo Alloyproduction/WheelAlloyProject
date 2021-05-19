@@ -21,4 +21,5 @@
 #
 ###################################################################################
 from . import employee_documents
+from . import document_type
 

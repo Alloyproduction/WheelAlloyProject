@@ -34,6 +34,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/employee_document_view.xml',
+        'views/document_type_view.xml',
+        'data/sequence.xml',
     ],
     'images': ['static/description/banner.jpg'],
     'license': 'AGPL-3',
