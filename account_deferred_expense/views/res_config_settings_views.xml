@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="res_config_settings_view_form" model="ir.ui.view">-->
+<!--        <field name="name">res.config.settings.view.form.inherit.account.deferred.expense</field>-->
+<!--        <field name="model">res.config.settings</field>-->
+<!--        <field name="inherit_id" ref="account.res_config_settings_view_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--           <xpath expr=".//div[@id='invoicing_settings']" position="inside">-->
+<!--                <div class="content-group" attrs="{'invisible': [('module_account_deferred_expense', '=', False)]}">-->
+<!--                    <div class="mt16">-->
+<!--                        <button name="%(account_deferred_expense.action_account_expense_form)d" icon="fa-arrow-right" type="action" string="Deferred Expenses" class="btn-link"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--           </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+<record model="ir.ui.view" id="view_assest_expense_category">
+        <field name="name">account.asset.category2</field>
+        <field name="model">account.asset.category</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+        <field name="arch" type="xml">
+
+
+                  <xpath expr="//group/group/div[1]" position="inside">
+
+
+                                <label for="account_asset_id" string="Deferred Expense Account"
+                                       attrs="{'invisible': [('type','!=','expense')]}"
+                                       style="font-weight: bold" class="o_light_label"/>
+
+
+
+             </xpath>
+     <xpath expr="//div[2]" position="inside">
+                  <label for="account_depreciation_id" string="Recognition Entires: Account"
+                                       attrs="{'invisible': [('type','!=','expense')]}"
+                                       style="font-weight: bold" class="o_light_label"/>
+
+             </xpath>
+   <xpath expr="//div[3]" position="inside">
+                  <label for="account_depreciation_expense_id" string="Recognition Entires: Expense Account"
+                                       attrs="{'invisible': [('type','!=','expense')]}"
+                                       style="font-weight: bold" class="o_light_label"/>
+
+             </xpath>
+
+
+
+
+        </field>
+    </record>
+
+<!--     <record model="ir.ui.view" id="view_account_asset_category_form">-->
+<!--        <field name="name">account.asset.category.form</field>-->
+<!--        <field name="model">account.asset.category</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Asset category">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <div class="oe_title">-->
+<!--                            <label for="name" string="Asset Type" class="oe_edit_only" attrs="{'invisible': [('type','!=','purchase')]}"/>-->
+<!--                            <label for="name" string="Deferred Revenue Type" class="oe_edit_only" attrs="{'invisible': [('type','==','purchase')]}"/>-->
+<!--                            <h1>-->
+<!--                                <field name="name" placeholder="e.g. Computers"/>-->
+<!--                            </h1>-->
+<!--                        </div>-->
+<!--                        <group>-->
+<!--                            <field name="type" attrs="{'invisible': 1}"/>-->
+<!--                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>-->
+<!--                        </group>-->
+<!--                        <group string="Journal Entries">-->
+<!--                            <field name="journal_id"/>-->
+<!--                            <div>-->
+<!--                                <label for="account_asset_id"-->
+<!--                                       attrs="{'invisible': [('type','!=','purchase')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+
+
+<!--                                <label for="account_asset_id" string="Deferred Revenue Account"-->
+<!--                                       attrs="{'invisible': [('type','!=','sale')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+<!--                            </div>-->
+<!--                            <field name="account_asset_id" nolabel="1" attrs="{'invisible': [('type','=', False)]}" domain="[('company_id', '=', company_id)]"/>-->
+<!--                            <div>-->
+<!--                                <label for="account_depreciation_id"-->
+<!--                                       attrs="{'invisible': [('type','!=','purchase')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+<!--                                <label for="account_depreciation_id" string="Recognition Income Account"-->
+<!--                                       attrs="{'invisible': [('type','!=','sale')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+<!--                            </div>-->
+<!--                            <field name="account_depreciation_id" nolabel="1" domain="[('company_id', '=', company_id)]"/>-->
+<!--                            <div>-->
+<!--                                <label for="account_depreciation_expense_id"-->
+<!--                                       attrs="{'invisible': [('type','!=','purchase')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+<!--                                <label for="account_depreciation_expense_id" string="Recognition Account"-->
+<!--                                       attrs="{'invisible': [('type','!=','sale')]}"-->
+<!--                                       style="font-weight: bold" class="o_light_label"/>-->
+<!--                            </div>-->
+<!--                            <field name="account_depreciation_expense_id" nolabel="1" domain="[('company_id', '=', company_id)]"/>-->
+<!--                            <field name="account_analytic_id" domain="[('company_id', '=', company_id)]" groups="analytic.group_analytic_accounting"/>-->
+<!--                            <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags"/>-->
+<!--                        </group>-->
+<!--                        <group string="Periodicity">-->
+<!--                            <field name="method_time" string="Time Method Based On" widget="radio" attrs="{'invisible': [('type','!=','purchase')]}"/>-->
+<!--                            <field name="method_number" string="Number of Entries" attrs="{'invisible':['|',('method_time','!=','number'),'&amp;',('type','=', False)], 'required':[('method_time','=','number')]}"/>-->
+<!--                            <label for="method_period" string="One Entry Every"/>-->
+<!--                            <div>-->
+<!--                                <field name="method_period" nolabel="1" attrs="{'invisible': [('type','=', False)]}" class="oe_inline"/>-->
+<!--                                months-->
+<!--                            </div>-->
+<!--                            <field name="method_end" attrs="{'required': [('method_time','=','end')], 'invisible':[('method_time','!=','end')]}"/>-->
+<!--                        </group>-->
+<!--                        <group string="Additional Options">-->
+<!--                            <field name="open_asset"/>-->
+<!--                            <field name="group_entries"/>-->
+<!--                            <field name="date_first_depreciation"/>-->
+<!--                        </group>-->
+<!--                        <group attrs="{'invisible': [('type','=','sale')]}" string="Depreciation Method">-->
+<!--                            <field name="method" widget="radio"/>-->
+<!--                            <field name="method_progress_factor" attrs="{'invisible':[('method','=','linear')], 'required':[('method','=','degressive')]}"/>-->
+<!--                            <field name="prorata" attrs="{'invisible': [('method_time','=','end')]}"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>
