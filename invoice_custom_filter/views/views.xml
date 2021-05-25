@@ -23,6 +23,12 @@
             <filter name='cartype11' string="Car Type" context="{'group_by':'cartype1'}"/>
             </xpath>
 
+            <xpath expr="//filter[@name='supplier']" position='after'>
+            <filter name="customer_source" string="Source" domain="[('customer_source', '!=', False)]"/>
+            </xpath>
+
+
+
 
 
 <!--            <xpath expr="//filter[@name='supplier']" position='after'>-->

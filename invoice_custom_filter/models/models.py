@@ -10,6 +10,7 @@ class AccountInvoiceReport(models.Model):
     agency_location_id = fields.Char(string='Agency Location')
     cartype1 = fields.Char(string='Car Type')
     cartype2 = fields.Char(string='Make')
+    customer_source = fields.Char(string='Custmer Source')
     # team_id1 = fields.Many2one('crm.team', 'Sales Team')
     # partner_type =  fields.Selection([('True','Yes'),('False','No')],string='Company / Individual',default='False')
     company1 = fields.Boolean(string="Company / Individual")
@@ -43,8 +44,9 @@ class AccountInvoiceReport(models.Model):
                 COALESCE(cr.rate, 1) as currency_rate, sub.residual as residual, sub.commercial_partner_id as commercial_partner_id,
                 sub.car_type as cartype1,
                 sub.MAKE as cartype2,
+                sub.source as customer_source,
+                
                 sub.agency_location as agency_location_id,
-            
                 sub.is_company as company1
         """
         return select_str
@@ -75,6 +77,8 @@ class AccountInvoiceReport(models.Model):
                     ai.x_studio_car_type_name as car_type,
                     ai.x_studio_car_type_name as Make,
                     ai.x_studio_agency_location as agency_location,
+                    ai.x_studio_customer_source as source,
+                     
                     partner.is_company as is_company 
         """
         return select_str
