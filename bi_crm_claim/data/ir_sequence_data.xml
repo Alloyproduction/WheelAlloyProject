@@ -4,8 +4,10 @@
          <record id="seq_crm_claim" model="ir.sequence">
             <field name="name">Claim Sequence</field>
             <field name="code">crm.claim</field>
+             <field name="active">TRUE</field>
             <field name="prefix">CLM-</field>
             <field name="padding">5</field>
+            <field name="number_increment">1</field>
         </record>
     </data>
 
