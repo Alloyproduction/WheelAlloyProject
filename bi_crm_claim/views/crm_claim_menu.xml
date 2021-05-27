@@ -190,7 +190,7 @@
             <field name="name">CRM - Claims Form</field>
             <field name="model">crm.claim</field>
             <field name="arch" type="xml">
-                <form string="Claim">
+                <form string="Claim" duplicate="0">
                     <header>
                         <!--                    <field name="stage_id" widget="statusbar" clickable="True"/>-->
 
