@@ -13,8 +13,22 @@
 			</div>
 		</xpath>
 
+		<xpath expr="/t/t/div[2]/table/thead/tr/th[2]" position="after">
+			<th>
+				<span>Barcode / باركود</span>
+			</th>
+		</xpath>
 
-		<xpath expr="/t/t/div[2]/table/tbody/t[2]/tr/t[1]/td[1]" position="after">
+
+		<!--		<xpath expr="/t/t/div[2]/table/thead/tr/th[2]" position="after">-->
+		<!--			<tr>-->
+		<!--				<t t-set="colspan" t-value="5"/>-->
+		<!--				<th class="text-left">Barcode / باركود‬</th>-->
+		<!--			</tr>-->
+		<!--		</xpath>-->
+
+
+		<xpath expr="/t/t/div[2]/table/tbody/t[2]/tr/t[1]/td[2]" position="after">
 			<td>
 				<img alt="Barcode"
 					 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode, 600, 150)"
@@ -24,17 +38,11 @@
 		</xpath>
 
 
-		<!--		<xpath expr="//t/t/div[2]/table/tbody/t[2]/tr/t[1]/td[1]" position="after">-->
-<!--&lt;!&ndash;			<td style="border: 2px solid black;text-align: center; vertical-align: middle;" class="col-xs-5">&ndash;&gt;-->
-<!--&lt;!&ndash;				<img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode, 600, 150)"&ndash;&gt;-->
-<!--&lt;!&ndash;					 style="width:100%;height:20%;"/>&ndash;&gt;-->
-<!--&lt;!&ndash;				<span t-field="line.product_id.barcode"/>&ndash;&gt;-->
+		<!--		<xpath expr="/t/t/div[2]/table/tbody/t[2]/tr/t[1]/td[1]" position="after">-->
+<!--			<td>-->
+<!--				-->
 <!--			</td>-->
 <!--		</xpath>-->
-
-		<td>
-
-		</td>
 
 
 
