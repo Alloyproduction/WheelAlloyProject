@@ -330,12 +330,16 @@
                             </div>
                         </div>
                     </div>
-<!--                   <div>-->
+                   <div>
 <!--                       <img src='static\img\Stamp.jpeg'-->
 <!--                            style="max-height: 150px; margin-left:50px; margin-right:20px; margin-top:50px;"-->
 <!--                       />-->
-<!--                   </div>-->
+                       <img src='/invoice_report_customization/static/img/Stamp.jpeg'
+                            style="max-height: 150px; margin-left:50px; margin-right:20px; margin-top:50px;"
+                       />
 
+                   </div>
+                   
                    <div class="mt32 ml16 mr16" name="signature">
                     <div class="offset-8">
                         <strong>Customer Sign</strong>
