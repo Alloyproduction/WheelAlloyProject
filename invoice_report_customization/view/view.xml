@@ -298,9 +298,12 @@
                                         </td>
                                     </tr>
 
-               <xpath expr="/t/t/div[2]/div[4]/div/div/table/t[1]/tr/t[1]/td[1]/span[2]" position="replace">
-               <span>/<span style="color: rgb(8, 8, 8); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;">‫</span><span style="color: rgb(8, 8, 8); font-size: 9.8pt; font-family: &quot;Courier New&quot;, monospace;">VAT / ضريبة القيمة المضافة</span></span>
-               </xpath>
+                                    <xpath expr="/t/t/div[2]/div[3]/div/div/table/t[1]/tr/t[1]/td[1]/span[1]" position="replace">
+                                      <td><span>VAT</span>
+                                            <span>/</span>
+                                            <span>‫ ضريبةالقيمة المضافة‬</span></td>
+                                    </xpath>
+
 
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
                                         <tr style="">
