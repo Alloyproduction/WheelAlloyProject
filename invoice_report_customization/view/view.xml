@@ -297,6 +297,11 @@
                                             <span t-field="o.amount_untaxed"/>
                                         </td>
                                     </tr>
+
+               <xpath expr="/t/t/div[2]/div[4]/div/div/table/t[1]/tr/t[1]/td[1]/span[2]" position="replace">
+               <span>/<span style="color: rgb(8, 8, 8); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;">‫</span><span style="color: rgb(8, 8, 8); font-size: 9.8pt; font-family: &quot;Courier New&quot;, monospace;">VAT / ضريبة القيمة المضافة</span></span>
+               </xpath>
+
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
                                         <tr style="">
                                             <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
