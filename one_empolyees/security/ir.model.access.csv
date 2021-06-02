@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_emp_form_user,access.emp.form.user,model_emp_form,one_empolyees.employee_security_user,1,1,0,0
+access_emp_form_manager,access.emp.form.manager,model_emp_form,one_empolyees.employee_security_manager,1,1,1,1
+access_emp_form_normal_user,access.emp.form.normal_user,model_emp_form,one_empolyees.employee_security_normal_user,1,0,0,0
