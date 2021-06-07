@@ -3,6 +3,16 @@
     <data>
         <template id="report_saleorder_customize" inherit_id="sale.report_saleorder_document">
 
+            <xpath expr="//h2" position="before">
+                <div class="row justify-content-end mb16">
+                    <div class="col-4" name="right_box">
+                        <img
+                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 600, 100)"
+                                style="width:300px;height:50px;" alt="Barcode"/>
+                    </div>
+                </div>
+            </xpath>
+
             <xpath expr="//t[1]/t[1]/t[2]" position="replace">
             </xpath>
             <xpath expr="//t[1]/t[1]/t[2]" position="replace">
@@ -136,7 +146,7 @@
                       <td style="border: none;padding:5px 5px" width="300px">
                          <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Service Advisor /</span>
-                                <span style="font-weight:bold;"> اسم المشر ف </span>
+                                <span style="font-weight:bold;"> اسم المشرف </span>
                             </div>
                       </td>
                       <td  style="border: none;padding:5px 5px" width="800px">
@@ -164,7 +174,7 @@
                       <td style="border: none;padding:5px 5px" width="300px">
                           <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Plate # /</span>
-                                <span style="font-weight:bold;"> رقم ة اللوح </span>
+                                <span style="font-weight:bold;"> رقم  اللوحة </span>
                             </div>
                       </td>
                       <td  style="border: none;padding:5px 5px" width="800px">
@@ -207,7 +217,7 @@
                       <td style="border: none;padding:5px 5px" width="300px">
                           <div class="left" style="float: left;white-space: nowrap;">
                                 <span style="font-weight:bold;">Odoo Meter /</span>
-                                 <span style="font-weight:bold;">قراءة د العدا </span>
+                                 <span style="font-weight:bold;">قراءة العداد </span>
 
                             </div>
                       </td>
@@ -229,19 +239,34 @@
                 <tr>
                    <t t-set="colspan" t-value="5"/>
                         <th class="text-left">Description / ‫الوصف‬</th>
-                        <th class="text-right">Quantity / ‫الكمية‬</th>
-                        <th class="text-right">Unit Price / السعر‬</th>
+                        <th class="text-left">Quantity / ‫الكمية‬</th>
+                        <th class="text-left">Unit Price / السعر‬</th>
                         <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
                             <span>Disc / التخفيض (%)</span>
                             <t t-set="colspan" t-value="colspan+1"/>
                         </th>
-                        <th class="text-right">VAT / ‫الضريبة</th>
-                        <th class="text-right">
+                        <th class="text-left">VAT / ‫الضريبة</th>
+                        <th class="text-left">
                             <t groups="account.group_show_line_subtotals_tax_excluded">Amount / ‫المجموع</t>
                             <t groups="account.group_show_line_subtotals_tax_included">Total Price / ‫المجموع</t>
                         </th>
                 </tr>
 
+            </xpath>
+
+            <xpath expr="/t/t/div[2]/table/thead/tr/th[2]" position="after">
+                <th>
+                    <span>Barcode / باركود</span>
+                </th>
+            </xpath>
+
+            <xpath expr="/t/t/div[2]/table/tbody/t[2]/tr/t[1]/td[2]" position="after">
+                <td>
+                    <img alt="Barcode"
+                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode, 600, 150)"
+                         style="width:100%;height:20%;"/>
+                    <span t-field="line.product_id.barcode"/>
+                </td>
             </xpath>
 
 
