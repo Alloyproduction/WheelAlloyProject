@@ -50,6 +50,7 @@
                             <field name="category_id" domain="[('type', '=', 'expense')]" context="{'default_type': 'expense'}" help="Category of asset"/>
                             <field name="code"/>
                             <field name="date" help="Date of asset"/>
+                              <field name="Hijri_no_days"/>
                             <field name="type" invisible="1"/>
                         </group>
                         <group>
