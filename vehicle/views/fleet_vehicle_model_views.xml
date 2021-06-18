@@ -4,7 +4,7 @@
         <field name="name">vehicle.model.form</field>
         <field name="model">vehicle.model</field>
         <field name="arch" type="xml">
-            <form string="Model">
+            <form string="Car Makes">
                 <sheet>
                     <field name="image_model" widget='image' class="oe_avatar"/>
                     <div class="oe_title">
@@ -21,7 +21,7 @@
                     </div>
 
                     <notebook>
-                        <page string="Car Make">
+                        <page string="Car Makes">
                             <group>
                                 <field name="car_name" readonly="0" create="True" string = "Car model"/>
                             </group>
@@ -37,10 +37,10 @@
         <field name="name">vehicle.model.tree</field>
         <field name="model">vehicle.model</field>
         <field name="arch" type="xml">
-            <tree string="Marks">
+            <tree string="makes">
 <!--                <field name="brand_id" />-->
-                <field name="name" />
-                <field name="car_name" />
+                <field name="name" string="Car make" />
+                <field name="car_name" string="Car model"/>
             </tree>
         </field>
     </record>
@@ -134,11 +134,11 @@
         <field name="name">vehicle.name.form</field>
         <field name="model">vehicle.name</field>
         <field name="arch" type="xml">
-            <form string="Model">
+            <form string="Car Models">
                 <sheet>
                     <field name="image" widget='image' class="oe_avatar"/>
-                    <field name="model_id"/>
-                    <field name="name" />
+                    <field name="model_id" string="Car make"/>
+                    <field name="name" string="Car model"/>
                     <field name="description" string='Description'/>
                 </sheet>
             </form>
@@ -149,9 +149,9 @@
         <field name="name">vehicle.name.tree</field>
         <field name="model">vehicle.name</field>
         <field name="arch" type="xml">
-            <tree string="Car Name">
-                <field name="model_id" />
-                <field name="name" />
+            <tree string="Car Models">
+                <field name="model_id" string="Car make"/>
+                <field name="name" string="Car model"/>
                 <field name="description" />
             </tree>
         </field>
