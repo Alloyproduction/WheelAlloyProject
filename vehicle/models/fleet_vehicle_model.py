@@ -79,8 +79,8 @@ class FleetVehicleModelBrand(models.Model):
         description = fields.Char('Description')
         image = fields.Binary("Logo", attachment=True,
                               help="This field holds the image used as logo for the Car, limited to 1024x1024px.")
-        brand_id = fields.Many2one('vehicle.model.brand', 'Make', help='Make of the vehicle')
-
+        model_id = fields.Many2one('vehicle.model', 'Model',
+                                   track_visibility="onchange", required=True, help='Model of the vehicle')
 
 
 

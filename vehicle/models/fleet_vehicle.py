@@ -59,7 +59,7 @@ class FleetVehicle(models.Model):
     horsepower_tax = fields.Float('Horsepower Taxation')
     power = fields.Integer('Power', help='Power in kW of the vehicle')
     co2 = fields.Float('CO2 Emissions', help='CO2 emissions of the vehicle')
-    image = fields.Binary(related='model_id.image', string="Logo", readonly=False)
+    image_model = fields.Binary(related='model_id.image', string="Logo", readonly=False)
     image_medium = fields.Binary(related='model_id.image_medium', string="Logo (medium)", readonly=False)
     image_small = fields.Binary(related='model_id.image_small', string="Logo (small)", readonly=False)
 

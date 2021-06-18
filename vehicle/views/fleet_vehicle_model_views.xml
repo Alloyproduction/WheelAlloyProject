@@ -136,14 +136,10 @@
         <field name="arch" type="xml">
             <form string="Model">
                 <sheet>
-                 <field name="name" string='Car name'/>
-                 <field name="description" string='Description'/>
+                    <field name="model_id"/>
+                    <field name="name" string='Car name'/>
                     <field name="image" widget='image' class="oe_avatar"/>
-
-                    <label for="brand_id" />-->
-                    <h1>
-                        <field name="brand_id" />
-                    </h1>
+                    <field name="description" string='Description'/>
                 </sheet>
             </form>
         </field>
@@ -154,10 +150,9 @@
         <field name="model">vehicle.name</field>
         <field name="arch" type="xml">
             <tree string="Car Name">
+                <field name="model_id" />
                 <field name="name" />
                 <field name="description" />
-                <field name="brand_id" />
-
             </tree>
         </field>
     </record>

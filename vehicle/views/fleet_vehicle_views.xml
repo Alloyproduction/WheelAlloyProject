@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form string="Vehicle">
                 <sheet>
-                    <field name="image_medium" widget='image' class="oe_avatar"/>
+                    <field name="image_model" widget='image' class="oe_avatar"/>
                     <div class="oe_title">
                         <group>
 <!--                        <field name="brand_id" string="Brand" placeholder="e.g. Model S"/>-->
