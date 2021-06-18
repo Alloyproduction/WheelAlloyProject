@@ -2,19 +2,19 @@
 <odoo>
 
         <record id="module_fleet_category" model="ir.module.category">
-            <field name="name">Fleet</field>
-            <field name="sequence">17</field>
+            <field name="name">Fleet Management</field>
         </record>
+
         <record id="fleet_group_user" model="res.groups">
-            <field name="name">User</field>
+            <field name="name">fleet / User</field>
             <field name="category_id" ref="module_fleet_category"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+<!--            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>-->
         </record>
         <record id="fleet_group_manager" model="res.groups">
-            <field name="name">Manager</field>
+            <field name="name">fleet / Manager</field>
             <field name="implied_ids" eval="[(4, ref('fleet_group_user'))]"/>
             <field name="category_id" ref="module_fleet_category"/>
-            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+<!--            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>-->
         </record>
 
     <!--<data noupdate="1">-->

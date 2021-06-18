@@ -9,6 +9,7 @@ class FleetVehicleModel(models.Model):
     _order = 'name asc'
 
     name = fields.Char('Model name', required=True)
+    active = fields.Boolean(default=True)
     image_model = fields.Binary("Logo", attachment=True,
                           help="This field holds the image used as logo for the car model, limited to 1024x1024px.")
     brand_id = fields.Many2one('vehicle.model.brand', 'Make', help='Make of the vehicle')

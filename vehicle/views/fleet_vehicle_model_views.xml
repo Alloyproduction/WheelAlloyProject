@@ -25,6 +25,7 @@
                             <group>
                                 <field name="car_name" readonly="0" create="True" string = "Car model"/>
                             </group>
+                            <field name="active" invisible= "1" />
                         </page>
                     </notebook>
                 </sheet>
