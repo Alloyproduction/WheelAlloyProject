@@ -55,6 +55,7 @@ class InheritSale(models.Model):
     claim_no = fields.Char('Claim#')
     is_insured = fields.Boolean('insured', default=False)
     service_advisor = fields.Many2one('res.partner',string='Service Advisor')
+    x_studio_l2icense_plate_2 = fields.Char('')
 
 
     @api.onchange('vehicle')
