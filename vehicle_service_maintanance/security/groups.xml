@@ -1,0 +1,42 @@
+<odoo>
+
+    <!-- define access group category -->
+    <record id="crm_claim_access_categ" model="ir.module.category">
+        <field name="name">Claim Management</field>
+    </record>
+
+    <!-- define access group for manger  -->
+    <record id="group_user" model="res.groups">
+        <field name="name">Claim / User</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+    </record>
+
+<!--    &lt;!&ndash; group of user &ndash;&gt;-->
+
+
+<!--    <record id="group_first_action" model="res.groups">-->
+<!--        <field name="name">Claim / First Action</field>-->
+<!--        <field name="category_id" ref="crm_claim_access_categ"/>-->
+<!--        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>-->
+<!--    </record>-->
+
+<!--    <record id="group_second_action" model="res.groups">-->
+<!--        <field name="name">Claim / Second Action</field>-->
+<!--        <field name="category_id" ref="crm_claim_access_categ"/>-->
+<!--        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>-->
+<!--    </record>-->
+
+<!--    <record id="group_final_action" model="res.groups">-->
+<!--        <field name="name">Claim / Final Action</field>-->
+<!--        <field name="category_id" ref="crm_claim_access_categ"/>-->
+<!--        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>-->
+<!--    </record>-->
+
+<!--    <record id="group_manager_close" model="res.groups">-->
+<!--        <field name="name">Claim / Close</field>-->
+<!--        <field name="category_id" ref="crm_claim_access_categ"/>-->
+<!--        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>-->
+<!--    </record>-->
+
+
+</odoo>

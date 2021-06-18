@@ -49,15 +49,31 @@ class InheritSale(models.Model):
     _inherit = 'sale.order'
 
     vehicle= fields.Many2one('vehicle')
+    # car_model = fields.Many2one('vehicle.model',  readonly=True)
+    car_name = fields.Many2one('vehicle.name', track_visibility="onchange")
+    plate_num = fields.Char('Plate Number')
     claim_no = fields.Char('Claim#')
-    is_insured = fields.Boolean('insured',default=False)
+    is_insured = fields.Boolean('insured', default=False)
     service_advisor = fields.Many2one('res.partner',string='Service Advisor')
-
+    x_studio_l2icense_plate_2 = fields.Char('plate#')
 
     @api.onchange('vehicle')
     def onchage_vehicle(self):
         if self.vehicle and self.vehicle.is_insured:
-            self.is_insured =True
+            self.is_insured = True
+
+
+    @api.onchange('vehicle')
+    def _onchange_cartype(self):
+        if self.vehicle:
+            self.car_name = self.vehicle.car_name1
+            self.plate_num = self.vehicle.license_plate
+
+        else:
+            self.car_name = False
+            self.plate_num = False
+
+
     @api.one
     @api.constrains('claim_no')
     def unique_identity(self):
@@ -65,6 +81,10 @@ class InheritSale(models.Model):
             identities = self.env['sale.order'].search_count([('claim_no', '=', self.claim_no)])
             if identities > 1:
                 raise ValueError(_('This claim_no is already exist'))
+
+
+
+
 
 
 

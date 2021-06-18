@@ -14,6 +14,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/groups.xml",
         "view/view.xml",
         "view/partner.xml",
     ],
