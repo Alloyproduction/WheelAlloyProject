@@ -16,12 +16,12 @@
 
                          <label for="name" class="oe_edit_only"/>
                         <h2>
-                            <field name="name" placeholder="e.g. Kia S" string = "Car name"/>
+                            <field name="name" placeholder="e.g. Kia S" string = "Car make"/>
                         </h2>
                     </div>
 
                     <notebook>
-                        <page string="Car Name">
+                        <page string="Car Make">
                             <group>
                                 <field name="car_name" readonly="0" create="True" string = "Car model"/>
                             </group>
@@ -136,9 +136,9 @@
         <field name="arch" type="xml">
             <form string="Model">
                 <sheet>
-                    <field name="model_id"/>
-                    <field name="name" string='Car name'/>
                     <field name="image" widget='image' class="oe_avatar"/>
+                    <field name="model_id"/>
+                    <field name="name" />
                     <field name="description" string='Description'/>
                 </sheet>
             </form>

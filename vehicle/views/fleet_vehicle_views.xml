@@ -179,7 +179,7 @@
     <menuitem name="Configuration" parent="menu_root" id="vehicle_configuration" sequence="100"/>
     <menuitem id="fleet_vehicle_tag_menu" parent="vehicle_configuration" action="vehicle.fleet_vehicle_tag_action"
               sequence="89"/>
-    <menuitem action="fleet_vehicle_model_action" parent="vehicles" id="vehicle_model_menu" sequence="11"/>
-    <menuitem action="vehicle_name_action" parent="vehicles" id="vehicle_name_menu" name="Vehicle Name"/>
+    <menuitem action="fleet_vehicle_model_action" parent="vehicles" id="vehicle_model_menu" sequence="11" name="Vehicle Mark"/>
+    <menuitem action="vehicle_name_action" parent="vehicles" id="vehicle_name_menu" name="Vehicle Model"/>
     <!--<menuitem id="fleet_vehicle_tag_menu" parent="fleet_configuration" action="fleet_vehicle_tag_action" sequence="89"/>-->
 </odoo>

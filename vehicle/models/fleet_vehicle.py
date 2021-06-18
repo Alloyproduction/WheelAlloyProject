@@ -23,7 +23,7 @@ class FleetVehicle(models.Model):
     _description = 'Vehicle'
     _order = 'model_id asc'
 
-    name = fields.Char(compute="_compute_vehicle_name",store=True)
+    name = fields.Char(compute="_compute_vehicle_name",store=True, string='Car make')
     is_insured = fields.Boolean('is insured ?')
     insurance_company = fields.Many2one('res.partner',string='Insurance Company')
     active = fields.Boolean('Active', default=True, track_visibility="onchange")
@@ -37,7 +37,7 @@ class FleetVehicle(models.Model):
     model_id = fields.Many2one('vehicle.model', 'Model',
         track_visibility="onchange", required=True, help='Model of the vehicle')
     brand_id = fields.Many2one('vehicle.model.brand', 'Brand', related="model_id.brand_id", store=True, readonly=False)
-    car_name1 = fields.Many2one('vehicle.name', string='Car Name',
+    car_name1 = fields.Many2one('vehicle.name', string='Car model',
                                 track_visibility="onchange", required=True, help='Name of the vehicle')
     acquisition_date = fields.Date('Immatriculation Date', required=False,
         default=fields.Date.today, help='Date when the vehicle has been immatriculated')
@@ -82,6 +82,14 @@ class FleetVehicle(models.Model):
         for rec in self.model_id.car_name:
             list.append(rec.id)
         return {'domain': {'car_name1': [('id', '=', list)]}}
+    ##################################################################################################################################
+    @api.onchange('model_id')
+    def _onchange_model(self):
+        if self.model_id:
+            self.image_model = self.model_id.image_model
+        else:
+            self.image_model = False
+
     ##################################################################################################################################
     @api.one
     @api.constrains('license_plate')
