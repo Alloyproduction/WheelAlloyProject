@@ -8,10 +8,10 @@
             <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
              <field name="is_insured" invisible="True"/>
-                            <field name="vehicle"  domain="[('owner_id','=', partner_id)]"/>
+                            <field name="vehicle"  domain="[('owner_id','=', partner_id)]"  string="Car mark"/>
 <!--                            <field name="car_model"/>-->
-                            <field name="car_name" readonly='1' force_save="1"/>
-                            <field name="plate_num" readonly='1' force_save="1"/>
+                            <field name="car_name" readonly='1' force_save="1" string="Car model"/>
+                            <field name="plate_num" readonly='1' force_save="1"  string="Plate number"/>
                             <field name="claim_no"  attrs="{'invisible': [('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
                             <field name="service_advisor"  domain="[('is_service_provider','=', True)]"/>
             </xpath>

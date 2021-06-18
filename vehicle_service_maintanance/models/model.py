@@ -48,9 +48,9 @@ class partnerinherit(models.Model):
 class InheritSale(models.Model):
     _inherit = 'sale.order'
 
-    vehicle = fields.Many2one('vehicle', string="Car mark")
+    vehicle = fields.Many2one('vehicle')
     # car_model = fields.Many2one('vehicle.model',  readonly=True)
-    car_name = fields.Many2one('vehicle.name', track_visibility="onchange", string="Car model")
+    car_name = fields.Many2one('vehicle.name', track_visibility="onchange")
     plate_num = fields.Char('Plate Number')
     claim_no = fields.Char('Claim#')
     is_insured = fields.Boolean('insured', default=False)
