@@ -6,19 +6,27 @@
         <field name="arch" type="xml">
             <form string="Model">
                 <sheet>
-                    <field name="image_medium" widget='image' class="oe_avatar"/>
+                    <field name="image_model" widget='image' class="oe_avatar"/>
                     <div class="oe_title">
 
-                        <label for="brand_id" class="oe_edit_only"/>
-                        <h1>
-                            <field name="brand_id" placeholder="e.g. Tesla"/>
-                        </h1>
+<!--                        <label for="brand_id" class="oe_edit_only"/>-->
+<!--                        <h1>-->
+<!--                            <field name="brand_id" placeholder="e.g. Tesla"/>-->
+<!--                        </h1>-->
 
                          <label for="name" class="oe_edit_only"/>
                         <h2>
-                            <field name="name" placeholder="e.g. Model S"/>
+                            <field name="name" placeholder="e.g. Kia S" string = "Car name"/>
                         </h2>
                     </div>
+
+                    <notebook>
+                        <page string="Car Name">
+                            <group>
+                                <field name="car_name" readonly="0" create="True" string = "Car model"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -29,8 +37,9 @@
         <field name="model">vehicle.model</field>
         <field name="arch" type="xml">
             <tree string="Models">
-                <field name="brand_id" />
+<!--                <field name="brand_id" />-->
                 <field name="name" />
+                <field name="car_name" />
             </tree>
         </field>
     </record>
@@ -117,4 +126,54 @@
           </p>
         </field>
     </record>
+
+    ###############################################################
+
+       <record id='vehicle_name_view_form' model='ir.ui.view'>
+        <field name="name">vehicle.name.form</field>
+        <field name="model">vehicle.name</field>
+        <field name="arch" type="xml">
+            <form string="Model">
+                <sheet>
+                 <field name="name" string='Car name'/>
+                 <field name="description" string='Description'/>
+                    <field name="image" widget='image' class="oe_avatar"/>
+
+                    <label for="brand_id" />-->
+                    <h1>
+                        <field name="brand_id" />
+                    </h1>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+      <record id='vehicle_name_view_tree' model='ir.ui.view'>
+        <field name="name">vehicle.name.tree</field>
+        <field name="model">vehicle.name</field>
+        <field name="arch" type="xml">
+            <tree string="Car Name">
+                <field name="name" />
+                <field name="description" />
+                <field name="brand_id" />
+
+            </tree>
+        </field>
+    </record>
+
+
+
+        <record id='vehicle_name_action' model='ir.actions.act_window'>
+        <field name="name">Name of Vehicle</field>
+        <field name="res_model">vehicle.name</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new car
+          </p>
+        </field>
+        </record>
+
+
 </odoo>

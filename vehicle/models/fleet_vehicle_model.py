@@ -9,21 +9,29 @@ class FleetVehicleModel(models.Model):
     _order = 'name asc'
 
     name = fields.Char('Model name', required=True)
-    brand_id = fields.Many2one('vehicle.model.brand', 'Make', required=True, help='Make of the vehicle')
+    image_model = fields.Binary("Logo", attachment=True,
+                          help="This field holds the image used as logo for the car model, limited to 1024x1024px.")
+    brand_id = fields.Many2one('vehicle.model.brand', 'Make', help='Make of the vehicle')
     image = fields.Binary(related='brand_id.image', string="Logo", readonly=False)
     image_medium = fields.Binary(related='brand_id.image_medium', string="Logo (medium)", readonly=False)
     image_small = fields.Binary(related='brand_id.image_small', string="Logo (small)", readonly=False)
+    car_name = fields.Many2many(
+        comodel_name='vehicle.name',
+        relation='name',
+        column1='name',
+        column2='descrption',
+        string='Car Name', )
 
-    @api.multi
-    @api.depends('name', 'brand_id')
-    def name_get(self):
-        res = []
-        for record in self:
-            name = record.name
-            if record.brand_id.name:
-                name = record.brand_id.name + '/' + name
-            res.append((record.id, name))
-        return res
+    # @api.multi
+    # @api.depends('name', 'brand_id')
+    # def name_get(self):
+    #     res = []
+    #     for record in self:
+    #         name = record.name
+    #         if record.brand_id.name:
+    #             name = record.brand_id.name + '/' + name
+    #         res.append((record.id, name))
+    #     return res
 
     @api.onchange('brand_id')
     def _onchange_brand(self):
@@ -60,3 +68,19 @@ class FleetVehicleModelBrand(models.Model):
     def write(self, vals):
         tools.image_resize_images(vals)
         return super(FleetVehicleModelBrand, self).write(vals)
+
+    class Vehiclename(models.Model):
+        _name = 'vehicle.name'
+        _description = 'Name of a vehicle'
+        _order = 'name asc'
+
+        name = fields.Char('Car name')
+        description = fields.Char('Description')
+        image = fields.Binary("Logo", attachment=True,
+                              help="This field holds the image used as logo for the Car, limited to 1024x1024px.")
+        brand_id = fields.Many2one('vehicle.model.brand', 'Make', help='Make of the vehicle')
+
+
+
+
+

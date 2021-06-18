@@ -21,23 +21,24 @@ class FleetVehicle(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'vehicle'
     _description = 'Vehicle'
-    _order = 'license_plate asc'
+    _order = 'model_id asc'
 
-
-    name = fields.Char(compute="_compute_vehicle_name", store=True)
+    name = fields.Char(compute="_compute_vehicle_name",store=True)
     is_insured = fields.Boolean('is insured ?')
     insurance_company = fields.Many2one('res.partner',string='Insurance Company')
     active = fields.Boolean('Active', default=True, track_visibility="onchange")
     odometer = fields.Float('Odometer')
     owner_id = fields.Many2one('res.partner',string='Owner',required=False)
     company_id = fields.Many2one('res.company', 'Company')
-    license_plate = fields.Char(track_visibility="onchange",
-        help='License plate number of the vehicle (i = plate number for a car)')
+    license_plate = fields.Char(track_visibility="onchange", required=True,
+     help='License plate number of the vehicle (i = plate number for a car)', copy=True)
     vin_sn = fields.Char('Chassis Number', help='Unique number written on the vehicle motor (VIN/SN number)', copy=False)
     driver_id = fields.Many2one('res.partner', 'Driver', track_visibility="onchange", help='Driver of the vehicle', copy=False)
     model_id = fields.Many2one('vehicle.model', 'Model',
         track_visibility="onchange", required=True, help='Model of the vehicle')
     brand_id = fields.Many2one('vehicle.model.brand', 'Brand', related="model_id.brand_id", store=True, readonly=False)
+    car_name1 = fields.Many2one('vehicle.name', string='Car Name',
+                                track_visibility="onchange", required=True, help='Name of the vehicle')
     acquisition_date = fields.Date('Immatriculation Date', required=False,
         default=fields.Date.today, help='Date when the vehicle has been immatriculated')
     first_contract_date = fields.Date(string="First Contract Date", default=fields.Date.today)
@@ -62,11 +63,34 @@ class FleetVehicle(models.Model):
     image_medium = fields.Binary(related='model_id.image_medium', string="Logo (medium)", readonly=False)
     image_small = fields.Binary(related='model_id.image_small', string="Logo (small)", readonly=False)
 
-
-    @api.depends('model_id.brand_id.name', 'model_id.name', 'license_plate')
+    @api.depends('model_id.name')
     def _compute_vehicle_name(self):
         for record in self:
-            record.name = record.model_id.brand_id.name + '/' + record.model_id.name + '/' + (record.license_plate or _('No Plate'))
+            record.name = record.model_id.name
+
+ #######################################################################################################################################
+    # @api.depends('model_id.brand_id.name', 'model_id.name', 'license_plate')
+    # def _compute_vehicle_name(self):
+    #     for record in self:
+    #         record.name = record.model_id.brand_id.name + '/' + record.model_id.name + '/' + (
+    #                     record.license_plate or _('No Plate'))
+
+ ####################################################################################################################################
+    @api.onchange('model_id')
+    def _brand_onchange(self):
+        list = []
+        for rec in self.model_id.car_name:
+            list.append(rec.id)
+        return {'domain': {'car_name1': [('id', '=', list)]}}
+    ##################################################################################################################################
+    @api.one
+    @api.constrains('license_plate')
+    def unique_plateeidentity(self):
+        if self.license_plate:
+            identities = self.env['vehicle'].search_count([('license_plate', '=', self.license_plate)])
+            if identities > 1:
+                raise ValueError(_('This Plate number No. is already exist'))
+    ###################################################################################################################################
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
@@ -112,6 +136,9 @@ class FleetVehicle(models.Model):
             'domain': [('vehicle_id', '=', self.id)],
             'context': {'default_driver_id': self.driver_id.id, 'default_vehicle_id': self.id}
         }
+
+
+
 
 class FleetVehicleTag(models.Model):
     _name = 'vehicle.tag'
