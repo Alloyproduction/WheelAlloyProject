@@ -23,7 +23,7 @@ class FleetVehicle(models.Model):
     _description = 'Vehicle'
     _order = 'model_id asc'
 
-    name = fields.Char(compute="_compute_vehicle_name",store=True, string='Car make')
+    name = fields.Char(compute="_compute_vehicle_name",store=True)
     is_insured = fields.Boolean('is insured ?')
     insurance_company = fields.Many2one('res.partner',string='Insurance Company')
     active = fields.Boolean('Active', default=True, track_visibility="onchange")
@@ -34,7 +34,7 @@ class FleetVehicle(models.Model):
      help='License plate number of the vehicle (i = plate number for a car)', copy=True)
     vin_sn = fields.Char('Chassis Number', help='Unique number written on the vehicle motor (VIN/SN number)', copy=False)
     driver_id = fields.Many2one('res.partner', 'Driver', track_visibility="onchange", help='Driver of the vehicle', copy=False)
-    model_id = fields.Many2one('vehicle.model', 'Model',
+    model_id = fields.Many2one('vehicle.model', 'Car mark',
         track_visibility="onchange", required=True, help='Model of the vehicle')
     brand_id = fields.Many2one('vehicle.model.brand', 'Brand', related="model_id.brand_id", store=True, readonly=False)
     car_name1 = fields.Many2one('vehicle.name', string='Car model',

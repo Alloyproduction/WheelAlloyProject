@@ -37,7 +37,7 @@
         <field name="name">vehicle.model.tree</field>
         <field name="model">vehicle.model</field>
         <field name="arch" type="xml">
-            <tree string="Models">
+            <tree string="Marks">
 <!--                <field name="brand_id" />-->
                 <field name="name" />
                 <field name="car_name" />

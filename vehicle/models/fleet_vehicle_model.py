@@ -8,7 +8,7 @@ class FleetVehicleModel(models.Model):
     _description = 'Model of a vehicle'
     _order = 'name asc'
 
-    name = fields.Char('Model name', required=True, string='Car make')
+    name = fields.Char(required=True )
     active = fields.Boolean(default=True)
     image_model = fields.Binary("Logo", attachment=True,
                           help="This field holds the image used as logo for the car model, limited to 1024x1024px.")
@@ -20,8 +20,7 @@ class FleetVehicleModel(models.Model):
         comodel_name='vehicle.name',
         relation='name',
         column1='name',
-        column2='descrption',
-        string='Car model', )
+        column2='descrption',)
 
     # @api.multi
     # @api.depends('name', 'brand_id')
@@ -80,5 +79,5 @@ class FleetVehicleModelBrand(models.Model):
         image = fields.Binary("Logo", attachment=True,
                               help="This field holds the image used as logo for the Car, limited to 1024x1024px.")
         model_id = fields.Many2one('vehicle.model',
-                                   track_visibility="onchange", required=True, help='Model of the vehicle',
-                                   string='Car make')
+                                   track_visibility="onchange", required=True, help='Model of the vehicle'
+                                  )
