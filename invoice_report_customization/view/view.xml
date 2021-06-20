@@ -204,12 +204,12 @@
                             </div>
 
                             <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;" >
-                                <span t-esc="o.sale_id.vehicle.model_id.name"/>
+                                <span t-esc="o.sale_id.vehicle.car_name1.name"/>
                             </div>
 
                             <div class="right" style="float: right;white-space: nowrap;">
                                 <span style="float:left;font-weight:bold;" t-esc="o.partner_id.car_type_arbi"></span>
-                                <span style="font-weight:bold;">: اسم الوكالة</span>
+                                <span style="font-weight:bold;">: اسم المركبة</span>
 
                             </div>
                         </div>
