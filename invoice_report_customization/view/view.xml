@@ -291,7 +291,7 @@
                         <div id="total" class="row">
                             <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
                                 <table class="table table-sm">
-                                    <tr class="border-black o_subtotal" style="">
+                                    <tr class="border-black o_subtotal" >
                                         <td><strong>
                                             <span>Subtotal</span>
                                             <span>/</span>
@@ -312,9 +312,11 @@
 
                                             <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
 <!--                                                <td><span t-esc="amount_by_group[0]"/></td>-->
-                                                <td><span>VAT</span>
+                                                <td><strong>
+                                                    <span>VAT</span>
                                                 <span>/</span>
-                                                <span>‫ ضريبةالقيمة المضافة‬</span></td>
+                                                <span>‫ ضريبةالقيمة المضافة‬</span>
+                                                </strong></td>
                                                 <td class="text-right o_price_total">
                                                     <span t-esc="amount_by_group[3]"/>
                                                 </td>
@@ -333,9 +335,11 @@
                                         </tr>
                                     </t>
                                     <tr class="border-black o_total">
-                                        <td><span>Total</span>
+                                        <td><strong>
+                                            <span>Total</span>
                                             <span>/</span>
-                                            <span>‫ الاجمالي بعدالضر‬‫يبه‬</span></td>
+                                            <span>‫ الاجمالي بعدالضر‬‫يبه‬</span>
+                                        </strong></td>
                                         <td class="text-right">
                                             <span t-field="o.amount_total"/>
                                         </td>
