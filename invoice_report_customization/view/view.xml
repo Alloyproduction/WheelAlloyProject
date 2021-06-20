@@ -295,7 +295,7 @@
                                         <td><strong>
                                             <span>Subtotal</span>
                                             <span>/</span>
-                                            <span>الاجمالي قبل‬ ‫الضر‬‫يبه‬</span>
+                                            <span>الإجمالي قبل‬ ‫الضر‬‫يبه‬</span>
                                         </strong></td>
                                         <td class="text-right">
                                             <span t-field="o.amount_untaxed"/>
@@ -315,7 +315,7 @@
                                                 <td><strong>
                                                     <span>VAT</span>
                                                 <span>/</span>
-                                                <span>‫ ضريبةالقيمة المضافة‬</span>
+                                                <span>‫ ضريبة القيمة المضافة‬</span>
                                                 </strong></td>
                                                 <td class="text-right o_price_total">
                                                     <span t-esc="amount_by_group[3]"/>
@@ -338,7 +338,7 @@
                                         <td><strong>
                                             <span>Total</span>
                                             <span>/</span>
-                                            <span>‫ الاجمالي بعدالضر‬‫يبه‬</span>
+                                            <span>‫ الإجمالي بعد الضر‬‫يبه‬</span>
                                         </strong></td>
                                         <td class="text-right">
                                             <span t-field="o.amount_total"/>
