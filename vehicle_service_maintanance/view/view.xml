@@ -11,12 +11,32 @@
                             <field name="vehicle"  domain="[('owner_id','=', partner_id)]"  string="Car mark"/>
 <!--                            <field name="car_model"/>-->
                             <field name="car_name" readonly='1' force_save="1" string="Car model"/>
-                            <field name="plate_num" readonly='1' force_save="1"  string="Plate number"/>
+                            <field name="x_studio_l2icense_plate_2" readonly='1' force_save="1"  string="Plate number"/>
                             <field name="claim_no"  attrs="{'invisible': [('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
-                            <field name="service_advisor"  domain="[('is_service_provider','=', True)]"/>
-            </xpath>
+                            <field name="service_advisor" domain="[('is_service_provider','=', True)]"/>
 
+
+<!--                                   domain="[('child_ids', '!=', False)] "/>-->
+
+                </xpath>
             </field>
         </record>
+
+
+<!--        <record id="search_sale_order_ept" model="ir.ui.view">-->
+<!--            <field name="name">search_sale_order_ept</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="type">search</field>-->
+<!--            <field name="inherit_id" ref="sale.view_sales_order_filter"/>-->
+
+<!--            <field name="name" position="after">-->
+
+<!--                <filter string="Hold" domain="[('status_id','=','hold')]" help="Hold" name='filter_hold'/>-->
+<!--                <filter string="Back Order" domain="[('status_id','=','back_order')]" help="Back Order"-->
+<!--                        name='filter_backorder'/>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
     </data>
 </odoo>
