@@ -51,7 +51,7 @@ class InheritSale(models.Model):
     vehicle = fields.Many2one('vehicle')
     # car_model = fields.Many2one('vehicle.model',  readonly=True)
     car_name = fields.Many2one('vehicle.name', track_visibility="onchange")
-    # plate_num = fields.Char('Plate Number')
+    plate_num = fields.Char('Plate Number')
     x_studio_l2icense_plate_2 = fields.Char('Plate Number')
     claim_no = fields.Char('Claim#')
     is_insured = fields.Boolean('insured', default=False)
@@ -93,8 +93,6 @@ class InheritSale(models.Model):
    #      for rec in self.model_id.car_name:
    #          list.append(rec.id)
    #      return {'domain': {'car_name1': [('id', '=', list)]}}
-
-
 
 
 
