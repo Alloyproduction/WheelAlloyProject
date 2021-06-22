@@ -124,7 +124,7 @@
                                 <span style="font-weight:bold;">Claim# :</span>
                             </div>
 
-                            <div class="left" style="float: left;white-space: nowrap; margin-left:75px; text-align: left;" >
+                            <div class="left" style="float: left;white-space: nowrap; margin-left:60px; text-align: left;" >
                                 <span t-esc="o.sale_id.claim_no"/>
 
                             </div>
@@ -184,7 +184,7 @@
                                 <span style="font-weight:bold;">Plate # :</span>
                             </div>
 
-                          <div class="left" style="float: left;white-space: nowrap; margin-left:70px; text-align: left; width:50px;">
+                          <div class="left" style="float: left;white-space: nowrap; margin-left:95px; text-align: left; width:50px;">
                                 <span t-esc="o.sale_id.vehicle.license_plate"/>
                             </div>
 
@@ -206,7 +206,7 @@
                             </div>
 
                             <div class="left"
-                                 style="float: left;white-space: nowrap; margin-left:70px; text-align: left; width:50px;">
+                                 style="float: left;white-space: nowrap; margin-left:85px; text-align: left; width:50px;">
                                 <span t-field ="o.sale_id.vehicle.model_id.name"/>
                                 <span>/</span>
                                 <span t-esc="o.sale_id.vehicle.car_name1.name"/>
