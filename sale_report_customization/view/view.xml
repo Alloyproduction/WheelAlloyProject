@@ -193,7 +193,10 @@
                             </div>
                       </td>
                       <td  style="border: none;padding:5px 5px" width="800px">
+                        <span style="padding-left:5px;font-weight:bold;" t-field="doc.vehicle.model_id.name"/>
+                        <span>/</span>
                         <span style="padding-left:5px;font-weight:bold;" t-esc="doc.vehicle.car_name1.name"/>
+
                       </td>
                     </tr>
                     </t>
