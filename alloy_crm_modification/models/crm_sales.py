@@ -446,14 +446,14 @@ class SalesOrdercrm(models.Model):
 
                 # if not self.alloy_digital_signature:
                 #     raise UserError(_("You must add Your signature"))
-                if self.alloy_digital_signature:
+                # if self.alloy_digital_signature:
                     super(SalesOrdercrm, self).action_confirm_replica()
                     if self.is_insured == False:
-                        for rec in self:
-                            won = self.env['crm.stage'].search([('name', '=', 'Won')])
-                            rec.opportunity_id.write({
-                                'stage_id': won.id
-                            })
+                      for rec in self:
+                        won = self.env['crm.stage'].search([('name', '=', 'Won')])
+                        rec.opportunity_id.write({
+                            'stage_id': won.id
+                        })
                     else:
                         for rec in self:
                             won = self.env['crm.stage'].search([('name', '=', 'Won')])
@@ -461,8 +461,8 @@ class SalesOrdercrm(models.Model):
                                 'stage_id': won.id
                             })
                     self.send_notification("The Quotation Was confirmed",str(self.name) +"The Quotation Was confirmed"+ '.')
-                else:
-                    raise UserError(_("You must add Your signature"))
+                # else:
+                #     raise UserError(_("You must add Your signature"))
            else:
                raise UserError(_("All Products must be storable products or Services"))
     # @api.multi
