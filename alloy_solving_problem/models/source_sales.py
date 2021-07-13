@@ -73,12 +73,12 @@ class PurchaseOrderLinee(models.Model):
         for partner in self:
             partner.display_name = names.get(partner.id)
 
-    @api.multi
-    @api.depends('name', 'customer_code')
-    def name_get(self):
-        res = []
-        for record in self:
-            # name = record.name
-            name = record.name + str(record.customer_code)
-            res.append((record.id, name))
-        return res
+    # @api.multi
+    # @api.depends('name', 'customer_code')
+    # def name_get(self):
+    #     res = []
+    #     for record in self:
+    #         # name = record.name
+    #         name = record.name + str(record.customer_code)
+    #         res.append((record.id, name))
+    #     return res

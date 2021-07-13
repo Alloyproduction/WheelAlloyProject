@@ -35,18 +35,18 @@
             </field>
         </record>
 
-        <record id="res_partner_form_inherit" model="ir.ui.view">
-            <field name="name">res.partner</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
+<!--        <record id="res_partner_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">res.partner</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="inherit_id" ref="base.view_partner_form"/>-->
+<!--            <field name="arch" type="xml">-->
 
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="customer_code" placeholder="Customer Code" />
-                </xpath>
+<!--                <xpath expr="//field[@name='name']" position="after">-->
+<!--                    <field name="customer_code" placeholder="Customer Code" />-->
+<!--                </xpath>-->
 
-            </field>
-        </record>
+<!--            </field>-->
+<!--        </record>-->
 
     </data>
 </odoo>
