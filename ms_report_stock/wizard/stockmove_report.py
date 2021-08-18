@@ -16,7 +16,10 @@ class StockMovesReportWizard(models.TransientModel):
     _name = 'stockmove.report.wizard'
 
     prod_categ = fields.Many2many('product.category', string="Category")
-    move_location = fields.Many2many('stock.location', string="Location")
+    move_location = fields.Many2many('stock.location', relation="stock_move_loc22",column1="ha1", column2="ha2",
+                                     string="Source Location",store=True)
+    move_location_dest = fields.Many2many('stock.location', relation="stock_move_loc88",column1="ha33", column2="ha55",
+                                     string="Source Location",store=True)
     date_from = fields.Date("Date From")
     date_to = fields.Date("Date to")
 # _________________________________________________
@@ -32,6 +35,7 @@ class StockMovesReportWizard(models.TransientModel):
             'form': {
                 'prod_categ': self.prod_categ.ids,
                 'move_location': self.move_location.ids,
+                'move_location_dest': self.move_location_dest.ids,
                 'date_from': self.date_from,
                 'date_to': self.date_to,
             },
@@ -99,8 +103,16 @@ class StockMovesReportWizard(models.TransientModel):
         domains = []
         if self.prod_categ:
             domains.append(('product_id.categ_id', 'in', self.prod_categ.ids))
+
         if self.move_location:
+            print('LLLLLLLLL', self.move_location.name)
             domains.append(('location_id', 'in', self.move_location.ids))
+
+        if self.move_location_dest:
+            print('LLL222', self.move_location_dest.name)
+            print("there are move_location_dest")
+            domains.append(('location_dest_id', 'in', self.move_location_dest.ids))
+
         if self.date_from and self.date_to:
             domains.append(('date', '>=', self.date_from))
             domains.append(('date', '<=', self.date_to))
@@ -108,12 +120,13 @@ class StockMovesReportWizard(models.TransientModel):
             domains.append(('date', '>=', self.date_from))
         if self.date_from and not self.date_to:
             domains.append(('date', '<=', self.date_to))
+
+        print('DDDDDDDD',domains)
         stockmove = self.env['stock.move'].search(domains, order='reference asc')
         # else:
         #     print('else')
         #     stockmove = self.env['stock.move'].search([], order='name asc')
-        print('stockmove')
-        print(stockmove)
+        print('stockmove', stockmove)
         # print(data['form']['prod_categ'])
         # print(data['form']['move_location'])
         for sm in stockmove:
@@ -137,6 +150,7 @@ class StockMovesReportWizard(models.TransientModel):
             # 'doc_model': self.model,
             'prod_categ': self.prod_categ,
             'move_location': self.move_location,
+            'move_location_dest': self.move_location_dest,
             'date_from': self.date_from,
             'date_to': self.date_to,
             'docs': docs,
@@ -154,11 +168,6 @@ class StockMovesReportWizard(models.TransientModel):
         date = 'Date From: '+ date_from + ' Date To: ' + date_to
         worksheet.write_merge(row, row, col, col + 2, date, text_center)
         row += 2
-        # worksheet.write(row, 0, 'Location', left_header_style)
-        # worksheet.write_merge(row, row, 1, 2, self.move_location.display_name, text_left)
-        # row += 1
-        # worksheet.write(row, 0, 'Company', left_header_style)
-        # worksheet.write_merge(row, row, 1, 2, self.company_id.name, text_left)
         row += 2
         worksheet.write(row, 0, '#', left_header_style)
         worksheet.write(row, 1, 'Date', left_header_style)
@@ -268,9 +277,7 @@ class StockMovesReportWizard(models.TransientModel):
                     active_id, filename),
                 'target': 'new',
             }
-
     # ______________________________________________________________________________________
-
 
 class StockMovesReportReportView(models.AbstractModel):
     _name = "report.ms_report_stock.stockmove_report_report_view"
@@ -280,11 +287,25 @@ class StockMovesReportReportView(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         docs = []
         domains = []
-
         if data['form']['prod_categ']:
             domains.append(('product_id.categ_id', 'in', data['form']['prod_categ']))
         if data['form']['move_location']:
+            print('Location000000', data['form']['move_location'][0])
+            # loca_name = data['form']['move_location'][0]
+            # all_loca_Source = ['36', '8', '12', '32', '5']
+            # if loca_name in all_loca_Source:
+            #     print("GGGGGGGGGGGGGGG")
+            #     print("there are v location")
+            #     domains.append(('location_id', 'in', data['form']['move_location']))
+            #     print('LLL after Apend', data['form']['move_location'])
+            # else:
+            #     print("EEEEEEEEEEE")
+            #     domains.append(('location_dest_id', 'in', data['form']['move_location']))
+            #     print('Location after Append', data['form']['move_location'])
             domains.append(('location_id', 'in', data['form']['move_location']))
+
+        if data['form']['move_location_dest']:
+            domains.append(('location_dest_id', 'in', data['form']['move_location_dest']))
 
         if data['form']['date_from'] and data['form']['date_to']:
             domains.append(('date', '>=', data['form']['date_from']))
@@ -303,6 +324,7 @@ class StockMovesReportReportView(models.AbstractModel):
 
         print(data['form']['prod_categ'])
         print(data['form']['move_location'])
+        print(data['form']['move_location_dest'])
 
         for sm in stockmove:
             # guarantee_type = dict(sm._fields['guarantee_type'].selection).get(sm.guarantee_type)
@@ -327,6 +349,7 @@ class StockMovesReportReportView(models.AbstractModel):
             'doc_model': data['model'],
             'prod_categ': data['form']['prod_categ'],
             'move_location': data['form']['move_location'],
+            'move_location_dest': data['form']['move_location_dest'],
             'date_from': data['form']['date_from'],
             'date_to': data['form']['date_to'],
             'docs': docs,
@@ -337,6 +360,7 @@ class StockMovesReportReportView(models.AbstractModel):
             'doc_model': data['model'],
             'prod_categ': data['form']['prod_categ'],
             'move_location': data['form']['move_location'],
+            'move_location_dest': data['form']['move_location_dest'],
             'date_from': data['form']['date_from'],
             'date_to': data['form']['date_to'],
             'docs': docs,

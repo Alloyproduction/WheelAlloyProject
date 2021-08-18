@@ -10,6 +10,7 @@
                     <group>
                         <field name="prod_categ" widget="many2many_tags"/>
                         <field name="move_location" widget="many2many_tags"/>
+                        <field name="move_location_dest" widget="many2many_tags"/>
                     </group>
                     <group>
                         <field name="date_from" />
