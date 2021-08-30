@@ -38,7 +38,7 @@ class invoicetelenoc(models.Model):
             'x_studio_field_rgEdd': self.x_studio_field_icWOZ.id,
             'x_studio_car_type_1': self.vehicle.id,
             'x_studio_job_card_1': self.x_studio_agency_job_card,
-            'x_studio_car_type_name': self.vehicle.car_name1.id,
+            'x_studio_car_type_name': self.vehicle.car_name1.name,
             'x_studio_plate_num': self.vehicle.license_plate,
             'x_studio_claim_num': self.claim_no,
             'sale_id': self.id,
