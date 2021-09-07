@@ -108,7 +108,7 @@ class PartnerDueXlsx(models.AbstractModel):
                 columns = [
 
                     format_date(self.env, aml.date, lang_code=lang_code),
-                    aml.invoice_id.x_studio_car_type_name.name or '',
+                    aml.invoice_id.x_studio_car_type_name or '',
                     aml.invoice_id.x_studio_plate_num or '',
                     aml.invoice_id.x_studio_claim_num or '',
                     aml.invoice_id.x_studio_job_card_1 or '',

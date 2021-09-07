@@ -11,9 +11,7 @@ from odoo.exceptions import UserError
 class AccountInvoice(models.Model):
     _inherit ='account.invoice'
 
-    # x_studio_car_type_name = fields.Char('Car Type Name')
-    x_studio_car_type_name = fields.Many2one('vehicle.name', string='Car model',
-                    track_visibility="onchange", required=True, help='Name of the vehicle')
+    x_studio_car_type_name = fields.Char('Car Type Name')
     x_studio_plate_num = fields.Char('Plate Number')
     x_studio_claim_num = fields.Char('Claim No')   
     x_studio_job_card_1 =  fields.Char('Job Card')
