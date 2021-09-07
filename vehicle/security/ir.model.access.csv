@@ -14,3 +14,4 @@ access_color,access_color,model_color,,1,1,1,1
 
 access_vehicle_name,access_vehicle_name,model_vehicle_name,fleet_group_user,1,0,0,0
 access_vehicle_name_manger,access_vehicle_name,model_vehicle_name,fleet_group_manager,1,1,1,1
+access_vehicle_price_manger,access_vehicle_price,model_vehicle_price,fleet_group_manager,1,1,1,1

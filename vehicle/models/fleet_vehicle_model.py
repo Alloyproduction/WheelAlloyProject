@@ -79,5 +79,30 @@ class FleetVehicleModelBrand(models.Model):
         image = fields.Binary("Logo", attachment=True,
                               help="This field holds the image used as logo for the Car, limited to 1024x1024px.")
         model_id = fields.Many2one('vehicle.model',
-                                   track_visibility="onchange", required=True, help='Model of the vehicle'
-                                  )
+                                   track_visibility="onchange", required=True, help='Model of the vehicle')
+        car_price = fields.Many2many(
+            comodel_name='vehicle.price')
+            # relation='name',
+            # column1='name',
+            # column2='description', )
+
+        ######################################################################################################################
+
+        class Vehicleprice(models.Model):
+            _name = 'vehicle.price'
+            _description = 'price of a vehicle'
+            _order = 'name asc'
+
+            @api.model
+            def _get_default_name(self):
+                return self.env['ir.sequence'].next_by_code('vehicle.price')
+
+            name = fields.Char('Code', size=32, required=True, default=_get_default_name, track_visibility='onchange')
+            repair_type = fields.Char('Repair Type')
+            amount = fields.Float(string='Model Price', digits=(2, 2))
+            description = fields.Char('Description')
+            # car_name1 = fields.Many2one('vehicle.name', string='Car model',
+            #                             track_visibility="onchange", required=True, help='Name of the vehicle')
+
+
+

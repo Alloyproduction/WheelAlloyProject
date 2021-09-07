@@ -136,10 +136,16 @@
         <field name="arch" type="xml">
             <form string="Car Models">
                 <sheet>
+
+                     <group>
                     <field name="image" widget='image' class="oe_avatar"/>
+                     </group>
+
+                    <group>
                     <field name="model_id" string="Car make"/>
                     <field name="name" string="Car model"/>
                     <field name="description" string='Description'/>
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -152,7 +158,7 @@
             <tree string="Car Models">
                 <field name="model_id" string="Car make"/>
                 <field name="name" string="Car model"/>
-                <field name="description" />
+                <field name="description" string="Description" />
             </tree>
         </field>
     </record>
@@ -170,6 +176,59 @@
           </p>
         </field>
         </record>
+
+
+    ########################################################################################################################################
+
+
+    <record id='vehicle_name_view_form' model='ir.ui.view'>
+        <field name="name">vehicle.price.form</field>
+        <field name="model">vehicle.price</field>
+        <field name="arch" type="xml">
+            <form string="Car Price">
+                <sheet>
+                    <group>
+                        <field name="name" string="Name"/>
+<!--                        <field name="car_name1" string="Car model"/>-->
+                    </group>
+
+                    <group>
+                        <field name="repair_type" string="Repair Type"/>
+                        <field name="amount" string="Amount"/>
+                        <field name="description" string="Description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='vehicle_price_view_tree' model='ir.ui.view'>
+        <field name="name">vehicle.price.tree</field>
+        <field name="model">vehicle.price</field>
+        <field name="arch" type="xml">
+            <tree string="Car Price">
+                <field name="name" string="Name"/>
+<!--                <field name="car_name1" string="Car model"/>-->
+                <field name="repair_type" string="Repair Type"/>
+                <field name="amount" string="Amount"/>
+                <field name="description" string="Description"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id='vehicle_price_action' model='ir.actions.act_window'>
+        <field name="name">Vehicle Price</field>
+        <field name="res_model">vehicle.price</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new price
+            </p>
+        </field>
+    </record>
+
 
 
 </odoo>

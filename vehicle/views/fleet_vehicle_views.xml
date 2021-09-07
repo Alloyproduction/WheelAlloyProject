@@ -181,5 +181,7 @@
               sequence="89"/>
     <menuitem action="fleet_vehicle_model_action" parent="vehicles" id="vehicle_model_menu" sequence="11" name="Vehicle Mark"/>
     <menuitem action="vehicle_name_action" parent="vehicles" id="vehicle_name_menu" name="Vehicle Model"/>
+    <menuitem action="vehicle_price_action" parent="vehicles" id="vehicle_price_menu" name="Vehicle Price" sequence="12" />
+
     <!--<menuitem id="fleet_vehicle_tag_menu" parent="fleet_configuration" action="fleet_vehicle_tag_action" sequence="89"/>-->
 </odoo>

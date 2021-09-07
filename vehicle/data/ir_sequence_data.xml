@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="seq_car_price" model="ir.sequence">
+            <field name="name">Price Sequence</field>
+            <field name="code">vehicle.price</field>
+             <field name="active">TRUE</field>
+            <field name="prefix">PCI</field>
+            <field name="padding">2</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+
+</odoo>
+
