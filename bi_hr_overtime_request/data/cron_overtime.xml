@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="ir_cron_scheduler_overtime_request" model="ir.cron">
+      <field name="name">Request Overtime and Delays monthly Scheduler</field>
+      <field name="model_id" ref="model_bt_hr_overtime"/>
+      <field name="state">code</field>
+      <field name="code">model.create_ov_r()</field>
+      <field name="interval_number">1</field>
+      <field name="interval_type">months</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+    </record>
+  </data>
+</odoo>

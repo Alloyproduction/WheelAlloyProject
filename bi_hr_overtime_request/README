@@ -1,0 +1,15 @@
+
+Version 12.0.0.1: (30/12/19)
+		- Update security groups and write rule.
+12.0.0.2==>improve code add _description for model add group in csv and removed unused files.
+
+date 5th june 2020
+version 12.0.0.3
+improve issue:-
+	- without demo data module given installation error.
+	- time calculation wrong.
+	
+Date 8th june 2020
+version 12.0.0.4
+issue solve:-
+	- remove live_test_url multiple parameter.
