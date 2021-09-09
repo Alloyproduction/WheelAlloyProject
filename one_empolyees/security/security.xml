@@ -13,7 +13,7 @@
       <field name="category_id" ref="employee_security_categ"/>
       <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
-     <!--    Manager-->
+    <!--    Manager-->
     <record id="employee_security_manager" model="res.groups">
       <field name="name">Manager</field>
       <field name="category_id" ref="employee_security_categ"/>
@@ -21,17 +21,16 @@
     </record>
     <!--    Normal Employee (New Group)-->
     <record id="employee_security_normal_user" model="res.groups">
-      <field name="name">normal user</field>
-<!--      <field name="category_id" ref="employee_security_categ"/>-->
+      <field name="name">Normal user:(Own Documents Only)</field>
+      <field name="category_id" ref="employee_security_categ"/>
     </record>
+    <!--    rule for user to see only him self-->
     <record id="see_only_himself" model="ir.rule">
       <field name="name">Normal User Employee</field>
       <field ref="model_emp_form" name="model_id"/>
       <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
       <field name="groups" eval="[(4, ref('employee_security_normal_user'))]"/>
     </record>
-
-
 
   </data>
 </odoo>

@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base' , 'hr', 'hr_holidays', 'hr_contract', 'dev_hr_loan'],
+    'depends': ['base' , 'hr', 'hr_holidays', 'hr_contract', 'dev_hr_loan', 'bi_hr_overtime_request'],
 
     # always loaded
     'data': [
@@ -30,6 +30,6 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
     ],
 }
