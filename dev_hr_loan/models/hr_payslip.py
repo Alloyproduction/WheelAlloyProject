@@ -15,6 +15,13 @@ class hr_payslip(models.Model):
     _inherit = 'hr.payslip'
     
     installment_ids = fields.Many2many('installment.line',string='Installment Lines')
+
+    @api.onchange('employee_id')
+    def installment_ids_onchange(self):
+        return {'domain': {'installment_ids': [('employee_id', '=', self.employee_id.ids),
+                                               ('is_paid','=',False)]}}
+
+
     installment_amount = fields.Float('Installment Amount',compute='get_installment_amount')
     installment_int = fields.Float('Installment Amount',compute='get_installment_amount')
     
@@ -25,7 +32,7 @@ class hr_payslip(models.Model):
         if installment_ids:
             self.installment_ids = [(6, 0, installment_ids.ids)]
         return super(hr_payslip,self).compute_sheet()
-        
+
 
     @api.depends('installment_ids')
     def get_installment_amount(self):
@@ -63,8 +70,8 @@ class hr_payslip(models.Model):
         res = super(hr_payslip, self).action_payslip_done()
         if self.installment_ids:
             for installment in self.installment_ids:
-                if not installment.is_skip:
-                    installment.is_paid = True
-                installment.payslip_id = self.id
+                # if not installment.is_skip:
+                installment.is_paid = True
+            installment.payslip_id = self.id
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,18 +26,32 @@ class dev_skip_installment(models.Model):
         return employee_id
 
     @api.model
-    def _get_loan(self):
-        loan_id = self.env['employee.loan'].search([('employee_id.user_id', '=', self.env.user.id)], limit=1)
-        return loan_id
-
-    @api.model
     def _get_default_user(self):
         return self.env.user
 
     name = fields.Char('Name', default='/')
     employee_id = fields.Many2one('hr.employee', string='Employee', required="1", default=_get_employee)
-    loan_id = fields.Many2one('employee.loan', string='Loan', required="1", default=_get_loan)
     installment_id = fields.Many2one('installment.line', string='Installment', required="1")
+
+    @api.onchange('employee_id')
+    def installment_id_onchange_custom(self):
+        return {'domain': {'installment_id': [('employee_id', '=', self.employee_id.id), ('loan_id','=', self.loan_id),
+                                               ('is_paid','=',False)]}}
+
+    # loan_id = fields.Many2one('employee.loan', string='Loan', required="1", default=_get_loan)
+    loan_id = fields.Char(string='Loan', required="1", default=lambda self: self._get_loan(), readonly=True)
+
+    @api.model
+    @api.onchange('employee_id')
+    def _get_loan(self):
+        for record in self:
+            if record.employee_id:
+                loan_id_ss = self.env['employee.loan'].search([('employee_id', '=', self.employee_id.id)], limit=1)
+                print('RRRRRR', loan_id_ss)
+                print('RRRRRR', loan_id_ss.name)
+                if loan_id_ss:
+                    record.loan_id = loan_id_ss.name
+
     date = fields.Date('Date', default=fields.date.today())
     user_id = fields.Many2one('res.users', string='User', default=_get_default_user)
     notes = fields.Text('Reason', required="1")
@@ -68,20 +82,20 @@ class dev_skip_installment(models.Model):
         if self.employee_id and self.installment_id:
             request_id = self.search([('employee_id', '=', self.employee_id.id),
                                     ('installment_id', '=', self.installment_id.id),
-                                    ('state', 'in', ['draft', 'approve', 'confirm', 'done']), ('id', '!=', self.id)])
+                                    ('state', 'in', ['draft', 'request', 'approve', 'confirm', 'done']), ('id', '!=', self.id)])
         request = len(request_id)
         if request > 0:
             raise ValidationError("This %s  installement of skip request has been %s state" % (self.installment_id.name,request_id.state))
 
-    @api.onchange('loan_id')
-    def onchange_loan_id(self):
-        if self.loan_id:
-            self.manager_id = self.loan_id.manager_id
+    @api.onchange('employee_id')
+    def onchange_employee_id(self):
+        if self.employee_id:
+            self.manager_id = self.employee_id.department_id.manager_id
 
     def action_send_request(self):
         if not self.manager_id:
             raise ValidationError(_('Please Select Department manager'))
-        if self.manager_id and self.manager_id.id != self.loan_id.manager_id.id:
+        if self.manager_id and self.manager_id.id != self.employee_id.department_id.manager_id.id:
             raise ValidationError(_('Loan Manager and selected department manager not same'))
         if self.manager_id and self.manager_id.work_email:
             ir_model_data = self.env['ir.model.data']
@@ -152,12 +166,10 @@ class dev_skip_installment(models.Model):
             ir_model_data = self.env['ir.model.data']
             template_id = ir_model_data.get_object_reference('dev_hr_loan',
                                                              'hr_manager_confirm_skip_installment')
-
             mtp = self.env['mail.template']
             template_id = mtp.browse(template_id[1])
             template_id.write({'email_to': self.employee_id.work_email})
             template_id.send_mail(self.ids[0], True)
-            
         self.state = 'confirm'
     
     def done_skip_installment(self):

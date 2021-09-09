@@ -11,15 +11,17 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
       <field name="arch" type="xml">
         <form string="Employee Loan">
           <header>
-            <button name="compute_installment" states="draft" string="Compute Installment" class="btn-primary"
-                    type="object" groups="dev_hr_loan.group_department_manager" invisible="1"
+            <button name="compute_installment" string="Compute Installment" class="btn-primary"
+                    type="object" groups="dev_hr_loan.group_department_manager"
+                    attrs="{'invisible':[('hide_compute_installment', '=', True)]}"
             />
+            <!--            <button states="draft"/>-->
             <button name="action_send_request" states="draft" string="Submit Request" class="btn-primary"
                     type="object"
             />
-            <button name="dep_manager_approval_loan" states="request" string="Approve Request" class="btn-primary"
-                    type="object" groups="dev_hr_loan.group_department_manager"/>
-
+            <button name="dep_manager_approval_loan" string="Approve Request" class="btn-primary"
+                    type="object" groups="dev_hr_loan.group_department_manager"
+                    attrs="{'invisible':['|',('hide_compute_installment', '=', False),('state', '!=', 'request')]}"/>
             <button name="dep_manager_reject_loan" states="request" string="Reject Request" class="btn-primary"
                     type="object" groups="dev_hr_loan.group_department_manager"
             />
@@ -35,8 +37,8 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
             <button name="paid_loan" states="hr_approval" string="Paid Loan" class="btn-primary"
                     type="object" groups="hr.group_hr_manager"
             />
-            <button name="set_to_draft" states="request,dep_approval,hr_approval,paid,done,cancel" string="Set to Draft"
-                    class="btn-primary" type="object" groups="dev_hr_loan.group_department_manager"
+            <button name="set_to_draft" string="Set to Draft" class="btn-primary" type="object"
+                    attrs="{'visible':[('state', '!=', 'request')]}" groups="dev_hr_loan.group_department_manager"
             />
             <button name="action_close_loan" string="Close Loan" class="btn-primary" type="object"
                     groups="hr.group_hr_manager" attrs="{'invisible':[('is_close','!=',True)]}"
@@ -48,9 +50,11 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
           </header>
           <sheet>
             <div class="oe_button_box" name="button_box">
-              <b><button name="view_journal_entry" type="object" class="oe_stat_button" icon="fa-external-link"
-                         string="Journal Entry" groups="hr.group_hr_manager"
-                         attrs="{'invisible':[('state','not in',['done','paid'])]}"/></b>
+              <b>
+                <button name="view_journal_entry" type="object" class="oe_stat_button" icon="fa-external-link"
+                        string="Journal Entry" groups="hr.group_hr_manager"
+                        attrs="{'invisible':[('state','not in',['done','paid'])]}"/>
+              </b>
               <button type="object"
                       name="action_view_loan_installment"
                       class="oe_stat_button"
@@ -62,7 +66,9 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 
             </div>
             <label for="name" class="oe_edit_only"/>
-            <h1><field name="name" readonly="1"/></h1>
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
 
             <group>
               <group>
@@ -73,6 +79,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                 <field name="manager_id" attrs="{'readonly':[('state','!=','draft')]}"
                        groups="dev_hr_loan.group_department_manager"/>
                 <field name="email_for_manager" invisible="1"/>
+                <field name="hide_compute_installment" invisible="1"/>
               </group>
               <group>
                 <field name="date" readonly="1"/>
@@ -96,13 +103,11 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                 <field name="remaing_amount"/>
               </group>
               <group>
-                <field name="loan_type_id" widget="many2many_tags" attrs="{'readonly': [('state', 'in', ('dep_approval', 'hr_approval', 'done',
+                <field name="loan_type_id" attrs="{'readonly': [('state', 'in', ('dep_approval', 'hr_approval', 'done',
                                                                   'cancel', 'paid', 'reject', 'close'))]}"
-                       options="{'no_create': True, 'no_open': True}" groups="dev_hr_loan.group_department_manager"/>
+                       options="{'no_create': True, 'no_open': True}"/>
                 <field name="start_date" attrs="{'readonly':[('state','!=','draft')]}"/>
-                <field name="term" groups="dev_hr_loan.group_department_manager"
-                       attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-<!--            attrs="{'readonly': [('state', 'in', ('request', 'dep_approval', 'hr_approval', 'done', 'cancel', 'paid', 'reject', 'close'))]}"-->
+                <field name="term" attrs="{'readonly': [('state', 'in', ('request', 'dep_approval', 'hr_approval', 'done', 'cancel', 'paid', 'reject', 'close'))]}"/>
                 <field name="end_date"/>
                 <field name="interest_rate"
                        attrs="{'invisible':[('is_apply_interest','!=',True)],'readonly':[('state','!=','draft')]}"/>
@@ -130,10 +135,10 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                   <tree string="Installment" decoration-success="is_paid == True" decoration-muted="is_skip == True">
                     <field name="name"/>
                     <field name="date"/>
-                    <field name="amount" sum="amount"/>
-                    <field name="interest" sum="interest"/>
+                    <field name="amount"/>
+                    <field name="interest" invisible="1"/>
                     <field name="installment_amt" sum="installment_amt"/>
-                    <field name="ins_interest" sum="ins_interest"/>
+                    <field name="ins_interest" invisible="1"/>
                     <field name="total_installment" sum="total_installment"/>
                     <field name="is_paid" invisible="1"/>
                     <field name="is_skip" invisible="1"/>
@@ -152,17 +157,25 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                     <field name="employee_id"/>
                     <field name="date"/>
 
-
                     <templates>
-
                       <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                           <div class="oe_kanban_details">
 
-                            <strong><h3><field name="sequ_name"/></h3></strong>
+                            <strong>
+                              <h3>
+                                <field name="sequ_name"/>
+                              </h3>
+                            </strong>
                             <ul>
-                              <li><span style="color: #800000">Name : </span><field name="name"/></li>
-                              <li><span style="color: #800000">Date: </span><field name="date"/></li>
+                              <li>
+                                <span style="color: #800000">Name :</span>
+                                <field name="name"/>
+                              </li>
+                              <li>
+                                <span style="color: #800000">Date:</span>
+                                <field name="date"/>
+                              </li>
                             </ul>
                           </div>
                         </div>
@@ -246,7 +259,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'search_default_loan_type_id': [active_id],
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_form"/>
       <field name="help" type="html">
@@ -267,7 +280,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
         'search_default_hr_approval': 1,
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_filter"/>
       <field name="help" type="html">
@@ -289,7 +302,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
         'search_default_paid': 1,
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_filter"/>
       <field name="help" type="html">
@@ -311,7 +324,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
         'search_default_done': 1,
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_filter"/>
       <field name="help" type="html">
@@ -333,7 +346,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
         'search_default_draft': 1,
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_filter"/>
       <field name="help" type="html">
@@ -354,7 +367,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         'search_default_loan_type_id': [active_id],
         'default_loan_type_id': active_id,
         'contact_display': 'partner_address',
-      }
+        }
       </field>
       <field name="search_view_id" ref="view_employee_loan_filter"/>
       <field name="help" type="html">

@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 <odoo>
   <data>
-    <!--Email template -->
+    <!--Email template Request work ok-->
     <record id="dev_dep_manager_request" model="mail.template">
       <field name="name">Request to Department Manager</field>
       <field name="email_from">
-        ${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.user_id.email) or '')|safe}</field>
+        ${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.user_id.email) or '')|safe}
+      </field>
       <field name="subject">Loan ${object.named} Request form ${object.employee_id.name}</field>
       <field name="partner_to"></field>
-<!--      <field name="email_to">${(object.email_for_manager}</field>-->
+      <field name="email_to">${object.get_email_to()}</field>
+      <!--      <field name="email_to">${(object.email_for_manager}</field>-->
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
       <field name="auto_delete" eval="True"/>
       <field name="body_html"><![CDATA[
@@ -32,11 +34,12 @@
       </field>
     </record>
 
-    <!--Email template -->
+    <!--Email template Request Approved work ok-->
     <record id="dev_hr_manager_request" model="mail.template">
       <field name="name">Loan Request to HR Manager</field>
       <field name="email_from">
-        ${(object.manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.manager_id.work_email) or '')|safe}</field>
+        ${(object.manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.manager_id.work_email) or '')|safe}
+      </field>
       <field name="subject">Loan ${object.name} Request form ${object.employee_id.name}</field>
       <field name="partner_to"></field>
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
@@ -45,7 +48,7 @@
         <![CDATA[
           <p>To <b><i>HR Manager</i></b></p>
           <p> Loan request from <b><i>${object.employee_id.name}</i></b></p>
-          <p> Loan Request Approve by <b><i>${object.manager_id.name}</i></b> Department Manager</p>
+          <p> Loan Request Approved by <b><i>${object.manager_id.name}</i></b> Department Manager</p>
           <p>
             <b>Loan Detail:</b><br/>
             <b>Loan Type: </b> ${object.loan_type_id.name}<br/>
@@ -62,10 +65,12 @@
       </field>
     </record>
 
+    <!--Email template confirm work ok-->
     <record id="hr_manager_confirm_loan" model="mail.template">
       <field name="name">Loan Request Confirm</field>
       <field name="email_from">
-        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}</field>
+        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}
+      </field>
       <field name="subject">Your Loan ${object.name} Request has been Confirmed</field>
       <field name="partner_to"></field>
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
@@ -86,7 +91,8 @@
     <record id="dep_manager_reject_loan" model="mail.template">
       <field name="name">Dep Manager Loan Request Reject</field>
       <field name="email_from">
-        ${(object.manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.manager_id.work_email) or '')|safe}</field>
+        ${(object.manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.manager_id.work_email) or '')|safe}
+      </field>
       <field name="subject">Your Loan ${object.name} Request has been Rejected</field>
       <field name="partner_to"></field>
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
@@ -107,7 +113,8 @@
     <record id="hr_manager_reject_loan" model="mail.template">
       <field name="name">Loan Request Reject</field>
       <field name="email_from">
-        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}</field>
+        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}
+      </field>
       <field name="subject">Your Loan ${object.name} Request has been Rejected</field>
       <field name="partner_to"></field>
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>
@@ -128,7 +135,8 @@
     <record id="hr_manager_closed_loan" model="mail.template">
       <field name="name">Closed Loan</field>
       <field name="email_from">
-        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}</field>
+        ${(object.hr_manager_id.work_email and '%s &lt;%s&gt;' % (object.user_id.company_id.name, object.hr_manager_id.work_email) or '')|safe}
+      </field>
       <field name="subject">Your Loan ${object.name} has been closed</field>
       <field name="partner_to"></field>
       <field name="model_id" ref="dev_hr_loan.model_employee_loan"/>

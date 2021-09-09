@@ -32,15 +32,16 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         </header>
         <sheet>
           <label for="name" class="oe_edit_only"/>
-          <h1><field name="name" readonly="1"/></h1>
+          <h1>
+            <field name="name" readonly="1"/>
+          </h1>
           <group>
             <group>
               <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}"
                      groups="dev_hr_loan.group_department_manager"/>
-              <field name="loan_id" domain="[('employee_id','=',employee_id),('state','=','done')]"
-                     widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
-              <field name="installment_id" domain="[('loan_id','=',loan_id),('is_paid','!=',True)]"
-                     widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
+              <field name="loan_id" force_save="1"/>
+              <!--                     domain="[('employee_id','=',employee_id),('state','=','done')]" widget="selection" />-->
+              <field name="installment_id" widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
             </group>
             <group>
               <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>

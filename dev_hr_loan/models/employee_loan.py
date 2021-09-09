@@ -69,6 +69,8 @@ class employee_loan(models.Model):
     loan_url = fields.Char('URL', compute='get_loan_url')
     user_id = fields.Many2one('res.users', default=_get_default_user)
     is_apply_interest = fields.Boolean('Apply Interest', default=False)
+    hide_compute_installment = fields.Boolean('Hide compute Button', default=False, compute='get_true')
+
     interest_type = fields.Selection([('liner', 'Liner'), ('reduce', 'Reduce')], string='Interest Type')
     interest_rate = fields.Float(string='Interest Rate')
     interest_amount = fields.Float('Interest Amount', compute='get_interest_amount')
@@ -88,6 +90,13 @@ class employee_loan(models.Model):
             if loan.installment_lines:
                 count = len(loan.installment_lines)
             loan.installment_count = count
+
+    @api.depends('installment_lines')
+    def get_true(self):
+        for loan in self:
+            loan.hide_compute_installment == False
+            if loan.installment_lines:
+                loan.hide_compute_installment = True
 
     @api.onchange('term', 'interest_rate', 'interest_type')
     def onchange_term_interest_type(self):
@@ -117,34 +126,39 @@ class employee_loan(models.Model):
             loan.paid_amount = amt
 
     def compute_installment(self):
-        vals=[]
-        for i in range(0, self.term):
-            date = self.start_date
-            date = date+relativedelta(months=i)
-            amount = self.loan_amount
-            interest_amount = 0.0
-            ins_interest_amount = 0.0
-            if self.is_apply_interest:
+        if self.loan_type_id:
+            vals=[]
+            for i in range(0, self.term):
+                date = self.start_date
+                date = date+relativedelta(months=i)
                 amount = self.loan_amount
-                interest_amount = (amount * self.term/12 * self.interest_rate)/100
+                interest_amount = 0.0
+                ins_interest_amount = 0.0
+                if self.is_apply_interest:
+                    amount = self.loan_amount
+                    interest_amount = (amount * self.term/12 * self.interest_rate)/100
 
-                if self.interest_rate and self.loan_amount and self.interest_type == 'reduce':
-                    amount = self.loan_amount - self.installment_amount * i
-                    interest_amount = (amount * self.term / 12 * self.interest_rate) / 100
-                ins_interest_amount = interest_amount / self.term
-            vals.append((0, 0,{
-                'name':'INS - '+self.name+ ' - '+str(i+1),
-                'employee_id':self.employee_id and self.employee_id.id or False,
-                'date':date,
-                'amount':amount,
-                'interest':interest_amount,
-                'installment_amt':self.installment_amount,
-                'ins_interest':ins_interest_amount,
-            }))
-        if self.installment_lines:
-            for l in self.installment_lines:
-                l.unlink()
-        self.installment_lines = vals
+                    if self.interest_rate and self.loan_amount and self.interest_type == 'reduce':
+                        amount = self.loan_amount - self.installment_amount * i
+                        interest_amount = (amount * self.term / 12 * self.interest_rate) / 100
+                    ins_interest_amount = interest_amount / self.term
+                vals.append((0, 0,{
+                    'name':'INS - '+self.name+ ' - '+str(i+1),
+                    'employee_id':self.employee_id and self.employee_id.id or False,
+                    'date':date,
+                    'amount':amount,
+                    'interest':interest_amount,
+                    'installment_amt':self.installment_amount,
+                    'ins_interest':ins_interest_amount,
+                }))
+                print('vals111=', vals)
+            if self.installment_lines:
+                for l in self.installment_lines:
+                    l.unlink()
+            self.installment_lines = vals
+            print('vals=', vals)
+        else:
+            raise ValidationError(" Please choose the Loan type ")
 
     @api.depends('paid_amount', 'loan_amount', 'interest_amount')
     def get_remaing_amount(self):
@@ -268,6 +282,18 @@ class employee_loan(models.Model):
         #     template_id.write({'email_to': self.manager_id.work_email})
         #     template_id.send_mail(self.ids[0], True)
 
+    # Sending email to multiple users of specific group
+    @api.model
+    def get_email_to(self):
+        print('WWWWW')
+        user_group = self.env.ref("dev_hr_loan.group_get_email_loan")
+        # print('EEE1', user_group)
+        # print('FFF2', user_group.name)
+        # print('ZZZ3', user_group.id)
+        email_list = [
+            usr.partner_id.email for usr in user_group.users if usr.partner_id.email]
+        return ",".join(email_list)
+
     def get_hr_manager_email(self):
         group_id = self.env['ir.model.data'].get_object_reference('hr', 'group_hr_manager')[1]
         group_ids = self.env['res.groups'].browse(group_id)
@@ -280,6 +306,24 @@ class employee_loan(models.Model):
                 else:
                     email = emp.work_email
         return email
+
+
+    @api.constrains('loan_amount', 'term', 'loan_type_id', 'employee_id.loan_request')
+    def with_save(self):
+        for loan in self:
+            if not loan.loan_type_id:
+                raise ValidationError("You must select Loan Type")
+            if loan.loan_amount <= 0:
+                raise ValidationError("Loan Amount must be greater 0.00")
+            elif loan.loan_amount > loan.loan_type_id.loan_limit:
+                raise ValidationError("Your can apply only %s amount loan "
+                                      "or you can choose another type" % loan.loan_type_id.loan_limit)
+            elif loan.term > loan.loan_type_id.loan_term:
+                raise ValidationError("Loan Teeeeeerm Limit for Your loan is %s months" % loan.loan_type_id.loan_term)
+
+
+
+    # send email (working) ( request approved )
     # @api.constrains('loan_amount', 'term', 'loan_type_id', 'employee_id.loan_request')
     def dep_manager_approval_loan(self):
         for loan in self:
@@ -289,12 +333,10 @@ class employee_loan(models.Model):
             if loan.loan_amount <= 0:
                 raise ValidationError("Loan Amount must be greater 0.00")
             elif loan.loan_amount > loan.loan_type_id.loan_limit:
-                raise ValidationError("Your can apply only %s amount loan" % loan.loan_type_id.loan_limit)
-
-
+                raise ValidationError("Your can apply only %s amount loan "
+                                      "or you can choose another type" % loan.loan_type_id.loan_limit)
             elif loan.term > loan.loan_type_id.loan_term:
                 raise ValidationError("Loan Term Limit for Your loan is %s months" % loan.loan_type_id.loan_term)
-
         if not self.installment_lines:
             self.compute_installment()
         self.state = 'dep_approval'
