@@ -1,148 +1,148 @@
 <odoo>
-    <data>
+  <data>
+    <!--        <record id="res_config_settings_view_form_inherit" model="ir.ui.view">-->
+    <!--        <field name="name">res.config.settings</field>-->
+    <!--        <field name="model">res.config.settings</field>-->
+    <!--        <field name="inherit_id" ref="base.res_config_settings_view_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--           <xpath expr="//div[@name='purchase_setting_container']" position="inside">-->
 
-<!--        <record id="res_config_settings_view_form_inherit" model="ir.ui.view">-->
-<!--        <field name="name">res.config.settings</field>-->
-<!--        <field name="model">res.config.settings</field>-->
-<!--        <field name="inherit_id" ref="base.res_config_settings_view_form"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--           <xpath expr="//div[@name='purchase_setting_container']" position="inside">-->
+    <!--               &lt;!&ndash;<div class="col-12 col-lg-6 o_setting_box">&ndash;&gt;-->
+    <!--                    &lt;!&ndash;<div class="o_setting_left_pane">&ndash;&gt;-->
+    <!--                        &lt;!&ndash;<field name="default_maximum_amount"/>&ndash;&gt;-->
+    <!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+    <!--                    &lt;!&ndash;<div class="o_setting_right_pane">&ndash;&gt;-->
+    <!--                        &lt;!&ndash;<label for="default_maximum_amount"/>&ndash;&gt;-->
+    <!--                        &lt;!&ndash;<div class="text-muted">&ndash;&gt;-->
+    <!--                           &lt;!&ndash;Apply Purchase limitation&ndash;&gt;-->
+    <!--                        &lt;!&ndash;</div>&ndash;&gt;-->
+    <!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+    <!--                &lt;!&ndash;</div>&ndash;&gt;-->
+    <!--               <group  name="maximum_amount">-->
+    <!--                    <label for="Manager" string="Maximum Amount Manager"/>-->
+    <!--                     <div>-->
+    <!--                        <field name="purchase.order.default_maximum_amount" class="oe_inline"/>-->
+    <!--                    </div>-->
+    <!--                    <label for="Leader" string="Maximum Amount Leader"/>-->
+    <!--                     <div>-->
+    <!--                        <field name="purchase.default_maximum_amount_leader" class="oe_inline"/>-->
+    <!--                    </div>-->
+    <!--                </group>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--        </record>-->
+    <!--        -->
+    <!--        -->
+    <record id="res_config_settings_view_form_purchase2" model="ir.ui.view">
+      <field name="name">res.config.settings.view.form.inherit.purchase</field>
+      <field name="model">res.config.settings</field>
+      <field name="priority" eval="25"/>
+      <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='purchase_setting_container']" position="inside">
+          <div class="app_settings_block" data-string="Purchase" string="Purchase" data-key="purchase"
+               groups="purchase.group_purchase_manager">
+            <group>
+              <label for="Manager" string="Maximum Amount Manager"/>
+              <div>
+                <field name="maximum_amount" class="oe_inline"/>
+              </div>
+              <label for="Leader" string="Maximum Amount Leader"/>
+              <div>
+                <field name="maximum_amount_leader" class="oe_inline"/>
+              </div>
+            </group>
+          </div>
+        </xpath>
+      </field>
+    </record>
 
-<!--               &lt;!&ndash;<div class="col-12 col-lg-6 o_setting_box">&ndash;&gt;-->
-<!--                    &lt;!&ndash;<div class="o_setting_left_pane">&ndash;&gt;-->
-<!--                        &lt;!&ndash;<field name="default_maximum_amount"/>&ndash;&gt;-->
-<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
-<!--                    &lt;!&ndash;<div class="o_setting_right_pane">&ndash;&gt;-->
-<!--                        &lt;!&ndash;<label for="default_maximum_amount"/>&ndash;&gt;-->
-<!--                        &lt;!&ndash;<div class="text-muted">&ndash;&gt;-->
-<!--                           &lt;!&ndash;Apply Purchase limitation&ndash;&gt;-->
-<!--                        &lt;!&ndash;</div>&ndash;&gt;-->
-<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
-<!--                &lt;!&ndash;</div>&ndash;&gt;-->
-<!--               <group  name="maximum_amount">-->
-<!--                    <label for="Manager" string="Maximum Amount Manager"/>-->
-<!--                     <div>-->
-<!--                        <field name="purchase.order.default_maximum_amount" class="oe_inline"/>-->
-<!--                    </div>-->
-<!--                    <label for="Leader" string="Maximum Amount Leader"/>-->
-<!--                     <div>-->
-<!--                        <field name="purchase.default_maximum_amount_leader" class="oe_inline"/>-->
-<!--                    </div>-->
-<!--                </group>-->
+    <!-- <record id="action_purchase_configuration2" model="ir.actions.act_window">-->
+    <!--        <field name="name">Settings</field>-->
+    <!--        <field name="type">ir.actions.act_window</field>-->
+    <!--        <field name="res_model">res.config.settings</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="target">inline</field>-->
+    <!--        <field name="context">{'module' : 'purchase'}</field>-->
+    <!--    </record>-->
+    <!--    <menuitem id="menu_purchase_general_settings" name="Settings" parent="menu_purchase_config"-->
+    <!--        sequence="99" action="action_purchase_configuration2" groups="base.group_system"/>-->
 
-<!--            </xpath>-->
+    <record id="res_partner_form_inherit" model="ir.ui.view">
+      <field name="name">res.partner</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='vat']" position="before">
+          <field name="is_need_approval"/>
+        </xpath>
+      </field>
+    </record>
 
-<!--        </field>-->
-<!--        </record>-->
-<!--        -->
-<!--        -->
-<record id="res_config_settings_view_form_purchase2" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.purchase</field>
-        <field name="model">res.config.settings</field>
-        <field name="priority" eval="25"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//div[@name='purchase_setting_container']"  position="inside">
-                <div class="app_settings_block" data-string="Purchase" string="Purchase" data-key="purchase" groups="purchase.group_purchase_manager">
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+      <field name="name">purchase.order</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header/button[@id='draft_confirm']" position="replace">
+          <button name="button_confirm" type="object" string="Confirm Order" id="draft_confirm"
+                  attrs="{'invisible':['|',('need_CEO_Approve','=',True), ('state', 'not in', ('draft'))]}"
+          />
+          <!--          <attribute name="invisible">1</attribute>-->
+        </xpath>
+        <xpath expr="//header/button[@id='bid_confirm']" position="replace">
+          <button name="button_confirm" type="object" string="Confirm Order"
+                  id="bid_confirm" class="oe_highlight"
+                  attrs="{'invisible':['|',('need_CEO_Approve','=',True),('state', 'not in', ('sent'))]}"
+          />
+        </xpath>
+        <xpath expr="//header" position="after">
+          <header>
+            <button name="button_cancel22" string="Draft" type="object"
+                    groups="alloy_purchase_order_approval.group_view_purchase_leader_button"
+                    attrs="{'invisible':[('state_approve','in',['NotApprove'])]}"
+            />
+            <button name="button_confirm" string="Confirm Order" type="object"
+                    class="oe_highlight" id="new_id_confirm"
+                    attrs="{'invisible':['|',('state_approve','not in',['CEO']),('state', 'in', ('purchase'))]}"
+            />
+            <button string="Leader Approve" name="action_Leader"
+                    type="object" class="oe_highlight"
+                    groups="alloy_purchase_order_approval.group_view_purchase_leader_button"
+                    attrs="{'invisible':[('state_approve','in',['Leader','Manager','CEO'])]}"
+                    states=""/>
 
+            <button string="Manager Approve" name="action_Manager"
+                    type="object" class="oe_highlight"
+                    groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
+                    states=""
+                    attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>
+            <!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
+            <button string="CEO Approve" name="action_CEO"
+                    type="object" class="oe_highlight"
+                    groups="alloy_purchase_order_approval.group_view_purchase_ceo_button"
+                    states="('state_approve','in',['Manager','NotApprove','Leader'])"
+                    attrs="{'invisible':['|',('state_approve','in',['CEO']),('need_CEO_Approve','=',False)]}"/>
+            <!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
+            <!--                            />-->
+            <field name="state_approve" widget="statusbar"
+                   statusbar_colors='{"Leader":"red","Manager":"blue","CEO":"green"}'/>
+          </header>
+        </xpath>
+        <xpath expr="//field[@name='partner_ref']" position="after">
+          <field name="need_CEO_Approve"
+                 groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
+          />
+        </xpath>
+        <xpath expr="//field[@name='date_order']" position="after">
+          <field name="is_manager" invisible="1"/>
+          <field name="is_leader" invisible="1"/>
+          <field name="is_ceo" invisible="1"/>
+          <!--          <field name="is_total" invisible="1"/>-->
+          <!--                    <field name="maximum_amount" />-->
+        </xpath>
+      </field>
+    </record>
 
-               <group  >
-                    <label for="Manager" string="Maximum Amount Manager"/>
-                     <div>
-                        <field name="maximum_amount" class="oe_inline"/>
-                    </div>
-                    <label for="Leader" string="Maximum Amount Leader"/>
-                     <div>
-                        <field name="maximum_amount_leader" class="oe_inline"/>
-                    </div>
-                </group>
-
-
-
-           </div>
-       </xpath>
-   </field>
-</record>
-
-<!-- <record id="action_purchase_configuration2" model="ir.actions.act_window">-->
-<!--        <field name="name">Settings</field>-->
-<!--        <field name="type">ir.actions.act_window</field>-->
-<!--        <field name="res_model">res.config.settings</field>-->
-<!--        <field name="view_mode">form</field>-->
-<!--        <field name="target">inline</field>-->
-<!--        <field name="context">{'module' : 'purchase'}</field>-->
-<!--    </record>-->
-
-<!--    <menuitem id="menu_purchase_general_settings" name="Settings" parent="menu_purchase_config"-->
-<!--        sequence="99" action="action_purchase_configuration2" groups="base.group_system"/>-->
-
-
-        <record id="res_partner_form_inherit" model="ir.ui.view">
-            <field name="name">res.partner</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='vat']" position="before">
-                    <field name="is_need_approval" />
-                </xpath>
-            </field>
-        </record>
-
-        <record id="purchase_order_form_inherit" model="ir.ui.view">
-            <field name="name">purchase.order</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_form"/>
-            <field name="arch" type="xml">
-
-
-                <xpath expr="//header" position="after">
-                    <header>
-                          <button string="Leader Approve" name="action_Leader"
-                            type="object" class="oe_highlight"
-                            groups="alloy_purchase_order_approval.group_view_purchase_leader_button"
-                              attrs="{'invisible':[('state_approve','in',['Leader','Manager','CEO'])]}"
-                          states=""/>
-
-                    <button string="Manager Approve" name="action_Manager"
-                            type="object" class="oe_highlight"
-                            groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
-                            states=""
-                       attrs="{'invisible':[('state_approve','in',['Manager','CEO'])]}"/>
-<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
-
-
-<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
-<!--                            />-->
-                    <button string="CEO Approve" name="action_CEO"
-                            type="object" class="oe_highlight"
-                            groups="alloy_purchase_order_approval.group_view_purchase_ceo_button"
-                           states=""
-                      attrs="{'invisible':['|',('state_approve','in',['CEO']),('need_CEO_Approve','=',False)]}"/>
-<!--                            attrs="{'invisible':[('state','in',['purchase','done','cancel'])]}"-->
-<!--                            />-->
-                    <field name="state_approve" widget="statusbar" statusbar_colors='{"Leader":"red","Manager":"blue","CEO":"green"}' />
-                    </header>
-
-
-
-                </xpath>
-                 <xpath expr="//field[@name='partner_ref']" position="after">
-                      <field name="need_CEO_Approve"
-
-                       groups="alloy_purchase_order_approval.group_view_purchase_manager_button"
-
-                       />
-                 </xpath>
-
-                <xpath expr="//field[@name='date_order']" position="after">
-                    <field name="is_manager" invisible="1"/>
-                    <field name="is_leader" invisible="1"/>
-                    <field name="is_ceo" invisible="1"/>
-<!--                    <field name="maximum_amount" />-->
-                </xpath>
-
-            </field>
-        </record>
-
-    </data>
+  </data>
 </odoo>

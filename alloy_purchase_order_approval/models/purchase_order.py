@@ -21,7 +21,23 @@ class PurchaseOrder(models.Model):
     is_manager = fields.Boolean(string="Manager Approval")
     is_leader = fields.Boolean(string="Leader Approval")
     is_ceo = fields.Boolean(string="CEO Approval")
+    # is_total = fields.Boolean(string="more than 5000")
     maximum_amount = fields.Float(string="maximum amount")
+
+    @api.onchange('amount_total')
+    def _onchange_amount_total(self):
+        res_conf = self.env['res.config.settings'].sudo()
+        max_manager = res_conf.get_values()
+        f = max_manager['maximum_amount']
+        if self.amount_total > f:
+            self.need_CEO_Approve = True
+        else:
+            self.need_CEO_Approve = False
+
+    @api.multi
+    def button_cancel22(self):
+        self.state_approve = 'NotApprove'
+
 
     def get_message_log_notes(self):
         str=""
