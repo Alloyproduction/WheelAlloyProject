@@ -109,9 +109,20 @@
             </field>
         </record>
 
+        <record id="view_order_form_cust_ref_readonly" model="ir.ui.view">
+            <field name="name">sale.order.form.readonly.cust</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                <field name='price_unit' position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
 
 
-<!--            <template id="assets_backend" name="disable_quick_create_assets" inherit_id="web.assets_backend">-->
+        <!--            <template id="assets_backend" name="disable_quick_create_assets" inherit_id="web.assets_backend">-->
 <!--        <xpath expr="." position="inside">-->
 <!--            <script type="text/javascript" src="/sales_alloywheel/static/src/js/disable_quick_create.js"></script>-->
 <!--        </xpath>-->
