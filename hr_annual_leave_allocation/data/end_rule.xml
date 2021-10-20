@@ -7,14 +7,42 @@
       <field name="code">END</field>
     </record>
 
+    <record id="SH" model="hr.salary.rule.category">
+      <field name="name">Show Only</field>
+      <field name="code">SH</field>
+    </record>
+
+    <record id="other_custom" model="hr.salary.rule.category">
+      <field name="name">Other</field>
+      <field name="code">OTHER</field>
+      <field name="note">this category was created automatically from module hr_annual_leave_allocation</field>
+    </record>
+    <record id="hr_salary_rule_other_custom" model="hr.salary.rule">
+      <field name="code">OTHER</field>
+      <field name="name">Other Salary</field>
+      <field name="category_id" ref="hr_annual_leave_allocation.other_custom"/>
+      <field name="amount_select">fix</field>
+      <field eval="0.0" name="amount_fix"/>
+      <field name="sequence" eval="35"/>
+    </record>
     <record id="hr_rule_end_of" model="hr.salary.rule">
-      <field name="name">End Oof Service</field>
+      <field name="name">End Of Service</field>
       <field name="sequence" eval="1"/>
-      <field name="code">ENDOoFSERVICE</field>
+      <field name="code">ENDOFSERVICE</field>
       <field name="category_id" ref="hr_annual_leave_allocation.END"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
       <field name="amount_python_compute">result= employee.get_total_end (employee.id)</field>
+    </record>
+
+    <record id="hr_rule_end_of_show_only_in_payrool" model="hr.salary.rule">
+      <field name="name">Show Only End Of Service</field>
+      <field name="sequence" eval="1"/>
+      <field name="code">END SH</field>
+      <field name="category_id" ref="hr_annual_leave_allocation.SH"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result= employee.get_total_end_show_only_in_payrool (employee.id)</field>
     </record>
 
   </data>
