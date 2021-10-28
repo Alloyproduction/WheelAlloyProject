@@ -2,10 +2,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
-from datetime import datetime, date
 import datetime
-from odoo.addons import decimal_precision as dp
-import numpy as np
 
 
 class EndOfServiceAward(models.Model):
@@ -19,7 +16,7 @@ class EndOfServiceAward(models.Model):
     contract_id = fields.Many2one('hr.contract', string='Contract', domain="[('employee_id', '=', employee_id)]",
                                   tracking=True, copy=False, related='employee_id.contract_id')
     join_date = fields.Date(string="Join Date", related='employee_id.join_date', tracking=True)
-    last_work_date = fields.Date(tracking=True, default=date.today())
+    last_work_date = fields.Date(tracking=True)
     contact_end_type = fields.Selection([('end_period', 'End of Contract Period'),
                                          ('immediate_resignation', 'Immediate resignation'),
                                          ('resignation_after_month', 'Resignation After Month'),
@@ -101,13 +98,8 @@ class EndOfServiceAward(models.Model):
         for record in self:
             company = self.env['res.company'].search([('id', '=', self.env.user.company_id.id)])
             record.net_first_period = (record.first_period_days - record.total_unpaid_days) / company.no_of_days_per_year
-            # print('net_first_period',record.net_first_period, 'first_period_days',record.first_period_days)
-            # print('total_unpaid_days',record.total_unpaid_days, 'no_of_days_per_year',company.no_of_days_per_year)
             record.net_second_period = (record.second_period_days - record.total_unpaid_days_second_period) / company.no_of_days_per_year
-            # print('net_second_period',record.net_second_period, 'second_period_days',record.second_period_days)
-            # print('total_unpaid_days_second_period', record.total_unpaid_days_second_period, 'no_of_days_per_year', company.no_of_days_per_year)
-            record.net_period = round(record.net_first_period, 3) + round(record.net_second_period, 3)
-            # print('net_period', record.net_period)
+            record.net_period = record.net_first_period + record.net_second_period
 
     @api.depends('net_first_period', 'net_second_period')
     def _compute_total_years(self):
@@ -116,8 +108,7 @@ class EndOfServiceAward(models.Model):
             no_of_days_per_year = company.no_of_days_per_year
             first_period = company.first_period
             deserve_first_period = record.net_first_period * 15
-            deserve_second_period = round(record.net_second_period * 30, 2)
-            # print('SP=', deserve_second_period)
+            deserve_second_period = record.net_second_period * 30
             self.net_period_before_5year = deserve_first_period
             self.net_period_after_5year = deserve_second_period
             record.total_deserve = deserve_first_period + deserve_second_period
@@ -146,11 +137,6 @@ class EndOfServiceAward(models.Model):
         contract = self.env['hr.contract'].browse(self.contract_id.id)
         self.total_deserved_per_contract_end_type = total_deserved_per_contract_end_type
         self.final_deserving = total_deserved_per_contract_end_type * ((contract.wage + contract.conv_allowance + contract.travel_allowance) / 30)
-        print('final_deserving', self.final_deserving)
-        print('total_deserved_per_contract_end_type', total_deserved_per_contract_end_type)
-        print('wage', contract.wage)
-        print('contract.conv_allowance', contract.conv_allowance)
-        print('contract.travel_allowance', contract.travel_allowance)
 
     def action_approve(self):
         self.state = "approved"
@@ -183,20 +169,6 @@ class EndOfServiceAward(models.Model):
             ar_name = 'الجمعه'
         return ar_name
 
-
-    @api.constrains('employee_id')
-    def _check_record(self):
-        for rec in self:
-            domain = [
-                ('employee_id', '=', rec.employee_id.id),
-                ('id', '!=', rec.id),
-            ]
-            records = self.search_count(domain)
-            # print('KKKKKKKK',records)
-            if records:
-                raise ValidationError(_('You can not have two record for the same employee'))
-
-
 class Hr_employee_inherit_(models.Model):
     _inherit = "hr.employee"
 
@@ -204,75 +176,6 @@ class Hr_employee_inherit_(models.Model):
     def get_total_end(self, id):
         my_con = self.env['end.of.service.award'].search([('employee_id', '=', id)])
         print('my final_deserving', my_con.final_deserving)
+
         result = my_con.final_deserving
         return result
-
-    @api.multi
-    def get_total_end_show_only_in_payroll(self, id):
-        my_con = self.env['hr.contract'].search([('employee_id', '=', id)])
-        result = 0
-        print('my con wage', my_con.wage)
-        last_work_date = datetime.date.today()
-        print('cur_date1', last_work_date)
-        # join_date = my_con['date_start']
-        our_employee = self.env['hr.employee'].search([('id', '=', id)])
-        # print('our_employee==', our_employee)
-        join_date = our_employee['join_date']
-        # print('join_date==', join_date)
-        diff = last_work_date - join_date
-        # print('diff =', diff.days)
-        all_years = diff.days / 365
-        # print('all years', all_years)
-        # emp_wage = my_con.wage
-        if all_years > 5:
-            # first_period = 5 * 15
-            # print('first_period', first_period)
-            # second_period = (all_years - (first_period / 15)) * 30
-            # print('second_period', second_period)
-            result = (my_con.wage / 12)
-        else:
-            # first_period = all_years * 15
-            # result = ((my_con.wage / 30) * first_period)
-            # second_period = 0.0
-            result = (((my_con.wage / 30) * 15) / 12)
-        # total_deserve_period = first_period + second_period
-        # print('total_deserve_period', total_deserve_period)
-        # result = ((my_con.wage / 30) * total_deserve_period) / 12
-        # print('all result', result)
-        # print('all result', result)
-        # return result
-        return result
-
-
-class HrPayslipLineInherit(models.Model):
-    _inherit = 'hr.payslip.line'
-
-
-class HrPayslipCustom(models.Model):
-    _inherit = 'hr.payslip'
-
-    # amount = fields.Float(string='HHH', digits=dp.get_precision('Payroll'),  store=True)
-
-    # @api.depends('line_ids')
-    # @api.onchange('line_ids')
-    def onchange_amount_other(self):
-        for line in self:
-            if line.line_ids:
-                for l in line.line_ids:
-                    # print('ss3 ' * 7), print(l.name, l.code, l.category_id.id)
-                    # print(l.salary_rule_id.id, l.amount), print('done' * 7)
-                    se_rule = self.env['hr.salary.rule'].search([('id', '=', l.salary_rule_id.id),
-                                                                 ('category_id.id', '=', l.category_id.id),
-                                                                 ('name', '=', 'Other Salary'), ('code', '=', 'OTHER')])
-                    # print('se_rule', se_rule ,'se_rule==', len(se_rule))
-                    if se_rule:
-                        for am in se_rule:
-                            # print('am.amount_fix111==', am.amount_fix, 'l.amount111==', l.amount)
-                            am.amount_fix = l.amount
-
-    def write(self, vals):
-        res = super(HrPayslipCustom, self).write(vals)
-        # print('$$' * 5)
-        self.onchange_amount_other()
-        # print('qqq' * 5)
-        return res

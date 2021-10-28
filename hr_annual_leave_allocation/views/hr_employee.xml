@@ -1,47 +1,29 @@
 <odoo>
-  <data>
+    <data>
 
-    <record id="view_employee_form_inherit" model="ir.ui.view">
-      <field name="name">hr.employee</field>
-      <field name="model">hr.employee</field>
-      <field name="inherit_id" ref="hr.view_employee_form"/>
-      <field name="arch" type="xml">
-        <xpath expr="//field[@name='work_phone']" position="after">
-          <field name="join_date"/>
-          <field name="working_date"/>
-        </xpath>
-      </field>
-    </record>
-    <record id="view_hr_payslip_form_inherit_custom" model="ir.ui.view">
-      <field name="name">view.hr.payslip.form.inherit.custom</field>
-      <field name="model">hr.payslip</field>
-      <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
-      <field name="arch" type="xml">
-        <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="attributes">
-          <attribute name="force_save">True</attribute>
-          <attribute name="store">True</attribute>
-          <!--          <attribute name="string">ppp</attribute>-->
-        </xpath>
-        <!--this button just for test-->
-        <!--        <xpath expr="//header/button[@name='action_payslip_done']" position="after">-->
-        <!--          <button name="onchange_amount_other" class="oe_stat_button"-->
-        <!--                  type="object" string='Update Amount' states="draft">-->
-        <!--          </button>-->
-        <!--        </xpath>-->
-      </field>
-    </record>
+        <record id="view_employee_form_inherit" model="ir.ui.view" >
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <field name="join_date" />
+                    <field name="working_date" />
+                </xpath>
+            </field>
+        </record>
 
-    <!--        <record id="hr_contract_view_form_inherit2" model="ir.ui.view" >-->
-    <!--            <field name="name">hr.employee</field>-->
-    <!--            <field name="model">hr.employee</field>-->
-    <!--            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>-->
-    <!--            <field name="arch" type="xml">-->
-    <!--                <xpath expr="//field[@name='contracts_count']" position="attributes">-->
-    <!--                    <attribute name="store">True</attribute>-->
-    <!--                    <attribute name="force_save">True</attribute>-->
-    <!--                </xpath>-->
-    <!--            </field>-->
-    <!--        </record>-->
+<!--        <record id="hr_contract_view_form_inherit2" model="ir.ui.view" >-->
+<!--            <field name="name">hr.employee</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='contracts_count']" position="attributes">-->
+<!--                    <attribute name="store">True</attribute>-->
+<!--                    <attribute name="force_save">True</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
-  </data>
+    </data>
 </odoo>

@@ -109,6 +109,6 @@
               name="End of Service Award"
               parent="hr_holidays.menu_hr_holidays_root"
               action="end_of_service_award_action"
-              sequence="3"
-              groups="hr_holidays.group_hr_holidays_manager"/>
+              sequence="3"/>
+
 </odoo>
