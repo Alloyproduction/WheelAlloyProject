@@ -184,6 +184,19 @@ class EndOfServiceAward(models.Model):
         return ar_name
 
 
+    @api.constrains('employee_id')
+    def _check_record(self):
+        for rec in self:
+            domain = [
+                ('employee_id', '=', rec.employee_id.id),
+                ('id', '!=', rec.id),
+            ]
+            records = self.search_count(domain)
+            # print('KKKKKKKK',records)
+            if records:
+                raise ValidationError(_('You can not have two record for the same employee'))
+
+
 class Hr_employee_inherit_(models.Model):
     _inherit = "hr.employee"
 
@@ -195,18 +208,21 @@ class Hr_employee_inherit_(models.Model):
         return result
 
     @api.multi
-    def get_total_end_show_only_in_payrool(self, id):
+    def get_total_end_show_only_in_payroll(self, id):
         my_con = self.env['hr.contract'].search([('employee_id', '=', id)])
         result = 0
         print('my con wage', my_con.wage)
         last_work_date = datetime.date.today()
         print('cur_date1', last_work_date)
-        join_date = my_con['date_start']
-        print('join_date', join_date)
+        # join_date = my_con['date_start']
+        our_employee = self.env['hr.employee'].search([('id', '=', id)])
+        # print('our_employee==', our_employee)
+        join_date = our_employee['join_date']
+        # print('join_date==', join_date)
         diff = last_work_date - join_date
-        print('diff =', diff.days)
+        # print('diff =', diff.days)
         all_years = diff.days / 365
-        print('all years', all_years)
+        # print('all years', all_years)
         # emp_wage = my_con.wage
         if all_years > 5:
             # first_period = 5 * 15
@@ -222,7 +238,7 @@ class Hr_employee_inherit_(models.Model):
         # total_deserve_period = first_period + second_period
         # print('total_deserve_period', total_deserve_period)
         # result = ((my_con.wage / 30) * total_deserve_period) / 12
-        print('all result', result)
+        # print('all result', result)
         # print('all result', result)
         # return result
         return result
