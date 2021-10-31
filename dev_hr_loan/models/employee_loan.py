@@ -47,6 +47,16 @@ class employee_loan(models.Model):
         for loan in self:
             if loan.loan_type_id:
                 loan.term = loan.loan_type_id.loan_term
+            else:
+                loan.term = 0
+
+    @api.depends('loan_type_id')
+    def get_limit(self):
+        for loan in self:
+            if loan.loan_type_id:
+                loan.limit = loan.loan_type_id.loan_limit
+            else:
+                loan.limit = 0
 
     name = fields.Char('Name', default='/', copy=False)
     state = fields.Selection(loan_state, string='State', default='draft', track_visibility='onchange')
@@ -59,6 +69,7 @@ class employee_loan(models.Model):
     start_date = fields.Date('Start Date', default=fields.Date.today(), required="1")
     end_date = fields.Date('End Date', compute='_get_end_date')
     term = fields.Integer('Term', required="1", compute='get_term')
+    limit = fields.Integer('Amount Limit', required="1", compute='get_limit', readonly=True)
     loan_type_id = fields.Many2one('employee.loan.type', string='Type')
     payment_method = fields.Selection([('by_payslip', 'By Payslip')], string='Payment Method',
                                       default='by_payslip', required="1")
@@ -69,6 +80,16 @@ class employee_loan(models.Model):
     loan_url = fields.Char('URL', compute='get_loan_url')
     user_id = fields.Many2one('res.users', default=_get_default_user)
     is_apply_interest = fields.Boolean('Apply Interest', default=False)
+    for_loan_limit = fields.Boolean(default=False)
+
+    @api.onchange('loan_type_id')
+    def _onchange_for_limit(self):
+        for loan in self:
+            if loan.loan_type_id:
+                loan.for_loan_limit = True
+            else:
+                loan.for_loan_limit = False
+
     hide_compute_installment = fields.Boolean('Hide compute Button', default=False, compute='get_true')
 
     interest_type = fields.Selection([('liner', 'Liner'), ('reduce', 'Reduce')], string='Interest Type')
@@ -316,10 +337,10 @@ class employee_loan(models.Model):
             if loan.loan_amount <= 0:
                 raise ValidationError("Loan Amount must be greater 0.00")
             elif loan.loan_amount > loan.loan_type_id.loan_limit:
-                raise ValidationError("Your can apply only %s amount loan "
+                raise ValidationError("You can apply only %s amount loan "
                                       "or you can choose another type" % loan.loan_type_id.loan_limit)
             elif loan.term > loan.loan_type_id.loan_term:
-                raise ValidationError("Loan Teeeeeerm Limit for Your loan is %s months" % loan.loan_type_id.loan_term)
+                raise ValidationError("Loan Term Limit for Your loan is %s months" % loan.loan_type_id.loan_term)
 
 
 
@@ -333,7 +354,7 @@ class employee_loan(models.Model):
             if loan.loan_amount <= 0:
                 raise ValidationError("Loan Amount must be greater 0.00")
             elif loan.loan_amount > loan.loan_type_id.loan_limit:
-                raise ValidationError("Your can apply only %s amount loan "
+                raise ValidationError("You can apply only %s amount loan "
                                       "or you can choose another type" % loan.loan_type_id.loan_limit)
             elif loan.term > loan.loan_type_id.loan_term:
                 raise ValidationError("Loan Term Limit for Your loan is %s months" % loan.loan_type_id.loan_term)
