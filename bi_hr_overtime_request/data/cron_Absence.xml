@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--    cron run daily-->
+    <record id="ir_cron_scheduler_Absence" model="ir.cron">
+      <field name="name">Run The Absence every day</field>
+      <field name="model_id" ref="model_bt_hr_overtime"/>
+      <field name="state">code</field>
+      <field name="code">model.run_Absence_scheduler()</field>
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+    </record>
+    <!--    cron run monthly-->
+    <record id="ir_cron_scheduler_Absence_monthly" model="ir.cron">
+      <field name="name">Run The Absence monthly</field>
+      <field name="model_id" ref="model_bt_hr_overtime"/>
+      <field name="state">code</field>
+      <field name="code">model.create_Absence_monthly()</field>
+      <field name="interval_number">1</field>
+      <field name="interval_type">months</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+    </record>
+
+  </data>
+</odoo>

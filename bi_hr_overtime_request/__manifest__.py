@@ -44,10 +44,13 @@ Human Resources/Overtimes/Multiple Requests to Approve By Department
                 'views/overtime_request_view.xml',
                 'views/multiple_overtime_request.xml',
                 'views/bt_hr_overtime_view.xml',
+                'views/the_absence.xml',
                 'data/bt_hr_overtime_data.xml',
                 'data/cron_overtime.xml',
+                'data/cron_Absence.xml',
                 'data/overtime_rule.xml',
-                'data/delay_rule.xml'
+                'data/delay_rule.xml',
+                'data/absence_monthly_rule.xml'
                 ],
     'installable': True,
     'auto_install': False,

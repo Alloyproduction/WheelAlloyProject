@@ -11,7 +11,7 @@
 
           <field name="employee_id"/>
           <field name="department_id"/>
-<!--          <field name="month"/>-->
+          <!--          <field name="month"/>-->
           <field name="month_n"/>
           <field name="year"/>
           <field name="start_date"/>
@@ -54,12 +54,14 @@
           </header>
 
           <sheet>
-            <h2><field name="employee_id" attrs="{'readonly' : [('state','!=','new')]}"/></h2>
-<!--            <h2><field name="employee_id"/></h2>-->
+            <h2>
+              <field name="employee_id" attrs="{'readonly' : [('state','!=','new')]}"/>
+            </h2>
+            <!--            <h2><field name="employee_id"/></h2>-->
             <group>
               <group>
-<!--                <field name="employee_id"/>-->
-<!--                <field name="start_date" attrs="{'readonly' : [('state','!=','new')]}" t-options="{'widget': 'date'}"/>-->
+                <!--                <field name="employee_id"/>-->
+                <!--                <field name="start_date" attrs="{'readonly' : [('state','!=','new')]}" t-options="{'widget': 'date'}"/>-->
                 <field name="start_date" attrs="{'readonly' : [('state','!=','new')]}"/>
                 <field name="department_id" attrs="{'readonly' : [('state','!=','new')]}"/>
                 <field name="department_manager_id" attrs="{'readonly' : [('state','!=','new')]}"/>
@@ -74,8 +76,9 @@
               </group>
 
               <group>
-<!--                <field name="end_date" attrs="{'readonly' : [('state','!=','new')]}" t-options="{'date_only': True}"/>-->
-                <field name="end_date" attrs="{'readonly' : [('state','!=','new')]}" t-options="{'format':'MMM d, yyyy'}"/>
+                <!--                <field name="end_date" attrs="{'readonly' : [('state','!=','new')]}" t-options="{'date_only': True}"/>-->
+                <field name="end_date" attrs="{'readonly' : [('state','!=','new')]}"
+                       t-options="{'format':'MMM d, yyyy'}"/>
                 <field name="include_in_payroll" attrs="{'readonly' : [('state','!=','new')]}"/>
                 <field name="dept_approve_date"/>
                 <field name="dept_manager_id"/>
@@ -128,17 +131,20 @@
       </field>
     </record>
 
-    <menuitem id="sub_menu_employee_overtime" parent="hr.menu_hr_root"
-              name="Over Time" sequence="10"
+    <!--    <menuitem id="sub_menu_employee_overtime" parent="hr.menu_hr_root"-->
+    <!--              name="Over Time" sequence="10"-->
+    <!--    />    -->
+    <menuitem id="sub_menu_employee_overtime" name="Overtime and Delays" sequence="88"
+              web_icon="bi_hr_overtime_request,static/description/icon.png"
     />
-    <menuitem action="overtime_req_action" id="menu_overtime"
-              parent="sub_menu_employee_overtime" name="Overtime Request and Records Months" sequence="2"
+    <menuitem action="overtime_req_action" id="menu_overtime" sequence="2"
+              parent="sub_menu_employee_overtime" name="Records Months"
     />
     <menuitem action="overtime_req_action_hr" id="menu_overtime_hr" parent="sub_menu_employee_overtime"
               name="Overtime Request To Approve" sequence="3" groups="hr_manager_overtime_id"
     />
     <menuitem action="overtime_req_action_dept" id="menu_overtime_dept" parent="sub_menu_employee_overtime"
-              name="Overtime Request To Approve By Department" sequence="4"
+              name="To Approve By Department" sequence="4"
               groups="bi_hr_overtime_request.dept_manager_overtime_id"
     />
 

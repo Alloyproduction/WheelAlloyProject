@@ -67,7 +67,7 @@
               <group>
                 <field name="employee_id" required="True" readonly="1"/>
                 <field name="overtime_created" readonly="1"/>
-<!--                <field name="emp_req_d_h"/>-->
+                <!--                <field name="emp_req_d_h"/>-->
                 <!--                <field name="manager_id" readonly="0"/>-->
               </group>
               <group>
@@ -125,9 +125,12 @@
       <field name="arch" type="xml">
         <data>
           <xpath expr="//field[@name='check_out']" position="after">
-            <field name="overtime_created" invisible="0" readonly="0"/>
+            <field name="overtime_created" invisible="1" readonly="0"/>
+            <!--            <field name="Absence_created" invisible="0" readonly="0"/>-->
             <field name="emp_req_d_h" invisible="0"/>
             <field name="TT_id" invisible="1"/>
+            <field name="only_one" invisible="1"/>
+            <!--            <button string="TTTTTT" name="compute_delay_request" type="object"/>-->
           </xpath>
         </data>
       </field>
@@ -154,9 +157,96 @@
       </field>
     </record>
 
-    <menuitem action="action_bt_overtime_management" name="Overtime Request Records Days"
+    <!--hr_leave_view_form_manager-->
+    <record id="hr_leave_inherit_form_manager" model="ir.ui.view">
+      <field name="name">hr.leave.inherit.form</field>
+      <field name="model">hr.leave</field>
+      <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='request_hour_to']" position="after">
+          <div class="o_row o_row_readonly">
+            <label for="time_request" string="hours="
+                   attrs="{'invisible': [('request_unit_hours', '=', False)]}"/>
+            <field name="time_request"
+                   attrs="{'required': [('request_unit_hours', '=', True)],
+                          'invisible': [('request_unit_hours', '=', False)]}"
+                   force_save="1"
+            />
+            <field name="only_one_lev" invisible="1"/>
+          </div>
+        </xpath>
+
+        <xpath expr="//field[@name='request_unit_half']" position="attributes">
+          <attribute name="attrs">{'invisible': [('request_unit_hours', '=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//label[@for='request_unit_half']" position="attributes">
+          <attribute name="attrs">{'invisible': [('request_unit_hours', '=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//label[@for='number_of_days_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='number_of_days_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+        <xpath expr="//div/field[@name='number_of_hours_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+        <!--        <field name="number_of_days_display" class="oe_inline" nolabel="1"-->
+        <!--                attrs="{'readonly': ['|', ('type_request_unit', '=', 'hour'), -->
+        <!--                      ('state', 'not in', ('draft', 'confirm'))], -->
+        <!--                      'invisible': [('type_request_unit', '=', 'hour')]}"/>-->
+      </field>
+    </record>
+    <!--    hr_leave_view_form-->
+    <record id="hr_leave_inherit2_form2" model="ir.ui.view">
+      <field name="name">hr.leave.inherit.form</field>
+      <field name="model">hr.leave</field>
+      <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='request_hour_to']" position="after">
+          <div class="o_row o_row_readonly">
+            <label for="time_request" string="hours="
+                   attrs="{'invisible': [('request_unit_hours', '=', False)]}"/>
+            <field name="time_request"
+                   attrs="{'required': [('request_unit_hours', '=', True)],
+                          'invisible': [('request_unit_hours', '=', False)]}"
+                   force_save="1"
+            />
+            <field name="only_one_lev" invisible="1"/>
+          </div>
+        </xpath>
+        <xpath expr="//field[@name='request_unit_half']" position="attributes">
+          <attribute name="attrs">{'invisible': [('request_unit_hours', '=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//label[@for='request_unit_half']" position="attributes">
+          <attribute name="attrs">{'invisible': [('request_unit_hours', '=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//label[@for='number_of_days_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='number_of_days_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+        <xpath expr="//div/field[@name='number_of_hours_display']" position="attributes">
+          <attribute name="attrs">{'invisible': [('time_request', '>=', 1)]}</attribute>
+        </xpath>
+      </field>
+    </record>
+    <!-- Inherit tree View to Modify it -->
+    <record id="hr_leave_view_form_tree_inherit" model="ir.ui.view">
+      <field name="name">hr.leave.view.form.tree.inherit</field>
+      <field name="model">hr.leave</field>
+      <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+      <field name="arch" type="xml">
+        <field name="date_to" position="after">
+          <field name="time_request"/>
+        </field>
+      </field>
+    </record>
+
+    <menuitem action="action_bt_overtime_management" name="Records Days" sequence="1"
               id="menu_action_bt_overtime_management" parent="sub_menu_employee_overtime"
-              sequence="1"
     />
   </data>
 </odoo>

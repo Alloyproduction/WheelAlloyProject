@@ -1,0 +1,127 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--    form view Absence day-->
+    <record id="the_absence_form" model="ir.ui.view">
+      <field name="name">the.absence.form</field>
+      <field name="model">the.absence</field>
+      <field name="arch" type="xml">
+        <form string="the.absence">
+          <sheet>
+            <group>
+              <group>
+                <field name="employee_id"/>
+                <field name="job_id" force_save="1"/>
+                <field name="department_id" force_save="1"/>
+              </group>
+              <group>
+                <field name="start_date" widget="date"/>
+                <!--                <field name="year"/>-->
+                <!--                <field name="month"/>-->
+              </group>
+              <notebook>
+                <page string="Notes">
+                  <field name="notes"/>
+                </page>
+              </notebook>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!--    tree view Absence day-->
+    <record id="the_absence_tree" model="ir.ui.view">
+      <field name="name">the.absence.tree</field>
+      <field name="model">the.absence</field>
+      <field name="arch" type="xml">
+        <tree string="Absence">
+          <field name="employee_id"/>
+          <field name="job_id"/>
+          <field name="department_id"/>
+          <field name="start_date" widget="date"/>
+          <!--          <field name="year"/>-->
+          <!--          <field name="month"/>-->
+        </tree>
+      </field>
+    </record>
+    <!--    action view Absence day-->
+    <record id="the_absence_action_viw" model="ir.actions.act_window">
+      <field name="name">The Absence</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">the.absence</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          No Create
+        </p>
+      </field>
+    </record>
+    <menuitem action="the_absence_action_viw" id="menu_absence"
+              parent="sub_menu_employee_overtime" name="All Absence Days" sequence="22"
+    />
+    <!--    form view Absence monthly-->
+    <record id="absence_form_monthly" model="ir.ui.view">
+      <field name="name">absence.form.monthly</field>
+      <field name="model">absence.monthly</field>
+      <field name="arch" type="xml">
+        <form string="absence monthly">
+          <sheet>
+            <group>
+              <group>
+                <field name="employee_id"/>
+                <field name="job_id" force_save="1"/>
+                <field name="department_id" force_save="1"/>
+              </group>
+              <group>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="num_of_days"/>
+              </group>
+              <notebook>
+                <page string="Notes">
+                  <field name="notes"/>
+                </page>
+              </notebook>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!--    tree view Absence monthly-->
+    <record id="absence_tree_monthly" model="ir.ui.view">
+      <field name="name">absence.tree.monthly</field>
+      <field name="model">absence.monthly</field>
+      <field name="arch" type="xml">
+        <tree string="Absence monthly">
+          <field name="employee_id"/>
+          <field name="job_id"/>
+          <field name="department_id"/>
+          <field name="start_date"/>
+          <field name="end_date"/>
+          <field name="month"/>
+          <field name="year"/>
+          <field name="num_of_days"/>
+        </tree>
+      </field>
+    </record>
+    <!--    action view Absence monthly-->
+    <record id="absence_action_viw_monthly" model="ir.actions.act_window">
+      <field name="name">Absence monthly</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">absence.monthly</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          No Create
+        </p>
+      </field>
+    </record>
+    <menuitem action="absence_action_viw_monthly" id="menu_absence_monthly" sequence="33"
+              parent="sub_menu_employee_overtime" name="All Absence Monthly"
+    />
+  </data>
+</odoo>
