@@ -184,7 +184,7 @@ class StockMovesReportWizard(models.TransientModel):
         worksheet.write(row, 12, 'Status', left_header_style)
         lines = self._get_data()
         print('all lines', lines)
-        docs =lines['docs']
+        docs = lines['docs']
         # lines = self.env['product.product']
         p_group_style = easyxf('font:height 200;pattern: pattern solid, fore_color ivory;'
                                'align: horiz left;font: color black; font:bold True;'
@@ -209,28 +209,37 @@ class StockMovesReportWizard(models.TransientModel):
         for line in docs:
             print("date", line['date'])
             print("reference", line['reference'])
-            # print('PPPPPPPPPPPPP')
-            seq += 1
-            # if seq == 1:
-            worksheet.write(row, 0, seq, text_left)
-            worksheet.write(row, 1, line['date'], date_format)
-            worksheet.write(row, 2, line['reference'], text_left)
-            worksheet.write(row, 3, line['prod_name'], text_left)
-            worksheet.write(row, 4, line['consumed_qty'], text_right)
-            worksheet.write(row, 5, line['previous_qty'], text_right)
-            worksheet.write(row, 6, line['inhand_qty'], text_right)
-            worksheet.write(row, 7, line['rate'], text_right)
-            worksheet.write(row, 8, line['amount'], text_right)
-            worksheet.write(row, 9, line['source_request'], text_right)
-            worksheet.write(row, 10, line['requested_by'], text_right)
-            worksheet.write(row, 11, line['manage_by'], text_right)
-            worksheet.write(row, 12, line['state'], text_right)
-            row += 1
-            sum_consumed_qty += line['consumed_qty']
-            sum_previous_qty += line['previous_qty']
-            sum_inhand_qty += line['inhand_qty']
-            sum_rate += line['rate']
-            sum_amount += line['amount']
+            print("stateeeee", line['state'])
+            # if line['state'] == 'cancel':
+            #     print('ccccccccccc') #17
+            #     pass
+            # else:
+            if line['state'] == 'done':
+                print('ddddddddddd') #125
+                seq += 1
+                # if seq == 1:
+                worksheet.write(row, 0, seq, text_left)
+                worksheet.write(row, 1, line['date'], date_format)
+                worksheet.write(row, 2, line['reference'], text_left)
+                worksheet.write(row, 3, line['prod_name'], text_left)
+                worksheet.write(row, 4, line['consumed_qty'], text_right)
+                worksheet.write(row, 5, line['previous_qty'], text_right)
+                worksheet.write(row, 6, line['inhand_qty'], text_right)
+                worksheet.write(row, 7, line['rate'], text_right)
+                worksheet.write(row, 8, line['amount'], text_right)
+                worksheet.write(row, 9, line['source_request'], text_right)
+                worksheet.write(row, 10, line['requested_by'], text_right)
+                worksheet.write(row, 11, line['manage_by'], text_right)
+                worksheet.write(row, 12, line['state'], text_right)
+                row += 1
+                sum_consumed_qty += line['consumed_qty']
+                sum_previous_qty += line['previous_qty']
+                sum_inhand_qty += line['inhand_qty']
+                sum_rate += line['rate']
+                sum_amount += line['amount']
+            else:
+                print('ssssssssssss') #125
+                pass
         worksheet.write(row, 4, sum_consumed_qty, group_style)
         worksheet.write(row, 5, sum_previous_qty, group_style)
         worksheet.write(row, 6, sum_inhand_qty, group_style)
