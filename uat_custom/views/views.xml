@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--  Inherits HR Contract View-->
+    <record id="hr_contract_view_form_uat_custom" model="ir.ui.view">
+      <field name="name">hr.contract.view.form.uat.custom</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_management_system.hr_contract_document_inherit_form_view"/>
+      <field name="arch" type="xml">
+        <data>
+          <!--          <xpath expr="//group[@name='salary_and_advantages']" position="attributes">-->
+          <!--            <attribute name="invisible">1</attribute>-->
+          <!--          </xpath>-->
+          <xpath expr="//group[@name='allowances']" position="inside">
+            <label for="new_total"/>
+            <div class="o_row">
+              <field name="new_total" nolabel="1" force_save="1"/>
+              <span>/ month</span>
+            </div>
+          </xpath>
+        </data>
+      </field>
+    </record>
+
+    <!--    <record id="hr_contract_view_form_uat2_custom2" model="ir.ui.view">-->
+    <!--      <field name="name">hr.contract.view.form.uat2.custom2</field>-->
+    <!--      <field name="model">hr.contract</field>-->
+    <!--      <field name="inherit_id" ref="hr_management_system.hr_contract_document_inherit_form_view"/>-->
+    <!--      <field name="arch" type="xml">-->
+    <!--            <data>-->
+    <!--              <xpath expr="//group[@name='salary_and_advantages']/group[@name='allowances']/field[@name='hra']" position="attributes">-->
+
+    <!--                <attribute name="invisible">1</attribute>&ndash;&gt;-->
+    <!--                            <group string="Monthly Advantages in Cash" name='allowances'>-->
+    <!--                <label for="wage"/>-->
+    <!--                <div class="o_row">-->
+    <!--                  <field name="hra" nolabel="1"/>-->
+    <!--                  <span>/ month</span>-->
+    <!--                </div>-->
+    <!--                            <field name="wage"/>-->
+    <!--              </xpath>-->
+    <!--        </data>-->
+    <!--      </field>-->
+    <!--    </record>-->
+  </data>
+</odoo>

@@ -145,12 +145,13 @@ class EndOfServiceAward(models.Model):
                 total_deserved_per_contract_end_type = 0.0
         contract = self.env['hr.contract'].browse(self.contract_id.id)
         self.total_deserved_per_contract_end_type = total_deserved_per_contract_end_type
-        self.final_deserving = total_deserved_per_contract_end_type * ((contract.wage + contract.conv_allowance + contract.travel_allowance) / 30)
-        print('final_deserving', self.final_deserving)
-        print('total_deserved_per_contract_end_type', total_deserved_per_contract_end_type)
-        print('wage', contract.wage)
-        print('contract.conv_allowance', contract.conv_allowance)
-        print('contract.travel_allowance', contract.travel_allowance)
+        # self.final_deserving = total_deserved_per_contract_end_type * ((contract.wage + contract.conv_allowance + contract.travel_allowance) / 30)
+        self.final_deserving = total_deserved_per_contract_end_type * ((contract.new_total + contract.travel_allowance) / 30)
+        # print('final_deserving', self.final_deserving)
+        # print('total_deserved_per_contract_end_type', total_deserved_per_contract_end_type)
+        # print('wage', contract.wage)
+        # print('contract.conv_allowance', contract.conv_allowance)
+        # print('contract.travel_allowance', contract.travel_allowance)
 
     def action_approve(self):
         self.state = "approved"
@@ -212,12 +213,20 @@ class Hr_employee_inherit_(models.Model):
         my_con = self.env['hr.contract'].search([('employee_id', '=', id)])
         result = 0
         print('my con wage', my_con.wage)
+        print('my con new_total', my_con.new_total)
         last_work_date = datetime.date.today()
         print('cur_date1', last_work_date)
         # join_date = my_con['date_start']
         our_employee = self.env['hr.employee'].search([('id', '=', id)])
         # print('our_employee==', our_employee)
+        print('qqqq' * 10)
         join_date = our_employee['join_date']
+        # if join_date == False:
+        #     print('fa' * 10)
+        #     raise ValidationError(_('Set Join Date for this employee'))
+        # else:
+        print('join_date' , join_date)
+        print('else' * 10)
         # print('join_date==', join_date)
         diff = last_work_date - join_date
         # print('diff =', diff.days)
@@ -229,12 +238,12 @@ class Hr_employee_inherit_(models.Model):
             # print('first_period', first_period)
             # second_period = (all_years - (first_period / 15)) * 30
             # print('second_period', second_period)
-            result = (my_con.wage / 12)
+            result = (my_con.new_total / 12)
         else:
             # first_period = all_years * 15
             # result = ((my_con.wage / 30) * first_period)
             # second_period = 0.0
-            result = (((my_con.wage / 30) * 15) / 12)
+            result = (((my_con.new_total / 30) * 15) / 12)
         # total_deserve_period = first_period + second_period
         # print('total_deserve_period', total_deserve_period)
         # result = ((my_con.wage / 30) * total_deserve_period) / 12
