@@ -576,6 +576,9 @@ class InheritSale(models.Model):
                     name2 += self.vehicle.name + '-'
                 else:
                     name2 = ''
+                if not self.service_advisor and self.x_studio_is_company == True:
+                    raise UserError(_("You must add Advisor name"))
+
                 task = self.env['project.task'].create(
                     {'name': line.product_id.name + name1 + name2 + self.name,
                      'sale': self.id,
