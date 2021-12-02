@@ -3,28 +3,28 @@
     <data>
         <!-- report qweb view -->
         <!--         <span t-field="company.report_footer"/>-->
-        <template id="financial_layout_row">
-            <div class="row">
-                <div class="col-6">
-                    <div class="row  mx-1 border-bottom">
-                        <div class="col-3 px-0 text-left">CR No:</div>
-                        <div class="col-4 px-0 "><span t-field="company.company_registry"></span></div>
-                        <div class="col-5 px-0  text-right">:رقم سجل الشركة</div>
-                    </div>
+<!--        <template id="financial_layout_row">-->
+<!--            <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                    <div class="row  mx-1 border-bottom">-->
+<!--                        <div class="col-3 px-0 text-left">CR No:</div>-->
+<!--                        <div class="col-4 px-0 "><span t-field="company.company_registry"></span></div>-->
+<!--                        <div class="col-5 px-0  text-right">:رقم سجل الشركة</div>-->
+<!--                    </div>-->
 
-                </div>
+<!--                </div>-->
 
-                <div class="col-6">
-                    <div class="row  mx-1 border-bottom">
-                        <div class="col-4 px-0  text-left">Vat No:</div>
-                        <div class="col-4 px-0 "><span t-field="company.vat"></span></div>
-                        <div class="col-4 px-0  text-right">:الرقم الضريبي</div>
-                    </div>
-                </div>
-            </div>
+<!--                <div class="col-6">-->
+<!--                    <div class="row  mx-1 border-bottom">-->
+<!--                        <div class="col-4 px-0  text-left">Vat No:</div>-->
+<!--                        <div class="col-4 px-0 "><span t-field="company.vat"></span></div>-->
+<!--                        <div class="col-4 px-0  text-right">:الرقم الضريبي</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
 
-        </template>
+<!--        </template>-->
 
         <template id="financial_layout_row_ul">
             <ul class="list-inline mb4">
