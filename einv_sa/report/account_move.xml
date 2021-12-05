@@ -47,10 +47,15 @@
                         <div class="col-4 text-right"><Strong>تاريخ الفاتورة</Strong></div>
                     </div>
                     <div class="row">
-                        <div class="col-4"><Strong>Due Supply</Strong></div>
+                        <div class="col-4"><Strong>Due Date</Strong></div>
                         <div class="col-4 text-center"><span t-field="doc.date_due"></span></div>
                         <div class="col-4 text-right"><Strong>تاريخ الاستحقاق</Strong></div>
                     </div>
+                     <div class="row">
+                        <div class="col-4"><Strong> Source </Strong></div>
+                        <div class="col-4 text-center"><span t-field="doc.origin"></span></div>
+                        <div class="col-4 text-right"><Strong>المصدر</Strong></div>
+                     </div>
                 </div>
                 <div class="col-3">
 
@@ -267,6 +272,35 @@
 
                     <!-- Invoice total-->
                     <t t-call="einv_sa.inv_total"/>
+                </div>
+
+                <div>
+                    <!--                       <img src='static\img\Stamp.jpeg'-->
+                    <!--                            style="max-height: 150px; margin-left:50px; margin-right:20px; margin-top:50px;"-->
+                    <!--                       />-->
+                    <img src='/invoice_report_customization/static/img/Stamp.jpeg'
+                         style="max-height: 150px; margin-left:50px; margin-right:20px; margin-top:50px;"
+                    />
+
+                </div>
+
+                <div class="offset-8">
+                    <strong>Customer Sign</strong>
+                    <br/>
+                    <strong>‬‫توقيع ‫العميل‬‬</strong>
+                    <span style="margin-left:30px;display: inline-block;
+                          border-bottom: 1px solid #000;
+                          width: 100px;  margin-left: 120px;margin-bottom:10px;
+                          border-top: 1px solid #000;
+                          width: 200px;
+                          text-align: right;"></span>
+                </div>
+
+                <div>
+
+                    <span>This invoice automatically generated in our system and should be considered as an original/
+                        يتم انشاء هذ الفاتورة تلقائيا في نظامنا و يجب اعتبارها فاتورة أصلية‬
+                    </span>
                 </div>
 
             </t>
