@@ -68,10 +68,10 @@
         </template>
 
         <template id="einv_sa.partner_info">
-            <div class="row p-1 mt-1  bg-light">
-                <div class="col-6"><Strong>Customer</Strong></div>
-                <div class="col-6 text-right"><Strong>العميل</Strong></div>
-            </div>
+<!--            <div class="row p-1 mt-1  bg-light">-->
+<!--                <div class="col-6"><Strong>Customer</Strong></div>-->
+<!--                <div class="col-6 text-right"><Strong>العميل</Strong></div>-->
+<!--            </div>-->
 <!--            <div class="px-2"/>-->
 <!--                <div class="row">-->
 <!--                    <div class="col-3"><Strong>Customer Name</Strong></div>-->
@@ -211,64 +211,64 @@
             </div>
             <div class="oe_structure"/>
 
-            <div class="row p-1 mt-1  bg-light">
-                <div class="col-6"><Strong>Vehicle</Strong></div>
-                <div class="col-6 text-right"><Strong>المركبة</Strong></div>
-            </div>
+<!--            <div class="row p-1 mt-1  bg-light">-->
+<!--                <div class="col-6"><Strong>Vehicle</Strong></div>-->
+<!--                <div class="col-6 text-right"><Strong>المركبة</Strong></div>-->
+<!--            </div>-->
 
                <div class="row">
-                    <div class="col-3"><Strong>Agency Name:</Strong></div>
+                    <div class="col-3"><Strong>Agency Name</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
-                    <div class="col-4 text-right"><Strong>اسم الوكالة:</Strong></div>
+                    <div class="col-4 text-right"><Strong>اسم الوكالة</Strong></div>
                 </div>
 
 
                 <div class="row">
-                     <div class="col-3"><Strong>Claim# :</Strong></div>
+                     <div class="col-3"><Strong>Claim#</Strong></div>
                      <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>
-                     <div class="col-4 text-right"><Strong>رقم المطالبة:</Strong></div>
+                     <div class="col-4 text-right"><Strong>رقم المطالبة</Strong></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-3"><Strong>Service Advisor:</Strong></div>
+                    <div class="col-3"><Strong>Service Advisor</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>
-                    <div class="col-4 text-right"><Strong>أسم المشرف:</Strong></div>
+                    <div class="col-4 text-right"><Strong>أسم المشرف</Strong></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-3"><Strong>Job Card # :</Strong></div>
+                    <div class="col-3"><Strong>Job Card #</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>
-                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة:</Strong></div>
+                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة</Strong></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-3"><Strong>Plate # :</Strong></div>
+                    <div class="col-3"><Strong>Plate #</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>
-                    <div class="col-4 text-right"><Strong>رقم اللوحة:</Strong></div>
+                    <div class="col-4 text-right"><Strong>رقم اللوحة</Strong></div>
                  </div>
 
                 <div class="row">
-                    <div class="col-3"><Strong>Car Type:</Strong></div>
+                    <div class="col-3"><Strong>Car Type</Strong></div>
                     <div class="col-5 text-center">
                         <span t-field="doc.sale_id.vehicle.model_id.name"></span>
                         <span t-field="doc.sale_id.vehicle.car_name1.name"></span>
                </div>
-                   <div class="col-4 text-right"><Strong>اسم المركبة:</Strong></div></div>
+                   <div class="col-4 text-right"><Strong>اسم المركبة</Strong></div></div>
 
 
-                <div class="row">
-                    <div class="col-3"><Strong>Chasis # :</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>
-                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Chasis # :</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>-->
+<!--                </div>-->
 
         </template>
 
         <template id="einv_sa.inv_lines">
-            <div class="row p-1 mt-3 bg-light">
-                <div class="col-6"><Strong>Invoice Lines</Strong></div>
-                <div class="col-6 text-right"><Strong>الاصناف</Strong></div>
-            </div>
+<!--            <div class="row p-1 mt-3 bg-light">-->
+<!--                <div class="col-6"><Strong>Invoice Lines</Strong></div>-->
+<!--                <div class="col-6 text-right"><Strong>الاصناف</Strong></div>-->
+<!--            </div>-->
             <table class="table table-sm o_main_table " name="invoice_line_ids_table">
                 <thead class="bg-light text-center">
                     <tr>
@@ -309,8 +309,8 @@
         <template id="einv_sa.inv_total">
             <div style="page-break-inside: avoid;">
                 <div class="row p-1 mt-1 bg-light">
-                    <div class="col-6"><Strong>Total Amount: </Strong></div>
-                    <div class="col-6 text-right"><Strong>:الاجمالي</Strong></div>
+                    <div class="col-6"><Strong>Total Amount </Strong></div>
+                    <div class="col-6 text-right"><Strong>الاجمالي</Strong></div>
                 </div>
                 <div class="row">
                     <div class="col-2"></div>
