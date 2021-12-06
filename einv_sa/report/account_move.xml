@@ -72,24 +72,91 @@
                 <div class="col-6"><Strong>Customer</Strong></div>
                 <div class="col-6 text-right"><Strong>العميل</Strong></div>
             </div>
-            <div class="px-2"/>
-                <div class="row">
-                    <div class="col-3"><Strong>Customer Name:</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.partner_id.name"></span></div>
-                    <div class="col-4 text-right"><Strong>اسم العميل:</Strong></div>
-                </div>
+<!--            <div class="px-2"/>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Customer Name</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.partner_id.name"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>اسم العميل</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Mobile:</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.partner_id.mobile"></span></div>
-                    <div class="col-4 text-right"><Strong>رقم الجوال:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Mobile</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.partner_id.mobile"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>رقم الجوال</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Email:</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.partner_id.email"></span></div>
-                    <div class="col-4 text-right"><Strong>البريد الإلكتروني:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Email</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.partner_id.email"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>البريدالإلكتروني</Strong></div>-->
+<!--                </div>-->
+
+            <div class="row"/>
+
+                <table>
+<!--                    style="border: 1px solid #808080;width:105%">-->
+                    <tr>
+<!--                            style="border: 1px solid #808080;">-->
+
+                    <tr style="border: 1px solid #808080;">
+                                    <td style="border: 1px solid #808080;" width="250">Customer Name</td>
+                                    <td style="border: 1px solid #808080;text-align:center;" colspan="4">
+                                        <span t-field="doc.partner_id.name"/></td>
+                                    <td width="200" style="border: 1px solid #808080;text-align:center;">اسم العميل</td>
+                    </tr>
+
+                    <tr style="border: 1px solid #808080;">
+                        <td width="200"  style="border: 1px solid #808080;"><Strong>Mobile</Strong></td>
+                        <td width="200" style="border: 1px solid #808080;text-align:center;"><span t-esc="doc.partner_id.mobile" /></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>رقم الجوال</Strong></td>
+
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>Email</Strong></td>
+                        <td width="300" style="border: 1px solid #808080;text-align:center;"><span t-field="doc.partner_id.email"/></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:right;"><Strong>البريدالإلكتروني</Strong></td>
+                    </tr>
+
+                    <tr style="border: 1px solid #808080;">
+                        <td width="200"  style="border: 1px solid #808080;"><Strong>Building No</Strong></td>
+                        <td width="200" style="border: 1px solid #808080;text-align:center;"><span t-esc="doc.partner_id.building_no" /></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>رقم المبني</Strong></td>
+
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>Street Name</Strong></td>
+                        <td width="300" style="border: 1px solid #808080;text-align:center;"><span t-field="doc.partner_id.street"/></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:right;"><Strong>اسم الشارع</Strong></td>
+                    </tr>
+
+                     <tr style="border: 1px solid #808080;">
+                        <td width="200"  style="border: 1px solid #808080;"><Strong>District</Strong></td>
+                        <td width="200" style="border: 1px solid #808080;text-align:center;"><span t-esc="doc.partner_id.district" /></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>الحي</Strong></td>
+
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>City</Strong></td>
+                        <td width="300" style="border: 1px solid #808080;text-align:center;"><span t-field="doc.partner_id.city"/></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:right;"><Strong>المدينة</Strong></td>
+                    </tr>
+
+                    <tr style="border: 1px solid #808080;">
+                        <td width="200"  style="border: 1px solid #808080;"><Strong>Country</Strong></td>
+                        <td width="200" style="border: 1px solid #808080;text-align:center;"><span t-esc="doc.partner_id.country_id.name" /></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>البلد</Strong></td>
+
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>Postal Code</Strong></td>
+                        <td width="300" style="border: 1px solid #808080;text-align:center;"><span t-field="doc.partner_id.zip"/></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:right;"><Strong>الرمز البريدي</Strong></td>
+                    </tr>
+
+                    <tr style="border: 1px solid #808080;">
+                        <td width="200"  style="border: 1px solid #808080;"><Strong>Additional No</Strong></td>
+                        <td width="200" style="border: 1px solid #808080;text-align:center;"><span t-esc="doc.partner_id.additional_no" /></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>الرقم الاضافي للعنوان</Strong></td>
+
+                        <td width="130" style="border: 1px solid #808080;text-align:center;"><Strong>Vat Number</Strong></td>
+                        <td width="300" style="border: 1px solid #808080;text-align:center;"><span t-field="doc.partner_id.vat"/></td>
+                        <td width="130" style="border: 1px solid #808080;text-align:right;"><Strong>الرقم الضريبي</Strong></td>
+                    </tr>
+
+                </tr>
+            </table>
 
 <!--                <div class="row">-->
 <!--                    <div class="col-3"><Strong>Building No</Strong></div>-->
@@ -130,20 +197,15 @@
 <!--                    <div class="col-4 text-right"><Strong>الرقم الاضافي للعنوان</Strong></div>-->
 <!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Vat Number</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.partner_id.vat"></span></div>
-                    <div class="col-4 text-right"><Strong>الرقم الضريبي : </Strong></div>
-
-                </div>
-
 <!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>CR No</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.partner_id.other_id"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong>معرف آخر</Strong></div>-->
+<!--                    <div class="col-3"><Strong>Vat Number</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.partner_id.vat"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>الرقم الضريبي : </Strong></div>-->
+
 <!--                </div>-->
 
-                <div class="row">
+
+            <div class="row">
 
                 <div class="oe_structure"/>
             </div>
@@ -154,51 +216,51 @@
                 <div class="col-6 text-right"><Strong>المركبة</Strong></div>
             </div>
 
-               <div class="row">
-                    <div class="col-3"><Strong>Agency Name:</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
-                    <div class="col-4 text-right"><Strong>اسم الوكالة:</Strong></div>
-                </div>
+<!--               <div class="row">-->
+<!--                    <div class="col-3"><Strong>Agency Name:</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>اسم الوكالة:</Strong></div>-->
+<!--                </div>-->
 
 
-                <div class="row">
-                     <div class="col-3"><Strong>Claim# :</Strong></div>
-                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>
-                     <div class="col-4 text-right"><Strong>: رقم‬ ‫المطالبة:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                     <div class="col-3"><Strong>Claim# :</Strong></div>-->
+<!--                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>-->
+<!--                     <div class="col-4 text-right"><Strong>رقم المطالبة:</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Service Advisor:</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>
-                    <div class="col-4 text-right"><Strong>اسم المشرف:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Service Advisor:</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>أسم المشرف:</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Job Card # :</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>
-                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Job Card # :</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة:</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Plate # :</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>
-                    <div class="col-4 text-right"><Strong>رقم اللوحة:</Strong></div>
-                 </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Plate # :</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>رقم اللوحة:</Strong></div>-->
+<!--                 </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Car Type:</Strong></div>
-                    <div class="col-5 text-center">
-                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>
-                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>
-               </div>
-                   <div class="col-4 text-right"><Strong>اسم المركب:</Strong></div></div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Car Type:</Strong></div>-->
+<!--                    <div class="col-5 text-center">-->
+<!--                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>-->
+<!--                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>-->
+<!--               </div>-->
+<!--                   <div class="col-4 text-right"><Strong>اسم المركبة:</Strong></div></div>-->
 
 
-                <div class="row">
-                    <div class="col-3"><Strong>Chasis # :</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>
-                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Chasis # :</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>-->
+<!--                </div>-->
 
         </template>
 
