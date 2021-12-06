@@ -102,7 +102,7 @@
                                     <td style="border: 1px solid #808080;" width="250">Customer Name</td>
                                     <td style="border: 1px solid #808080;text-align:center;" colspan="4">
                                         <span t-field="doc.partner_id.name"/></td>
-                                    <td width="200" style="border: 1px solid #808080;text-align:center;">اسم العميل</td>
+                                    <td width="200" style="border: 1px solid #808080;text-align:right;">اسم العميل</td>
                     </tr>
 
                     <tr style="border: 1px solid #808080;">
@@ -216,51 +216,51 @@
                 <div class="col-6 text-right"><Strong>المركبة</Strong></div>
             </div>
 
-<!--               <div class="row">-->
-<!--                    <div class="col-3"><Strong>Agency Name:</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong>اسم الوكالة:</Strong></div>-->
-<!--                </div>-->
+               <div class="row">
+                    <div class="col-3"><Strong>Agency Name:</Strong></div>
+                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
+                    <div class="col-4 text-right"><Strong>اسم الوكالة:</Strong></div>
+                </div>
 
 
-<!--                <div class="row">-->
-<!--                     <div class="col-3"><Strong>Claim# :</Strong></div>-->
-<!--                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>-->
-<!--                     <div class="col-4 text-right"><Strong>رقم المطالبة:</Strong></div>-->
-<!--                </div>-->
+                <div class="row">
+                     <div class="col-3"><Strong>Claim# :</Strong></div>
+                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>
+                     <div class="col-4 text-right"><Strong>رقم المطالبة:</Strong></div>
+                </div>
 
-<!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>Service Advisor:</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong>أسم المشرف:</Strong></div>-->
-<!--                </div>-->
+                <div class="row">
+                    <div class="col-3"><Strong>Service Advisor:</Strong></div>
+                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>
+                    <div class="col-4 text-right"><Strong>أسم المشرف:</Strong></div>
+                </div>
 
-<!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>Job Card # :</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة:</Strong></div>-->
-<!--                </div>-->
+                <div class="row">
+                    <div class="col-3"><Strong>Job Card # :</Strong></div>
+                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>
+                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة:</Strong></div>
+                </div>
 
-<!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>Plate # :</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong>رقم اللوحة:</Strong></div>-->
-<!--                 </div>-->
+                <div class="row">
+                    <div class="col-3"><Strong>Plate # :</Strong></div>
+                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>
+                    <div class="col-4 text-right"><Strong>رقم اللوحة:</Strong></div>
+                 </div>
 
-<!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>Car Type:</Strong></div>-->
-<!--                    <div class="col-5 text-center">-->
-<!--                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>-->
-<!--                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>-->
-<!--               </div>-->
-<!--                   <div class="col-4 text-right"><Strong>اسم المركبة:</Strong></div></div>-->
+                <div class="row">
+                    <div class="col-3"><Strong>Car Type:</Strong></div>
+                    <div class="col-5 text-center">
+                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>
+                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>
+               </div>
+                   <div class="col-4 text-right"><Strong>اسم المركبة:</Strong></div></div>
 
 
-<!--                <div class="row">-->
-<!--                    <div class="col-3"><Strong>Chasis # :</Strong></div>-->
-<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>-->
-<!--                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>-->
-<!--                </div>-->
+                <div class="row">
+                    <div class="col-3"><Strong>Chasis # :</Strong></div>
+                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.vin_sn"></span></div>
+                    <div class="col-4 text-right"><Strong> ‫‫رقم الشاصية:</Strong></div>
+                </div>
 
         </template>
 
