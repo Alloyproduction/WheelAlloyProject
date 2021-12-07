@@ -109,11 +109,12 @@
               <t t-set="sum_rate" t-value="sum_rate + doc['rate']"/>
               <t t-set="sum_amount" t-value="sum_amount + doc['amount']"/>
               <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
-<!--                t-if="display_state != 'cancel'-->
+                <!--                t-if="display_state != 'cancel'-->
                 <span t-esc="seq"/>
                 <t t-set="seq" t-value="seq+1"/>
               </td>
-              <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
+              <td class="text-center" style="border: 2px solid #ddd;text-align: center;"  t-if="display_state == 'done'">
+                <span t-esc="doc['date']"/>
               </td>
               <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
                 <span t-esc="doc['reference']"/>
@@ -121,7 +122,8 @@
               <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
                 <span t-esc="doc['prod_name']"/>
               </td>
-              <td class="text-center" style="border: 2px solid #ddd;text-align: center; " t-if="display_state == 'done'">
+              <td class="text-center" style="border: 2px solid #ddd;text-align: center; "
+                  t-if="display_state == 'done'">
                 <span t-esc="doc['consumed_qty']"/>
               </td>
               <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
