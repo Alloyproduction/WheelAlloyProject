@@ -216,44 +216,44 @@
 <!--                <div class="col-6 text-right"><Strong>المركبة</Strong></div>-->
 <!--            </div>-->
 
-               <div class="row">
-                    <div class="col-3"><Strong>Agency Name</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
-                    <div class="col-4 text-right"><Strong>اسم الوكالة</Strong></div>
-                </div>
+<!--               <div class="row">-->
+<!--                    <div class="col-3"><Strong>Agency Name</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>اسم الوكالة</Strong></div>-->
+<!--                </div>-->
 
 
-                <div class="row">
-                     <div class="col-3"><Strong>Claim#</Strong></div>
-                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>
-                     <div class="col-4 text-right"><Strong>رقم المطالبة</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                     <div class="col-3"><Strong>Claim#</Strong></div>-->
+<!--                     <div class="col-5 text-center"><span t-field="doc.sale_id.claim_no"></span></div>-->
+<!--                     <div class="col-4 text-right"><Strong>رقم المطالبة</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Service Advisor</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>
-                    <div class="col-4 text-right"><Strong>أسم المشرف</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Service Advisor</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.service_advisor.name"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>أسم المشرف</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Job Card #</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>
-                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة</Strong></div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Job Card #</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_agency_job_card"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong> رقم كرت عمل الوكالة</Strong></div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Plate #</Strong></div>
-                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>
-                    <div class="col-4 text-right"><Strong>رقم اللوحة</Strong></div>
-                 </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Plate #</Strong></div>-->
+<!--                    <div class="col-5 text-center"><span t-field="doc.sale_id.vehicle.license_plate"></span></div>-->
+<!--                    <div class="col-4 text-right"><Strong>رقم اللوحة</Strong></div>-->
+<!--                 </div>-->
 
-                <div class="row">
-                    <div class="col-3"><Strong>Car Type</Strong></div>
-                    <div class="col-5 text-center">
-                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>
-                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>
-               </div>
-                   <div class="col-4 text-right"><Strong>اسم المركبة</Strong></div></div>
+<!--                <div class="row">-->
+<!--                    <div class="col-3"><Strong>Car Type</Strong></div>-->
+<!--                    <div class="col-5 text-center">-->
+<!--                        <span t-field="doc.sale_id.vehicle.model_id.name"></span>-->
+<!--                        <span t-field="doc.sale_id.vehicle.car_name1.name"></span>-->
+<!--               </div>-->
+<!--                   <div class="col-4 text-right"><Strong>اسم المركبة</Strong></div></div>-->
 
 
 <!--                <div class="row">-->
@@ -272,14 +272,14 @@
             <table class="table table-sm o_main_table " name="invoice_line_ids_table">
                 <thead class="bg-light text-center">
                     <tr>
-                        <td class="text-left"><div class="mw-100">Name</div><div class="mw-100 ">الوصف</div></td>
+                        <td class="text-left"><div class="mw-100">Description</div><div class="mw-100 ">الوصف</div></td>
                         <td><div class="mw-100">Quantity</div><div class="mw-100 "> الكمية</div></td>
                         <td><div class="mw-100">Price Unit</div><div class="mw-100 "> السعر</div></td>
                         <td><div class="mw-100">Discount</div><div class="mw-100 "> الخصم</div></td>
                         <td><div class="mw-100">Taxes</div><div class="mw-100 ">الضريبة</div></td>
-                        <td><div class="mw-100">Amount tax</div><div class="mw-100 ">مبلغ بدون الضريبة</div></td>
-                        <td><div class="mw-100">Taxable Amount</div><div class="mw-100 "> المبلغ شامل الضريبة</div></td>
-                        <td><div class="mw-100">Price Total (with Vat)</div><div class="mw-100 ">المجموع</div></td>
+                        <td><div class="mw-100">Taxable Amount</div><div class="mw-100 "> الإجمالي قبل الضريبة</div></td>
+                        <td><div class="mw-100">Amount tax</div><div class="mw-100 ">ضريبة القيمة المضافة</div></td>
+                        <td><div class="mw-100">Price Total (with Vat)</div><div class="mw-100 ">الإجمالي بعد الضريبة</div></td>
 
                     </tr>
                 </thead>
@@ -295,8 +295,8 @@
                             <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.invoice_line_tax_ids))"
                                   id="line_tax_ids"/>
                         </td>
-                        <td><span t-field="line.einv_amount_tax"/></td>
                         <td><span t-field="line.price_subtotal"/></td>
+                        <td><span t-field="line.einv_amount_tax"/></td>
                         <td><span t-field="line.price_total"/></td>
 
                     </tr>
@@ -332,11 +332,11 @@
 <!--                                المضافة</div>-->
 <!--                            <div class="col-2 text-center"><span t-field="doc.amount_untaxed"></span></div>-->
 <!--                        </div>-->
-<!--                        <div class="row border border-top-0">-->
-<!--                            <div class="col-4">Total VAT</div>-->
-<!--                            <div class="col-6 text-right">إجمالي الضريبة المضافة</div>-->
-<!--                            <div class="col-2 text-center"><span t-field="doc.amount_tax_signed"></span></div>-->
-<!--                        </div>-->
+                        <div class="row border border-top-0">
+                            <div class="col-4">VAT</div>
+                            <div class="col-6 text-right">ضريبة القيمة المضافة</div>
+                            <div class="col-2 text-center"><span t-field="doc.amount_tax_signed"></span></div>
+                        </div>
                         <div class="row border border-top-0">
                             <div class="col-4">Total </div>
                             <div class="col-6 text-right"> الإجمالي بعد الضريبة </div>
