@@ -211,11 +211,11 @@
             </div>
             <div class="oe_structure"/>
 
-            <div class="row p-1 mt-1  bg-light">
+<!--             <div class="row p-1 mt-1  bg-light">
                 <div class="col-6"><Strong>Vehicle</Strong></div>
                 <div class="col-6 text-right"><Strong>المركبة</Strong></div>
             </div>
-
+ -->
                <div class="row">
                     <div class="col-3"><Strong>Agency Name</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
