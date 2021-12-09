@@ -62,7 +62,10 @@
                 </div>
                 <div class="col-3">
 
-                    <img t-att-src="'/report/barcode/?type=%s&amp;width=%s&amp;height=%s&amp;value=Seller :  %s;Buyer : %s;Vat_Number : %s;date : %s;Total_Vat : %s;Amount : %s;Total_Amount : %s'%('QR', 130, 130,doc.company_id.name,doc.partner_id.name,doc.company_id.vat,doc.date_invoice,doc.amount_tax,doc.einv_amount_sale_total,doc.amount_total)"
+                    <img  t-if="doc.type=='out_invoice', 'out_refund' " t-att-src="'/report/barcode/?type=%s&amp;width=%s&amp;height=%s&amp;value=Seller :  %s;Buyer : %s;Vat_Number : %s;date : %s;Total_Vat : %s;Amount : %s;Total_Amount : %s'%('QR', 130, 130,doc.company_id.name,doc.partner_id.name,doc.company_id.vat,doc.date_invoice,doc.amount_tax,doc.einv_amount_sale_total,doc.amount_total)"
+                         class="float-right my-1"/>
+
+                    <img  t-if="doc.type=='in_invoice', 'in_refund' " t-att-src="'/report/barcode/?type=%s&amp;width=%s&amp;height=%s&amp;value=Seller :  %s;Buyer : %s;Vat_Number : %s;date : %s;Total_Vat : %s;Amount : %s;Total_Amount : %s'%('QR', 130, 130,doc.partner_id.name,doc.company_id.name,doc.company_id.vat,doc.date_invoice,doc.amount_tax,doc.einv_amount_sale_total,doc.amount_total)"
                          class="float-right my-1"/>
 
                 </div>
