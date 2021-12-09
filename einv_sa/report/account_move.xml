@@ -29,9 +29,12 @@
         <template id="einv_sa.inv_header">
             <div class="row p-1 my-2 border-bottom bg-light">
                 <div class="col-12 text-center" style="font-size:1.2rem;">
-                    <Strong>Tax Invoice فاتورة ضريبية</Strong>
-                    <span t-if="doc.type=='out_refund'"> - Credit Note إشعار دائن</span>
-                    <span t-if="doc.type=='in_refund'"> - Debit Note إشعار مدين</span>
+                  <span t-if="doc.type=='out_invoice'and doc.state in ('open', 'in_payment', 'paid')"><strong> Tax Invoice - فاتورة ضريبية</strong></span>
+                     <span t-if="doc.type=='out_invoice' and doc.state == 'draft'"><strong>- Draft Invoice - فاتورة مسودة -</strong></span>
+                    <span t-if="doc.type=='out_invoice' and doc.state == 'cancel'"><strong>- Cancelled Invoice فاتورة ملغاه -</strong></span>
+                    <span t-if="doc.type=='out_refund'"><strong>- Credit Note إشعار دائن -</strong></span>
+                    <span t-if="doc.type=='in_invoice'"><strong>- Vendor Bill فاتورة مشتريات -</strong></span>
+                    <span t-if="doc.type=='in_refund'"><strong>- Vendor Debit Note إشعار مدين للمشتريات-</strong></span>
                 </div>
             </div>
             <div class="row my-1">
@@ -59,7 +62,7 @@
                 </div>
                 <div class="col-3">
 
-                    <img t-att-src="'/report/barcode/?type=%s&amp;width=%s&amp;height=%s&amp;value=Seller : %s;Vat_Number : %s;date : %s;Total_Vat : %s;Total_Amount : %s'%('QR', 130, 130,doc.company_id.name,doc.company_id.vat,doc.date_invoice,doc.amount_tax_signed,doc.amount_total)"
+                    <img t-att-src="'/report/barcode/?type=%s&amp;width=%s&amp;height=%s&amp;value=Seller :  %s;Buyer : %s;Vat_Number : %s;date : %s;Total_Vat : %s;Amount : %s;Total_Amount : %s'%('QR', 130, 130,doc.company_id.name,doc.partner_id.name,doc.company_id.vat,doc.date_invoice,doc.amount_tax,doc.einv_amount_sale_total,doc.amount_total)"
                          class="float-right my-1"/>
 
                 </div>
@@ -211,11 +214,11 @@
             </div>
             <div class="oe_structure"/>
 
-<!--             <div class="row p-1 mt-1  bg-light">
-                <div class="col-6"><Strong>Vehicle</Strong></div>
-                <div class="col-6 text-right"><Strong>المركبة</Strong></div>
-            </div>
- -->
+<!--            <div class="row p-1 mt-1  bg-light">-->
+<!--                <div class="col-6"><Strong>Vehicle</Strong></div>-->
+<!--                <div class="col-6 text-right"><Strong>المركبة</Strong></div>-->
+<!--            </div>-->
+
                <div class="row">
                     <div class="col-3"><Strong>Agency Name</Strong></div>
                     <div class="col-5 text-center"><span t-field="doc.sale_id.x_studio_field_icWOZ.name"></span></div>
