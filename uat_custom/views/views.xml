@@ -18,6 +18,12 @@
               <span>/ month</span>
             </div>
           </xpath>
+
+          <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='information']/group[@name='main_info']/group[@name='salary_and_advantages']"
+                 position="inside">
+            <field name="include_allowance"/>
+          </xpath>
+
         </data>
       </field>
     </record>
