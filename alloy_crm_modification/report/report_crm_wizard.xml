@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+
+    <record id="report_for_crm_form_view" model="ir.ui.view">
+      <field name="name">report.for.crm.form.view</field>
+      <field name="model">report.crm.custom</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="CRM Report">
+          <group>
+            <group>
+              <field name="date_from" widget="date"/>
+            </group>
+            <group>
+              <field name="date_to"  widget="date"/>
+            </group>
+          </group>
+          <footer>
+            <button name="get_crm_repor_pdft" string="Get PDF Report" type="object" class="oe_highlight"/>
+             <button name="get_crm_report" string="Get Exel Report" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_crm_report_wizardx" model="ir.actions.act_window">
+      <field name="name">CRM Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.crm.custom</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="sale_crm.crm_case_form_view_oppor"/>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_crm_report_wizard_main" action="action_crm_report_wizardx"
+              sequence="999" parent="crm.crm_menu_report"
+              name="CRM Report"
+    />
+
+  </data>
+</odoo>

@@ -50,8 +50,15 @@
                     <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
                     <field name="city_id" required="1"/>
+                    <field name="location" string="Location" widget="url"/>
                     <field name="sales_id" readonly="1"/>
                 </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="call_reason" string="Call Reason"/>
+                    <field name="call_reason_explain" string="Explain the Reason"/>
+                </xpath>
+
 
                 <xpath expr="//header" position="inside">
                     <button string="Send to Logistic"
@@ -89,16 +96,27 @@
                     <button string="Send to Logistic"
                             name="send_notification_to_logistic"
                             type="object" class="oe_highlight"
-                            attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+                            attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
                             groups="alloy_crm_modification.view_send_logistic_button"
                             />
                     <button string="New Quotation"
                             name="get_quotation_order"
                             type="object" class="oe_highlight"
-                            attrs="{'invisible': ['&amp;', ('probability', '=', 0), ('active', '=', False)]}"
+                            attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
                             groups="alloy_crm_modification.group_view_create_crm_quotation_button"
                             />
-                </xpath>
+                    <button name="1376"
+                             string="Mark Lost"
+                             type="action"
+                             class="oe_highlight"
+                             context="{'default_lead_id': active_id}"
+                             attrs="{'invisible': [('active', '=', False),('probability', '&lt;', 100)]}" />
+
+                    <field name="stage_id" widget="statusbar"
+                           options="{'clickable': '1', 'fold_field': 'fold'}"/>
+<!--                           domain="['|', ('team_id', '=', team_id), ('team_id', '=', False)]"-->
+
+                   </xpath>
 
                 <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="required">1</attribute>
@@ -120,6 +138,18 @@
                     <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
                     <field name="city_id" required="1"/>
+                    <field name="is_lost" required="1"/>
+                    <field name="location" string="Location" widget="url"/>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="call_reason" string="Call Reason"/>
+                    <field name="call_reason_explain" string="Explain the Reason"/>
+                </xpath>
+
+                 <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="lost_reason" string="Lost Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
+                    <field name="explain_lost_reason" string="Explain the Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
                 </xpath>
 
                 <xpath expr="//notebook" position="inside">
@@ -196,9 +226,10 @@
 
                 </xpath>
 
-                <xpath expr="//field[@name='qc_slip_id']" position="after">
-                     <field name="offer_valid" />
-                </xpath>
+<!--                <xpath expr="//field[@name='qc_slip_id']" position="after">-->
+<!--                     <field name="offer_valid" />-->
+<!--                </xpath>-->
+<!--                #######################################################################################-->
 
    <xpath expr="//field[@name='state']" position="attributes">
 
@@ -292,6 +323,51 @@
 
             </field>
          </record>
+
+
+          <record id='vehicle_name_view_form' model='ir.ui.view'>
+        <field name="name">crm.call.reason.form</field>
+        <field name="model">crm.call.reason</field>
+        <field name="arch" type="xml">
+            <form string="Crm Call Reason">
+                <sheet>
+                    <group>
+                        <field name="name" string="Name"/>
+                        <field name="description" string="Description"/>
+<!--                        <field name="car_name1" string="Car model"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='vehicle_price_view_tree' model='ir.ui.view'>
+        <field name="name">crm.call.reason.tree</field>
+        <field name="model">crm.call.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Crm Call Reason">
+                <field name="name" string="Name"/>
+                <field name="description" string="Description"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id='crm_call_reason_action' model='ir.actions.act_window'>
+        <field name="name">Crm Call Reason</field>
+        <field name="res_model">crm.call.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Crm Call Reason
+            </p>
+        </field>
+    </record>
+
+        <menuitem name="Call Reason" id="crm_call_reason" parent="crm.crm_menu_sales"
+              action="crm_call_reason_action"/>
+
 
 
 

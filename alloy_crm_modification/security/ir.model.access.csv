@@ -3,3 +3,5 @@ access_crm_lead_order_line,access_crm_lead_order_line,model_crm_lead_order_line,
 access_res_city,access_res_city,model_res_city,,1,1,1,1
 access_sales_stages,sales.stages,model_sales_stages,,1,1,1,1
 access_salesman_wizard,salesman.wizard,model_salesman_wizard,,1,1,1,1
+
+access_manger_crm_call_reason,manger.crm.call.reason,model_crm_call_reason,,1,1,1,1

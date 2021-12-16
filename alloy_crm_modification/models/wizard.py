@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from datetime import datetime
 
+
 class Wizard(models.TransientModel):
     _name = 'salesman.wizard'
     _inherit = ['mail.thread', 'mail.activity.mixin']

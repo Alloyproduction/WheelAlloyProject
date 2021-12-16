@@ -1,0 +1,106 @@
+<odoo>
+  <data>
+
+    <record id="paperformat_crm_report" model="report.paperformat">
+      <field name="name">European A4 low margin</field>
+      <field name="default" eval="True"/>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">15</field>
+      <field name="margin_left">5</field>
+      <field name="margin_right">5</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+
+          <report id="crm_report_pdf"
+            model="report.crm.custom"
+            string="CRM PDF Report"
+            report_type="qweb-pdf"
+            name="alloy_crm_modification.crm_report_pdf_templ"
+            paperformat="paperformat_crm_report"
+            menu="False"
+           />
+
+
+    <template id="crm_report_pdf_templ">
+         <t t-call="web.html_container">
+              <t t-call="web.external_layout">
+
+                  <div>
+                      <h2 class="text-center" style="font-weight:bold">Loans Report</h2>
+                      <br/>
+                      <h4 class="text-center">
+                          <span style="font-weight:bold" t-if="date_from">Date From:</span>
+                          <span t-if="date_from">
+                              <t t-esc="date_from" t-field-options='{"widget": "date"}'/>
+                          </span>
+                          <span style="font-weight:bold" t-if="date_to">Date To:</span>
+                          <span t-if="date_to">
+                              <t t-esc="date_to" t-field-options='{"widget": "date"}'/>
+                          </span>
+                      </h4>
+                  </div>
+                  <br/>
+
+          <div class="page">
+
+              <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+                  <thead>
+                      <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Name</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Car Type</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Mobile</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Location</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Call Reason </th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Source</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <t t-foreach="docs" t-as="doc">
+                          <tr>
+                           <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                              <span t-esc="seq"/>
+                            <t t-set="seq" t-value="seq+1"/>
+                            </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['date']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['name']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['car_type']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['phone']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['location']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['inquiry']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['source']"/>
+                              </td>
+
+                          </tr>
+                      </t>
+                  </tbody>
+              </table>
+          </div>
+              </t>
+         </t>
+    </template>
+
+
+  </data>
+</odoo>
