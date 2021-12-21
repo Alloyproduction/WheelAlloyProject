@@ -10,5 +10,6 @@
 
 from . import import_loan
 from . import import_logs
+from . import loan_report_custom
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -64,6 +64,8 @@ Manage Employee Loan and Integrated with Payroll
         'views/salary_structure.xml',
         'wizard/import_loan_views.xml',
         'wizard/import_logs_view.xml',
+        'wizard/report_laon_wizard.xml',
+        'wizard/loan_report.xml',
         'views/dev_skip_installment.xml',
         'views/hr_loan_dashbord.xml',
         'views/loan_document.xml',
