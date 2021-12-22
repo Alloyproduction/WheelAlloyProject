@@ -74,7 +74,7 @@
                             <t t-set="seq" t-value="seq+1"/>
                             </td>
                               <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
-                                  <span t-esc="doc['date']"  t-field-options='{"widget": "date"}'/>
+                                  <span t-esc="doc['date']"  t-options='{"widget": "date"}'/>
                               </td>
                               <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                                   <span t-esc="doc['name']"/>
