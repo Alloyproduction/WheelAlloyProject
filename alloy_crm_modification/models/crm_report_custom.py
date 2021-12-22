@@ -11,8 +11,11 @@ class ReportForLoan(models.TransientModel):
 
     date_from = fields.Date('Date From', required=True)
     date_to = fields.Date('Date to', required=True)
-    partner_id = partner_id = fields.Many2one('res.partner', index=True)
-    stage_select = fields.Many2many('crm.stage', string="Stage")
+    car_type_id = fields.Many2one(comodel_name="vehicle" "Car Make")
+    crm_stage = fields.Many2many('crm.stage', string="Stage")
+    report_call_reason = fields.Many2one('crm.call.reason', string="Call Reason", track_visibility='onchange')
+    report_crm_source_id = fields.Many2one(comodel_name="sale.order.source", string="source", )
+    report_city_id = fields.Many2one('res.city', 'Location')
 
 
     @api.depends('date_from', 'date_to')
@@ -23,7 +26,7 @@ class ReportForLoan(models.TransientModel):
 
     @api.multi
     def get_crm_report(self):
-        # print("get loan"*5)
+        print("get loan"*5)
         self.sudo().see_d()
         # print("selff"*5)
         data = {
@@ -32,27 +35,38 @@ class ReportForLoan(models.TransientModel):
             'form': {
                 'date_from': self.date_from,
                 'date_to': self.date_to,
+
             },
         }
-        # print('data', data)
+       # print('data', data)
         return self.env.ref('alloy_crm_modification.crm_report').report_action(self, data=data)
 
 
 
     @api.multi
     def get_crm_repor_pdft(self):
-        # print("get loan"*5)
+
+       # print("get loan"*5)
         self.sudo().see_d()
-        # print("selff"*5)
+
+
+
+
+    #print("selff"*5)
         data = {
             'ids': self.ids,
             'model': self._name,
             'form': {
                 'date_from': self.date_from,
                 'date_to': self.date_to,
+                'car_model_id': str(self.report_city_id.name),
+                'crm_stage': str(self.crm_stage.name),
+                'report_call_reason': str(self.report_call_reason.name),
+                'report_crm_source_id': str(self.report_crm_source_id.name),
+                'report_city_id': str(self.report_city_id.name),
             },
         }
-        # print('data', data)
+       # print('data', data)
         return self.env.ref('alloy_crm_modification.crm_report_pdf').report_action(self, data=data)
 
 #########################################################################################################################################
@@ -83,7 +97,7 @@ class crmReportViewxls(models.AbstractModel):
             vals.append({
                 'name': i.name,
                 'user_id': i.partner_id,
-                'stage_id': i.stage_id,
+                # 'stage_id': i.stage_id,
             })
 
         sheet = workbook.add_worksheet('leads')
@@ -107,64 +121,91 @@ class crmReportViewxls(models.AbstractModel):
 #################################################################################################################################################
 
 class crmReportViewpdf(models.AbstractModel):
-         _name = "report.alloy_crm_modification.crm_report_pdf"
+         _name = "report.alloy_crm_modification.crm_report_pdf_templ"
          _description = "CRM PDF Report"
 
          @api.model
          def _get_report_values(self, docids, data=None):
-             print("values" * 5)
+
+
              docs = []
              domains = []
+
              if data['form']['date_from'] and data['form']['date_to']:
-                 print('d==', data['form']['date_from'], data['form']['date_to'])
-                 domains.append(('date_deadline', '>=', data['form']['date_from']))
-                 domains.append(('date_deadline', '<=', data['form']['date_to']))
+               # print('d==', data['form']['date_from'], data['form']['date_to'])
+                domains.append(('create_date', '>=', data['form']['date_from']))
+                domains.append(('create_date', '<=', data['form']['date_to']))
              if data['form']['date_from'] and not data['form']['date_to']:
-                 domains.append(('date_deadline', '>=', data['form']['date_from']))
+                domains.append(('create_date', '>=', data['form']['date_from']))
              if data['form']['date_to'] and not data['form']['date_from']:
-                 domains.append(('date_deadline', '<=', data['form']['date_to']))
-             print('domain==', domains)
-             ourloans = self.env['crm.lead'].search(domains, order='date asc')
-             print('MM=', ourloans)
-             for rec in ourloans:
+                domains.append(('create_date', '<=', data['form']['date_to']))
+             if data['form']['date_to'] and not data['form']['date_from']:
+                domains.append(('create_date', '<=', data['form']['date_to']))
+
+
+             #
+             #
+             #if str(['form']['crm_stage'][0])=='False':
+
+
+             #   domains.append(('stage_id', 'in', data['form']['crm_stage']))
+             #
+             if str(data['form']['car_model_id'])!='False':
+                domains.append(('car_type_id', 'in', data['form']['car_model_id']))
+
+             if str(data['form']['report_call_reason'])!='False':
+                 domains.append(('call_reason', 'in', data['form']['report_call_reason']))
+
+             if str(data['form']['report_crm_source_id'])!='False':
+                 domains.append(('crm_source_id', 'in', data['form']['report_crm_source_id']))
+
+
+             # if str(data['form']['report_city_id'])!='False':
+             #     domains.append(('city_id', 'in', data['form']['report_city_id']))
+
+             if str(data['form']['crm_stage'])!='False':
+                 domains.append(('stage_id', 'in', data['form']['crm_stage']))
+
+
+
+
+             crm_report = self.env['crm.lead'].search(domains, order='create_date asc')
+
+
+
+
+             for rec in crm_report:
                  docs.append({
-                     'date': rec.date_deadline,
+                     'date': rec.create_date,
                      'name': rec.partner_id.name,
-                     'car_type': rec.car_type_id,
-                     'phone': rec.phone,
-                     'location': rec.city_id,
-                     'inquiry': rec.call_reason,
-                     'source': rec.crm_source_id,
-                     # 'depart_id': rec.department_id.name,
-                     # # 'mang_id': rec.manager_id.name,
-                     # 'j_id': rec.job_id,
-                     # 'loan_type': rec.loan_type_id.name,
-                     # 'l_am': round(rec.loan_amount, 2),
-                     # 'start_d': rec.start_date,
-                     # 'num_terms': rec.term,
-                     # 'pa_amount': round(rec.paid_amount, 2),
-                     # 'rema_amount': round(rec.remaing_amount, 2),
-                     # 'install_amount': round(rec.installment_amount, 2),
-                     # 'state_loann': rec.state,
+                     'car_type': rec.car_type_id.name,
+                     'phone': rec.mobile,
+                     'location': rec.city_id.name,
+                     'inquiry': rec.call_reason.name,
+                     'source': rec.crm_source_id.name,
+                     'stage': rec.stage_id.name,
                  })
              www = {
-                 'doc_ids': data['ids'],
                  'doc_model': data['model'],
                  'date_from': data['form']['date_from'],
                  'date_to': data['form']['date_to'],
+                 'car_model_id': data['form']['car_model_id'],
+                 'crm_stage': data['form']['crm_stage'],
+                 'report_call_reason': data['form']['report_call_reason'],
+                 'report_crm_source_id': data['form']['report_crm_source_id'],
+                 'report_city_id': data['form']['report_city_id'],
                  'docs': docs,
              }
-             print('www#=', www)
+
              return {
                  'doc_ids': data['ids'],
                  'doc_model': data['model'],
                  'date_from': data['form']['date_from'],
                  'date_to': data['form']['date_to'],
+                 'car_model_id': data['form']['car_model_id'],
+                 'crm_stage': data['form']['crm_stage'],
+                 'report_call_reason': data['form']['report_call_reason'],
+                 'report_crm_source_id': data['form']['report_crm_source_id'],
+                 'report_city_id': data['form']['report_city_id'],
                  'docs': docs,
              }
-
-
-
-
-
-

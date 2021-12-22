@@ -21,22 +21,33 @@ class CrmLead(models.Model):
     crm_source_id = fields.Many2one(comodel_name="sale.order.source", string="source",)
     city_id = fields.Many2one('res.city', 'City')
     sales_id=fields.Many2one('sale.order', string='Quotation/SO')
-    location = fields.Char(string="Location")
+    location = fields.Char(string="Location Link")
     call_reason = fields.Many2one('crm.call.reason', string="Call Reason", required="1", track_visibility='onchange')
     call_reason_explain = fields.Text(string="Explain The Reason")
     explain_lost_reason = fields.Char(string="Explain#")
     ##################################################################################################################
 
+
+
     # @api.multi
     # def action_set_lost(self):
     #     """ Lost semantic: probability = 0, active = False """
-    #
+
     #     for rec in self:
     #         if self.is_lost == True and self.type == 'lead':
     #             lost = self.env['crm.stage'].search([('name', '=', 'Lost')])
     #
     #     lost.write({"stage_id": 6})
     #     self.write({'probability': 0, 'active': False})
+
+    @api.multi
+    def action_set_lost(self):
+        """ Lost semantic: probability = 0, active = False """
+        if self.is_lost == True:
+            stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
+        stage.write({'stage_id': stage.id})
+
+        return self.write({'probability': 0, 'active': True})
 
     ###################################################################################################################
 

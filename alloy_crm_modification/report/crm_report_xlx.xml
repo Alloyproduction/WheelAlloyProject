@@ -17,15 +17,13 @@
       <field name="dpi">90</field>
     </record>
 
-    <report id="crm_report"
+    <report id="crm_report_xlx"
             model="report.crm.custom"
             string="CRM Exel Report"
             report_type="xlsx"
             name="alloy_crm_modification.crm_report"
-            file="alloy_crm_modification.crm_report"
             paperformat="paperformat_crm_report"
             menu="False"
-
             attachment_use="False"
      />
 

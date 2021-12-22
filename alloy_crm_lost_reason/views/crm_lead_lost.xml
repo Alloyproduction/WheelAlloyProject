@@ -8,7 +8,15 @@
             <field name="lost_reason_id" position="attributes">
                 <attribute name="required">True</attribute>
             </field>
+        <xpath expr="//field[@name='lost_reason_id']" position="after">
+                    <field name="explain_lost_reason_id" string="Explain#"/>
+        </xpath>
+
         </field>
     </record>
+
+
+
+
 
 </odoo>

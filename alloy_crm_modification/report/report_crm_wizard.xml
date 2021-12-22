@@ -14,10 +14,26 @@
             <group>
               <field name="date_to"  widget="date"/>
             </group>
+
+            <group>
+              <field name="car_model_id"/>
+               <field name="report_crm_source_id"/>
+            </group>
+
+            <group>
+              <field name="crm_stage" widget="many2many_tags"/>
+              <field name="report_call_reason"/>
+            </group>
+
+            <group>
+<!--              <field name="report_city_id" />-->
+<!--              <field name="report_crm_source_id"/>-->
+            </group>
+
           </group>
           <footer>
             <button name="get_crm_repor_pdft" string="Get PDF Report" type="object" class="oe_highlight"/>
-             <button name="get_crm_report" string="Get Exel Report" type="object" class="oe_highlight"/>
+<!--             <button name="get_crm_report" string="Get Exel Report" type="object" class="oe_highlight"/>-->
             <button string="Cancel" special="cancel" class="oe_link"/>
           </footer>
         </form>
@@ -30,7 +46,7 @@
       <field name="res_model">report.crm.custom</field>
       <field name="view_type">form</field>
       <field name="view_mode">form</field>
-      <field name="view_id" ref="sale_crm.crm_case_form_view_oppor"/>
+      <field name="view_id" ref="report_for_crm_form_view"/>
       <field name="target">new</field>
     </record>
 

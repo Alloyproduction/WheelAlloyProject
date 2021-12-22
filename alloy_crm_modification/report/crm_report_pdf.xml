@@ -31,7 +31,6 @@
     <template id="crm_report_pdf_templ">
          <t t-call="web.html_container">
               <t t-call="web.external_layout">
-
                   <div>
                       <h2 class="text-center" style="font-weight:bold">Loans Report</h2>
                       <br/>
@@ -54,17 +53,21 @@
                   <thead>
                       <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date</th>
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Name</th>
-                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Car Type</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Car Make</th>
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Mobile</th>
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Location</th>
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Call Reason </th>
                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Source</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Stage</th>
                       </tr>
                   </thead>
 
                   <tbody>
-                      <t t-foreach="docs" t-as="doc">
+
+                      <t t-set="seq" t-value="1"/>
+                      <tr t-foreach="docs" t-as="doc">
                           <tr>
                            <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                               <span t-esc="seq"/>
@@ -91,16 +94,18 @@
                               <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
                                   <span t-esc="doc['source']"/>
                               </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['stage']"/>
+                              </td>
 
                           </tr>
-                      </t>
+                      </tr>
                   </tbody>
               </table>
           </div>
               </t>
-         </t>
+              </t>
     </template>
-
 
   </data>
 </odoo>
