@@ -16,7 +16,7 @@
             </group>
 
             <group>
-              <field name="car_model_id"/>
+              <field name="car_type_id"/>
                <field name="report_crm_source_id"/>
             </group>
 
