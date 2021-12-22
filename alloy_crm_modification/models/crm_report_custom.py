@@ -11,7 +11,7 @@ class ReportForLoan(models.TransientModel):
 
     date_from = fields.Date('Date From', required=True)
     date_to = fields.Date('Date to', required=True)
-    car_type_id = fields.Many2one(comodel_name="vehicle" "Car Make")
+#     car_type_id = fields.Many2one(comodel_name="vehicle" "Car Make")
     crm_stage = fields.Many2many('crm.stage', string="Stage")
     report_call_reason = fields.Many2one('crm.call.reason', string="Call Reason", track_visibility='onchange')
     report_crm_source_id = fields.Many2one(comodel_name="sale.order.source", string="source", )
@@ -59,7 +59,7 @@ class ReportForLoan(models.TransientModel):
             'form': {
                 'date_from': self.date_from,
                 'date_to': self.date_to,
-                'car_model_id': str(self.report_city_id.name),
+#                 'car_model_id': str(self.report_city_id.name),
                 'crm_stage': str(self.crm_stage.name),
                 'report_call_reason': str(self.report_call_reason.name),
                 'report_crm_source_id': str(self.report_crm_source_id.name),
@@ -150,8 +150,8 @@ class crmReportViewpdf(models.AbstractModel):
 
              #   domains.append(('stage_id', 'in', data['form']['crm_stage']))
              #
-             if str(data['form']['car_model_id'])!='False':
-                domains.append(('car_type_id', 'in', data['form']['car_model_id']))
+#              if str(data['form']['car_model_id'])!='False':
+#                 domains.append(('car_type_id', 'in', data['form']['car_model_id']))
 
              if str(data['form']['report_call_reason'])!='False':
                  domains.append(('call_reason', 'in', data['form']['report_call_reason']))
@@ -189,7 +189,7 @@ class crmReportViewpdf(models.AbstractModel):
                  'doc_model': data['model'],
                  'date_from': data['form']['date_from'],
                  'date_to': data['form']['date_to'],
-                 'car_model_id': data['form']['car_model_id'],
+#                  'car_model_id': data['form']['car_model_id'],
                  'crm_stage': data['form']['crm_stage'],
                  'report_call_reason': data['form']['report_call_reason'],
                  'report_crm_source_id': data['form']['report_crm_source_id'],
@@ -202,7 +202,7 @@ class crmReportViewpdf(models.AbstractModel):
                  'doc_model': data['model'],
                  'date_from': data['form']['date_from'],
                  'date_to': data['form']['date_to'],
-                 'car_model_id': data['form']['car_model_id'],
+#                  'car_model_id': data['form']['car_model_id'],
                  'crm_stage': data['form']['crm_stage'],
                  'report_call_reason': data['form']['report_call_reason'],
                  'report_crm_source_id': data['form']['report_crm_source_id'],
