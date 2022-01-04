@@ -1,0 +1,155 @@
+<odoo>
+  <data>
+
+    <record id="paperformat_stock_report" model="report.paperformat">
+      <field name="name">European A4 low margin</field>
+      <field name="default" eval="True"/>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">15</field>
+      <field name="margin_left">5</field>
+      <field name="margin_right">5</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <report id="stock_report"
+            model="ms.report.stock"
+            string="stock Report"
+            report_type="qweb-pdf"
+            name="ms_report_stock.stocks_report_view"
+            paperformat="paperformat_stock_report"
+            menu="False"
+    />
+
+    <template id="stocks_report_view">
+      <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+<!--          <br/>-->
+          <div>
+            <h2 class="text-center" style="font-weight:bold">Loans Report</h2>
+            <br/>
+            <h4 class="text-center">
+              <span style="font-weight:bold" t-if="date_from">Date From:</span>
+              <span t-if="date_from">
+                <t t-esc="date_from" t-field-options='{"widget": "date"}'/>
+              </span>
+              <span style="font-weight:bold" t-if="date_to">Date To:</span>
+              <span t-if="date_to">
+                <t t-esc="date_to" t-field-options='{"widget": "date"}'/>
+              </span>
+            </h4>
+          </div>
+          <br/>
+          <div class="page">
+            <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+              <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Start Date</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Reference</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Employee</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Department</th>
+                <!--                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:12%">Department manager</th>-->
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Type</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Loan Amount</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Paid Amount</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Remaing Amount</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Installment Amount
+                </th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Term</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;">Status</th>
+              </tr>
+              <t t-set="seq" t-value="1"/>
+              <t t-set="sum_l_am" t-value="0"/>
+              <t t-set="sum_pa_amount" t-value="0"/>
+              <t t-set="sum_rema_amount" t-value="0"/>
+              <t t-set="sum_install_amount" t-value="0"/>
+              <!--              <t t-set="sum_amount" t-value="0"/>-->
+              <tr t-foreach="docs" t-as="doc">
+                <!--                <t t-set="display_state" t-value="doc['state']"/>-->
+                <t t-set="sum_l_am" t-value="sum_l_am + doc['l_am']"/>
+                <t t-set="sum_pa_amount" t-value="sum_pa_amount + doc['pa_amount']"/>
+                <t t-set="sum_rema_amount" t-value="sum_rema_amount + doc['rema_amount']"/>
+                <t t-set="sum_install_amount" t-value="sum_install_amount + doc['install_amount']"/>
+                <!--                <t t-set="sum_amount" t-value="sum_amount + doc['amount']"/>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="seq"/>
+                  <t t-set="seq" t-value="seq+1"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['date']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['reference']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['employee_name']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['depart_id']"/>
+                </td>
+                <!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+                <!--                  <span t-esc="doc['mang_id']"/>-->
+                <!--                </td>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['loan_type']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['l_am']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['pa_amount']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['rema_amount']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['install_amount']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['num_terms']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['state_loann']"/>
+                </td>
+              </tr>
+              <!--              <tr>-->
+              <!--                <td></td><td></td><td></td><td></td><td></td><td></td>-->
+              <!--                <td></td><td></td><td></td><td></td><td></td><td></td>-->
+              <!--              </tr>-->
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">Total</td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_l_am)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_pa_amount)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_rema_amount)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_install_amount)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <!--                  <span t-esc="'{0:,.2f}'.format(sum_amount)"/>-->
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </t>
+      </t>
+    </template>
+
+  </data>
+</odoo>

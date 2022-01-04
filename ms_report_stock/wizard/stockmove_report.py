@@ -300,7 +300,8 @@ class StockMovesReportReportView(models.AbstractModel):
         if data['form']['prod_categ']:
             domains.append(('product_id.categ_id', 'in', data['form']['prod_categ']))
         if data['form']['move_location']:
-            print('Location000000', data['form']['move_location'][0])
+            # print('Location000000', data['form']['move_location'][0])
+
             # loca_name = data['form']['move_location'][0]
             # all_loca_Source = ['36', '8', '12', '32', '5']
             # if loca_name in all_loca_Source:
@@ -328,13 +329,10 @@ class StockMovesReportReportView(models.AbstractModel):
         # else:
         #     print('else')
         #     stockmove = self.env['stock.move'].search([], order='name asc')
-
-        print('stockmove')
-        print(stockmove)
-
-        print(data['form']['prod_categ'])
-        print(data['form']['move_location'])
-        print(data['form']['move_location_dest'])
+        # print('stockmove', stockmove)
+        # print(data['form']['prod_categ'])
+        # print(data['form']['move_location'])
+        # print(data['form']['move_location_dest'])
 
         for sm in stockmove:
             # guarantee_type = dict(sm._fields['guarantee_type'].selection).get(sm.guarantee_type)

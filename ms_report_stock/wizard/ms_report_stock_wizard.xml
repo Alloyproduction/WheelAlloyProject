@@ -1,45 +1,80 @@
 <odoo>
-	<data>
-	
-	    <record id="ms_report_stock_form_view" model="ir.ui.view">
-			<field name="name">ms.report.stock.form</field>
-			<field name="model">ms.report.stock</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				
-		        <form string="Stock Report">
-	                <group>
-		        		<group>
-		                    <field name="product_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
-		                    <field name="categ_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
-		                </group>
-		                <group>
-		                	<field name="location_ids" domain="[('usage','=','internal')]" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
-							<field name="date_from"/>
-							<field name="date_to"/>
-		                </group>
-		        	</group>
+  <data>
 
-	                <footer>
-	                    <button name="print_excel_report" string="Export" type="object" class="oe_highlight"/> or 
-	                    <button string="Cancel" class="oe_link" special="cancel"/>
-	                </footer>
-		          	
-		        </form>
-	    	</field>
-	    </record>
-		
-	    <record id="ms_action_report_stock_xlsx" model="ir.actions.act_window">
-			<field name="name">Stock Report</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">ms.report.stock</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
-			<field name="view_id" ref="ms_report_stock_form_view"/>
-			<field name="target">new</field>
-	    </record>
-		
-		<menuitem id="ms_menu_report_stock_xlsx" action="ms_action_report_stock_xlsx" parent="stock.menu_warehouse_report"/>
-	
-	</data>
+    <!--Inherit inventory search view-->
+    <record id="view_inventory_inherit_search_view" model="ir.ui.view">
+      <field name="name">view.inventory.inherit.search.view</field>
+      <field name="model">stock.quant</field>
+      <field name="inherit_id" ref="stock.quant_search_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//search" position="inside">
+          <filter name="filter_archived" string="Archived" domain="[('product_id.active', '=', False)]"/>
+          <filter name="filter_archived" string="Not Archived" domain="[('product_id.active', '=', True)]"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    <record id="ms_report_stock_form_view" model="ir.ui.view">
+      <field name="name">ms.report.stock.form</field>
+      <field name="model">ms.report.stock</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+
+        <form string="Stock Report">
+          <group>
+            <group>
+              <field name="product_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"/>
+              <field name="categ_ids" widget="many2many_tags" options="{'no_create':True, 'no_open':True}"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"/>
+            </group>
+            <group>
+              <field name="location_ids" domain="[('usage','=','internal')]" widget="many2many_tags"
+                     options="{'no_create':True, 'no_open':True}"/>
+              <field name="only_date" t-options='{"widget": "date"}'
+                     attrs="{'required':[('specific_date', '=', False)], 'invisible':[('specific_range', '=', False)]}"/>
+              <field name="date_from"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"/>
+              <field name="date_to"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"/>
+            </group>
+            <group>
+              <field name="specific_range"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"
+                     force_save="1"/>
+              <field name="specific_date"
+                     attrs="{'required':[('specific_range', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     force_save="1"/>
+            </group>
+          </group>
+
+          <footer>
+            <button name="print_excel_report" string="Export" type="object" class="oe_highlight"
+                    attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"
+            />
+            <button name="get_stock_report" string="print for Specific Date" type="object"
+                    class="oe_highlight"
+                    attrs="{'required':[('specific_range', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+            />
+            or
+            <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+
+        </form>
+      </field>
+    </record>
+
+    <record id="ms_action_report_stock_xlsx" model="ir.actions.act_window">
+      <field name="name">Stock Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ms.report.stock</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ms_report_stock_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="ms_menu_report_stock_xlsx" action="ms_action_report_stock_xlsx" parent="stock.menu_warehouse_report"/>
+
+  </data>
 </odoo>

@@ -2,6 +2,9 @@ import xlsxwriter
 import base64
 from odoo import fields, models, api
 from io import BytesIO
+from datetime import timedelta
+from datetime import datetime, date
+import datetime
 from datetime import datetime
 from pytz import timezone
 import pytz
@@ -12,6 +15,27 @@ class MsReportStock(models.TransientModel):
 
     date_from = fields.Datetime('Date From', required=True)
     date_to = fields.Datetime('Date to', required=True)
+    # only_date = fields.Datetime('Specific Date', required=True, default=datetime.date.today)
+    only_date = fields.Date('Specific Date', required=True, default=date.today())
+
+    @api.onchange('specific_date')
+    def computeTorFff(self):
+        for rec in self:
+            if rec.specific_date == True:
+                rec.specific_range = False
+                # rec.only_date = False
+
+    @api.onchange('specific_range')
+    def computeTorF(self):
+        for rec in self:
+            if rec.specific_range == True:
+                print('date', rec.only_date)
+                rec.specific_date = False
+                rec.date_from = False
+                rec.date_to = False
+
+    specific_date = fields.Boolean(string="Specific Range ", default=True, store=True)
+    specific_range = fields.Boolean(string="Specific Date", default=False, store=True)
 
     @api.model
     def get_default_date_model(self):
@@ -332,3 +356,60 @@ class MsReportStock(models.TransientModel):
         wbf['header_detail'].set_bottom()
         
         return wbf, workbook
+
+# __________for only one Specific date _________________________________________________________________
+
+    # @api.multi
+    # def get_stock_report(self):
+    #     data = {
+    #         'ids': self.ids,
+    #         'model': self._name,
+    #         'form': {
+    #             # 'categ_ids': self.categ_ids,
+    #             # 'location_ids': self.location_ids,
+    #             'product_ids': self.product_ids.id,
+    #         },
+    #     }
+    #     print('date=', date)
+    #     return self.env.ref('ms_report_stock.stock_report').report_action(self, data=data)
+
+
+class LoanReportView(models.AbstractModel):
+    _name = "report.ms_report_stock.stocks_report_view"
+    _description = "Loans Report"
+
+    # @api.model
+    # def _get_report_values(self, docids, data=None):
+    #     print("stock"*5)
+    #     print("stoc==k", data['form']['product_ids'])
+    #     docs = []
+    #     domains = []
+    #     if data['form']['product_ids']:
+    #         print('product_ids id==', data['form']['product_ids'])
+    #         ourstock_id = self.env['product.product'].search([('id', '=', data['form']['product_ids'])])
+    #         # print('MM=', ourstock_id)
+    #         print('MM=', ourstock_id.write_date)
+    #         # print('MM=', ourstock_id.write_uid)
+    #         for rec in ourstock_id:
+    #             # pass
+    #             docs.append({
+    #                 # 'date': rec.date,
+    #                 'reference': rec.default_code,
+    #                 'pro_name': rec.name,
+    #                 'depart_id': rec.department_id.name,
+    #                 # 'mang_id': rec.manager_id.name,
+    #                 'uom_name': rec.uom_name,
+    #             })
+    #         www = {
+    #             'doc_ids': data['ids'],
+    #             'doc_model': data['model'],
+    #             'product_ids': data['form']['product_ids'],
+    #             'docs': docs,
+    #         }
+    #         print('www#=', www)
+    #         return {
+    #             'doc_ids': data['ids'],
+    #             'doc_model': data['model'],
+    #             'product_ids': data['form']['product_ids'],
+    #             'docs': docs,
+    #         }
