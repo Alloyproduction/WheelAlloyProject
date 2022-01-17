@@ -39,24 +39,21 @@
       <field name="register_id" ref="contribution_register_gosi_non"></field>
     </record>
 
-<!--     <record id="hr_payroll.structure_base" model="hr.payroll.structure">
-      <field name="code">BASE</field>
-      <field name="name">Base Salary Structure For Saudi Workers</field>
-      <field eval="[(6, 0, [ref('hr_rule_gosi'),ref('hr_payroll.hr_rule_basic'),ref('hr_payroll.hr_rule_net')])]"
-             name="rule_ids"/>
-      <field name="company_id" ref="base.main_company"/>
-    </record> -->
+<!--    <record id="hr_payroll.structure_base" model="hr.payroll.structure">-->
+<!--      <field name="code">BASE</field>-->
+<!--      <field name="name">Base Salary Structure For Saudi Workers</field>-->
+<!--      <field eval="[(6, 0, [ref('hr_rule_gosi'),ref('hr_payroll.hr_rule_basic'),ref('hr_payroll.hr_rule_net')])]"-->
+<!--             name="rule_ids"/>-->
+<!--      <field name="company_id" ref="base.main_company"/>-->
+<!--    </record>-->
 
-    <record id="structure_1717" model="hr.payroll.structure">
-      <field name="code">BSOW</field>
-      <field name="name">Base Salary Structure For Non Saudi</field>
-      <field eval="[(6, 0, [ref('hr_rule_gosi_non'),ref('hr_payroll.hr_rule_basic'), ref('hr_payroll.hr_rule_net'),ref('hr_payroll.hr_rule_taxable')])]"
-             name="rule_ids"/>
-      <field name="company_id" ref="base.main_company"/>
-      <!--            <field name="parent_id" ref="hr_payroll.structure_base"/>-->
-    </record>
-    
- 
-    
+<!--    <record id="structure_1717" model="hr.payroll.structure">-->
+<!--      <field name="code">BSOW</field>-->
+<!--      <field name="name">Base Salary Structure For Non Saudi</field>-->
+<!--      <field eval="[(6, 0, [ref('hr_rule_gosi_non'),ref('hr_payroll.hr_rule_basic'), ref('hr_payroll.hr_rule_net'),ref('hr_payroll.hr_rule_taxable')])]"-->
+<!--             name="rule_ids"/>-->
+<!--      <field name="company_id" ref="base.main_company"/>-->
+<!--      &lt;!&ndash;            <field name="parent_id" ref="hr_payroll.structure_base"/>&ndash;&gt;-->
+<!--    </record>-->
   </data>
 </odoo>

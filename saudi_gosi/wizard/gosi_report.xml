@@ -1,0 +1,202 @@
+<odoo>
+  <data>
+
+    <record id="paperformat_gosi_report" model="report.paperformat">
+      <field name="name">European A4 low margin</field>
+      <field name="default" eval="True"/>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">15</field>
+      <field name="margin_left">5</field>
+      <field name="margin_right">5</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <report id="gosi_report"
+            model="report.gosi.c"
+            string="Gosi Report"
+            report_type="qweb-pdf"
+            name="saudi_gosi.gosi_report_view"
+            paperformat="paperformat_gosi_report"
+            menu="False"
+    />
+
+    <template id="gosi_report_view">
+      <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+          <div>
+            <h2 class="text-center" style="font-weight:bold">Gosi Report</h2>
+            <br/>
+            <h4 class="text-center">
+              <span style="font-weight:bold" t-if="date_from">Date From:</span>
+              <span t-if="date_from">
+                <t t-esc="date_from" t-field-options='{"widget": "date"}'/>
+              </span>
+              <span style="font-weight:bold" t-if="date_to">Date To:</span>
+              <span t-if="date_to">
+                <t t-esc="date_to" t-field-options='{"widget": "date"}'/>
+              </span>
+            </h4>
+          </div>
+          <br/>
+          <div class="page">
+            <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+              <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date from</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date to</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Reference</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Employee</th>
+                <!--                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:25%">Payslip name</th>-->
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Name (Code)</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Gosi amount</th>
+<!--                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Name (Code)</th>-->
+<!--                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Net salary</th>-->
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">State</th>
+              </tr>
+              <t t-set="seq" t-value="1"/>
+              <t t-set="sum_amount" t-value="0"/>
+<!--              <t t-set="sum_amount_for_net" t-value="0"/>-->
+              <t t-set="total_amount_for_only_draft" t-value="0"/>
+<!--              <t t-set="total_amount_for_net_only_draft" t-value="0"/>-->
+<!--              <t t-set="total_amount_for_net_only_only" t-value="0"/>-->
+              <t t-set="total_amount_for_only_done" t-value="0"/>
+              <tr t-foreach="docs" t-as="doc">
+                <t t-set="sum_amount" t-value="sum_amount + doc['amount']"/>
+<!--                <t t-set="sum_amount_for_net" t-value="sum_amount_for_net + doc['amount_for_net']"/>-->
+                <t t-set="total_amount_for_only_draft" t-value="doc['total_amount_for_only_draft']"/>
+<!--                <t t-set="total_amount_for_net_only_draft" t-value="doc['total_amount_for_net_only_draft']"/>-->
+<!--                <t t-set="total_amount_for_net_only_only" t-value="doc['total_amount_for_net_only_only']"/>-->
+                <t t-set="total_amount_for_only_done" t-value="doc['total_amount_for_only_done']"/>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="seq"/>
+                  <t t-set="seq" t-value="seq+1"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['date_from']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['date_to']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['reference']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['employee_name']"/>
+                </td>
+                <!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+                <!--                  <span t-esc="doc['payslip_name']"/>-->
+                <!--                </td>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['code']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['amount']"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">-->
+<!--                  <span t-esc="doc['code_for_net']"/>-->
+<!--                </td>-->
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">-->
+<!--                  <span t-esc="doc['amount_for_net']"/>-->
+<!--                </td>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['state']"/>
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+<!--                <td style="border: 2px solid #ddd;text-align: center;"></td>-->
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+<!--                <td style="border: 2px solid #ddd;text-align: center;"></td>-->
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+<!--                <td style="border: 2px solid #ddd;text-align: center;"></td>-->
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+<!--                <td style="border: 2px solid #ddd;text-align: center;"></td>-->
+<!--                <td style="border: 2px solid #ddd;text-align: center;"></td>-->
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total
+                  Gosi Draft
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <!--                  <span t-esc="'{0:,.2f}'.format(sum_amount_draft)"/>-->
+                  <span t-esc="'{0:,.2f}'.format(total_amount_for_only_draft)"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total-->
+<!--                  Net Draft-->
+<!--                </td>-->
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+<!--                  <span t-esc="'{0:,.2f}'.format(total_amount_for_net_only_draft)"/>-->
+<!--                </td>-->
+                <td></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total
+                  Gosi Done
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <!--                  <span t-esc="'{0:,.2f}'.format(sum_amount_draft)"/>-->
+                  <span t-esc="'{0:,.2f}'.format(total_amount_for_only_done)"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total-->
+<!--                  Net Done-->
+<!--                </td>-->
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+<!--                  <span t-esc="'{0:,.2f}'.format(total_amount_for_net_only_only)"/>-->
+<!--                </td>-->
+                <td></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total Gosi
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_amount)"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total Net-->
+<!--                </td>-->
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+<!--                  <span t-esc="'{0:,.2f}'.format(sum_amount_for_net)"/>-->
+<!--                </td>-->
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </t>
+      </t>
+    </template>
+
+  </data>
+</odoo>

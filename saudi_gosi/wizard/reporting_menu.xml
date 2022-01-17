@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+
+    <record id="report_for_gosi_form_view" model="ir.ui.view">
+      <field name="name">report.for.gosi.form.view</field>
+      <field name="model">report.gosi.c</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Gosi Report">
+          <group>
+            <group>
+              <field name="date_from" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+
+              <!--              <field name="code_test"/>-->
+            </group>
+            <group>
+              <field name="date_to" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+            </group>
+            <group>
+              <field name="specific_employee"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"
+                     force_save="1"/>
+              <field name="specific_date"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     force_save="1"/>
+            </group>
+            <group>
+              <field name="employee_gosi"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     options="{'no_create': True, 'no_open': True, 'no_create_edit': True}"
+              />
+              <!--                     widget="selection"-->
+            </group>
+          </group>
+          <footer>
+            <button name="get_gosi_report" string="Get Report" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_gosi_report_wizardx_custom" model="ir.actions.act_window">
+      <field name="name">Gosi Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.gosi.c</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="report_for_gosi_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="hr_report_gosi_custom" action="action_gosi_report_wizardx_custom"
+              name="GOSI Report" parent="saudi_gosi.gosi_employee"
+              sequence="22"
+    />
+
+  </data>
+</odoo>
