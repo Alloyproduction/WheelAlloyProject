@@ -21,7 +21,7 @@
 
                         <button name="button_ready"
                                 states="sent"
-                                string="Ready"
+                                string="Approve"
                                 type="object"
                                 class="oe_highlight"
                                 groups="technician_request.group_Technician_request_manager"
