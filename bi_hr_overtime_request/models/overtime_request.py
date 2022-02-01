@@ -43,9 +43,9 @@ class my_equipment_request(models.Model):
     dept_manager_id = fields.Many2one('res.users', string="Department Manager", readonly=True)
 
     # num_of_hours = fields.Float(string="Number Of Hours", compute="_compute_num_of_hours")
-    num_of_hours = fields.Float(string="Total Overtime Hours")
-    total_delay_hours = fields.Float(string="Total Delay in minute")
-    num_of_hours2 = fields.Float(string="Number Of Hours")
+    num_of_hours = fields.Float(string="Total Overtime in minutes")
+    total_delay_hours = fields.Float(string="Total Delay in minutes")
+    num_of_hours2 = fields.Float(string="Number Of minutes")
 
     notes = fields.Text(string="Notes")
 

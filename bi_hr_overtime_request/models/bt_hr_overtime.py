@@ -25,9 +25,9 @@ class BtHrOvertime(models.Model):
     check_out_date = fields.Datetime('Check out')
     year = fields.Char('Year', store=True)
     month = fields.Char('Month', store=True)
-    overtime_hours = fields.Float('Overtime Hours')
+    overtime_hours = fields.Float('Overtime in Minutes')
     delay_hours = fields.Float('Delay in Minute')
-    overtime_hours2 = fields.Float('Overtime Hours')
+    overtime_hours2 = fields.Float('Overtime in Minutes2')
     notes = fields.Text(string='Notes')
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'Waiting Approval'), ('refuse', 'Refused'),
                               ('validate', 'Approved'), ('cancel', 'Cancelled')], default='draft', copy=False)
@@ -38,66 +38,65 @@ class BtHrOvertime(models.Model):
     def compute_delay_request(self):
         leave_ids = self.env['hr.leave'].search([('state', '=', 'validate'), ('time_request', '>', 0),
                                                  ('only_one_lev', '=', False)], order='date_from')
-        print('lev' * 2, leave_ids)
+        # print('lev' * 2, leave_ids)
         only_date = None
         for lev in leave_ids:
-            print('start from here')
-            print('t request' * 1, lev.time_request)
+            # print('start from here')
+            # print('t request' * 1, lev.time_request)
             # print('WZZ' * 5, lev.employee_id.id)
             # print('WZZ' * 5, lev.request_date_from)
             dd = lev.request_date_from.strftime('%Y/%m/%d')
-            print('on', only_date)
+            # print('on', only_date)
             # count = 0
             attend_ids = self.env['hr.attendance'].search([('employee_id', '=', lev.employee_id.id),
                                                            ('only_one', '=', False)], order='check_in')
-            print('att' * 3, attend_ids)
+            # print('att' * 3, attend_ids)
             for rec in attend_ids:
                 # count = 0
-                print('Ch' * 5, rec.check_in)
+                # print('Ch' * 5, rec.check_in)
                 only_date = rec.check_in.strftime('%Y/%m/%d')
-                print('only_date', only_date)
+                # print('only_date', only_date)
                 # if lev.request_date_from == only_date:
-                print('only_date222', only_date)
+                # print('only_date222', only_date)
                 if dd == only_date:
-                    print('only_one=', rec.only_one)
-                    print('only_onelev=', lev.only_one_lev)
+                    # print('only_one=', rec.only_one)
+                    # print('only_onelev=', lev.only_one_lev)
                     # count +=1
-                    print('ff' * 7)
+                    # print('ff' * 7)
                     rec.emp_req_d_h = lev.time_request
                     rec.only_one = True
                     lev.only_one_lev = True
-                    print('only_one2=', rec.only_one)
-                    print('only_one2lev=', lev.only_one_lev)
-                    print('kkk=', rec.emp_req_d_h)
+                    # print('only_one2=', rec.only_one)
+                    # print('only_one2lev=', lev.only_one_lev)
+                    # print('kkk=', rec.emp_req_d_h)
                     break
                 else:
                     rec.emp_req_d_h = 0
-
 
     # fun for cron run every day for overtime , delay
     @api.model
     def run_overtime_and_delays_scheduler(self):
         self.compute_delay_request()
-        print('compute done')
+        # print('compute done')
         attend_signin_ids = self.env['hr.attendance'].search([('overtime_created', '=', False)])
-        print('attend_signin_ids', attend_signin_ids)
+        # print('attend_signin_ids', attend_signin_ids)
         tmp = 0
         for obj in attend_signin_ids:
             tmp = obj.id
             if obj.check_in and obj.check_out:
-                print('check in day and time=', obj.check_in)
-                print('idddd===', obj.id) #64  #58
+                # print('check in day and time=', obj.check_in)
+                # print('idddd===', obj.id)
                 c_date1 = obj.check_in.strftime('%m-%d-%Y')
-                print('only date1', c_date1) # 09-27-2021
+                # print('only date1', c_date1) # 09-27-2021
                 if c_date1:
                     attend_signin2 = self.env['hr.attendance'].search([('overtime_created', '=', False)])
                     for r in attend_signin2:
-                        print('id2=', r.id) #64  #58
+                        # print('id2=', r.id) #64  #58
                         if r.check_in and r.check_out and obj.id != r.id and obj.employee_id.id == r.employee_id.id:
-                            print('check2 in day and time=', r.check_in)  # id = 58  2021-09-27 08:00:00
-                            print('id22=', r.id) # id = 58
+                            # print('check2 in day and time=', r.check_in)  # id = 58  2021-09-27 08:00:00
+                            # print('id22=', r.id) # id = 58
                             other_date = r.check_in.strftime('%m-%d-%Y')
-                            print('only date22=', other_date) # 09-27-2021
+                            # print('only date22=', other_date) # 09-27-2021
                             obj.TT_id = False
                             if c_date1 == other_date and obj.emp_req_d_h == 0:
                                 obj.TT_id = True
@@ -105,17 +104,20 @@ class BtHrOvertime(models.Model):
                                 # print('VVVVV')
                                 pass
                                 # print('GGGG')
-                #     myobj=self.env['hr.attendance'].search([('id', '=', obj.id)])
-                #     print('PPPP',myobj.TT_id)
+                    myobj = self.env['hr.attendance'].search([('id', '=', obj.id)])
+                    # print('PPPP', myobj.TT_id)
                     if obj.TT_id == False:
                         # print('code here will be EX')
                         # print('UUU', obj.id)
                         # print('TTTT', tmp)
                         # print('check out day and time=', obj.check_out)
-                        current_time = obj.check_in.strftime("%H:%M:%S") # id =  58
+                        current_time = obj.check_in.strftime("%H:%M:%S")
+                        # print('current time', current_time)
                         current_time_out = obj.check_out.strftime("%H:%M:%S")
-                        h1 = str(current_time).split(':')[0]
-                        h2 = str(current_time_out).split(':')[0]
+                        # print('current time out', current_time_out)
+                        h1 = int(str(current_time).split(':')[0]) + int(2)
+                        h2 = int(str(current_time_out).split(':')[0]) + int(2)
+                        # print("h1 and h2 ", h1, h2)
                         m1 = str(current_time).split(':')[1]
                         m2 = str(current_time_out).split(':')[1]
                         total_h1_m1 = str(h1) + '.' + m1
@@ -123,13 +125,23 @@ class BtHrOvertime(models.Model):
                         total_h2_m2 = str(h2) + '.' + m2
                         # print("check_out time= ", total_h2_m2)
                         contract_work_start = self.env['hr.contract'].search([('employee_id', '=', obj.employee_id.id)])
+                        delay_hours1 = 0
+                        delay_hours2 = 0
                         for rec in contract_work_start:
                             start_h = str(rec.start_hour)
+                            # print('start_work at', start_h)
                             h_s1 = start_h.split(':')[0]
                             m1_s = float(start_h) - float(h_s1)
                             end_h = str(rec.end_hour)
-                            h2_e = end_h.split(':')[0]
-                            m2_e = float(end_h) - float(h2_e)
+                            # h2_e = end_h.split(':')[0]
+                            h2_e = str(rec.end_hour).split('.')[0]
+                            # m2_e = float(end_h) - float(h2_e)
+                            m2_e = str(rec.end_hour).split('.')[1]
+                            if len(m2_e) == 1:
+                                m2_e = m2_e + '0'
+                                # print('m2_e=', m2_e)
+                            else:
+                                m2_e = m2_e
                             # print('E=', h2_e, '.', m2_e)
                             # when employee come late am
                             if float(total_h1_m1) > float(start_h):
@@ -151,11 +163,18 @@ class BtHrOvertime(models.Model):
                                 # print('h2', int(h2))
                                 # print('h_ll', h_ll)
                                 m_ll = float(m2_e) - int(m2)
+                                # print('m2_e', m2_e)
                                 # print('m_ll', m_ll)
                                 h_m_ll = h_ll + m_ll
                                 # print('h_m_ll', h_m_ll)
                                 delay_hours2 = float(h_m_ll)
-                                # print('duu=', delay_hours2)
+                                if delay_hours2 < 0:
+                                    delay_hours2 = 0
+                                    # print('delay_hours2', delay_hours2)
+                                else:
+                                    delay_hours2 = delay_hours2
+                                    # print('delay_hours2', delay_hours2)
+                                # print('delay_hours2', delay_hours2)
                             else:
                                 # print('leave tmam')
                                 delay_hours2 = 0
@@ -184,7 +203,7 @@ class BtHrOvertime(models.Model):
                             # print('only date',c_date)
                             temp_id = obj.id # id = 58
                             search_rec = self.env['hr.attendance'].search([('overtime_created', '=', False),
-                                                                           ('employee_id', '=', obj.employee_id.id),])
+                                                                           ('employee_id', '=', obj.employee_id.id)])
                             # print('search_rec', search_rec)
                             # for s in search_rec:
                             #     print('iddddd',  s.id)
@@ -192,8 +211,8 @@ class BtHrOvertime(models.Model):
                             #         print('#@@@@@')
                             #         count = 0
                             for rec in search_rec:
-                                # print('rec=', rec) # 58
-                                if temp_id == rec.id: #58
+                                # print('rec=', rec)  # 58
+                                if temp_id == rec.id:  #58
                                     # print('emp leave in end of day')
                                     pass
                                     # print('total delay in an ou in all current day', current_delay_hours)
@@ -299,12 +318,56 @@ class BtHrOvertime(models.Model):
                         for contract in contract_obj:
                             working_hours = contract.work_hours
                             # print('w', working_hours)
-                            if actual_working_hours > working_hours:
-                                overtime_hours = actual_working_hours - working_hours
+                            # if actual_working_hours > working_hours:
+                            # print('check out',contract.end_hour)
+                            h_end = str(contract.end_hour).split('.')[0]
+                            # print('h_end=', h_end)
+                            m_end = str(contract.end_hour).split('.')[1]
+                            # print('m_end=', m_end)
+                            if len(m_end) == 1:
+                                m_end = m_end + '0'
+                                # print('m_end=', m_end)
+                            else:
+                                m_end = m_end
+                            total_end_work_hour = str(h_end) + '.' + str(m_end)
+                            # print('total_end_work_hour', total_end_work_hour)
+                            # print('check out',total_h2_m2)
+                            total_actual_working_hours_after_end_day = (int(h2) - int(h_end) ) * 60
+                            # print('total_actual_working_hours_after_end_day', total_actual_working_hours_after_end_day)
+                            total_actual_working_min_after_end_day = int(m2) - int(m_end)
+                            # print('total_actual_working_min_after_end_day', total_actual_working_min_after_end_day)
+                            total_all = total_actual_working_hours_after_end_day + total_actual_working_min_after_end_day
+                            # print('total_all', total_all)
+                            if total_all < 0:
+                                total_all = total_all
+                                # print('total_all', total_all)
+                            # if float(total_h2_m2) >= 18.30:
+                            if total_all >= 90:
+                                # print("check out more than 18.30")
+                                # print('current_time_out', total_h2_m2)
+                                # overtime_hours = actual_working_hours - working_hours
+                                # h2 mean that check out hour
+                                # ov_h = h2 - h_end
+                                # print('ov_h',ov_h)
+                                # ov_m = (int(m2)) / 60   # convert to hours
+                                # print('ov_m', ov_m)
+                                # final_time = ((ov_h + ov_m) * 60) - 30 #covert to min - 30 because he have break
+                                final_time = total_all - 30 #covert to min - 30 because he have break
+                                # print('final_time',final_time)
+                                if final_time <= 0:
+                                    final_time = 0
+                                else:
+                                    final_time = final_time
+                                # overtime_hours = actual_working_hours - working_hours
+                                overtime_hours = final_time
+                                print('overtime_hours1',overtime_hours)
                                 overtime_hours2 = overtime_hours
                                 # print('ov2', overtime_hours2)
-                                if start_day in ['Friday', 'Saturday']:
-                                    overtime_hours2 *= 2
+                                # if start_day in ['Friday', 'Saturday']:
+                                if start_day in ['Friday']:
+                                    # print('actual working hours', actual_working_hours)
+                                    overtime_hours2 = ((actual_working_hours - 1) * 60) * 2
+                                    # overtime_hours2 *= 2
                                 else:
                                     overtime_hours2 *= 1.5
                                 # get Month and year from start_date
@@ -333,6 +396,22 @@ class BtHrOvertime(models.Model):
                                 obj.TT_id = True
                                 # remove # in line before
                             else:
+                                if start_day in ['Friday']:
+                                    # print('actual working hours', actual_working_hours)
+                                    overtime_hours = (actual_working_hours - 1) * 60
+                                    overtime_hours2 = ((actual_working_hours - 1) * 60) * 2
+                                    # overtime_hours2 *= 2
+                                else:
+                                    # if 18.30 > float(total_h2_m2) > 17:
+                                    # if float(total_h2_m2) == 18.20:
+                                    if total_all >= 60:
+                                        # print("check out = 18 or less than 18.30")
+                                        overtime_hours = 1 * 60
+                                        overtime_hours2 = 1.5 * 60
+                                    else:
+                                        # print("total all less than 60 min")
+                                        overtime_hours2 = 0
+                                        overtime_hours = 0
                                 current_start = str(start_date)
                                 cur_d = current_start.split('-')
                                 y, m, d = cur_d
@@ -343,8 +422,8 @@ class BtHrOvertime(models.Model):
                                     'check_out_date': obj.check_out,
                                     'year': y,
                                     'month': m,
-                                    'overtime_hours': 0,
-                                    'overtime_hours2': 0,
+                                    'overtime_hours': overtime_hours,
+                                    'overtime_hours2': overtime_hours2,
                                     'delay_hours': delay_hours,
                                     'attendance_id': obj.id,
                                 }
@@ -486,68 +565,69 @@ class BtHrOvertime(models.Model):
             # print(ova_obj)
             months = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7,
                       'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
-            for line in ova_obj:
-                # print('s====', line['start_date'])
-                # print(line)
-                # print('em', line.employee_id.id)
-                # print(line['overtime_hours'])
-                # print(line['start_date'])
-                mt = line['start_date'].split(' ')
-                # print('start date=',mt)
-                # print(months[mt[0]])
-                m = months[mt[0]]
-                m_n = mt[0]
-                # print('m_n =' ,m_n)
-                # print('Month =' ,m)
-                # print(mt[1])
-                y = mt[1]
-                # print('y===', y)
-                s = line['start_date']
-                # print('s=', s)
-                # first day in all current months
-                first_day = parser.parse(s) + relativedelta.relativedelta(day=1)
-                first_day_only_date = first_day.strftime('%m-%d-%Y')
-                # print('first_day_only_date', first_day_only_date)
-                # o_d = only_date[0]
-                # print('only date', o_d)
-                # print('first_day =', first_day)
-                last_day = parser.parse(s) + relativedelta.relativedelta(months=+1, day=1, days=-1)
-                last_day_only_date = last_day.strftime('%m-%d-%Y')
-                # print('last_day only date =', last_day_only_date)
-                # print('last_day =', last_day)
-                # overtime_hours
-                x = line['overtime_hours']
-                x2 = line['overtime_hours2']
-                x3 = line['delay_hours'] - 60
-                if x3 > 0:
-                    x3 = x3
-                else:
-                    x3 = 0
-                # print('x2=', x2)
-                # print(line['__domain'][4][2])
-                record = self.env['overtime.request'].search([('employee_id', '=', (line['__domain'][4][2])),
-                                                              ('month', '=', m), ('year', '=', y)])
-                # print('record =', record)
-                if record:
-                    pass
-                else:
-                    # print("creat")
-                    # print('other R', record)
-                    self.env['overtime.request'].create({
-                        'employee_id': employee.id,
-                        # 'employee_id': employee.name,
-                        'num_of_hours': x,
-                        'num_of_hours2': x2,
-                        'total_delay_hours': x3,
-                        'month': m,
-                        'month_n': m_n,
-                        'year': y,
-                        'start_date': first_day_only_date,
-                        'end_date': last_day_only_date,
-                    })
+            if ova_obj:
+                for line in ova_obj:
+                    # print('s====', line['start_date'])
+                    # print(line)
+                    # print('em', line.employee_id.id)
+                    # print(line['overtime_hours'])
+                    # print(line['start_date'])
+                    if line['start_date']:
+                        mt = line['start_date'].split(' ')
+                        # print('start date=',mt)
+                        # print(months[mt[0]])
+                        m = months[mt[0]]
+                        m_n = mt[0]
+                        # print('m_n =' ,m_n)
+                        # print('Month =' ,m)
+                        # print(mt[1])
+                        y = mt[1]
+                        # print('y===', y)
+                        s = line['start_date']
+                        # print('s=', s)
+                        # first day in all current months
+                        first_day = parser.parse(s) + relativedelta.relativedelta(day=1)
+                        first_day_only_date = first_day.strftime('%m-%d-%Y')
+                        # print('first_day_only_date', first_day_only_date)
+                        # o_d = only_date[0]
+                        # print('only date', o_d)
+                        # print('first_day =', first_day)
+                        last_day = parser.parse(s) + relativedelta.relativedelta(months=+1, day=1, days=-1)
+                        last_day_only_date = last_day.strftime('%m-%d-%Y')
+                        # print('last_day only date =', last_day_only_date)
+                        # print('last_day =', last_day)
+                        # overtime_hours
+                        x = line['overtime_hours']
+                        x2 = line['overtime_hours2']
+                        x3 = line['delay_hours'] - 60
+                        if x3 > 0:
+                            x3 = x3
+                        else:
+                            x3 = 0
+                        # print('x2=', x2)
+                        # print(line['__domain'][4][2])
+                        record = self.env['overtime.request'].search([('employee_id', '=', (line['__domain'][4][2])),
+                                                                      ('month', '=', m), ('year', '=', y)])
+                        # print('record =', record)
+                        if record:
+                            pass
+                        else:
+                            # print("creat")
+                            # print('other R', record)
+                            self.env['overtime.request'].create({
+                                'employee_id': employee.id,
+                                # 'employee_id': employee.name,
+                                'num_of_hours': x,
+                                'num_of_hours2': x2,
+                                'total_delay_hours': x3,
+                                'month': m,
+                                'month_n': m_n,
+                                'year': y,
+                                'start_date': first_day_only_date,
+                                'end_date': last_day_only_date,
+                            })
 
-
-# __________ Employee Absence days________________________________________________
+# __________ Employee Absence days___________________________
     @api.model
     def create_Absence_monthly(self):
         employee_ids = self.env['hr.employee'].search([])
@@ -557,11 +637,11 @@ class BtHrOvertime(models.Model):
                                                          fields=['employee_id', 'start_date'],
                                                          groupby=['start_date'], lazy=False)
             # print('=============================')
-            print(all_obj)
+            # print(all_obj)
             months = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7,
                       'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
             for line in all_obj:
-                print('uuu' * 4)
+                # print('uuu' * 4)
                 total_days = line['__count']
                 # print('num_of_days =' ,total_days)
                 xyz = line['start_date'].split(' ')
@@ -573,7 +653,7 @@ class BtHrOvertime(models.Model):
                 year_n = xyz[1]
                 # print('y==',year_n)
                 s = line['start_date']
-                print('s=', s)
+                # print('s=', s)
                 # first day in all current months
                 first_day = parser.parse(s) + relativedelta.relativedelta(day=1)
                 first_day_only_date = first_day.strftime('%m-%d-%Y')
@@ -691,7 +771,7 @@ class TheAbsence(models.Model):
     # @api.depends('employee_id')
     @api.onchange('employee_id')
     def onchange_employee_id(self):
-        print('hiioo')
+        # print('hiioo')
         if self.employee_id:
             self.job_id = self.employee_id.job_id
             self.department_id = self.employee_id.department_id
@@ -716,7 +796,7 @@ class TheAbsenceMonthly(models.Model):
     # @api.depends('employee_id')
     @api.onchange('employee_id')
     def onchange_employee_id(self):
-        print('PP' * 4)
+        # print('PP' * 4)
         if self.employee_id:
             self.job_id = self.employee_id.job_id
             self.department_id = self.employee_id.department_id
@@ -736,7 +816,7 @@ class HrLeavesInheritCustom(models.Model):
                 if rec.request_hour_from and rec.request_hour_to:
                     # get string of selection field from _name = "hr.leave"
                     from_t = dict(self._fields['request_hour_from'].selection).get(self.request_hour_from)
-                    print('ffffff==', from_t)
+                    # print('ffffff==', from_t)
                     if from_t == '0:30 AM':
                         from_t = '12:30 AM'
                     elif from_t == '0:30 PM':
@@ -744,13 +824,13 @@ class HrLeavesInheritCustom(models.Model):
                     in_time = datetime.datetime.strptime(from_t, '%I:%M %p')
                     # convert pm string to 24 hrs time python
                     out_time = datetime.datetime.strftime(in_time, "%H:%M")
-                    print('out==', out_time)
+                    # print('out==', out_time)
                     ff = out_time.split(' ')[0]
-                    print('ff===', ff)
+                    # print('ff===', ff)
                     ff_h = ff.split(':')[0]
                     ff_m = ff.split(':')[1]
                     f1 = timedelta(hours=int(ff_h), minutes=int(ff_m))
-                    print('f1=',f1)
+                    # print('f1=', f1)
                     to_t = dict(self._fields['request_hour_to'].selection).get(self.request_hour_to)
                     if to_t == '0:30 AM':
                         to_t = '12:30 AM'
@@ -759,24 +839,24 @@ class HrLeavesInheritCustom(models.Model):
                     in_time2 = datetime.datetime.strptime(to_t, '%I:%M %p')
                     # convert pm string to 24 hrs time python
                     out_time2 = datetime.datetime.strftime(in_time2, "%H:%M")
-                    print('out===', out_time2)
+                    # print('out===', out_time2)
                     tt = out_time2.split(' ')[0]
-                    print('tt==', tt)
+                    # print('tt==', tt)
                     tt_h = tt.split(':')[0]
                     tt_m = tt.split(':')[1]
                     t2 = timedelta(hours=int(tt_h), minutes=int(tt_m))
-                    print('t2=', t2)
+                    # print('t2=', t2)
                     arrival = t2 - f1
-                    print('arrival==', arrival)
+                    # print('arrival==', arrival)
                     if '-1 day,' in str(arrival):
-                        print("TTT" * 22)
+                        # print("TTT" * 22)
                         raise UserError(_("Please Select Valid Hours... Am and Pm"))
                     else:
                         # convert time to float hour and min
                         only_h = str(arrival).split(':')[0]
                         only_m = str(arrival).split(':')[1]
                         total_h_m = str(only_h) + '.' + only_m
-                        print('TT=', total_h_m)
+                        # print('TT=', total_h_m)
                         rec.time_request = total_h_m
 
     @api.constrains('request_date_from')
@@ -791,6 +871,6 @@ class HrLeavesInheritCustom(models.Model):
                     ('state', 'not in', ['cancel', 'refuse']),
                 ]
                 nholidays = self.search_count(domain)
-                print('KKKKKKKK',nholidays)
+                # print('KKKKKKKK', nholidays)
                 if nholidays:
                     raise ValidationError(_('You can not have 2 leaves that overlap on the same day.(Choose another day)'))

@@ -112,7 +112,8 @@
         <xpath expr="//field[@name='resource_calendar_id']" position="after">
           <field name="work_hours"/>
           <field name="start_hour" widget="float_time"/>
-          <field name="end_hour" widget="float_time"/>
+<!--          <field name="end_hour" widget="float_time"/>-->
+          <field name="end_hour"/>
         </xpath>
       </field>
     </record>
