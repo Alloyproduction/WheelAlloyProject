@@ -5,6 +5,8 @@ from odoo import models, fields, api, _
 
 class SaleOrderSource(models.Model):
     _name = "sale.order.source"
+    _order = 'name ASC'
+    
     name = fields.Char()
 
 
