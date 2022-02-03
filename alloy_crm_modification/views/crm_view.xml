@@ -49,7 +49,6 @@
                     <field name="is_lost_blue" invisible="1"/>
                     <field name="is_lost_green" invisible="1"/>
                     <field name="is_lost" invisible="1"/>
-                    <field name="is_lost_14t" invisible="1"/>
                     <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
                     <field name="city_id" required="1"/>
