@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from datetime import datetime
 
+
 class Wizard(models.TransientModel):
     _name = 'salesman.wizard'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -78,3 +79,4 @@ class Wizard(models.TransientModel):
             # self.send_m("New Quotation Need for Follow up ","New Quotation Need for Follow up "+str(self.sale_order_id.name),recipient_partners)
             self.send_notification_to_s()
             return {}
+

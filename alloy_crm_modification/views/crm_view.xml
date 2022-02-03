@@ -1,419 +1,376 @@
 <odoo>
-  <data>
-    <template id="assets_backend_timer" name="timer assets" inherit_id="web.assets_backend">
-      <xpath expr="." position="inside">
-        <script type="text/javascript" src="/alloy_crm_modification/static/src/js/change_color.js"></script>
-        <!--     <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>   -->
-      </xpath>
-    </template>
+    <data>
+ <template id="assets_backend_timer" name="timer assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/alloy_crm_modification/static/src/js/change_color.js"></script>
+            <!--     <script type="text/javascript" src="/project_task_timer_app/static/src/js/play_suggestion.js"></script>   -->
+            </xpath>
+        </template>
 
-    <record id="crm_lead_form_inherit2" model="ir.ui.view">
-      <field name="name">crm.lead</field>
-      <field name="model">crm.lead</field>
-      <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
-      <field name="arch" type="xml">
-        <xpath expr="//button[@name='%(sale_crm.sale_action_quotations_new)d']" position="replace">
-          <button string="New Quotation" name="get_quotation_order" type="object" class="oe_highlight"
-                  attrs="{'invisible': ['&amp;', ('probability', '=', 0)]}"
-                  groups="alloy_crm_modification.group_view_create_crm_quotation_button"
-          />
-          <!--,  ('active', '=', False)-->
-        </xpath>
-      </field>
-    </record>
+        <record id="crm_lead_form_inherit2" model="ir.ui.view">
+            <field name="name">crm.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(sale_crm.sale_action_quotations_new)d']" position="replace">
+                    <button string="New Quotation" name="get_quotation_order" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('probability', '=', 0)]}"
+                            groups="alloy_crm_modification.group_view_create_crm_quotation_button"
+                    />
 
-    <record id="crm_lead_form_inherit" model="ir.ui.view">
-      <field name="name">crm.lead</field>
-      <field name="model">crm.lead</field>
-      <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
-      <field name="arch" type="xml">
+                </xpath>
+            </field>
+        </record>
 
-        <xpath expr="//field[@name='partner_id']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='email_from']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='phone']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='date_deadline']" position="after">
-          <field name="mobile"/>
-          <field name="logistic_user_id"/>
-          <field name="lead_user_id"/>
-          <field name="agency_location_id"/>
-          <field name="car_type_id" string="Car Make"/>
-          <field name="is_insured"/>
-          <field name="claim_number"
-                 attrs="{'invisible':[('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
-          <field name="is_company" invisible="1"/>
-          <field name="is_lost_blue" invisible="1"/>
-          <field name="is_lost_green" invisible="1"/>
-          <field name="is_lost_14t" invisible="1"/>
-          <field name="is_lost" invisible="1"/>
-          <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
+        <record id="crm_lead_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="after">
+                    <field name="mobile"  />
+                    <field name="logistic_user_id"  />
+                    <field name="lead_user_id"  />
+                    <field name="agency_location_id" />
+                    <field name="car_type_id" string="Car Make"  />
+                    <field name="is_insured" />
+                    <field name="claim_number" attrs="{'invisible':[('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="is_lost_blue" invisible="1"/>
+                    <field name="is_lost_green" invisible="1"/>
+                    <field name="is_lost" invisible="1"/>
+                    <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
-          <field name="city_id" required="1"/>
-          <field name="location" string="Location" widget="url"/>
-          <field name="sales_id" readonly="1"/>
-        </xpath>
+                    <field name="city_id" required="1"/>
+                    <field name="location" string="Location" widget="url"/>
+                    <field name="sales_id" readonly="1"/>
+                </xpath>
 
-        <xpath expr="//field[@name='user_id']" position="before">
-          <field name="call_reason" string="Call Reason"/>
-          <field name="call_reason_explain" string="Explain the Reason"/>
-        </xpath>
-        <xpath expr="//header" position="inside">
-          <button string="Send to Logistic"
-                  name="send_notification_to_logistic"
-                  type="object" class="oe_highlight"
-                  groups="alloy_crm_modification.view_send_logistic_button" invisible="1"/>
-          <button string="Close" name="set_close_color_red" type="object" class="oe_highlight"
-                  attrs="{'required': [('is_lost_14t','=',True)],
-                          'invisible':[('is_lost_14t','=',False)]}"
-                  invisible="0"/>
-          <!--                            attrs="{'invisible': [('state', '!=', 'draft')]}"-->
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="call_reason" string="Call Reason"/>
+                    <field name="call_reason_explain" string="Explain the Reason"/>
+                </xpath>
 
-        </xpath>
-        <xpath expr="//notebook" position="inside">
-          <page string="Order Lines">
-            <field name="crm_order_line_ids">
-              <tree string="Sales Order Lines" editable="bottom">
-                <field name="product_id"/>
-                <!--<field name="name" widget="section_and_note_text"/>-->
-                <field name="product_uom_qty" string="Ordered Qty"/>
-                <!--<field name="product_uom"/>-->
-                <!--<field name="price_unit"/>-->
-              </tree>
+
+                <xpath expr="//header" position="inside">
+                    <button string="Send to Logistic"
+                            name="send_notification_to_logistic"
+                            type="object" class="oe_highlight"
+                            groups="alloy_crm_modification.view_send_logistic_button" invisible="1"/>
+<!--                            attrs="{'invisible': [('state', '!=', 'draft')]}"-->
+
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Order Lines">
+                        <field name="crm_order_line_ids">
+                            <tree string="Sales Order Lines" editable="bottom">
+                                <field name="product_id"/>
+                                <!--<field name="name" widget="section_and_note_text"/>-->
+                                <field name="product_uom_qty" string="Ordered Qty"/>
+                                <!--<field name="product_uom"/>-->
+                                <!--<field name="price_unit"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
             </field>
-          </page>
-
-          <!--          <xpath expr="//notebook" position="inside">-->
-          <page string="Time stamp">
-            <field name="stage_date" invisible="1"/>
-            <field name="stage_date_2" invisible="1"/>
-            <field name="is_delivery_stage" invisible="1"/>
-            <field name="is_delete_stage" invisible="1"/>
-            <field name="stage_time_ids">
-              <tree string="Time stamp" create="false">
-                <field name="project_task_id" invisible="1"/>
-                <field name="stage_from_id" force_save="1"/>
-                <field name="stage_to_id" force_save="1"/>
-                <field name="date_from" force_save="1"/>
-                <field name="date_to" force_save="1"/>
-                <field name="total_time" force_save="1"/>
-                <field name="time_between_stages" invisible="1"/>
-              </tree>
-              <form string="Time stamp">
-                <field name="stage_from_id" force_save="1"/>
-                <field name="stage_to_id" force_save="1"/>
-                <field name="date_from" force_save="1"/>
-                <field name="date_to" force_save="1"/>
-              </form>
-            </field>
-          </page>
-          <page string="Signature" attrs="{'invisible':[('is_delivery_stage', '!=', True)]}">
-            <label for="alloy_digital_signature" string="Signature"/>
-            <h2>
-              <field name="alloy_digital_signature" widget="signature"/>
-            </h2>
-          </page>
-          <!--          </xpath>-->
-        </xpath>
-
-      </field>
-    </record>
+        </record>
 
 
-    <record id="crm_lead_form_inherit33" model="ir.ui.view">
-      <field name="name">crm.lead</field>
-      <field name="model">crm.lead</field>
-      <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
-      <field name="arch" type="xml">
+        <record id="crm_lead_form_inherit33" model="ir.ui.view">
+            <field name="name">crm.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
 
-        <xpath expr="//header" position="inside">
-          <button string="Send to Logistic"
-                  name="send_notification_to_logistic"
-                  type="object" class="oe_highlight"
-                  attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
-                  groups="alloy_crm_modification.view_send_logistic_button"
-          />
-          <button string="New Quotation"
-                  name="get_quotation_order"
-                  type="object" class="oe_highlight"
-                  attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
-                  groups="alloy_crm_modification.group_view_create_crm_quotation_button"
-          />
-          <!--                    <button name="1376"-->
-          <!--                             string="Mark Lost"-->
-          <!--                             type="action"-->
-          <!--                             class="oe_highlight"-->
-          <!--                             context="{'default_lead_id': active_id}"-->
-          <!--                             attrs="{'invisible': [('active', '=', False),('probability', '&lt;', 100)]}" />-->
-          <field name="stage_id" widget="statusbar"/>
-        </xpath>
+                <xpath expr="//header" position="inside">
+                    <button string="Send to Logistic"
+                            name="send_notification_to_logistic"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
+                            groups="alloy_crm_modification.view_send_logistic_button"
+                            />
+                    <button string="New Quotation"
+                            name="get_quotation_order"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['&amp;', ('stage_id', '=', 'Lost'),('probability', '=', 0), ('active', '=', False)]}"
+                            groups="alloy_crm_modification.group_view_create_crm_quotation_button"
+                            />
+<!--                    <button name="1376"-->
+<!--                             string="Mark Lost"-->
+<!--                             type="action"-->
+<!--                             class="oe_highlight"-->
+<!--                             context="{'default_lead_id': active_id}"-->
+<!--                             attrs="{'invisible': [('active', '=', False),('probability', '&lt;', 100)]}" />-->
+                    
+                        <field name="stage_id" widget="statusbar"/>
+                    
 
-        <xpath expr="//field[@name='partner_id']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='email_from']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='phone']" position="attributes">
-          <attribute name="required">1</attribute>
-        </xpath>
-        <xpath expr="//field[@name='mobile']" position="after">
-          <field name="logistic_user_id"/>
-          <field name="lead_user_id"/>
-          <field name="agency_location_id"/>
-          <field name="car_type_id" string="Car Make"/>
-          <field name="is_insured"/>
-          <field name="claim_number"
-                 attrs="{'invisible':[('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
-          <field name="is_company" invisible="1"/>
-          <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
+                   </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="after">
+                    <field name="logistic_user_id"  />
+                    <field name="lead_user_id"  />
+                    <field name="agency_location_id" />
+                    <field name="car_type_id" string="Car Make" />
+                    <field name="is_insured" />
+                    <field name="claim_number" attrs="{'invisible':[('is_insured','=',False)],'required':[('is_insured','=',True)]}"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
-          <field name="city_id" required="1"/>
-          <field name="is_lost" required="1"/>
-          <field name="location" string="Location Link" widget="url"/>
-        </xpath>
+                    <field name="city_id" required="1"/>
+                    <field name="is_lost" required="1"/>
+                    <field name="location" string="Location Link" widget="url"/>
+                </xpath>
 
-        <xpath expr="//field[@name='website']" position="after">
-          <field name="call_reason" string="Call Reason"/>
-          <field name="call_reason_explain" string="Explain the Reason"/>
-        </xpath>
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="call_reason" string="Call Reason"/>
+                    <field name="call_reason_explain" string="Explain the Reason"/>
+                </xpath>
 
-        <xpath expr="//field[@name='tag_ids']" position="after">
-          <field name="lost_reason" string="Lost Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
-          <field name="explain_lost_reason" string="Explain the Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
-        </xpath>
+                 <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="lost_reason" string="Lost Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
+                    <field name="explain_lost_reason" string="Explain the Reason" attrs="{'invisible':[('is_lost','=',False)]}"/>
+                </xpath>
 
-        <xpath expr="//notebook" position="inside">
-          <page string="Order Lines">
-            <field name="crm_order_line_ids">
-              <tree string="Sales Order Lines" editable="bottom">
-                <field name="product_id"/>
-                <!--<field name="name" widget="section_and_note_text"/>-->
-                <field name="product_uom_qty" string="Ordered Qty"/>
-                <!--<field name="product_uom"/>-->
-                <!--<field name="price_unit"/>-->
-              </tree>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Order Lines">
+                        <field name="crm_order_line_ids">
+                            <tree string="Sales Order Lines" editable="bottom">
+                                <field name="product_id"/>
+                                <!--<field name="name" widget="section_and_note_text"/>-->
+                                <field name="product_uom_qty" string="Ordered Qty"/>
+                                <!--<field name="product_uom"/>-->
+                                <!--<field name="price_unit"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
             </field>
-          </page>
-          <page string="Time stamp">
-            <field name="stage_date" invisible="1"/>
-            <field name="stage_date_2" invisible="1"/>
-            <field name="is_delivery_stage" invisible="1"/>
-            <field name="is_delete_stage" invisible="1"/>
-            <field name="stage_time_ids">
-              <tree string="Time stamp">
-                <field name="project_task_id" invisible="1"/>
-                <field name="stage_from_id" force_save="1"/>
-                <field name="stage_to_id" force_save="1"/>
-                <field name="date_from" force_save="1"/>
-                <field name="date_to" force_save="1"/>
-                <field name="total_time" force_save="1"/>
-                <field name="time_between_stages" invisible="1"/>
-              </tree>
-              <form string="Time stamp">
-                <field name="stage_from_id" force_save="1"/>
-                <field name="stage_to_id" force_save="1"/>
-                <field name="date_from" force_save="1"/>
-                <field name="date_to" force_save="1"/>
-              </form>
+        </record>
+
+
+
+        <record id="res_city_form_view" model="ir.ui.view">
+            <field name="name">city</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
             </field>
-          </page>
-        </xpath>
+        </record>
 
-      </field>
-    </record>
+        <record id="res_city_tree_view" model="ir.ui.view">
+            <field name="name">city</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
 
+        <record id="res_city_view_action" model="ir.actions.act_window">
+            <field name="name">City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
-    <record id="res_city_form_view" model="ir.ui.view">
-      <field name="name">city</field>
-      <field name="model">res.city</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group>
-              <field name="name" required="1"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-    <record id="res_city_tree_view" model="ir.ui.view">
-      <field name="name">city</field>
-      <field name="model">res.city</field>
-      <field name="arch" type="xml">
-        <tree string="">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
-
-    <record id="res_city_view_action" model="ir.actions.act_window">
-      <field name="name">City</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="res_model">res.city</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem id="res_city_root" name="City" parent="crm.crm_menu_sales" action="res_city_view_action"/>
+        <menuitem id="res_city_root" name="City" parent="crm.crm_menu_sales" action="res_city_view_action"/>
 
 
-    <record id="sale_lead_form_inherit" model="ir.ui.view">
-      <field name="name">sale.order</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale.view_order_form"/>
-      <field name="arch" type="xml">
+         <record id="sale_lead_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
 
-        <xpath expr="//field[@name='user_id']" position="attributes">
-          <attribute name="readonly">True</attribute>
-        </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
 
-        <xpath expr="//field[@name='user_id']" position="after">
-          <field name="lead_user_id" readonly="1"/>
-          <field name="sales_user_id" readonly="1"/>
-          <field name="opportunity_id" readonly="1"/>
-          <field name="user_id" invisible="1"/>
-
-
-          <field name="sales_stage"/>
-
-        </xpath>
-
-        <!--                <xpath expr="//field[@name='qc_slip_id']" position="after">-->
-        <!--                     <field name="offer_valid" />-->
-        <!--                </xpath>-->
-
-        <xpath expr="//field[@name='state']" position="attributes">
-
-          <attribute name="statusbar_visible">"draft,sent,sign,sale"</attribute>
-
-        </xpath>
-
-        <xpath expr="//header" position="after">
-          <header>
-            <button name="send_salesman" type="object"
-                    string="Send to salesman" class="oe_highlight"
-                    groups="alloy_crm_modification.view_send_logistic_button"/>
-          </header>
-        </xpath>
-      </field>
-    </record>
-
-    <record id="sale_order_form_inherit111" model="ir.ui.view">
-      <field name="name">sale.order</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale.view_order_form"/>
-      <field name="arch" type="xml">
-        <field name="order_line" attrs="{'readonly': [('state','in', ['reject','done')]}"/>
+                <xpath expr="//field[@name='user_id']" position="after">
+                        <field name="lead_user_id"  readonly="1"/>
+                        <field name="sales_user_id" readonly="1"/>
+                        <field name="opportunity_id" readonly="1"/>
+                        <field name="user_id" invisible="1"/>
 
 
-        <xpath expr="//header" position="inside">
+                        <field name="sales_stage" />
 
-          <button name="action_reject" string="Reject"
-                  type="object" class="oe_highlight" states="draft,sent,sign,sale,done,cancel"
-                  groups="sales_team.group_sale_manager"/>
-          <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
+                </xpath>
 
-        </xpath>
+<!--                <xpath expr="//field[@name='qc_slip_id']" position="after">-->
+<!--                     <field name="offer_valid" />-->
+<!--                </xpath>-->
+<!--                #######################################################################################-->
 
+   <xpath expr="//field[@name='state']" position="attributes">
 
-      </field>
-    </record>
+<attribute name="statusbar_visible">"draft,sent,sign,sale"</attribute>
 
+                </xpath>
 
-    <record id="sales_order_view_field_security_inherit" model="ir.ui.view">
-      <field name="name">sales_order_view_field_security_inherit</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale.view_order_form"/>
-      <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
-      <field name="arch" type="xml">
-        <xpath expr="//field[@name='user_id']" position="attributes">
-          <attribute name="readonly">False</attribute>
-        </xpath>
-      </field>
-    </record>
+                 <xpath expr="//header" position="after">
+                     <header>
+                        <button name="send_salesman" type="object"
+                                string="Send to salesman" class="oe_highlight"  groups="alloy_crm_modification.view_send_logistic_button" />
+                     </header>
+                </xpath>
+            </field>
+         </record>
 
-
-    <record id="sales_order_list_salesman_inherit" model="ir.ui.view">
-      <field name="name">sale.order.inherit</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
-
-      <field name="arch" type="xml">
-        <xpath expr="//field[@name='user_id']" position="after">
-
-          <field name="sales_user_id" readonly="1"/>
-
-        </xpath>
-      </field>
-    </record>
+        <record id="sale_order_form_inherit111" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="order_line" attrs="{'readonly': [('state','in', ['reject','done')]}"/>
 
 
-    <record id="crm_inherit" model="ir.ui.view">
-      <field name="name">crm.leads</field>
-      <field name="model">crm.lead</field>
-      <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
-      <field name="arch" type="xml">
-        <field name="partner_id" position="attributes">
-          <attribute name="class">.o_kanban_record_title</attribute>
+                <xpath expr="//header" position="inside">
+
+                    <button name="action_reject" string="Reject"
+                            type="object" class="oe_highlight" states="draft,sent,sign,sale,done,cancel" groups= "sales_team.group_sale_manager" />/>
+                    <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
+
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+        <record id="sales_order_view_field_security_inherit" model="ir.ui.view">
+            <field name="name">sales_order_view_field_security_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+
+<record id="sales_order_list_salesman_inherit" model="ir.ui.view">
+            <field name="name">sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+
+                        <field name="sales_user_id" readonly="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+             <record id="crm_inherit" model="ir.ui.view">
+            <field name="name">crm.leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                 <field name="partner_id" position="attributes">
+                            <attribute name="class"> .o_kanban_record_title</attribute>
+                    </field>
+                <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[2]/div[4]/div[1]/field[@name='activity_ids']" position="after"  >
+
+ <field name="is_lost_blue" widget="boolean" invisible="1"/>
+                     <field name="is_lost_green" widget="boolean" invisible="1"/>
+    				   <field name="is_lost"   widget="change_color"  />
+            	</xpath>
+
+            </field>
+         </record>
+
+
+          <record id='vehicle_name_view_form' model='ir.ui.view'>
+        <field name="name">crm.call.reason.form</field>
+        <field name="model">crm.call.reason</field>
+        <field name="arch" type="xml">
+            <form string="Crm Call Reason">
+                <sheet>
+                    <group>
+                        <field name="name" string="Name"/>
+                        <field name="description" string="Description"/>
+<!--                        <field name="car_name1" string="Car model"/>-->
+                    </group>
+                </sheet>
+            </form>
         </field>
-        <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[2]/div[4]/div[1]/field[@name='activity_ids']"
-               position="after">
-
-          <field name="is_lost_blue" widget="boolean" invisible="1"/>
-          <field name="is_lost_green" widget="boolean" invisible="1"/>
-          <field name="is_lost" widget="change_color"/>
-        </xpath>
-
-      </field>
-    </record>
-    <record id='vehicle_name_view_form' model='ir.ui.view'>
-      <field name="name">crm.call.reason.form</field>
-      <field name="model">crm.call.reason</field>
-      <field name="arch" type="xml">
-        <form string="Crm Call Reason">
-          <sheet>
-            <group>
-              <field name="name" string="Name"/>
-              <field name="description" string="Description"/>
-              <!--                        <field name="car_name1" string="Car model"/>-->
-            </group>
-          </sheet>
-        </form>
-      </field>
     </record>
 
     <record id='vehicle_price_view_tree' model='ir.ui.view'>
-      <field name="name">crm.call.reason.tree</field>
-      <field name="model">crm.call.reason</field>
-      <field name="arch" type="xml">
-        <tree string="Crm Call Reason">
-          <field name="name" string="Name"/>
-          <field name="description" string="Description"/>
-        </tree>
-      </field>
+        <field name="name">crm.call.reason.tree</field>
+        <field name="model">crm.call.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Crm Call Reason">
+                <field name="name" string="Name"/>
+                <field name="description" string="Description"/>
+            </tree>
+        </field>
     </record>
 
 
     <record id='crm_call_reason_action' model='ir.actions.act_window'>
-      <field name="name">Crm Call Reason</field>
-      <field name="res_model">crm.call.reason</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Create a new Crm Call Reason
-        </p>
-      </field>
+        <field name="name">Crm Call Reason</field>
+        <field name="res_model">crm.call.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Crm Call Reason
+            </p>
+        </field>
     </record>
 
-    <menuitem name="Call Reason" id="crm_call_reason" parent="crm.crm_menu_sales"
+        <menuitem name="Call Reason" id="crm_call_reason" parent="crm.crm_menu_sales"
               action="crm_call_reason_action"/>
 
 
-  </data>
+
+
+    </data>
 </odoo>
