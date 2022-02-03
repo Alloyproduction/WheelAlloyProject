@@ -42,23 +42,37 @@ class CrmLead(models.Model):
     @api.multi
     def write(self, values):
         if 'stage_id' in values:
-            new_stage = self.env['project.task.type'].browse(values['stage_id'])
+            # new_stage = self.env['project.task.type'].browse(values['stage_id'])
+            new_stage = self.env['crm.stage'].browse(values['stage_id'])
+            print('nn=', new_stage)
             old_stage = self.stage_id.name
+            print('nn=', old_stage)
             stage_time_id = self.env['crm.task.time']
             if new_stage.name == 'Delivery' and old_stage != 'Finished and QC':
                 if old_stage != 'Waiting':
                     raise UserError(_("You must go to Finished and QC stage first"))
+            print('stage_date', self.stage_date)
+            # daaaate = self.stage_date
+            daaaate = fields.Datetime.now()
+            if self.stage_time_ids:
+                for l in self.stage_time_ids:
+                    if l[-1].date_to:
+                        daaaate = l[-1].date_to
+                        # print('l.date_to', l[-1].date_to)
             stage_time_id.create({
                 'project_task_id': self.id,
                 'stage_from_id': self.stage_id.id,
                 'stage_to_id': new_stage.id,
-                'date_from': self.stage_date,
+                # 'date_from': self.stage_date,
+                'date_from': daaaate,
                 'date_to': fields.Datetime.now(),
             })
+            print('ffffffffffffffffffff')
             d1 = datetime.now()
-            stage_tasks = self.env['project.task'].search(
+            # stage_tasks = self.env['project.task'].search(
+            stage_tasks = self.env['crm.lead'].search(
                 [('stage_date_2', '<', d1), ('is_delete_stage', '=', False), ('stage_id.name', '=', 'Delivery')])
-            self.stage_date = fields.Datetime.now()
+            # self.stage_date = fields.Datetime.now()
             if new_stage.name == 'Delivery':
                 self.stage_date_2 = self.stage_date + timedelta(days=2)
                 print(self.stage_date_2)
@@ -67,19 +81,18 @@ class CrmLead(models.Model):
                     print(line.stage_date_2)
                     line.is_delete_stage = True
                     print(line.is_delete_stage)
-
                 # x = self.env['project.task'].search([])
                 # for i in x:
                 #     if new_stage.name == 'Delivery':
                 #         if i.stage_date_2:
                 #             if i.stage_date_2 < d1:
                 #                i.is_delete_stage = True
-
             if self.env.user.stage_ids and values['stage_id'] in self.env.user.stage_ids.ids:
-
                 if self.stage_id.id != 73 or self.task_run == True:
+                    print('line'*5)
                     return super(CrmLead, self).write(values)
                 else:
+                    print('lineeeee'*5)
                     return super(CrmLead, self).write(values)
                 # if self.stage_id.id != 73 or self.task_run == True:
                 #     return super(CrmLead, self).write(values)
@@ -88,20 +101,28 @@ class CrmLead(models.Model):
             else:
                 raise UserError(_("You aren't allowed to change to this stage"))
         elif 'alloy_digital_signature' in values:
-            old_stage = self.env['project.task.type'].search([('name', '=', 'Delivery')], limit=1)
-            new_stage = self.env['project.task.type'].search([('name', '=', 'signature')], limit=1)
+            # old_stage = self.env['project.task.type'].search([('name', '=', 'Delivery')], limit=1)
+            old_stage = self.env['crm.stage'].search([('name', '=', 'Delivery')], limit=1)
+            # new_stage = self.env['project.task.type'].search([('name', '=', 'signature')], limit=1)
+            new_stage = self.env['crm.stage'].search([('name', '=', 'signature')], limit=1)
             stage_time_id = self.env['crm.task.time']
+            daaaate = fields.Datetime.now()
+            if self.stage_time_ids:
+                for l in self.stage_time_ids:
+                    if l[-1].date_to:
+                        daaaate = l[-1].date_to
+                        # print('l.date_to', l[-1].date_to)
             if new_stage and old_stage:
                 stage_time_id.create({
                     'project_task_id': self.id,
                     'stage_from_id': old_stage.id,
                     'stage_to_id': new_stage.id,
-                    'date_from': self.stage_date,
+                    # 'date_from': self.stage_date,
+                    'date_from': daaaate,
                     'date_to': fields.Datetime.now(),
                 })
-            self.stage_date = fields.Datetime.now()
-            return super(CrmLead, self).write(values)
-        else:
+            # self.stage_date = fields.Datetime.now()
+            print('dddddddddddddddaaaaaaaa')
             return super(CrmLead, self).write(values)
         if self.is_insured == True:
             print("zaki...")
@@ -332,10 +353,10 @@ class CrmLead(models.Model):
         # print('len==', len(crm_leads_ids))
         # stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
         stage_lost = self.env['crm.lead'].search([('stage_id', '=', 'Lost')])
-        # print("stage==", stage_lost)
-        # print("stage=len=", len(stage_lost))
+        print("stage==", stage_lost)
+        print("stage=len=", len(stage_lost))
         for rec in stage_lost:
-            # print('name=', rec.name), print('id=', rec.id)
+            print('name=', rec.name), print('id=', rec.id)
             # print('id all=', rec.stage_time_ids)
             if rec.stage_time_ids:
                 for line in rec.stage_time_ids[-1]:
@@ -351,11 +372,10 @@ class CrmLead(models.Model):
                         # print("diff", diff)
                         if diff:
                             # print('doooooooone')
-                            # print("dif11f", diff.split(',')[0])
                             www = str(diff).split(' ')[0]
                             # print("dif11f", www)
                             if int(www) >= 14 and rec.is_lost_14t == False:
-                                print('AAAAAAAAAAAAA')
+                                # print('AAAAAAAAAAAAA')
                                 # print('Arec.is_lost_greenAAAAA', rec.is_lost_green)
                                 rec.is_lost_green = True
                                 rec.is_lost_14t = True
@@ -537,37 +557,44 @@ class SalesOrdercrm(models.Model):
     @api.multi
     def action_confirm_replica(self):
         c = 0
-        print(len(self.order_line))
+        # print(len(self.order_line))
         for rec in self.order_line:
             if rec.product_id.type == 'product':
-                c+=1
+                c += 1
         if c == len(self.order_line):
             self.action_confirm2()
             print(" hi .. iam storable ")
         else:
-           if c == 0:
-
-                # if not self.alloy_digital_signature:
-                #     raise UserError(_("You must add Your signature"))
-                # if self.alloy_digital_signature:
+            print('Elseeeeeeeeeeee')
+            if c == 0:
+                print('lineeeeqqqqe' * 5)
+                if self.alloy_digital_signature:
+                    print('lineeeeaaaaaae' * 5)
                     super(SalesOrdercrm, self).action_confirm_replica()
+                    print('linzzzzzzeeeee' * 5)
                     if self.is_insured == False:
-                      for rec in self:
-                        won = self.env['crm.stage'].search([('name', '=', 'Won')])
-                        rec.opportunity_id.write({
-                            'stage_id': won.id
-                        })
-                    else:
+                        print('lqqqqqineeeee' * 5)
                         for rec in self:
+                            print('linqqqeeeee' * 5)
                             won = self.env['crm.stage'].search([('name', '=', 'Won')])
+                            # print('won id =', won.id)
+                            # print('won id =', rec.id)
                             rec.opportunity_id.write({
-                                'stage_id': won.id
+                               'stage_id': won.id
                             })
-                    self.send_notification("The Quotation Was confirmed",str(self.name) +"The Quotation Was confirmed"+ '.')
-                # else:
-                #     raise UserError(_("You must add Your signature"))
-           else:
-               raise UserError(_("All Products must be storable products or Services"))
+                    else:
+                       for rec in self:
+                           won = self.env['crm.stage'].search([('name', '=', 'Won')])
+                           rec.opportunity_id.write({
+                               'stage_id': won.id
+                           })
+                    self.send_notification("The Quotation Was confirmed",
+                                           str(self.name) + "The Quotation Was confirmed" + '.')
+                else:
+                    raise UserError(_("You must add Your signature"))
+            else:
+                raise UserError(_("All Products must be storable products or Services"))
+
     # @api.multi
     # def action_confirm(self):
     #     if self.alloy_digital_signature:
