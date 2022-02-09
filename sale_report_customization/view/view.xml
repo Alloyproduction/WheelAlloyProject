@@ -29,6 +29,9 @@
 
                             </div>
                         </div>
+
+
+
                <t t-if="doc.partner_id.mobile">
                    <div style="overflow:hidden">
                       <div class="left" style="float: left;white-space: nowrap;">
@@ -102,6 +105,23 @@
                         </div>
                  </t>
                 <br/>
+            </xpath>
+
+             <xpath expr="/t/t/div[2]/h2" position="after">
+
+             <div t-if="doc.confirmation_date and doc.state in ['sale','done','reject','cancel']" class="col-auto mw-100 mb-2">
+                    <strong>Date Ordered:</strong>
+                    <p class="m-0" t-field="doc.confirmation_date"/>
+                </div>
+                <div t-if="doc.date_order and doc.state in ['draft','sent','sign']" class="col-auto mw-100 mb-2">
+                    <strong>Quotation Date:</strong>
+                    <p class="m-0" t-field="doc.date_order"/>
+                </div>
+                <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                    <strong>Salesperson:</strong>
+                    <p class="m-0" t-field="doc.user_id"/>
+                </div>
+            <br/>
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/div[2]" position="after">
