@@ -1,0 +1,58 @@
+<odoo>
+
+    <record id="hr_leave_inherit_form_manager1" model="ir.ui.view">
+        <field name="name">hr.leave.inherit.form</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//header" position="replace">
+
+                <header>
+
+                    <!--                <button name="action_reject" string="Reject"-->
+                    <!--                        type="object" class="oe_highlight" states="draft,confirm"/>-->
+
+                    <!--&lt;!&ndash;                        groups="alloy_leave.group_hr_approve"/>&ndash;&gt;-->
+
+                    <button name="action_confirm" string="Department manger" type="object" class="oe_highlight"
+                            states="send" groups="alloy_leave_custom.group_department_leave_approve" />
+
+                    <button name="action_validate" string="HR Approve" type="object" class="oe_highlight"
+                            states="confirm" groups="alloy_leave_custom.group_hr_leave_approve" />
+
+                    <button name="action_approve" string="CEO Approve" type="object" class="oe_highlight"
+                            states="validate1" groups="alloy_leave_custom.group_ceo_leave_approve"/>
+
+                    <button name="action_refuse" string="Refuse" type="object" class="oe_highlight"
+                            states="send,confirm,validate1,validate" groups="alloy_leave_custom.group_admin_leave_approve"/>
+
+                    <button name="action_draft" string="Set to draft" type="object" class="oe_highlight"
+                            states="refuse,cancel" groups="alloy_leave_custom.group_admin_leave_approve"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,cancel,send,refuse,confirm,validate1,validate"/>
+                </header>
+
+            </xpath>
+
+
+
+            <xpath expr="//header" position="after">
+                     <header>
+                    <button name="action_send" string="Send Request" type="object" class="oe_highlight"
+                        states="draft"/>
+                     </header>
+             </xpath>
+
+
+            <xpath expr="//field[@name='holiday_status_id']" position="before">
+                <field name="leave_code"/>
+                <field name="doc_attachment_id" widget="many2many_binary"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
