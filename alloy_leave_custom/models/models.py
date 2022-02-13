@@ -16,14 +16,31 @@ class alloyleave(models.Model):
                                          help='You can attach the copy of your document here ', copy=False)
 
 
-    state = fields.Selection(selection_add=[
-                                               ("send", "Send"),
-                                               ('draft', 'TO Submit'), ('cancel', 'Cancelled'),
-                                               ('refuse', 'Refused'),
-                                               ('send', 'Send'),
-                                               ('confirm', 'To Approve'),
-                                               ('validate1', 'second Approval'), ('validate', 'Approved')])
+    state = fields.Selection([
+        ('draft', 'To Submit'),
+        ('cancel', 'Cancelled'),
+        ('confirm', 'To Approve'),
+        ('refuse', 'Refused'),
+        ('validate1', 'Second Approval'),
+        ('send', 'Send Request'),
+        ('validate', 'Approved')
+        ], string='Status', readonly=True, track_visibility='onchange', copy=False, default='draft',
+        help="The status is set to 'To Submit', when a leave request is created." +
+        "\nThe status is 'To Approve', when leave request is confirmed by user." +
+        "\nThe status is 'Refused', when leave request is refused by manager." +
+        "\nThe status is 'Approved', when leave request is approved by manager.")
 
+
+
+    # state = fields.Selection(selection_add=[
+    #                                            ("send", "Send"),
+    #                                            ('draft', 'TO Submit'), ('cancel', 'Cancelled'),
+    #                                            ('refuse', 'Refused'),
+    #                                            ('send', 'Send'),
+    #                                            ('confirm', 'To Approve'),
+    #                                            ('validate1', 'second Approval'), ('validate', 'Approved')])
+
+    # 'cas_sexe': fields.selection([('femme', 'انثى'), ('homme', 'ذكر')], 'Gender),
 
 
 
@@ -121,19 +138,18 @@ class alloyleave(models.Model):
 
     @api.multi
     def action_send(self):
-        user_group = self.env.ref("alloy_leave_custom.group_department_leave_approve")
-        sub = _("Leave Request")
-        content = _(
-            "Hello,<br>Mr/Mrs: <b>" + str(
-                self.create_uid.name) + "</b> Has a <b>Leave</b> request requires your approve," \
-                                        "<br>May you check it please.. ")
-        self._send_email_request(user_group, sub, content)
+        # user_group = self.env.ref("alloy_leave_custom.group_department_leave_approve")
+        # sub = _("Leave Request")
+        # content = _(
+        #     "Hello,<br>Mr/Mrs: <b>" + str(
+        #         self.create_uid.name) + "</b> Has a <b>Leave</b> request requires your approve," \
+        #                                 "<br>May you check it please.. ")
+        # self._send_email_request(user_group, sub, content)
 
         self.write({'state': 'send'})
         self.activity_update()
         return True
 
-        # return self.write({'state': 'send'})
 
 
 

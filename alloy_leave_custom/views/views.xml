@@ -26,13 +26,13 @@
                             states="validate1" groups="alloy_leave_custom.group_ceo_leave_approve"/>
 
                     <button name="action_refuse" string="Refuse" type="object" class="oe_highlight"
-                            states="send,confirm,validate1,validate" groups="alloy_leave_custom.group_admin_leave_approve"/>
+                            states="draft,confirm,validate1,validate" groups="alloy_leave_custom.group_admin_leave_approve"/>
 
                     <button name="action_draft" string="Set to draft" type="object" class="oe_highlight"
                             states="refuse,cancel" groups="alloy_leave_custom.group_admin_leave_approve"/>
 
                     <field name="state" widget="statusbar"
-                           statusbar_visible="draft,cancel,send,refuse,confirm,validate1,validate"/>
+                           statusbar_visible="draft,send,cancel,refuse,confirm,validate1,validate"/>
                 </header>
 
             </xpath>
