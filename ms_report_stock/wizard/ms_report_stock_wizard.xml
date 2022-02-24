@@ -9,7 +9,7 @@
       <field name="arch" type="xml">
         <xpath expr="//search" position="inside">
           <filter name="filter_archived" string="Archived" domain="[('product_id.active', '=', False)]"/>
-          <filter name="filter_archived" string="Not Archived" domain="[('product_id.active', '=', True)]"/>
+          <filter name="filter_not_archived" string="Not Archived" domain="[('product_id.active', '=', True)]"/>
         </xpath>
       </field>
     </record>
@@ -47,7 +47,6 @@
                      force_save="1"/>
             </group>
           </group>
-
           <footer>
             <button name="print_excel_report" string="Export" type="object" class="oe_highlight"
                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_range', '=', True)]}"
@@ -59,7 +58,6 @@
             or
             <button string="Cancel" class="oe_link" special="cancel"/>
           </footer>
-
         </form>
       </field>
     </record>

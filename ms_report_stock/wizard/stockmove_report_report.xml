@@ -103,11 +103,11 @@
             <t t-set="sum_amount" t-value="0"/>
             <tr t-foreach="docs" t-as="doc">
               <t t-set="display_state" t-value="doc['state']"/>
-              <t t-set="sum_consumed_qty" t-value="sum_consumed_qty + doc['consumed_qty']"/>
-              <t t-set="sum_previous_qty" t-value="sum_previous_qty + doc['previous_qty']"/>
-              <t t-set="sum_inhand_qty" t-value="sum_inhand_qty + doc['inhand_qty']"/>
-              <t t-set="sum_rate" t-value="sum_rate + doc['rate']"/>
-              <t t-set="sum_amount" t-value="sum_amount + doc['amount']"/>
+              <t t-set="sum_consumed_qty" t-value="sum_consumed_qty + doc['consumed_qty']"  t-if="display_state == 'done'"/>
+              <t t-set="sum_previous_qty" t-value="sum_previous_qty + doc['previous_qty']"  t-if="display_state == 'done'"/>
+              <t t-set="sum_inhand_qty" t-value="sum_inhand_qty + doc['inhand_qty']"  t-if="display_state == 'done'"/>
+              <t t-set="sum_rate" t-value="sum_rate + doc['rate']"  t-if="display_state == 'done'"/>
+              <t t-set="sum_amount" t-value="sum_amount + doc['amount']"  t-if="display_state == 'done'"/>
               <td class="text-center" style="border: 2px solid #ddd;text-align: center;" t-if="display_state == 'done'">
                 <!--                t-if="display_state != 'cancel'-->
                 <span t-esc="seq"/>
