@@ -315,7 +315,7 @@
 
           <button name="action_reject" string="Reject"
                   type="object" class="oe_highlight" states="draft,sent,sign,sale,done,cancel"
-                  groups="sales_team.group_sale_manager"/>
+                  groups="alloy_crm_modification.group_reject_action"/>
           <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
 
         </xpath>
