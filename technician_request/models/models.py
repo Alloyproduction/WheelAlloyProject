@@ -120,6 +120,11 @@ class TechicianRequest(models.Model):
 
     @api.multi
     def button_send(self):
+        print("button_send")
+        for rec in self.products_line_ids:
+            available_qty = rec.product_id.qty_available
+            if available_qty < rec.product_qty:
+                raise UserError(_('product qty not enough for product  ' + str(rec.product_id.name)))
         self.send_m('New Technician request Request from '+str(self.request_by.name),'New Technician request require to be ready')
         return self.write({'state': 'sent'})
 
@@ -449,6 +454,29 @@ class TechnicianRequestLine(models.Model):
     specifica = fields.Text(string='Specifications')
     iscancel = fields.Boolean(  string="Cancel", readonly=True, default=False, copy=False)
 
+    # @api.depends('product_id')
+    @api.depends('product_id')
+    def _get_qty(self):
+        for rec in self:
+            rec.qty_onhand2 = rec.product_id.qty_available
+            # stock_p = rec.env['stock.quant'].search([('product_id.id', '=', rec.product_id.id)])
+            # stock_p = rec.env['stock.quant'].search([('product_id.id', '=', rec.product_id.id)])
+            # print('rec.product_id.qty_available', rec.product_id.qty_available)
+            # print('stock.quant', stock_p)
+            # print('quantity=', stock_p.quantity)
+            # if stock_p:
+            #     for p in stock_p:
+            #         print('on hand22', p.quantity)
+            #         print('on hand23422', p.location_id.usage)
+            #         if p.location_id.usage == 'internal':
+            #             rec.qty_onhand2 = p.quantity
+            # else:
+            #     rec.qty_onhand2 = 0
+                # rec.qty_available = 0
+
+    qty_onhand2 = fields.Float(string="On Hand", compute="_get_qty", readonly=True)
+    # qty_available = fields.Float(string="Available Qty", compute="_get_qty")
+
     @api.onchange('product_id')
     def onchange_product_id(self):
         if self.product_id:
@@ -463,7 +491,7 @@ class TechnicianRequestLine(models.Model):
             self.name = name
             self.product_old_qty=self.product_id.qty_available
             self.product_amount_qty=self.product_id.standard_price* self.product_qty
-            print(self.product_id.standard_price ,"  ," ,self.product_qty)
+            # print(self.product_id.standard_price ,"  ," ,self.product_qty)
             self.product_new_qty= self.product_old_qty-self.product_qty
 
     @api.onchange('product_qty')
