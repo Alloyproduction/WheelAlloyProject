@@ -347,6 +347,36 @@ class CrmLead(models.Model):
                                      subject='New Opportunity Need Approval',
                                      message_type='comment')
 
+    # Sending email to multiple users of specific group
+    @api.model
+    def get_email_to_lost(self):
+        print('get_email_to_lost')
+        user_group = self.env.ref("alloy_crm_modification.group_get_email_view_lost")
+        print('EEE1', user_group)
+        print('FFF2', user_group.name)
+        print('ZZZ3', user_group.id)
+        email_list = [
+            usr.partner_id.email for usr in user_group.users if usr.partner_id.email]
+        return ",".join(email_list)
+
+
+    def _send_email_request(self,user_group,sub,content):
+        print('_send_email_request')
+        recipient_partners = []
+        for group in user_group:
+            for recipient in group.users:
+                print(recipient)
+                if recipient.partner_id.id not in recipient_partners:
+                    recipient_partners.append(recipient.partner_id.id)
+        if len(recipient_partners):
+            print('recipient_partners', recipient_partners)
+            self.message_post(body=content,
+                           subtype='mt_comment',
+                           subject=sub,
+                           partner_ids=recipient_partners,
+                           message_type='comment')
+
+
     @api.multi
     def check_all_lead(self):
         # crm_leads_ids = self.search([])
@@ -357,30 +387,37 @@ class CrmLead(models.Model):
         print("stage==", stage_lost)
         print("stage=len=", len(stage_lost))
         for rec in stage_lost:
+            print("rec111.is_lost_14t", rec.is_lost_14t)
             print('name=', rec.name), print('id=', rec.id)
             # print('id all=', rec.stage_time_ids)
             if rec.stage_time_ids:
                 for line in rec.stage_time_ids[-1]:
-                    # print('id _id=', line.id)
-                    # print('id name=', line.stage_to_id.name)
+                    print('id _id=', line.id)
+                    print('id name=', line.stage_to_id.name)
                     if line.stage_to_id.name == 'Lost':
-                        # print('id name lost=', line.date_to)
+                        print('id name lost=', line.date_to)
                         ppp = line.date_to.date()
-                        # print('ppp', ppp)
+                        print('ppp', ppp)
                         today = date.today()
-                        # print("Today's date:", today)
+                        print("Today's date:", today)
                         diff = today - ppp
-                        # print("diff", diff)
+                        print("diff", diff)
                         if diff:
-                            # print('doooooooone')
+                            print('doooooooone')
                             www = str(diff).split(' ')[0]
-                            # print("dif11f", www)
+                            print("dif11f", www)
+                            print("rec.is_lost_14t", rec.is_lost_14t)
                             if int(www) >= 14 and rec.is_lost_14t == False:
-                                # print('AAAAAAAAAAAAA')
-                                # print('Arec.is_lost_greenAAAAA', rec.is_lost_green)
+                                print('Send Email')
+                                user_group = self.env.ref("alloy_crm_modification.group_get_email_view_lost")
+                                sub = _("lost taaaaaaaaask")
+                                content = _("Hello,<br>Mr/Mrs: <b>" + "<br>May you check this please.. ")
+                                self._send_email_request(user_group, sub, content)
+                                print('alloy_crm_modification.crm_sales.py')
+                                print('Arec.is_lost_greenAAAAA', rec.is_lost_green)
                                 rec.is_lost_green = True
                                 rec.is_lost_14t = True
-                                # print('seeeeeeeeeeend')
+                                print('seeeeeeeeeeend')
                                 # //////////////////////////
                                 groupA = self.env['res.groups'].search([('name', '=', "View Lost")])
                                 for i in groupA.users:

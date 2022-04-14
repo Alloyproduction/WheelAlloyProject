@@ -49,7 +49,7 @@
           <field name="is_company" invisible="1"/>
           <field name="is_lost_blue" invisible="1"/>
           <field name="is_lost_green" invisible="1"/>
-          <field name="is_lost_14t" invisible="1"/>
+          <field name="is_lost_14t" invisible="0"/>
           <field name="is_lost" invisible="1"/>
           <field name="crm_source_id" attrs="{'required':[('is_company','=',False)],
                                                         'invisible':[('is_company','=',True)]}"/>
@@ -316,7 +316,6 @@
           <button name="action_reject" string="Reject"
                   type="object" class="oe_highlight" states="draft,sent,sign,sale,done,cancel"
                   groups="sales_team.group_sale_manager"/>
-
           <!--                        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
 
         </xpath>

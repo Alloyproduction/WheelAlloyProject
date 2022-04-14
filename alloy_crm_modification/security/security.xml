@@ -11,6 +11,11 @@
       <field name="name">View Lost</field>
     </record>
 
+    <record id="group_get_email_view_lost" model="res.groups">
+      <field name="name">Get view lost request email</field>
+      <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
     <record id="cron_do_task_crm" forcecreate='True' model="ir.cron">
       <field name="name">Do -Task_CrM</field>
       <field eval="True" name="active"/>
@@ -35,11 +40,6 @@
       <field name="state">code</field>
       <field name="function">model.cron_check_task_crm()</field>
       <field name="code">model.cron_check_task_crm()</field>
-    </record>
-    
-     <record id="group_reject_action" model="res.groups">
-        <field name="name">Sale Reject</field>
-        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
     </record>
   </data>
 </odoo>
