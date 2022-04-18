@@ -172,12 +172,12 @@ class employee_loan(models.Model):
                     'installment_amt':self.installment_amount,
                     'ins_interest':ins_interest_amount,
                 }))
-                print('vals111=', vals)
+                # print('vals111=', vals)
             if self.installment_lines:
                 for l in self.installment_lines:
                     l.unlink()
             self.installment_lines = vals
-            print('vals=', vals)
+            # print('vals=', vals)
         else:
             raise ValidationError(" Please choose the Loan type ")
 
