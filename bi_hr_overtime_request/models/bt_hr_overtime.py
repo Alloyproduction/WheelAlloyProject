@@ -23,6 +23,51 @@ class BtHrOvertime(models.Model):
     # manager_id = fields.Many2one('hr.employee', string='Manager')
     start_date = fields.Datetime('Check in')
     check_out_date = fields.Datetime('Check out')
+
+    @api.depends('check_out_date', 'employee_id')
+    def compute_time_out(self):
+        for rec in self:
+            if rec.check_out_date:
+                # total_h8_m8 = 0
+                # print('check_out_date', rec.check_out_date)
+                go_early = rec.check_out_date.strftime("%H:%M:%S")
+                # print('current time out', current_time_out)
+                h2 = int(str(go_early).split(':')[0]) + int(2)
+                # m2 = str(rec.check_out_date).split(':')[1]
+                # total_h2_m2 = str(h2) + '.' + m2
+                # go_early = rec.check_out_date.strftime("%H:%M:%S")
+                # h8 = str(go_early).split(':')[0]
+                m8 = str(go_early).split(':')[1]
+                total_h8_m8 = str(h2) + '.' + m8
+                contract_work_start = self.env['hr.contract'].search([('employee_id', '=', rec.employee_id.id)])
+                end_h = 0
+                for rec in contract_work_start:
+                    end_h = str(rec.end_hour)
+                    h2_e = str(rec.end_hour).split('.')[0]
+                    # print('h2_e=', h2_e)
+                    m2_e = str(rec.end_hour).split('.')[1]
+                    # print('m2_e=', m2_e)
+                    if len(m2_e) == 1:
+                        m2_e = m2_e + '0'
+                        # print('m2_e=', m2_e)
+                    else:
+                        m2_e = m2_e
+                    print('TT=', total_h8_m8) # 16.0
+                    print('end_h=', end_h) # 16.0
+                print('end_h22=', end_h) # 16.0
+                print('TT22=', total_h8_m8) # 16.0
+                if float(total_h8_m8) > float(end_h):
+                    h_ll_req = (int(h2) - float(h2_e)) * 60
+                    m_ll_req = int(m8) - float(m2_e)
+                    h_m_ll_req = h_ll_req + m_ll_req
+                    rec.time_out = float(h_m_ll_req)
+                    print('rec.time_out1', rec.time_out)
+                else:
+                    rec.time_out = 0
+                    print('rec.time_out2', rec.time_out)
+
+    time_out = fields.Float('Time after work ends')
+
     year = fields.Char('Year', store=True)
     month = fields.Char('Month', store=True)
     overtime_hours = fields.Float('Overtime in Minutes')
@@ -168,6 +213,7 @@ class BtHrOvertime(models.Model):
                                 h_m_ll = h_ll + m_ll
                                 # print('h_m_ll', h_m_ll)
                                 delay_hours2 = float(h_m_ll)
+                                time_after_end = 0
                                 if delay_hours2 < 0:
                                     delay_hours2 = 0
                                     # print('delay_hours2', delay_hours2)
@@ -176,6 +222,10 @@ class BtHrOvertime(models.Model):
                                     # print('delay_hours2', delay_hours2)
                                 # print('delay_hours2', delay_hours2)
                             else:
+                                h_ll_req1 = (int(h2) - float(h2_e)) * 60
+                                m_ll_req2 = int(m2) - float(m2_e)
+                                h_m_ll_req1 = h_ll_req1 + m_ll_req2
+                                time_after_end = float(h_m_ll_req1)
                                 # print('leave tmam')
                                 delay_hours2 = 0
                         current_delay_hours = (delay_hours1 + delay_hours2) / 60
@@ -275,8 +325,14 @@ class BtHrOvertime(models.Model):
                                             m_ll_req = float(m2_e) - int(m8)
                                             h_m_ll_req = h_ll_req + m_ll_req
                                             delay1_w_emp_req_lea = float(h_m_ll_req) / 60
+                                            time_after_end = 0
+                                            print('rec.time_out1', rec.time_out)
                                             # print('D NUM3', delay1_w_emp_req_lea)
                                         else:
+                                            h_ll_req = int(h8) - (float(h2_e)) * 60
+                                            m_ll_req = int(m8) - float(m2_e)
+                                            h_m_ll_req = h_ll_req + m_ll_req
+                                            time_after_end = float(h_m_ll_req)
                                             # print('leave tmam when emp req for delay')
                                             delay1_w_emp_req_lea = 0
                                             # print('D NUM3', delay1_w_emp_req_lea)
@@ -385,6 +441,7 @@ class BtHrOvertime(models.Model):
                                     'start_date': obj.check_in,
                                     'check_out_date': obj.check_out,
                                     'year': y,
+                                    'time_out': time_after_end,
                                     'month': m,
                                     'overtime_hours': round(overtime_hours, 2),
                                     'overtime_hours2': round(overtime_hours2, 2),
@@ -421,6 +478,7 @@ class BtHrOvertime(models.Model):
                                     'start_date': obj.check_in,
                                     'check_out_date': obj.check_out,
                                     'year': y,
+                                    'time_out': time_after_end,
                                     'month': m,
                                     'overtime_hours': overtime_hours,
                                     'overtime_hours2': overtime_hours2,

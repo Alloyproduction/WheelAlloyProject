@@ -1,0 +1,116 @@
+<odoo>
+  <data>
+
+    <record id="report_overtime_and_delay_and_absence_form_view" model="ir.ui.view">
+      <field name="name">report.for.overtime.and.delay.form.view</field>
+      <field name="model">report.overtime.and.delay.and.absence.c</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Report">
+          <group>
+            <group>
+              <field name="date_from" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+
+              <!--              <field name="code_test"/>-->
+            </group>
+            <group>
+              <field name="date_to" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+            </group>
+            <group>
+              <field name="specific_employee"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"
+                     force_save="1"/>
+              <field name="specific_date"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     force_save="1"/>
+            </group>
+            <group>
+              <field name="employee_for_all"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     options="{'no_create': True, 'no_open': True, 'no_create_edit': True}"
+              />
+              <!--                     widget="selection"-->
+            </group>
+          </group>
+          <footer>
+            <button name="get_report_all" string="Get Report" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="report_absence_form_view" model="ir.ui.view">
+      <field name="name">report.for.absence.form.view</field>
+      <field name="model">report.absence.custom</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Report">
+          <group>
+            <group>
+              <field name="date_from" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+
+              <!--              <field name="code_test"/>-->
+            </group>
+            <group>
+              <field name="date_to" widget="date"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"/>
+            </group>
+            <group>
+              <field name="specific_employee"
+                     attrs="{'required':[('specific_date', '=', True)], 'invisible':[('specific_employee', '=', True)]}"
+                     force_save="1"/>
+              <field name="specific_date"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     force_save="1"/>
+            </group>
+            <group>
+              <field name="employee_for_all"
+                     attrs="{'required':[('specific_employee', '=', True)], 'invisible':[('specific_date', '=', True)]}"
+                     options="{'no_create': True, 'no_open': True, 'no_create_edit': True}"
+              />
+              <!--                     widget="selection"-->
+            </group>
+          </group>
+          <footer>
+            <button name="get_report_all" string="Get Report" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_overtime_and_delay_and_absence_custom" model="ir.actions.act_window">
+      <field name="name">overtime and delay and absence Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.overtime.and.delay.and.absence.c</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="report_overtime_and_delay_and_absence_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <record id="action_absence_custom" model="ir.actions.act_window">
+      <field name="name">absence Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.absence.custom</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="report_absence_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="hr_report_overtim_and_delay_custom" action="action_overtime_and_delay_and_absence_custom"
+              name="Overtime and Delay Report" parent="bi_hr_overtime_request.sub_menu_employee_overtime"
+              sequence="100"
+    />
+    <menuitem id="hr_report_absence_custom" action="action_absence_custom"
+              name="Absence Report" parent="bi_hr_overtime_request.sub_menu_employee_overtime"
+              sequence="101"
+    />
+
+  </data>
+</odoo>

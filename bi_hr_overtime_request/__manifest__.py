@@ -50,7 +50,10 @@ Human Resources/Overtimes/Multiple Requests to Approve By Department
                 'data/cron_Absence.xml',
                 'data/overtime_rule.xml',
                 'data/delay_rule.xml',
-                'data/absence_monthly_rule.xml'
+                'data/absence_monthly_rule.xml',
+                'wizard/overtime_and_delay_report.xml',
+                'wizard/absence_report_custom.xml',
+                'wizard/reporting_menu.xml',
                 ],
     'installable': True,
     'auto_install': False,

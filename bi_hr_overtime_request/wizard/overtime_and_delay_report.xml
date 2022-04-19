@@ -1,0 +1,161 @@
+<odoo>
+  <data>
+
+    <record id="paperformat_overtime_and_delay_and_absence_report" model="report.paperformat">
+      <field name="name">European A4 low margin</field>
+      <field name="default" eval="True"/>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">15</field>
+      <field name="margin_left">5</field>
+      <field name="margin_right">5</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <report id="overtime_and_delay_and_absence_report"
+            model="report.overtime.and.delay.and.absence.c"
+            string="overtime , delay and absence Report"
+            report_type="qweb-pdf"
+            name="bi_hr_overtime_request.overtime_and_delay_and_absence"
+            paperformat="paperformat_overtime_and_delay_and_absence_report"
+            menu="False"
+    />
+
+    <template id="overtime_and_delay_and_absence">
+      <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+          <div>
+            <h2 class="text-center" style="font-weight:bold">Overtime and Delay Report</h2>
+            <br/>
+            <h4 class="text-center">
+              <span style="font-weight:bold" t-if="date_from">Date From:</span>
+              <span t-if="date_from">
+                <t t-esc="date_from" t-field-options='{"widget": "date"}'/>
+              </span>
+              <span style="font-weight:bold" t-if="date_to">Date To:</span>
+              <span t-if="date_to">
+                <t t-esc="date_to" t-field-options='{"widget": "date"}'/>
+              </span>
+<!--              <span style="font-weight:bold" t-if="employee_for_all">for</span>-->
+<!--              <span t-if="employee_for_all">-->
+<!--                <t t-esc="doc['employee_name']"/>-->
+<!--              </span>-->
+            </h4>
+          </div>
+          <br/>
+          <div class="page">
+            <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+              <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date from</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date to</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Employee</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Department</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Month</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Year</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Num Of Hours</th>
+                <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Total Delay Hours
+                </th>
+              </tr>
+              <t t-set="seq" t-value="1"/>
+              <t t-set="sum_num_of_hours" t-value="0"/>
+              <t t-set="sum_total_delay_hours" t-value="0"/>
+              <tr t-foreach="docs" t-as="doc">
+                <t t-set="sum_num_of_hours" t-value="sum_num_of_hours + doc['num_of_hours']"/>
+                <t t-set="sum_total_delay_hours" t-value="sum_total_delay_hours + doc['total_delay_hours']"/>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="seq"/>
+                  <t t-set="seq" t-value="seq+1"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['start_d']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['end_date']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['employee_name']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="doc['depart_id']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['month']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['year']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['num_of_hours']"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center; ">
+                  <span t-esc="doc['total_delay_hours']"/>
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;"></td>
+              </tr>
+              <tr>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+                <td style="border: 2px solid #ddd;text-align: center;font-weight-bold;"></td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total-->
+<!--                  Num Of Hours-->
+<!--                </td>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_num_of_hours)"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;font-weight-bold;">Total-->
+<!--                  Delay Hours-->
+<!--                </td>-->
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_total_delay_hours)"/>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </t>
+      </t>
+    </template>
+
+  </data>
+</odoo>
