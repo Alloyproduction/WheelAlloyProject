@@ -153,8 +153,9 @@ class CrmLead(models.Model):
 
     @api.multi
     def review_all_lead(self):
-        crm_leads_ids = self.search([])
-        # print(crm_leads_ids)
+        stage_won = self.env['crm.stage'].search([('name', '=', 'Won')])
+        crm_leads_ids = self.search([('satge_id', '= ', stage_won.id)])
+        print(crm_leads_ids)
         # print("haytham Fadar")
         stage = self.env['crm.stage'].search([('name', '=', 'Lost')])
         for record in crm_leads_ids:
@@ -219,6 +220,7 @@ class CrmLead(models.Model):
     @api.multi
     @api.model
     def cron_do_task_crm(self):
+        pass
         # self.server_do_action()
         self.review_all_lead()
 
