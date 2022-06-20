@@ -1,0 +1,159 @@
+<odoo>
+    <data>
+
+        <report
+                id="wheel_report_pdf"
+                model="wheel_report.wheel_report"
+                string="Wheel Report PDF"
+                name="wheel_report.wheel_report_pdf_template"
+                file = "wheel_report.wheel_report_pdf_template"
+                report_type="qweb-pdf"/>
+<!--                print_report_name="object._get_report_filename()"-->
+                attachment_use="True"/>
+<!--                attachment="(object.state in ('open','paid')) and-->
+<!--        ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+<!--        />-->
+
+
+        <template id="wheel_report_pdf_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                        <h2 class="text-center" style="font-weight:bold">Wheel Diagnostic Report</h2>
+                        </div>
+                <br/>
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Checking Number</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.name"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Customer name</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.partner_id.name"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Vehicle name</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.vehicle_name"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Plate Number</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.plate_num"/>
+                                </div>
+                            </div>
+                        </t>
+                         <br /><br />
+
+<!--                       <h3 class="text-center" style="font-weight:bold">Report Details</h3>-->
+                        <br /><br />
+             <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+                 <thead>
+                     <tr class="thead-light" style="border-top: 3px solid #ddd;background-color: #f2f2f2; font-size: 13px;">
+                         <!--                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Product Name</th>-->
+                         <th class="text-center">Product Name</th>
+                         <th class="text-center">Tire</th>
+                         <th class="text-center">Tire Status</th>
+                         <th class="text-center">Has Cut</th>
+                         <th class="text-center">Lips</th>
+                         <th class="text-center">Spoke</th>
+                         <th class="text-center">Barrel</th>
+                         <th class="text-center">Crack</th>
+                         <th class="text-center">Sensor</th>
+                         <th class="text-center">Bent</th>
+                         <th class="text-center">Spoke Problem</th>
+                         <th class="text-center">Rim Finished</th>
+                         <th class="text-center">Reject</th>
+                     </tr>
+                 </thead>
+
+                      <t t-foreach="doc.line_ids" t-as="line" style="border-top: 3px solid #ddd;background-color: #f2f2f2;">
+                                    <tr class="thead-light" style="border-top: 3px solid #ddd;background-color: #f2f2f2;">
+                                        <td class="text-center" style="border-top: 3px font-size: 13px;">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.tire"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 9px;">
+                                            <span t-field="line.tire_status"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.tire_has_cut"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.lips"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.spoke"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.barrel"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.crack"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.sensor"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 11px;">
+                                            <span t-field="line.bent"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 9px;">
+                                            <span t-field="line.spoke_problem"/>
+                                        </td>
+
+                                        <td class="text-center" style="border-top: 3px font-size: 10px;">
+                                            <span t-field="line.rim_finished"/>
+                                        </td>
+
+                                       <td class="text-center" style="border-top: 3px font-size: 10px;">
+                                            <span t-field="line.rim_finished"/>
+                                        </td>
+                                    </tr>
+                      </t>
+
+             </table>
+                    </t>
+
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
