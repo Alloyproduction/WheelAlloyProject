@@ -103,40 +103,49 @@ class wheel_report(models.Model):
                                      ('condition', 'Good Condition '),
                                      ('old_tire', 'Same Old Tire '),
                                      ('new_tire', 'Change New Tire '),
-                                      ('clips_outside', 'Outside')], string='Lips')
+                                      ('clips_outside', 'Outside'),
+                                     ('no', 'Non')], string='Lips')
     tire_has_cut  = fields.Selection([('no_cut', 'No Cut'),
                                       ('hole_cut', 'Hole'),
                                       ('inside_cut', 'Inside'),
-                                      ('outside_cut', 'Outside')], string='Tire Cut')
+                                      ('outside_cut', 'Outside'),
+                                      ('no', 'Non')], string='Tire Cut')
     # AIR LEAKING:
     lips  = fields.Selection([('clips_cut', 'cut'),
                                       ('clips_inside', 'Inside'),
-                                      ('clips_outside', 'Outside')], string='Lips-Air Leaking')
+                                      ('clips_outside', 'Outside'),
+                                      ('no', 'Non')], string='Lips-Air Leaking')
     tire = fields.Selection([('tire_puncher', 'Puncher'),
                                       ('tire_nail', 'Nail'),
-                                      ('tire_screw', 'Screw Bolt')])
+                                      ('tire_screw', 'Screw Bolt'),
+                                      ('no', 'Non')])
 
-    spoke = fields.Selection([('spoke_bent', 'Bent'),])
+    spoke = fields.Selection([('spoke_bent', 'Bent'), ('no', 'Non')])
 
     barrel = fields.Selection([('barrel_hole', 'Hole'),
                                       ('barrel_broken', 'Broken'),
-                                      ('barrel_crack', 'Crack')])
+                                      ('barrel_crack', 'Crack'),
+                                      ('no', 'Non')])
 
     crack = fields.Selection([('crack_inside', 'Inside'),
                                       ('crack_outside', 'Outside'),
-                                      ('tire_screw', 'Screw Bolt')])
+                                      ('tire_screw', 'Screw Bolt'),
+                                      ('no', 'Non')])
 
     sensor = fields.Selection([('good_cond', 'Good Condition '),
                                       ('damg_broken', 'Damage/Broken'),
                                       ('damg_pin', 'Pin Problem'),
-                                      ('Ordinary', 'Ordinary/steal Valve')])
+                                      ('Ordinary', 'Ordinary/steal Valve'),
+                                      ('no', 'Non')])
 
     bent = fields.Selection([('bent_inside', 'Inside'),
-                                      ('bent_outside', 'Outside')])
+                                      ('bent_outside', 'Outside'),
+                                      ('no', 'Non')])
 
     spoke_problem = fields.Selection([('spoke_creck', 'Crack'),
                                       ('spoke_broken', 'Broken'),
-                                      ('spoke_rep_percent', 'Repair Percentage')])
+                                      ('spoke_rep_percent', 'Repair Percentage'),
+                                      ('no', 'Non')])
 
     rim_finished = fields.Boolean("Finished")
     reject = fields.Boolean ("Reject")
