@@ -93,9 +93,9 @@
                 id="wheel_report.menu_root"
                 name="Wheel Report"
                 sequence="3"
-                action="wheel_report.action_window"/>
-        <!--        parent="sale.sale_order_menu"-->
-
+                action="wheel_report.action_window"
+                parent="sale.sale_menu_root"/>
+        
         <!--        groups="account.group_account_user"-->
 
 
