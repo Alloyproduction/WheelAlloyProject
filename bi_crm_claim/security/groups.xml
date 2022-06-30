@@ -38,5 +38,17 @@
         <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
     </record>
 
+    <record id="group_first_follow_email" model="res.groups">
+        <field name="name">Claim / First follow up email</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
+    </record>
+
+    <record id="group_second_follow_email" model="res.groups">
+        <field name="name">Claim / second follow up email</field>
+        <field name="category_id" ref="crm_claim_access_categ"/>
+        <field name="implied_ids" eval="[(4,ref('group_user'))]"/>
+    </record>
+
 
 </odoo>

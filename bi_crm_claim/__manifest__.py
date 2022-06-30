@@ -15,17 +15,14 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        # 'data/biseq.xml',
         'data/ir_sequence_data.xml',
+        'data/claim_cron_job.xml',
         'views/crm_claim_menu.xml',
-        'views/crm_claim_data.xml',
         'views/res_partner_view.xml',
         'views/claim_dashboard.xml',
         'views/email_template.xml',
         'Report/profial.xml',
         'Report/claim_report.xml',
-        # 'workflow/workflow.xml',
-
     ],
     'qweb': [
         "static/src/xml/claim_dashboard.xml",

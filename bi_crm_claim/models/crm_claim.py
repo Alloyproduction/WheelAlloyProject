@@ -14,7 +14,7 @@ import odoo.addons.decimal_precision as dp
 
 
 _CLAIMSTATES = [
-    ('stat_draft', 'Draft'),
+    # ('stat_draft', 'Draft'),
     ('stat_confirmed', 'First Action'),
     ('stat_process', 'Second Action'),
     ('stat_won', 'Final Action'),
@@ -47,6 +47,91 @@ class crm_claim(models.Model):
     _order = "priority,date desc"
     _inherit = ['mail.thread']
     _rec_name = "code"
+
+    @api.multi
+    def check_all_claim_action(self):
+        tot_first = self.env['crm.claim'].search([('state', '=', 'stat_confirmed')])
+        for record in tot_first:
+            for i in record:
+                user_send_email = record.team_id.member_ids
+                print (user_send_email)
+                first_time = record.date
+                later_time = datetime.now()
+                difference = later_time - first_time
+                if (difference.days == 1):
+                    msg_sub = "Check The Claim with REF " + "" + "[" + (i.code) + "]"
+                    msg_body = "This Claim has been in the First Action stage more than (24) Hours Please check it ASAP "
+                    # "[" ""  + self.code + "]"
+                    groups = self.env['res.groups'].search([('name', '=', 'Claim / First follow up email')])
+                    print (groups.users)
+                    recipient_partners = []
+                    for group in groups:
+                        for recipient in group.users:
+                            if record.team_id:
+                                 if recipient in user_send_email:
+                                          print("yessss")
+                                          if recipient.partner_id.id not in recipient_partners:
+                                            recipient_partners.append(recipient.partner_id.id)
+                                            print (recipient_partners)
+                                            if len(recipient_partners):
+                                               self.message_post(body=msg_body,
+                                                                   subtype='mt_comment',
+                                                                   subject=msg_sub,
+                                                                   partner_ids=recipient_partners,
+                                                                   message_type='comment')
+
+                                               print("1 days", record.partner_id.name, record.code)
+
+
+
+                if (difference.days == 2):
+                    msg_sub = "Check The Claim with REF"  + "" + "[" + (i.code) + "]"
+                    # + "" + "[" + (i.code) + "]"
+                    msg_body = " This Claim has been in the First Action stage more than (48) Hours Please check it ASAP"
+                    # [" + self.code + "]"
+                    groups = self.env['res.groups'].search([('name', '=', 'Claim / second follow up email')])
+                    recipient_partners = []
+                    for group in groups:
+                        for recipient in group.users:
+                            if record.team_id:
+                                 if recipient in user_send_email:
+                                    if recipient.partner_id.id not in recipient_partners:
+                                        recipient_partners.append(recipient.partner_id.id)
+                                        if len(recipient_partners):
+                                            self.message_post(body=msg_body,
+                                                              subtype='mt_comment',
+                                                              subject=msg_sub,
+                                                              partner_ids=recipient_partners,
+                                                              message_type='comment')
+                                            print("2 days", record.partner_id.name, record.code)
+
+
+                if (difference.days >= 3):
+                    msg_sub = "Check The Claim with REF"  + "" + "[" + (i.code) + "]"
+                    msg_body = " This Claim has been in the First Action stage more than (72) Hours Please check it ASAP"
+                    # [" + self.code + "]"
+                    groups = self.env['res.groups'].search([('name', '=', 'Claim / Close')])
+                    recipient_partners = []
+                    for group in groups:
+                        for recipient in group.users:
+                            if recipient.partner_id.id not in recipient_partners:
+                                recipient_partners.append(recipient.partner_id.id)
+                                if len(recipient_partners):
+                                    self.message_post(body=msg_body,
+                                                      subtype='mt_comment',
+                                                      subject=msg_sub,
+                                                      partner_ids=recipient_partners,
+                                                      message_type='comment')
+                                    print("More than 3 days", record.partner_id.name, record.code)
+
+
+
+
+    @api.model
+    def cron_claim_check(self):
+        print('hello cron')
+        pass
+        self.check_all_claim_action()
 
     def salesman_wizard2(self):
         msubj = "Check This Activity"
@@ -88,6 +173,7 @@ class crm_claim(models.Model):
     # name = fields.Char('Claim Subject', required=True)
     subject_id = fields.Many2one('crm.claim.subject', 'Claim Subject',  track_visibility = 'always')
     active = fields.Boolean('Active',default=lambda *a: 1)
+    rejected = fields.Boolean('Reject')
     action_next = fields.Char('Next Action')
     date_action_next = fields.Datetime('Next Action Date')
     description = fields.Text('Description')
@@ -104,7 +190,7 @@ class crm_claim(models.Model):
     # resolution1 = fields.Selection([('1', 'Corrective Action'), ('2', 'Preventive Action')], 'Resolution1')
     user_id = fields.Many2one('res.users', 'Responsible',  track_visibility = 'always', default=_default_user)
     user_fault = fields.Char('Trouble Responsible')
-    team_id = fields.Many2one('crm.team', 'Sales Team', oldname='section_id', \
+    team_id = fields.Many2one('crm.team', 'Sales Team', required=True,  oldname='section_id', \
                               select=True, help="Responsible sales team." \
                                                 " Define Responsible user and Email account for" \
                                                 " mail gateway.")  # ,default=lambda self: self.env['crm.team']._get_default_team_id()
@@ -126,7 +212,7 @@ class crm_claim(models.Model):
                              track_visibility='onchange',
                              required=True,
                              copy=False,
-                             default='stat_draft')
+                             default='stat_confirmed')
 ############################################################################################################################
     # @api.model
     # def create(self, vals):
@@ -141,16 +227,17 @@ class crm_claim(models.Model):
 
 
 ###########################################################################################################################
-    @api.multi
-    def action_draft(self):
-        # self.state = 'stat_draft'
-        return self.write({'state': 'stat_draft'})
-        self.ldate = datetime.now()
+    # @api.multi
+    # def action_draft(self):
+    #     # self.state = 'stat_draft'
+    #     return self.write({'state': 'stat_draft'})
+    #     self.ldate = datetime.now()
 
     @api.multi
     def action_confirm(self):
         # self.state = 'stat_confirmed'
-        return self.write({'state': 'stat_confirmed'})
+        # return self.write({'state': 'stat_confirmed'})
+        return self.write({'state': 'stat_draft'})
         self.ldate = datetime.now()
 
     @api.multi
@@ -241,7 +328,7 @@ class crm_claim(models.Model):
         tot_process = self.env['crm.claim'].sudo().search_count([('user_id', '=', uid), ('state', '=', 'stat_process')])
         tot_confirm = self.env['crm.claim'].sudo().search_count(
             [('user_id', '=', uid), ('state', '=', 'stat_confirmed')])
-        tot_draft = self.env['crm.claim'].sudo().search_count([('user_id', '=', uid), ('state', '=', 'stat_draft')])
+        tot_draft = self.env['crm.claim'].sudo().search_count([('user_id', '=', uid), ('state', '=', 'stat_confirmed')])
 
         # tot_overdue_opportunities = self.env['crm.claim'].sudo().search_count(
         #     [('type', '=', 'opportunity'), ('date_deadline', '<', today_date), ('date_closed', '=', False)])

@@ -20,27 +20,6 @@
 
         <!--________________________________________________________________________________________________________________________________________________________-->
 
-
-        <!-- Claims categories  -->
-
-<!--        <record id="salesman_wizard2_view_form" model="ir.ui.view">-->
-<!--            <field name="name">salesman.wiz.view.form</field>-->
-<!--            <field name="model">salesman.wizard2</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <form string="salesman_wiz_form">-->
-<!--                    <sheet>-->
-<!--                        <group>-->
-<!--                            <field name="sales_man" style="width:50%"/>-->
-<!--                        </group>-->
-<!--                    <footer>-->
-<!--                        <button name="send_msg" string="Send" type="object" class="oe_highlight"/>-->
-<!--                        <button name="cancel" string="Cancel" special="cancel"/>-->
-<!--                    </footer>-->
-<!--                    </sheet>-->
-<!--                </form>-->
-<!--            </field>-->
-<!--        </record>-->
-
         <record id="crm_claim_view_kanban" model="ir.ui.view">
             <field name="name">crm.claim.kanban</field>
             <field name="model">crm.claim</field>
@@ -116,53 +95,6 @@
         <menuitem action="crm_claim_categ_action" name="Categories"
                   id="menu_crm_case_claim-act" parent="main_crm_claim_menu"/>
 
-        <!-- Claim Stages -->
-
-        <!--        <record id="crm_claim_stage_tree" model="ir.ui.view">-->
-        <!--            <field name="name">crm.claim.stage.tree</field>-->
-        <!--            <field name="model">crm.claim.stage</field>-->
-        <!--            <field name="arch" type="xml">-->
-        <!--                <tree string="Claim Stages">-->
-        <!--                    <field name="sequence"/>-->
-        <!--                    <field name="name"/>-->
-        <!--                </tree>-->
-        <!--            </field>-->
-        <!--        </record>-->
-
-        <!--        <record id="crm_claim_stage_form" model="ir.ui.view">-->
-        <!--            <field name="name">crm.claim.stage.form</field>-->
-        <!--            <field name="model">crm.claim.stage</field>-->
-        <!--            <field name="arch" type="xml">-->
-        <!--                <form string="Claim Stage">-->
-        <!--                    <group col="4">-->
-        <!--                        <field name="name"/>-->
-        <!--                        <field name="case_default"/>-->
-        <!--                        <field name="sequence"/>-->
-        <!--                    </group>-->
-        <!--                </form>-->
-        <!--            </field>-->
-        <!--        </record>-->
-
-        <!--        <record id="crm_claim_stage_act" model="ir.actions.act_window">-->
-        <!--            <field name="name">Claim Stages</field>-->
-        <!--            <field name="res_model">crm.claim.stage</field>-->
-        <!--            <field name="view_type">form</field>-->
-        <!--            <field name="view_id" ref="crm_claim_stage_tree"/>-->
-        <!--            <field name="help" type="html">-->
-        <!--              <p class="oe_view_nocontent_create">-->
-        <!--                Click to setup a new stage in the processing of the claims. -->
-        <!--              </p><p>-->
-        <!--                You can create claim stages to categorize the status of every-->
-        <!--                claim entered in the system. The stages define all the steps-->
-        <!--                required for the resolution of a claim.-->
-        <!--              </p>-->
-        <!--            </field>-->
-        <!--        </record>-->
-        <!-- Claim Stages -->
-        <!--        <menuitem id="menu_claim_stage_view" name="Stages" action="crm_claim_stage_act" parent="main_crm_claim_menu" sequence="20"  groups="bi_crm_claim.group_manager"/>-->
-
-        <!--________________________________________________________________________________________________________________________________________________________-->
-
         <!-- Claims    -->
 
         <record model="ir.ui.view" id="crm_case_claims_tree_view1">
@@ -174,7 +106,7 @@
                     <field name="subject_id"/>
                     <field name="partner_id"/>
                     <field name="user_id"/>
-                    <field name="date"/>
+                    <field name="date" readonly="1"/>
                     <field name="state"/>
                     <!--                    <field name="stage_id"/>-->
                     <field name="date_action_next"/>
@@ -195,20 +127,20 @@
                         <!--                    <field name="stage_id" widget="statusbar" clickable="True"/>-->
 
                         <button name="action_draft"
-                                states="stat_draft,stat_confirmed,stat_process,stat_won,stat_lost"
+                                states="stat_confirmed,stat_process,stat_won,stat_lost"
                                 string="Reset to draft"
                                 type="object"
                                 groups="bi_crm_claim.group_second_action"
                         />
 
 
-                        <button name="action_confirm"
-                                type="object"
-                                string="First Action"
-                                states="stat_draft"
-                                class="oe_highlight"
-                                group="bi_crm_claim.group_first_action"
-                        />
+<!--                        <button name="action_confirm"-->
+<!--                                type="object"-->
+<!--                                string="First Action"-->
+<!--                                states="stat_draft"-->
+<!--                                class="oe_highlight"-->
+<!--                                group="bi_crm_claim.group_first_action"-->
+<!--                        />-->
 
                         <button name="action_process"
                                 type="object"
@@ -243,7 +175,7 @@
                          />
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="stat_draft,stat_confirmed,stat_process,stat_won,stat_lost"/>
+                               statusbar_visible="stat_confirmed,stat_process,stat_won,stat_lost"/>
 
 
                     </header>
@@ -267,93 +199,34 @@
                             <field name="email_from" widget="email"/>
                             <field name="sale_id"/>
                             <field name="subject_id"/>
-                            <field name="date"/>
+                            <field name="date" readonly="1"/>
                             <field name="date_deadline"/>
                             <separator colspan="2" string="AWRS Representative Assigned to this Case"/>
                             <field name="user_id"/>
                             <field name="team_id"/>
                         </group>
-
-                        <!--                            <field name="priority" widget="priority"/>-->
-
-                        <!--                    <group colspan="4" col="4" groups="base.group_user">-->
-                        <!--&lt;!&ndash;                        <field name="user_id"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                               context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager']}"/>&ndash;&gt;-->
-                        <!--                        -->
-                        <!--&lt;!&ndash;                        <field name="team_id"/>&ndash;&gt;-->
-                        <!--                    </group>-->
-                        <!--                        <group colspan="4" col="4">-->
-                        <!--                            <notebook>-->
-
-                        <!--                                <page string="Claim Description">-->
-
-<!--                        <group colspan="2" col="2" groups="base.group_user">-->
-<!--                          -->
-<!--                        </group>-->
-
                     </sheet>
-                                        <!--                                    <field name="user_fault"/>-->
-                                        <!--                                    <field name="categ_id" options="{'no_create': True, 'no_open': True}"/>-->
-                                        <!--<field name="ref"/>-->
 
-
-<!--                                    <separator colspan="4" string="Claim/Action Description"/>-->
                         <sheet string="Second Action">
                             <separator colspan="4" string="Second Action"/>
                             <group colspan="2" col="2">
-                                <field name="description" colspan="4"/>
-                                <field name="date_action_next"/>
-                                <field name="action_next"/>
+                                <field name="description" colspan="4" readonly="1"/>
+                                <field name="date_action_next" readonly="1"/>
+                                <field name="action_next" readonly="1"/>
                             </group>
                         </sheet>
-                        <!--                                    <group colspan="2" col="2">-->
-<!--                                        <separator colspan="2" string="Dates"/>-->
-<!--                                        &lt;!&ndash;                                    <field name="create_date"/>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                    <field name="date_closed" invisible="1"/>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                    <field name="write_date"/>&ndash;&gt;-->
-<!--                                    </group>-->
+
                     <sheet string="Final Action">
                         <separator colspan="4" string="Final Action"/>
                         <group colspan="2" col="2">
+                             <field name="rejected" readonly="1"/>
                             <separator colspan="2" string="Root Causes"/>
-                            <field name="cause" colspan="2" nolabel="1"/>
-                            <field name="type_action"/>
-                            <field name="addition_deit"/>
-                            <field name="create_date" string="Fainal Action Date"/>
+                            <field name="cause" colspan="2" nolabel="1" readonly="1"/>
+                            <field name="type_action" readonly="1"/>
+                            <field name="addition_deit" readonly="1"/>
+                            <field name="create_date" string="Fainal Action Date" readonly="1"/>
                         </group>
                         </sheet>
-                        <!--                                </page>-->
-<!--                                <page string="Follow Up" groups="base.group_user">-->
-<!--                                    <group colspan="2" col="2">-->
-<!--                                        <separator colspan="2" string="Actions"/>-->
-<!--                                        <field name="date_action_next"/>-->
-<!--                                        <field name="action_next"/>-->
-<!--                                    </group>-->
-<!--                                    <group colspan="2" col="2">-->
-<!--                                        <separator colspan="2" string="Dates"/>-->
-<!--                                        &lt;!&ndash;                                    <field name="create_date"/>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                    <field name="date_closed" invisible="1"/>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                    <field name="write_date"/>&ndash;&gt;-->
-<!--                                    </group>-->
-
-<!--                                    <group colspan="2" col="2">-->
-<!--                                        <separator colspan="2" string="Root Causes"/>-->
-<!--                                        <field name="cause" colspan="2" nolabel="1"/>-->
-<!--                                    </group>-->
-<!--                                    <group colspan="2" col="2">-->
-<!--                                        <separator colspan="2" string="Resolution Actions"/>-->
-<!--                                        <field name="type_action"/>-->
-<!--                                        &lt;!&ndash;                                    <field name="resolution"/>&ndash;&gt;-->
-<!--                                        <field name="addition_deit"/>-->
-
-
-<!--                                        &lt;!&ndash;                                    <field name="addition_deit" colspan="2" nolabel="1"&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                           placeholder="Additional details..."/>&ndash;&gt;-->
-<!--                                    </group>-->
-<!--                                </page>-->
-<!--                            </notebook>-->
-<!--                        </group>-->
-<!--                    </sheet>-->
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
@@ -362,6 +235,63 @@
                 </form>
             </field>
         </record>
+
+
+        ##########################################################################################################################
+
+        <record id="view_claim_second_action_form_readonly" model="ir.ui.view">
+            <field name="name">claim.second.action.readonly.cust</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="bi_crm_claim.crm_case_claims_form_view1"/>
+            <field name="groups_id" eval="[(6, 0, [ref('bi_crm_claim.group_second_action') ])]"/>
+            <field name="arch" type="xml">
+                <field name='description' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='date_action_next' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='action_next' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+
+         <record id="view_claim_final_action_form_readonly" model="ir.ui.view">
+            <field name="name">claim.final.action.readonly.cust</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="bi_crm_claim.crm_case_claims_form_view1"/>
+            <field name="groups_id" eval="[(6, 0, [ref('bi_crm_claim.group_final_action') ])]"/>
+            <field name="arch" type="xml">
+               <field name='rejected' position="attributes">
+                    <attribute name="readonly">0</attribute>
+               </field>
+               <field name='cause' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='type_action' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name='addition_deit' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                 <field name='create_date' position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+################################################################################################################################
+
+
+
+
+
+
+
+
+
         <!--________________________________________________________________________________________________________________________________________________________-->
         <!-- Claim Calendar view -->
 
@@ -568,7 +498,7 @@
                     <group string="Filter By">
                         <filter name="by_won" string="Won" domain="[('state','=','stat_won'),('user_id','=',uid)]"/>
                         <filter name="by_lost" string="lost" domain="[('state','=','stat_lost'),('user_id','=',uid)]"/>
-                        <filter name="by_draft" string="New" domain="[('state','=','stat_draft'),('user_id','=',uid)]"/>
+                        <filter name="by_draft" string="New" domain="[('state','=','stat_confirmed'),('user_id','=',uid)]"/>
                         <filter name="by_confirm" string="Confirm"
                                 domain="[('state','=','stat_confirmed'),('user_id','=',uid)]"/>
                         <filter name="by_process" string="Process"
