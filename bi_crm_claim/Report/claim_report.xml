@@ -18,11 +18,11 @@
                                 <table class="table-bordered" width="100%">
                                     <tr>
                                         <td>
-                                            <b>Name:</b>
+                                            <b>Reference:</b>
                                         </td>
                                         <td width="50%">
-                                            <t t-esc="doc.name"/>
-                                            <!--                                            <span t-field="o.name"/>-->
+                                            <t t-esc="doc.code"/>
+                                            <!--                                            <span t-field="o.code"/>-->
                                         </td>
                                     </tr>
                                     <tr>
