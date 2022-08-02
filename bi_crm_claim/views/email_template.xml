@@ -1,30 +1,58 @@
 <?xml version="1.0" ?>
 <odoo>
+    <record id="claim_email_template" model="mail.template">
+        <field name="name">Claim: Send by email</field>
+        <field name="model_id" ref="bi_crm_claim.model_crm_claim"/>
+        <field name="email_from">${object.user_id.email_formatted |safe}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="subject">Claim (Ref ${object.code})</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${object.partner_id.name}
+                    <br/><br/>
+                    Thank you for contacting us. We take customer satisfaction seriously and are glad to hear from you.
+                    First, We would like to apologize for the frustration you've been experiencing recently.
+                    <br/><br/>
+                    Your claim file number is : ${object.code}
+                    <br/><br/>
+                    We will contact you within the next 24 hours.
+                    <br/><br/>
+                    For more information, please contact us on the below mentioned number:
+                    <br/><br/>
+                    920008422
+                    <br/><br/>
+                    Sat - Thur
+                    <br/><br/>
+                    8am-5pm
+                </p>
 
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
 
-        <record id="claim_email_template" model="mail.template">
-            <field name="name">Claim: Send by email</field>
-            <field name="model_id" ref="bi_crm_claim.model_crm_claim"/>
-            <field name="email_from">${object.user_id.email_formatted |safe}</field>
-            <field name="partner_to">${object.partner_id.id}</field>
-            <field name="subject"> Claim (Ref ${object.code})</field>
-            <field name="body_html" type="html">
-                <div style="margin: 0px; padding: 0px;">
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        Dear ${object.partner_id.name}
-                        <br /><br />
-                        Here is your Claim With Reference ${object.code}
-                        <br /><br />
-                        Do not hesitate to contact us if you have any question.
-                    </p>
-                </div>
-            </field>
-            <field name="report_template" ref="claim_report_template"/>
-            <field name="report_name">Claim_${(object.name)}</field>
-            <field name="lang">${object.partner_id.lang}</field>
-            <field name="user_signature" eval="False"/>
-            <field name="auto_delete" eval="True"/>
-        </record>
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    عزيزي العميل: ${object.partner_id.name}
+                    <br/><br/>
+                    يهمنا جداً رضائكم عن الخدمة وسعيدين بتواصلكم معنا. نعتذر عن التجربة التي مررتم بها و نفيدكم برقم او مرجع ملف الشكوى وهو: ${object.code}
+                    <br/><br/>
+                    سيتم التواصل معكم خلال الـ ٢٤ ساعة القادمة.
+                    <br/><br/>
+                    لمزيد من الاستفسارات الرجاء التواصل معنا على الرقم الموضح أدناه..
+                    <br/><br/>
+                    ٩٢٠٠٠٨٤٢٢
+                    <br/><br/>
+                    السبت - الخميس
+                    <br/><br/>
+                    ٨ص - ٥م
+                </p>
 
-
+            </div>
+        </field>
+        <field name="report_template" ref="claim_report_template"/>
+        <field name="report_name">Claim_${(object.name)}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="user_signature" eval="False"/>
+        <field name="auto_delete" eval="True"/>
+    </record>
 </odoo>
