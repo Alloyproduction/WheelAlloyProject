@@ -215,6 +215,9 @@ class SaleOrder(models.Model):
             print(qc_search_obj.name)
             if qc_search_obj:
                 print("done1")
+                for line in rec.order_line:
+                    total_qty += line.product_uom_qty
+                print("kk",total_qty)
                 qc_search_obj.update({
                     'invoice_number': rec.invoice_ids.number,
                     'claim_no': rec.claim_no,
@@ -241,8 +244,10 @@ class SaleOrder(models.Model):
                 }
             else:
                 print("done2")
+                total_qty=0
                 for line in rec.order_line:
                     total_qty += line.product_uom_qty
+
                 print("Reference")
                 print(qc_search_obj.name)
                 qc_id = qc_obj.create({
