@@ -127,6 +127,7 @@ class crm_claim(models.Model):
 
 
 
+    @api.multi
     @api.model
     def cron_claim_check(self):
         print('hello cron')
