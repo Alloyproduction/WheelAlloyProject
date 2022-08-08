@@ -24,7 +24,6 @@
 
 
                 <form string="Wheel Report">
-
                     <header>
                         <button name="action_send_email" type="object"
                                 string="Send By Email"
@@ -32,23 +31,22 @@
                         />
                     </header>
 
-
                     <sheet string="Wheel Report Sheet">
 
-                    <group>
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="user_id"/>
-                    </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                        </group>
 
-                 <group>
-                    <field name="so_num"/>
-                    <field name="vehicle_name"/>
-                    <field name="plate_num"/>
-                    <field name="job_card"/>
-                     <field name="claim_num"/>
-                    <field name="note" string="Note"/>
-                  </group>
+                        <group>
+                            <field name="so_num"/>
+                            <field name="vehicle_name"/>
+                            <field name="plate_num"/>
+                            <field name="job_card"/>
+                            <field name="claim_num"/>
+                            <field name="note" string="Note"/>
+                        </group>
                     </sheet>
 
            <notebook>
@@ -58,15 +56,11 @@
                             <!--                                decoration-muted="cancelled == True">-->
                        <field name="product_id"/>
                        <field name="tire_status" />
-                        <field name="tire_has_cut" widget="radio"/>
-                        <field name="lips" widget="radio"/>
-                        <field name="tire"/>
+                        <field name="air_leaking"/>
+                        <field name="rim_status" />
                         <field name="spoke"/>
                         <field name="barrel"/>
-                        <field name="crack"/>
                         <field name="sensor"/>
-                        <field name="bent"/>
-                        <field name="spoke_problem"/>
                         <field name="rim_finished"/>
                         <field name="reject"/>
                         </tree>
@@ -95,9 +89,6 @@
                 sequence="3"
                 action="wheel_report.action_window"
                 parent="sale.sale_menu_root"/>
-        
-        <!--        groups="account.group_account_user"-->
-
 
             <act_window
             context="{'search_default_product_id': [active_id], 'default_product_id': active_id}"
@@ -105,8 +96,45 @@
             name="Wheel Checking Report"
             res_model="wheel.report.line"
             />
-<!--            src_model="product.product"-->
-<!--            groups="base.group_user"/>-->
+
+############################################################################################################
+
+          <act_window
+            id="action_tire_status_line_tree"
+            name="Wheel Report"
+            res_model="tire.status.line"
+            />
+
+                  <act_window
+            id="action_air_leaking_line_tree"
+            name="Wheel Report"
+            res_model="air.leaking.line"
+            />
+
+                  <act_window
+            id="action_rim_status_line_tree"
+            name="Wheel Checking Report"
+            res_model="rim.status.line"
+            />
+
+                  <act_window
+            id="action_spoke_line_tree"
+            name="Wheel Report"
+            res_model="spoke.line"
+            />
+
+                  <act_window
+            id="action_barrel_line_tree"
+            name="Wheel Report"
+            res_model="barrel.line"
+            />
+
+                          <act_window
+            id="action_sensor_line_tree"
+            name="Wheel Report"
+            res_model="sensor.line"
+            />
+
 
 
        ################################################################################################################################
@@ -116,19 +144,12 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-            <!--        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
-
-
-            <xpath expr="//header" position="inside">
-
-                <button name="create_wheel_check" string="Check the Wheel"
-                        type="object" class="oe_highlight"
-                        />
-            </xpath>
-
-<!--           <xpath expr="//field[@name='user_id']" position="after">-->
-<!--                <field name="wheel_check_id" />-->
-<!--            </xpath>-->
+                <!--        attrs="{'invisible': [('is_task_Q_delivered', '=', False)]}"-->
+                <xpath expr="//header" position="inside">
+                    <button name="create_wheel_check" string="Check the Wheel"
+                            type="object" class="oe_highlight"
+                    />
+                </xpath>
             </field>
         </record>
 

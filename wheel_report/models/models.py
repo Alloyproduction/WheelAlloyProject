@@ -14,9 +14,7 @@ class wheel_report_2(models.Model):
     partner_id = fields.Many2one('res.partner', 'Partner')
     user_id = fields.Many2one('res.users', 'User')
     so_num = fields.Many2one('sale.order')
-        # fields.Many2one('sale.order', string="Sales Order", required=True)
     vehicle_name = fields.Char(string = 'Vehicle Name')
-
     plate_num = fields.Char(string='Plate Number')
     job_card = fields.Char(string='Job Card')
     claim_num = fields.Char(string='Claim Number')
@@ -38,9 +36,6 @@ class wheel_report_2(models.Model):
 
     @api.multi
     def action_send_email(self):
-        # template_id = self.env.ref['wheel_report.alloy_wheel_email_template'].id
-        # template = self.env['mail.template'].browse(template_id)
-        # template.send_mail(self.id, force_send=True)
         '''
                 This function opens a window to compose an email, with the edi sale template message loaded by default
                 '''
@@ -66,7 +61,6 @@ class wheel_report_2(models.Model):
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
             'mark_so_as_sent': True,
-            # 'model_description': self.with_context(lang=lang).type_name,
             'custom_layout': "mail.mail_notification_borders",
             'proforma': self.env.context.get('proforma', False),
             'force_email': True
@@ -84,79 +78,61 @@ class wheel_report_2(models.Model):
 
 
 
-
 class wheel_report(models.Model):
     _name = 'wheel.report.line'
 
-    product_id = fields.Many2one('product.product', 'Product',
-        # domain=[('purchase_ok', '=', True)],
-        required=True, track_visibility='onchange')
-
-
-    request_id = fields.Many2one('wheel_report.wheel_report',
-                                 'Purchase Request',
-                                 ondelete='cascade', readonly=True)
-    #Tire:
-    tire_status  = fields.Selection([('flat_tire', 'Flat Tire'),
-                                      ('no_tire', 'No Tire'),
-                                     ('tire_can_fix', 'Damage No Fix Tire'),
-                                     ('condition', 'Good Condition '),
-                                     ('old_tire', 'Same Old Tire '),
-                                     ('new_tire', 'Change New Tire '),
-                                      ('clips_outside', 'Outside'),
-                                     ('no', 'Non')], string='Lips')
-    tire_has_cut  = fields.Selection([('no_cut', 'No Cut'),
-                                      ('hole_cut', 'Hole'),
-                                      ('inside_cut', 'Inside'),
-                                      ('outside_cut', 'Outside'),
-                                      ('no', 'Non')], string='Tire Cut')
-    # AIR LEAKING:
-    lips  = fields.Selection([('clips_cut', 'cut'),
-                                      ('clips_inside', 'Inside'),
-                                      ('clips_outside', 'Outside'),
-                                      ('no', 'Non')], string='Lips-Air Leaking')
-    tire = fields.Selection([('tire_puncher', 'Puncher'),
-                                      ('tire_nail', 'Nail'),
-                                      ('tire_screw', 'Screw Bolt'),
-                                      ('no', 'Non')])
-
-    spoke = fields.Selection([('spoke_bent', 'Bent'), ('no', 'Non')])
-
-    barrel = fields.Selection([('barrel_hole', 'Hole'),
-                                      ('barrel_broken', 'Broken'),
-                                      ('barrel_crack', 'Crack'),
-                                      ('no', 'Non')])
-
-    crack = fields.Selection([('crack_inside', 'Inside'),
-                                      ('crack_outside', 'Outside'),
-                                      ('tire_screw', 'Screw Bolt'),
-                                      ('no', 'Non')])
-
-    sensor = fields.Selection([('good_cond', 'Good Condition '),
-                                      ('damg_broken', 'Damage/Broken'),
-                                      ('damg_pin', 'Pin Problem'),
-                                      ('Ordinary', 'Ordinary/steal Valve'),
-                                      ('no', 'Non')])
-
-    bent = fields.Selection([('bent_inside', 'Inside'),
-                                      ('bent_outside', 'Outside'),
-                                      ('no', 'Non')])
-
-    spoke_problem = fields.Selection([('spoke_creck', 'Crack'),
-                                      ('spoke_broken', 'Broken'),
-                                      ('spoke_rep_percent', 'Repair Percentage'),
-                                      ('no', 'Non')])
-
+    product_id = fields.Many2one('product.product', 'Product', required=True, track_visibility='onchange')
+    request_id = fields.Many2one('wheel_report.wheel_report', ondelete='cascade', readonly=True)
+    tire_status  = fields.Many2many('tire.status.line', track_visibility='onchange')
+    air_leaking = fields.Many2many('air.leaking.line', track_visibility='onchange')
+    # tire = fields.Selection([()])
+    rim_status = fields.Many2many('rim.status.line', track_visibility='onchange')
+    spoke = fields.Many2many('spoke.line', track_visibility='onchange')
+    barrel = fields.Many2many('barrel.line', track_visibility='onchange')
+    sensor = fields.Many2many('sensor.line', track_visibility='onchange')
     rim_finished = fields.Boolean("Finished")
     reject = fields.Boolean ("Reject")
+
+
+    class wheel_tire_status(models.Model):
+        _name = 'tire.status.line'
+
+        name = fields.Char()
+
+    class wheel_air_leaking(models.Model):
+        _name = 'air.leaking.line'
+
+        name = fields.Char()
+
+
+    class wheel_rim_status(models.Model):
+        _name = 'rim.status.line'
+
+        name = fields.Char()
+
+
+    class wheel_spoke(models.Model):
+        _name = 'spoke.line'
+
+        name = fields.Char()
+
+
+    class wheel_barrel(models.Model):
+        _name = 'barrel.line'
+
+        name = fields.Char()
+
+
+    class wheel_sensor(models.Model):
+        _name = 'sensor.line'
+
+        name = fields.Char()
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     wheel_check_id = fields.Many2one(comodel_name="wheel_report.wheel_report")
     crm_order_line_ids = fields.Many2one(comodel_name="wheel.report.line", string="order lines")
-    # sale.order.line
-    # inverse_name="crm_lead_id",
 
 
     @api.multi

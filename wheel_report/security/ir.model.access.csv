@@ -5,3 +5,23 @@ access_wheel_report_user,wheel_report_user,model_wheel_report_wheel_report,"sale
 access_wheel_report_line_manger,access_wheel_report_line_manger,model_wheel_report_line,"sales_team.group_sale_manager",1,1,1,1
 access_wheel_report_line_user,access_wheel_report_line_user,model_wheel_report_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
 
+
+
+
+access_tire_status_line_manger,access_tire_status_line_manger,model_tire_status_line,"sales_team.group_sale_manager",1,1,1,1
+access_tire_status_line_user,access_tire_status_line_user,model_tire_status_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
+
+access_air_leaking_line_manger,access_air_leaking_line_manger,model_air_leaking_line,"sales_team.group_sale_manager",1,1,1,1
+access_air_leaking_line_user,access_air_leaking_line_user,model_air_leaking_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
+
+access_rim_status_line_manger,access_rim_status_line_manger,model_rim_status_line,"sales_team.group_sale_manager",1,1,1,1
+access_rim_status_line_user,access_rim_status_line_user,model_rim_status_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
+
+access_spoke_line_manger,access_spoke_line_manger,model_spoke_line,"sales_team.group_sale_manager",1,1,1,1
+access_spoke_line_user,access_spoke_line_user,model_spoke_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
+
+access_barrel_line_manger,access_barrel_line_manger,model_barrel_line,"sales_team.group_sale_manager",1,1,1,1
+access_barrel_line_user,access_barrel_line_user,model_barrel_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
+
+access_sensor_line_manger,access_sensor_line_manger,model_sensor_line,"sales_team.group_sale_manager",1,1,1,1
+access_sensor_line_user,access_sensor_line_user,model_sensor_line,"sales_team.group_sale_salesman_all_leads",1,1,1,0
