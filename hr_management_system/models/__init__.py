@@ -9,4 +9,3 @@ from . import hr_contract_inherit
 from . import hr_leave
 from . import hr_salary_report
 from . import calverter
-from . import stock
