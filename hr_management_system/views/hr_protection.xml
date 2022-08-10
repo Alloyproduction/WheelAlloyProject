@@ -10,58 +10,72 @@
                         <button name="emp_request_action" states="draft"
                                 string="Request" type="object"
                                 class="oe_highlight"/>
-
+<!--                                groups="hr_management_system.restrict_employee"/>-->
+                        />
                         <button name="hr_manager_action" states="request"
                                 string="Manager Approve" type="object"
                                 class="oe_highlight"
-                                groups="hr_management_system.group_hr_manager_demo"/>
+                                groups="hr_management_system.group_admin_benefit_approve"/>
+<!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
                         <button name="hr_administrator_action" states="man_approve"
-                                string="Approve" type="object"
+                                string="Processing" type="object"
                                 class="oe_highlight"
-                                groups="hr.group_hr_manager"/>
+                              groups="technician_request.group_Technician_request_manager"/>
 
                         <button name="reject_action" states="request,man_approve,approve"
                                 string="Reject" type="object"
                                 class="oe_highlight"
-                                groups="hr_management_system.group_hr_manager_demo"/>
+                                groups="hr_management_system.group_admin_benefit_approve"/>
+<!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
                         <button name="reset_action" states="approve,reject"
                                 string="Reset" type="object"
-                                groups="hr_management_system.group_hr_manager_demo"/>
+                                groups="hr_management_system.group_admin_benefit_approve"/>
+<!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,request,man_approve,approve,reject"/>
                     </header>
 
                     <sheet>
                         <group>
-                        <group>
-                            <field name="name"/>
-                            <field name="emp_id"/>
-                            <field name="emp_job_id" force_save="1"/>
-                            <field name="doc_attachment_id06" widget="many2many_binary" class="oe_inline"/>
-                        </group>
-                        <group>
-                            <separator/>
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                        </group>
-                        </group>
-
-                        <group>
-                            <field name="description"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="emp_id"/>
+                                <field name="emp_job_id" force_save="1"/>
+                                <field name="request_by"/>
+                                <field name="department_id"/>
+                                <field name="assigned_to" readonly ='1'/>
+                                <field name="doc_attachment_id06" widget="many2many_binary" class="oe_inline"/>
+                            </group>
+                            <group>
+                                <separator/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
                         </group>
 
                         <notebook>
-                            <page string="Items">
-                                <field name="product_ids"/>
+                            <page string="Benefit Request">
+                                <!--                                <field name="line_ids">-->
+                                <form string="Benefit Request">
+                                    <group>
+                                        <field name="product_id" string="Product"/>
+                                        <field name="description"/>
+                                        <field name="product_uom" options="{'no_create':True, 'no_open':True}"
+                                               string="Volume"/>
+                                        <field name="product_qty" string="Quantity"/>
+                                        <field name="qty_onhand2" string="On Hand"/>
+                                    </group>
+
+                                    <separator/>
+                                    <field name="product_old_qty" invisible="1"/>
+                                    <field name="product_new_qty" invisible="1"/>
+                                    <field name="product_amount_qty" invisible="1"/>
+                                </form>
                             </page>
                         </notebook>
-
-
                     </sheet>
-
-
 
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
@@ -81,8 +95,10 @@
                     <field name="name"/>
                     <field name="emp_id"/>
                     <field name="emp_job_id"/>
+                    <field name="product_id"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -113,5 +129,59 @@
                   name="Benefits"
                   action="mo_hr_protection_action"
                   sequence="2"/>
+
+
+
+
+        <record id="mo_hr_protection_action_tow" model="ir.actions.act_window">
+            <field name="name">Benefits</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.protection</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_mo_hr_protection_tow"
+                  name="Benefits"
+                  action="mo_hr_protection_action_tow"
+                  web_icon="hr_management_system,static/description/benefit.png"
+                  sequence="3"/>
+
+
+
+
+################################################################################################################################
+
+        <record id="view_stock_pick_form_inherited" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="benefit_id"/>
+                    <field name="employee_id"/>
+                </xpath>
+            </field>
+        </record>
+
+#######################################################################################################################################
+
+        <record id="product_template_form_view_inherit_benefits" model="ir.ui.view">
+            <field name="name">product.benefits.form.view</field>
+            <field name="model">product.template</field>
+            <!--          <field name="priority">3</field>-->
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <!--          <field name="groups_id" eval="[(4, ref('mrp.group_mrp_user'))]"/>-->
+            <field name="arch" type="xml">
+                <div class="oe_button_box" position="inside">
+                    <button name="benefits_button" type="object"
+                            class="oe_stat_button" icon="fa-folder-open" string="Benefits" widget="statinfo">
+                        <field string="" name="document_count_protection"/>
+                    </button>
+                </div>
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="is_benefit" string="Product is Benefit"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
