@@ -37,14 +37,18 @@
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="user_id"/>
-                        </group>
-
-                        <group>
                             <field name="so_num"/>
+                        </group>
+                        <separator/>
+                        <group>
+                            <field name="agency_name"/>
+                            <field name="advisor_name"/>
                             <field name="vehicle_name"/>
                             <field name="plate_num"/>
                             <field name="job_card"/>
                             <field name="claim_num"/>
+                        </group>
+                        <group>
                             <field name="note" string="Note"/>
                         </group>
                     </sheet>

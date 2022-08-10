@@ -18,6 +18,8 @@ class wheel_report_2(models.Model):
     plate_num = fields.Char(string='Plate Number')
     job_card = fields.Char(string='Job Card')
     claim_num = fields.Char(string='Claim Number')
+    agency_name = fields.Many2one('generic.location',string='Agency Name')
+    advisor_name = fields.Many2one('res.partner', string = 'Service Advisor')
     line_ids = fields.One2many('wheel.report.line', 'request_id',
                                'Wheel Report Line',
                                readonly=False,
@@ -85,7 +87,7 @@ class wheel_report(models.Model):
     request_id = fields.Many2one('wheel_report.wheel_report', ondelete='cascade', readonly=True)
     tire_status  = fields.Many2many('tire.status.line', track_visibility='onchange')
     air_leaking = fields.Many2many('air.leaking.line', track_visibility='onchange')
-    # tire = fields.Selection([()])
+    tire = fields.Boolean ()
     rim_status = fields.Many2many('rim.status.line', track_visibility='onchange')
     spoke = fields.Many2many('spoke.line', track_visibility='onchange')
     barrel = fields.Many2many('barrel.line', track_visibility='onchange')
@@ -159,6 +161,8 @@ class SaleOrder(models.Model):
                     'plate_num': rec.vehicle.license_plate,
                     'job_card': rec.x_studio_agency_job_card,
                     'claim_num': rec.claim_no,
+                    'agency_name': rec.x_studio_field_icWOZ.id,
+                    'advisor_name': rec.service_advisor.id,
                     # 'confirmation_date': str(rec.confirmation_date),
                     'vehicle_name': rec.car_name.name,
                     'so_num': self.id,
@@ -184,6 +188,8 @@ class SaleOrder(models.Model):
                     'plate_num': rec.vehicle.license_plate,
                     'claim_num': rec.claim_no,
                     'job_card': rec.x_studio_agency_job_card,
+                    'agency_name': rec.x_studio_field_icWOZ.id,
+                    'advisor_name': rec.service_advisor.id,
                     # 'confirmation_date': str(rec.confirmation_date),
                     'vehicle_name': rec.car_name.name,
                     'so_num': self.id,

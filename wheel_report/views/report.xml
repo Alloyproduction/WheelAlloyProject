@@ -26,7 +26,7 @@
                         <t>
                             <div style="overflow:hidden">
                                 <div class="left" style="float: left;white-space: nowrap;">
-                                    <span style="font-weight:bold;">Checking Number</span>
+                                    <span style="font-weight:bold;">Checking Number:</span>
                                 </div>
                                 <div class="left"
                                      style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
@@ -38,7 +38,7 @@
                         <t>
                             <div style="overflow:hidden">
                                 <div class="left" style="float: left;white-space: nowrap;">
-                                    <span style="font-weight:bold;">Customer name</span>
+                                    <span style="font-weight:bold;">Customer name:</span>
                                 </div>
                                 <div class="left"
                                      style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
@@ -46,10 +46,62 @@
                                 </div>
                             </div>
                         </t>
+
+
                         <t>
                             <div style="overflow:hidden">
                                 <div class="left" style="float: left;white-space: nowrap;">
-                                    <span style="font-weight:bold;">Vehicle name</span>
+                                    <span style="font-weight:bold;">Agency Name:</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:100px; text-align: left;">
+                                    <span t-esc="doc.agency_name.name"/>
+                                </div>
+                            </div>
+                        </t>
+
+
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Service Advisor:</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.advisor_name.name"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Job Card:</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:110px; text-align: left;">
+                                    <span t-esc="doc.job_card"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Claim Number:</span>
+                                </div>
+                                <div class="left"
+                                     style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
+                                    <span t-esc="doc.claim_num"/>
+                                </div>
+                            </div>
+                        </t>
+
+
+                        <t>
+                            <div style="overflow:hidden">
+                                <div class="left" style="float: left;white-space: nowrap;">
+                                    <span style="font-weight:bold;">Vehicle name:</span>
                                 </div>
                                 <div class="left"
                                      style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
@@ -57,10 +109,11 @@
                                 </div>
                             </div>
                         </t>
+
                         <t>
                             <div style="overflow:hidden">
                                 <div class="left" style="float: left;white-space: nowrap;">
-                                    <span style="font-weight:bold;">Plate Number</span>
+                                    <span style="font-weight:bold;">Plate Number:</span>
                                 </div>
                                 <div class="left"
                                      style="float: left;white-space: nowrap; margin-left:95px; text-align: left;">
@@ -68,8 +121,8 @@
                                 </div>
                             </div>
                         </t>
-                         <br /><br />
 
+                         <br /><br />
 <!--                       <h3 class="text-center" style="font-weight:bold">Report Details</h3>-->
                         <br /><br />
              <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
