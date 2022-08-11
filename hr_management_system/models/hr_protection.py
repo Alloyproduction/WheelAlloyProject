@@ -205,13 +205,14 @@ class HRProtection(models.Model):
 
         if self.department_id.create_quotation_manager_id:
             recipient_partners.append(self.department_id.create_quotation_manager_id.partner_id.id)
+            print(recipient_partners)
 
-        if len(recipient_partners):
-            self.message_post(body=msg_body,
-                              subtype='mt_comment',
-                              subject=msg_sub,
-                              partner_ids=recipient_partners,
-                              message_type='comment')
+            if len(recipient_partners):
+                self.message_post(body=msg_body,
+                                  subtype='mt_comment',
+                                  subject=msg_sub,
+                                  partner_ids=recipient_partners,
+                                  message_type='comment')
 
 
 
