@@ -29,29 +29,33 @@
                                 groups="hr_management_system.group_admin_benefit_approve"/>
 <!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
-                        <button name="reset_action" states="approve,reject"
+                        <button name="reset_action" states="approve,reject,return"
                                 string="Reset" type="object"
                                 groups="hr_management_system.group_admin_benefit_approve"/>
 <!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
-                        <field name="state" widget="statusbar" statusbar_visible="draft,request,man_approve,approve,reject"/>
+                        <button name="return_action" states="approve"
+                                string="Benefit Return" type="object"
+                                groups="hr_management_system.group_admin_benefit_approve"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,request,man_approve,approve,reject,return"/>
                     </header>
 
                     <sheet>
                         <group>
                             <group>
-                                <field name="name"/>
-                                <field name="emp_id"/>
-                                <field name="emp_job_id" force_save="1"/>
-                                <field name="request_by"/>
-                                <field name="department_id"/>
+                                <field name="name" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+                                <field name="emp_id" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}" />
+                                <field name="emp_job_id" force_save="1" />
+                                <field name="request_by" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}" />
+                                <field name="department_id" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}" />
                                 <field name="assigned_to" readonly ='1'/>
-                                <field name="doc_attachment_id06" widget="many2many_binary" class="oe_inline"/>
+                                <field name="doc_attachment_id06" widget="many2many_binary" class="oe_inline" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
                             </group>
                             <group>
                                 <separator/>
-                                <field name="date_from"/>
-                                <field name="date_to"/>
+                                <field name="date_from" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+                                <field name="date_to" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
                             </group>
                         </group>
 
@@ -60,12 +64,12 @@
                                 <!--                                <field name="line_ids">-->
                                 <form string="Benefit Request">
                                     <group>
-                                        <field name="product_id" string="Product"/>
-                                        <field name="description"/>
-                                        <field name="product_uom" options="{'no_create':True, 'no_open':True}"
+                                        <field name="product_id" string="Product" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+                                        <field name="description" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+                                        <field name="product_uom" options="{'no_create':True, 'no_open':True} "
                                                string="Volume"/>
-                                        <field name="product_qty" string="Quantity"/>
-                                        <field name="qty_onhand2" string="On Hand"/>
+                                        <field name="product_qty" string="Quantity" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+                                        <field name="qty_onhand2" string="On Hand" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}" />
                                     </group>
 
                                     <separator/>
@@ -145,9 +149,6 @@
                   action="mo_hr_protection_action_tow"
                   web_icon="hr_management_system,static/description/benefit.png"
                   sequence="3"/>
-
-
-
 
 ################################################################################################################################
 

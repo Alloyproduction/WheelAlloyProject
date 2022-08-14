@@ -4,14 +4,14 @@ from odoo.addons import decimal_precision as dp
 from odoo.tools.float_utils import float_compare, float_round, float_is_zero
 
 
-class StockMoveLineTechnician(models.Model):
-    _inherit = "benefit.request.line"
-
-    employee_user_id_move_line = fields.Many2one('res.users',
-                                                 'Requester Name', store=True,
-
-                                                 track_visibility='onchange',
-                                                 )
+# class StockMoveLineTechnician(models.Model):
+#     _inherit = "benefit.request.line"
+#
+#     employee_user_id_move_line = fields.Many2one('res.users',
+#                                                  'Requester Name', store=True,
+#
+#                                                  track_visibility='onchange',
+#                                                  )
 class Picking(models.Model):
 
     _inherit = "stock.move"

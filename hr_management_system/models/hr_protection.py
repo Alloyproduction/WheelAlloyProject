@@ -71,6 +71,7 @@ class HRProtection(models.Model):
                               ('request','Request'),
                               ('man_approve','Manager Approve'),
                               ('approve','Approved'),
+                              ('return', 'Benefit Return'),
                               ('reject','Rejected'),],
                               default='draft')
     product_id = fields.Many2one('product.product', 'Product ID', domain=[('is_benefit', '=', True),('type', '=', 'product')],required=True, track_visibility='onchange')
@@ -120,44 +121,6 @@ class HRProtection(models.Model):
         for i in self.filtered('emp_id'):
             i.emp_job_id = i.emp_id.job_id
 
-
-
-    # def make_activity(self, user_ids):
-    #     print("j...", user_ids)
-    #     now = datetime.now()
-    #     date_deadline = now.date()
-    #
-    #     if self:
-    #         if user_ids:
-    #             actv_id = self.sudo().activity_schedule(
-    #                 'mail.mail_activity_data_todo', date_deadline,
-    #                 note=_(
-    #                     '<a href="#" data-oe-model="%s" data-oe-id="%s">Task </a> for <a href="#" data-oe-model="%s" data-oe-id="%s">%s\'s</a> Review') % (
-    #                          self._name, self.id, self.emp_id._name,
-    #                          self.emp_id.id, self.emp_id.display_name),
-    #                 user_id=user_ids,
-    #                 res_id=self.id,
-    #
-    #                 summary=_("Request Approve")
-    #             )
-    #             print("active", actv_id)
-
-    # def _send_email_request(self,user_group,sub,content):
-    #     recipient_partners = []
-    #     for group in user_group:
-    #         print('asd1')
-    #         for recipient in group.users:
-    #             print(recipient)
-    #             if recipient.partner_id.id not in recipient_partners:
-    #                 recipient_partners.append(recipient.partner_id.id)
-    #     if len(recipient_partners):
-    #         print(recipient_partners)
-    #         self.message_post(body=content,
-    #                        subtype='mt_comment',
-    #                        subject=sub,
-    #                        partner_ids=recipient_partners,
-    #                        message_type='comment')
-
     @api.multi
     def emp_request_action(self):
         available_qty = self.product_id.qty_available
@@ -183,25 +146,10 @@ class HRProtection(models.Model):
 
     @api.multi
     def hr_manager_action(self):
-        # user_group = self.env.ref("sales_team.group_sale_manager")
-        # print("yes1235", user_group)
-        # sub = _("Employee Benefit Request - Stock Manger")
-        # content = _("Hello,<br>Mr/Mrs: <b>" + str(
-        #     self.emp_id.name) + "</b> Has a <b>Benefit</b> request  request with Ref: <b>" + str(
-        #     self.name) + "</b> requires your Processing," \
-        #                  "<br>May you check it please.. ")
-        # i = self._send_email_request(user_group, sub, content)
-
         recipient_partners = []
         msg_sub = "Employee Benefit Request - Stock Manager"
         msg_body = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has a Benefit request with Ref: <b>" + str(self.name) + "</b> requires your approve," \
                          "<br>May you check it please.. ")
-        # if self.request_by.partner_id.id and self.request_by.partner_id.id not in recipient_partners:
-        #     recipient_partners.append(self.request_by.partner_id.id)
-        # if self.manager_id:
-        #     for m in self.manager_id:
-        #         if m.partner_id.id not in recipient_partners:
-        #             recipient_partners.append(m.partner_id.id)
 
         if self.department_id.create_quotation_manager_id:
             recipient_partners.append(self.department_id.create_quotation_manager_id.partner_id.id)
@@ -214,25 +162,6 @@ class HRProtection(models.Model):
                                   partner_ids=recipient_partners,
                                   message_type='comment')
 
-
-
-        # sub = _("Employee Benefit Request - Stock Manager")
-        # content = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has a Benefit request with Ref: <b>" + str(self.name) +  "</b> requires your approve," \
-        #             "<br>May you check it please.. ")
-        # recipient_partners = []
-        # groups = self.env['res.groups'].search([('name', '=', 'Technician Request Manager')])
-        # for group in groups:
-        #     for recipient in group.users:
-        #         print(recipient)
-        #         if recipient.partner_id.id not in recipient_partners:
-        #             recipient_partners.append(recipient.partner_id.id)
-        #     if len(recipient_partners):
-        #         print(recipient_partners)
-        #         self.message_post(body=content,
-        #                           subtype='mt_comment',
-        #                           subject=sub,
-        #                           partner_ids=recipient_partners,
-        #                           message_type='comment')
         return self.write({'state': 'man_approve'})
 
     @api.multi
@@ -297,6 +226,56 @@ class HRProtection(models.Model):
         # if products_order_line:
         self.write({'state': 'approve'})
         return res
+
+
+
+    @api.multi
+    def return_action(self):
+        view_id = self.env.ref('stock.view_picking_form')
+        products_order_line = []
+        product_line = {'product_id': self.product_id.id,
+                        'state': 'draft',
+                        'product_uom': self.product_id.uom_id.id,
+                        'product_uom_qty': self.product_qty,
+                        'date_expected': fields.Datetime.now(),
+                        'name': self.product_id.name,
+                        'cost_move': self.product_amount_qty,
+                        'old_qty_move': self.product_old_qty,
+                        'new_qty_move': self.product_new_qty,
+                        'amount_qty_move': self.product_amount_qty,
+                        'employee_user_id_move': self.request_by.id,
+                        }
+        products_order_line.append(product_line)
+
+        res = {
+            'name': _('New Transfer'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'stock.picking',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'new',
+            'flags': {'form': {'action_buttons': True, 'options': {'mode': 'edit'}}},
+            'view_id': view_id.id,
+            'views': [(view_id.id, 'form')],
+
+            'context': {
+            'default_move_ids_without_package': products_order_line,
+            'default_state': 'draft',
+            'default_picking_type_id':37,
+            'default_location_id': self.Location_u_from.id,
+            'default_location_dest_id': 99,
+            'default_benefit_id': self.id,
+            'default_employee_user_id': self.request_by.id,
+            'default_employee_id': self.emp_id.id,
+            'manager_by': self.manager_id,
+            'default_scheduled_date': datetime.now(),
+            'default_move_lines.date_expected':fields.Datetime.now(),
+            'lang': 'en_US',
+            'tz': 'Asia/Riyadh',
+            }
+        }
+        self.write({'state': 'return'})
+        return res
 ##########################################################################################################################
     @api.multi
     def reject_action(self):
@@ -315,11 +294,11 @@ class HrProtectionAttachment(models.Model):
 
 
 
-class BenefitRequestLine(models.Model):
-
-    _name = "benefit.request.line"
-    _description = "Benefits Request Line"
-    _inherit = ['mail.thread']
+# class BenefitRequestLine(models.Model):
+#
+#     _name = "benefit.request.line"
+#     _description = "Benefits Request Line"
+#     _inherit = ['mail.thread']
 ######################################################3
 
 class stockpickUser(models.Model):
