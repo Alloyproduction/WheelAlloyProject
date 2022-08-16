@@ -7,6 +7,7 @@ class HrAppraisal(models.Model):
 
     commission_count = fields.Float(compute='compute_commission_count')
     x_studio_service_provider = fields.Many2one('res.partner')
+    active = fields.Boolean('Active',default=lambda *a: 1)
 
     def compute_commission_count(self):
         account_commission = self.env['account.commission'].search_count([('invoice_id', '=', self.id)])
