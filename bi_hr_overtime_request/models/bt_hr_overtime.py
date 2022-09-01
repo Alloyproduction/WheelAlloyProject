@@ -83,40 +83,41 @@ class BtHrOvertime(models.Model):
     def compute_delay_request(self):
         leave_ids = self.env['hr.leave'].search([('state', '=', 'validate'), ('time_request', '>', 0),
                                                  ('only_one_lev', '=', False)], order='date_from')
-        # print('lev' * 2, leave_ids)
+        print('lev' * 2, leave_ids)
         only_date = None
-        for lev in leave_ids:
-            # print('start from here')
-            # print('t request' * 1, lev.time_request)
-            # print('WZZ' * 5, lev.employee_id.id)
-            # print('WZZ' * 5, lev.request_date_from)
-            dd = lev.request_date_from.strftime('%Y/%m/%d')
-            # print('on', only_date)
-            # count = 0
-            attend_ids = self.env['hr.attendance'].search([('employee_id', '=', lev.employee_id.id),
-                                                           ('only_one', '=', False)], order='check_in')
-            # print('att' * 3, attend_ids)
-            for rec in attend_ids:
+        if leave_ids:
+            for lev in leave_ids:
+                # print('start from here')
+                # print('t request' * 1, lev.time_request)
+                # print('WZZ' * 5, lev.employee_id.id)
+                # print('WZZ' * 5, lev.request_date_from)
+                dd = lev.request_date_from.strftime('%Y/%m/%d')
+                # print('on', only_date)
                 # count = 0
-                # print('Ch' * 5, rec.check_in)
-                only_date = rec.check_in.strftime('%Y/%m/%d')
-                # print('only_date', only_date)
-                # if lev.request_date_from == only_date:
-                # print('only_date222', only_date)
-                if dd == only_date:
-                    # print('only_one=', rec.only_one)
-                    # print('only_onelev=', lev.only_one_lev)
-                    # count +=1
-                    # print('ff' * 7)
-                    rec.emp_req_d_h = lev.time_request
-                    rec.only_one = True
-                    lev.only_one_lev = True
-                    # print('only_one2=', rec.only_one)
-                    # print('only_one2lev=', lev.only_one_lev)
-                    # print('kkk=', rec.emp_req_d_h)
-                    break
-                else:
-                    rec.emp_req_d_h = 0
+                attend_ids = self.env['hr.attendance'].search([('employee_id', '=', lev.employee_id.id),
+                                                               ('only_one', '=', False)], order='check_in')
+                # print('att' * 3, attend_ids)
+                for rec in attend_ids:
+                    # count = 0
+                    # print('Ch' * 5, rec.check_in)
+                    only_date = rec.check_in.strftime('%Y/%m/%d')
+                    # print('only_date', only_date)
+                    # if lev.request_date_from == only_date:
+                    # print('only_date222', only_date)
+                    if dd == only_date:
+                        # print('only_one=', rec.only_one)
+                        # print('only_onelev=', lev.only_one_lev)
+                        # count +=1
+                        # print('ff' * 7)
+                        rec.emp_req_d_h = lev.time_request
+                        rec.only_one = True
+                        lev.only_one_lev = True
+                        # print('only_one2=', rec.only_one)
+                        # print('only_one2lev=', lev.only_one_lev)
+                        # print('kkk=', rec.emp_req_d_h)
+                        break
+                    else:
+                        rec.emp_req_d_h = 0
 
     # fun for cron run every day for overtime , delay
     @api.model
@@ -131,6 +132,7 @@ class BtHrOvertime(models.Model):
             tmp = obj.id
             if obj.check_in and obj.check_out:
                 # print('check in day and time=', obj.check_in)
+                # print('check_out day and time=', obj.check_out)
                 # print('idddd===', obj.id)
                 c_date1 = obj.check_in.strftime('%m-%d-%Y')
                 # print('only date1', c_date1) # 09-27-2021
@@ -162,7 +164,11 @@ class BtHrOvertime(models.Model):
                         current_time_out = obj.check_out.strftime("%H:%M:%S")
                         # print('current time out', current_time_out)
                         h1 = int(str(current_time).split(':')[0]) + int(2)
+
                         h2 = int(str(current_time_out).split(':')[0]) + int(2)
+                        # print("h1 and h2 ====", h1, h2)
+                        h1 = h1 + 1
+                        h2 = h2 + 1
                         # print("h1 and h2 ", h1, h2)
                         m1 = str(current_time).split(':')[1]
                         m2 = str(current_time_out).split(':')[1]
@@ -192,7 +198,9 @@ class BtHrOvertime(models.Model):
                             # print('E=', h2_e, '.', m2_e)
                             # when employee come late am
                             if float(total_h1_m1) > float(start_h):
-                                # print('come late')
+                                print('come late')
+                                # print('start_work at', float(start_h))
+                                # print('float(total_h1_m1 at', float(total_h1_m1))
                                 h_l = (int(h1) - float(h_s1)) * 60
                                 m_l = int(m1) - float(m1_s)
                                 h_m_l = h_l + m_l
@@ -224,6 +232,7 @@ class BtHrOvertime(models.Model):
                                     # print('delay_hours2', delay_hours2)
                                 # print('delay_hours2', delay_hours2)
                             else:
+                                print('leave tmam')
                                 h_ll_req1 = (int(h2) - float(h2_e)) * 60
                                 m_ll_req2 = int(m2) - float(m2_e)
                                 h_m_ll_req1 = h_ll_req1 + m_ll_req2
@@ -240,7 +249,7 @@ class BtHrOvertime(models.Model):
                         # print('only_min==', m2_int)
                         temp_id = 0
                         if obj.emp_req_d_h:
-                            # print('there are a employee req')
+                            print('there are a employee req')
                             # convert employee req h to min
                             hours_req = int(obj.emp_req_d_h) * 60
                             # print('hours_req=', hours_req)
@@ -345,11 +354,11 @@ class BtHrOvertime(models.Model):
                                         break
                         # _________________________________
                         else:
-                            # print('no employee req')
+                            # print('no employee req'*10)
                             delay_hours_after_req = current_delay_hours
                             # print('delay_hours_after_req 2==', delay_hours_after_req)
                         delay_hours = delay_hours_after_req * 60
-                        # print('last total delay in min###', delay_hours)
+                        # print('last total delay in min###', delay_hours )
                         # print('end caluculate delaaaaaaaaaay')
                         start_date = datetime.datetime.strptime(obj.check_in.strftime('%Y-%m-%d %H:%M:%S'),
                                                                 DEFAULT_SERVER_DATETIME_FORMAT)
@@ -390,7 +399,14 @@ class BtHrOvertime(models.Model):
                             total_end_work_hour = str(h_end) + '.' + str(m_end)
                             # print('total_end_work_hour', total_end_work_hour)
                             # print('check out',total_h2_m2)
-                            total_actual_working_hours_after_end_day = (int(h2) - int(h_end) ) * 60
+                            # current_time22 = obj.check_in.strftime("%H:%M:%S")
+                            # print('current check_in', current_time22)
+                            current_time_out22 = obj.check_out.strftime("%H:%M:%S")
+                            # print('current time out22', current_time_out22)
+                            # h1 = int(str(current_time).split(':')[0]) + int(2)
+                            only_h = int(str(current_time_out22).split(':')[0]) + int(3)
+                            # print('only_h time out22', only_h)
+                            total_actual_working_hours_after_end_day = (int(only_h) - int(h_end) ) * 60
                             # print('total_actual_working_hours_after_end_day', total_actual_working_hours_after_end_day)
                             total_actual_working_min_after_end_day = int(m2) - int(m_end)
                             # print('total_actual_working_min_after_end_day', total_actual_working_min_after_end_day)
@@ -418,7 +434,7 @@ class BtHrOvertime(models.Model):
                                     final_time = final_time
                                 # overtime_hours = actual_working_hours - working_hours
                                 overtime_hours = final_time
-                                print('overtime_hours1',overtime_hours)
+                                # print('overtime_hours1',overtime_hours)
                                 overtime_hours2 = overtime_hours
                                 # print('ov2', overtime_hours2)
                                 # if start_day in ['Friday', 'Saturday']:
@@ -440,14 +456,14 @@ class BtHrOvertime(models.Model):
                                 y, m, d = cur_d
                                 # print('y=', y)
                                 # print('m=', m)
-                                if delay_hours > 0:
-                                    delay_hours = delay_hours - 60
-                                if overtime_hours > 0:
-                                    overtime_hours = overtime_hours + 60
-                                if overtime_hours2 > 0:
-                                    overtime_hours2 = overtime_hours2 + 60
-                                if time_after_end > 0:
-                                    time_after_end = time_after_end + 60
+                                # if delay_hours > 0:
+                                #     delay_hours = delay_hours + 60
+                                # if overtime_hours > 0:
+                                #     overtime_hours = overtime_hours + 60
+                                # if overtime_hours2 > 0:
+                                #     overtime_hours2 = overtime_hours2 + 60
+                                # if time_after_end > 0:
+                                #     time_after_end = time_after_end + 60
                                 vals = {
                                     'employee_id': obj.employee_id and obj.employee_id.id or False,
                                     'manager_id': obj.employee_id and obj.employee_id.parent_id and obj.employee_id.parent_id.id or False,
@@ -475,7 +491,7 @@ class BtHrOvertime(models.Model):
                                     # if 18.30 > float(total_h2_m2) > 17:
                                     # if float(total_h2_m2) == 18.20:
                                     if total_all >= 60:
-                                        # print("check out = 18 or less than 18.30")
+                                        print("check out = 18 or less than 18.30")
                                         overtime_hours = 1 * 60
                                         overtime_hours2 = 1.5 * 60
                                     else:
@@ -489,14 +505,14 @@ class BtHrOvertime(models.Model):
                                 # print('delay_hours222 =', delay_hours)
                                 # print('overtime_hours2222 =', overtime_hours2)
                                 # print('time_after_end 222=', time_after_end)
-                                if delay_hours > 0:
-                                    delay_hours = delay_hours - 60
-                                if overtime_hours > 0:
-                                    overtime_hours = overtime_hours + 60
-                                if overtime_hours2 > 0:
-                                    overtime_hours2 = overtime_hours2 + 60
-                                if time_after_end > 0:
-                                    time_after_end = time_after_end + 60
+                                # if delay_hours > 0:
+                                #     delay_hours = delay_hours + 60
+                                # if overtime_hours > 0:
+                                #     overtime_hours = overtime_hours + 60
+                                # if overtime_hours2 > 0:
+                                #     overtime_hours2 = overtime_hours2 + 60
+                                # if time_after_end > 0:
+                                #     time_after_end = time_after_end + 60
                                 vals = {
                                     'employee_id': obj.employee_id and obj.employee_id.id or False,
                                     'manager_id': obj.employee_id and obj.employee_id.parent_id and obj.employee_id.parent_id.id or False,
@@ -787,45 +803,44 @@ class HrAttendance(models.Model):
                                read_only=True)
     only_one = fields.Boolean(string='T or F')
 
-
-    @api.multi
-    def compute_delay_request(self):
-        leave_ids = self.env['hr.leave'].search([('state', '=', 'validate'), ('time_request', '>', 0),
-                                                 ('only_one_lev', '=', False)], order='date_from')
-        # print('lev' * 2, leave_ids)
-        only_date = None
-        for lev in leave_ids:
-            # print('start from here')
-            # print('t request' * 1, lev.time_request)
-            # print('WZZ' * 5, lev.employee_id.id)
-            # print('WZZ' * 5, lev.request_date_from)
-            dd = lev.request_date_from.strftime('%Y/%m/%d')
-            # print('on', only_date)
-            # count = 0
-            attend_ids = self.env['hr.attendance'].search([('employee_id', '=', lev.employee_id.id),
-                                                           ('only_one', '=', False)], order='check_in')
-            # print('att' * 3, attend_ids)
-            for rec in attend_ids:
-                # count = 0
-                # print('Ch' * 5, rec.check_in)
-                only_date = rec.check_in.strftime('%Y/%m/%d')
-                # print('only_date', only_date)
-                # if lev.request_date_from == only_date:
-                # print('only_date222', only_date)
-                if dd == only_date:
-                    # print('only_one=', rec.only_one)
-                    # print('only_onelev=', lev.only_one_lev)
-                    # count +=1
-                    # print('ff' * 7)
-                    rec.emp_req_d_h = lev.time_request
-                    rec.only_one = True
-                    lev.only_one_lev = True
-                    # print('only_one2=', rec.only_one)
-                    # print('only_one2lev=', lev.only_one_lev)
-                    # print('kkk=', rec.emp_req_d_h)
-                    break
-                else:
-                    rec.emp_req_d_h = 0
+    # @api.multi
+    # def compute_delay_request(self):
+    #     leave_ids = self.env['hr.leave'].search([('state', '=', 'validate'), ('time_request', '>', 0),
+    #                                              ('only_one_lev', '=', False)], order='date_from')
+    #     # print('lev' * 2, leave_ids)
+    #     only_date = None
+    #     for lev in leave_ids:
+    #         # print('start from here')
+    #         # print('t request' * 1, lev.time_request)
+    #         # print('WZZ' * 5, lev.employee_id.id)
+    #         # print('WZZ' * 5, lev.request_date_from)
+    #         dd = lev.request_date_from.strftime('%Y/%m/%d')
+    #         # print('on', only_date)
+    #         # count = 0
+    #         attend_ids = self.env['hr.attendance'].search([('employee_id', '=', lev.employee_id.id),
+    #                                                        ('only_one', '=', False)], order='check_in')
+    #         # print('att' * 3, attend_ids)
+    #         for rec in attend_ids:
+    #             # count = 0
+    #             # print('Ch' * 5, rec.check_in)
+    #             only_date = rec.check_in.strftime('%Y/%m/%d')
+    #             # print('only_date', only_date)
+    #             # if lev.request_date_from == only_date:
+    #             # print('only_date222', only_date)
+    #             if dd == only_date:
+    #                 # print('only_one=', rec.only_one)
+    #                 # print('only_onelev=', lev.only_one_lev)
+    #                 # count +=1
+    #                 # print('ff' * 7)
+    #                 rec.emp_req_d_h = lev.time_request
+    #                 rec.only_one = True
+    #                 lev.only_one_lev = True
+    #                 # print('only_one2=', rec.only_one)
+    #                 # print('only_one2lev=', lev.only_one_lev)
+    #                 # print('kkk=', rec.emp_req_d_h)
+    #                 break
+    #             else:
+    #                 rec.emp_req_d_h = 0
 
     # @api.onchange('time_request')
     # @api.multi
