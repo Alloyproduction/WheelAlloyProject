@@ -128,7 +128,7 @@
       <field name="arch" type="xml">
         <data>
           <xpath expr="//field[@name='check_out']" position="after">
-            <field name="overtime_created" invisible="0" readonly="0"/>
+            <field name="overtime_created" invisible="1" readonly="0"/>
             <!--            <field name="Absence_created" invisible="0" readonly="0"/>-->
             <field name="emp_req_d_h" invisible="0"/>
             <field name="TT_id" invisible="1"/>
