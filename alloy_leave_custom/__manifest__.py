@@ -26,7 +26,6 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'security/groups.xml',
         'data/ir_sequence_data.xml',
         'views/views.xml',
         # 'views/templates.xml',

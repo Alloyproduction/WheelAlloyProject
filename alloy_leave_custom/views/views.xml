@@ -1,58 +1,61 @@
 <odoo>
+  <data>
 
-    <record id="hr_leave_inherit_form_manager1" model="ir.ui.view">
-        <field name="name">hr.leave.inherit.form</field>
-        <field name="model">hr.leave</field>
-        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
-        <field name="arch" type="xml">
+      <record id="hr_leave_inherit_form_manager1" model="ir.ui.view">
+          <field name="name">hr.leave.inherit.form</field>
+          <field name="model">hr.leave</field>
+          <!--      <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>-->
+          <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+          <field name="arch" type="xml">
 
+              <xpath expr="//field[@name='holiday_status_id']" position="before">
+                  <field name="leave_code"/>
+                  <field name="doc_attachment_id" widget="many2many_binary"/>
+              </xpath>
 
-            <xpath expr="//header" position="replace">
+              <xpath expr="//header" position="after">
+                  <header>
+                      <button name="action_send" string="Send Request" type="object" class="oe_highlight"
+                              attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                              groups="alloy_leave_custom.group_user"
+                  </header>
+              </xpath>
 
-                <header>
-
-                    <!--                <button name="action_reject" string="Reject"-->
-                    <!--                        type="object" class="oe_highlight" states="draft,confirm"/>-->
-
-                    <!--&lt;!&ndash;                        groups="alloy_leave.group_hr_approve"/>&ndash;&gt;-->
-
-                    <button name="action_confirm" string="Department manger" type="object" class="oe_highlight"
-                            states="send" groups="alloy_leave_custom.group_department_leave_approve" />
-
-                    <button name="action_validate" string="HR Approve" type="object" class="oe_highlight"
-                            states="confirm" groups="alloy_leave_custom.group_hr_leave_approve" />
-
-                    <button name="action_approve" string="CEO Approve" type="object" class="oe_highlight"
-                            states="validate1" groups="alloy_leave_custom.group_ceo_leave_approve"/>
-
-                    <button name="action_refuse" string="Refuse" type="object" class="oe_highlight"
-                            states="draft,confirm,validate1,validate" groups="alloy_leave_custom.group_admin_leave_approve"/>
-
-                    <button name="action_draft" string="Set to draft" type="object" class="oe_highlight"
-                            states="refuse,cancel" groups="alloy_leave_custom.group_admin_leave_approve"/>
-
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="draft,send,cancel,refuse,confirm,validate1,validate"/>
-                </header>
-
-            </xpath>
+              <xpath expr="//button[@name='action_confirm']" position="attributes">
+                  <attribute name="string">Department Approve</attribute>
+                  <attribute name="groups">alloy_leave_custom.group_department_leave_approve</attribute>
+                  <attribute name="attrs">{'invisible': [('state', '!=', 'send')]}</attribute>
+              </xpath>
 
 
-
-            <xpath expr="//header" position="after">
-                     <header>
-                    <button name="action_send" string="Send Request" type="object" class="oe_highlight"
-                        states="draft"/>
-                     </header>
-             </xpath>
+              <xpath expr="//button[@name='action_approve']" position="attributes">
+                  <attribute name="string">HR Approve</attribute>
+                  <attribute name="groups">alloy_leave_custom.group_hr_leave_approve</attribute>
+                  <attribute name="attrs">{'invisible': [('state', '!=', 'confirm')]}</attribute>
+              </xpath>
 
 
-            <xpath expr="//field[@name='holiday_status_id']" position="before">
-                <field name="leave_code"/>
-                <field name="doc_attachment_id" widget="many2many_binary"/>
-            </xpath>
+              <xpath expr="//button[@name='action_validate']" position="attributes">
+                  <attribute name="string">CEO Approve</attribute>
+                  <attribute name="groups">alloy_leave_custom.group_ceo_leave_approve</attribute>
+                  <attribute name="attrs">{'invisible': [('state', '!=', 'validate1')]}</attribute>
+              </xpath>
 
-        </field>
-    </record>
+              <xpath expr="//button[@name='action_refuse']" position="attributes">
+                  <attribute name="groups">alloy_leave_custom.group_leave_admin</attribute>
+                  <attribute name="attrs">{'invisible': [('state', '=', 'send')]}</attribute>
+              </xpath>
 
+              <xpath expr="//button[@name='action_draft']" position="attributes">
+                  <attribute name="groups">alloy_leave_custom.group_leave_admin</attribute>
+              </xpath>
+
+              <field name='state' position="attributes">
+                  <attribute name="widget">statusbar</attribute>
+                  <attribute name="statusbar_visible">draft,send,confirm,validate1,validate</attribute>
+              </field>
+
+          </field>
+      </record>
+  </data>
 </odoo>
