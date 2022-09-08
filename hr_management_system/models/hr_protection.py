@@ -4,6 +4,8 @@ from odoo.addons import decimal_precision as dp
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, UserError, float_is_zero, float_compare
 
+class HRProtection111(models.Model):
+    _name = 'benefit.request.line'
 
 class HRProtection(models.Model):
     _name = 'hr.protection'
