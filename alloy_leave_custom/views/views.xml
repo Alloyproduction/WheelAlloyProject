@@ -1,5 +1,5 @@
 <odoo>
-  <data>
+  <data noupdate="1">
 
       <record id="hr_leave_inherit_form_manager1" model="ir.ui.view">
           <field name="name">hr.leave.inherit.form</field>
