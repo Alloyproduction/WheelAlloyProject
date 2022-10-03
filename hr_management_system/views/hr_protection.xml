@@ -51,6 +51,11 @@
                                 <field name="department_id" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}" />
                                 <field name="assigned_to" readonly ='1'/>
                                 <field name="doc_attachment_id06" widget="many2many_binary" class="oe_inline" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
+
+                                <label for="employee_signature" string="Signature"/>
+                                <h2>
+                                    <field name="employee_signature" widget="signature"/>
+                                </h2>
                             </group>
                             <group>
                                 <separator/>

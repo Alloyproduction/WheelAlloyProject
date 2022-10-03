@@ -76,6 +76,7 @@ class HRProtection(models.Model):
                               ('return', 'Benefit Return'),
                               ('reject','Rejected'),],
                               default='draft')
+    employee_signature = fields.Binary(string='Signature', widget="signature")
     product_id = fields.Many2one('product.product', 'Product ID', domain=[('is_benefit', '=', True),('type', '=', 'product')],required=True, track_visibility='onchange')
     product_uom = fields.Char(string='Volume', compute="_get_unit", readonly=True, track_visibility='onchange')
     qty_onhand2 = fields.Float(string="On Hand", compute="_get_qty", readonly=True)
