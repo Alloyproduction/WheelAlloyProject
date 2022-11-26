@@ -627,7 +627,7 @@ class InheritSale(models.Model):
         print(str)
         ir_model_data = self.env['ir.model.data']
         try:
-            template_id = ir_model_data.get_object_reference('sale', 'email_template_edi_sale')[1]
+            template_id = ir_model_data.get_object_reference('sale', '__export__.mail_template_109_eb163998')[1]
         except ValueError:
             template_id = False
         try:
