@@ -125,7 +125,7 @@
             <field name="name">sale.order.form.no.readonly.cust</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager') ])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_alloywheel.group_edite_sales_price') ])]"/>
             <field name="arch" type="xml">
                 <field name='price_unit' position="attributes">
                     <attribute name="readonly">0</attribute>
