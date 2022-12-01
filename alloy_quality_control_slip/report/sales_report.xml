@@ -127,12 +127,16 @@
                                  <tr style="border: 1px solid #32CD32;">
                                     <td style="border: 1px solid #32CD32;" colspan="6">
                                         <label for="alloy_digital_signature" string="Signature" />
+                                        <label for="signer_name" string="Signer Name" />
                                         <h2>
                                             <img t-attf-src="data:image/*;base64,{{o.alloy_digital_signature}}"/>
-                                            <!--<span t-field="o.alloy_digital_signature"  t-field-options='{"widget": "signature"}'/>-->
+                                            <span t-field="o.signer_name" />
+
+<!--                                            <span t-field="o.alloy_digital_signature"  t-field-options='{"widget": "signature"}'/>-->
                                         </h2>
                                     </td>
                                  </tr>
+
 
 
 

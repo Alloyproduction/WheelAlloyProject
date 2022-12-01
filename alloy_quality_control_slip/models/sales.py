@@ -42,11 +42,11 @@ class QualityControlSlip(models.Model):
     sale_id = fields.Many2one('sale.order')
     partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
     company_id = fields.Many2one('res.company')
-    alloy_digital_signature = fields.Binary(widget="signature")
+    alloy_digital_signature = fields.Binary(widget="signature", required=True)
+    signer_name = fields.Char(string= "Signer Name", required=True )
     state = fields.Selection(string="state", selection=[('draft', 'Draft'),('accept', 'Accept'), ('deny', 'Deny')],
                              default='draft', track_visibility='always',)
     job_card = fields.Char()
-
     type_name = fields.Char('Type Name', compute='_compute_type_name')
 
     @api.multi

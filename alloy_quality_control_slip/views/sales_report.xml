@@ -182,7 +182,20 @@
                                         </h2>
                                     </td>
                                  </tr>
+
+
+                                 <tr style="border: 1px solid #32CD32;">
+                                    <td style="border: 1px solid #32CD32;" colspan="6">
+                                        <label for="signer_name" string="Signature Name" />
+                                        <h2>
+                                            <field name="signer_name" string="Signer Name"
+                                            attrs="{'readonly':[('state','in',['accept','deny'])]}"/>
+                                        </h2>
+                                    </td>
+                                 </tr>
+
                              </table>
+
                     </group>
                 </sheet>
                 <div class="oe_chatter">
