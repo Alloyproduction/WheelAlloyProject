@@ -200,6 +200,7 @@
                             <field name="sale_id"/>
                             <field name="subject_id"/>
                             <field name="date" readonly="1"/>
+                            <field name="description_first_action"  attrs="{'required': [('state', '=', 'stat_confirmed')]}"/>
                             <field name="date_deadline"/>
                             <separator colspan="2" string="AWRS Representative Assigned to this Case"/>
                             <field name="user_id"/>
@@ -247,6 +248,7 @@
             <field name="arch" type="xml">
                 <field name='description' position="attributes">
                     <attribute name="readonly">0</attribute>
+                    <attribute name="attrs">{'required':[('state', '=', 'stat_process')]}</attribute>
                 </field>
                 <field name='date_action_next' position="attributes">
                     <attribute name="readonly">0</attribute>
@@ -272,6 +274,7 @@
                 </field>
                 <field name='type_action' position="attributes">
                     <attribute name="readonly">0</attribute>
+                    <attribute name="attrs">{'required':[('state', '=', 'stat_won')]}</attribute>
                 </field>
                 <field name='addition_deit' position="attributes">
                     <attribute name="readonly">0</attribute>
