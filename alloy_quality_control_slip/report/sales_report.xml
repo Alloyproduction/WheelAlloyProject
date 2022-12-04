@@ -123,15 +123,23 @@
                                         <h6 style="text-align:center;">من خلال التوقيع علي كرت استلام الجوده علي الخدمه المقدمه من تقنيون الجنوط انها مقبوله وذات جوده عاليه وليس بها عيوب</h6>
                                     </td>
                                  </tr>
+                                 
+                                 
+                                  <tr style="border: 1px solid #32CD32;">
+                                       <h5>
+                                     <td style="border: 1px solid #32CD32;text-align:center;" colspan="3">Signature</td>
+                                     <td style="border: 1px solid #32CD32;text-align:center;" colspan="4">Signer Name</td>
+                                        </h5>   
+                                   </tr>
 
                                  <tr style="border: 1px solid #32CD32;">
                                     <td style="border: 1px solid #32CD32;" colspan="6">
-                                        <label for="alloy_digital_signature" string="Signature" />
-                                        <label for="signer_name" string="Signer Name" />
+<!--                                         <label for="alloy_digital_signature" string="Signature" />
+                                        <label for="signer_name" string="Signer Name" /> -->
+                                        
                                         <h2>
                                             <img t-attf-src="data:image/*;base64,{{o.alloy_digital_signature}}"/>
                                             <span t-field="o.signer_name" />
-
 <!--                                            <span t-field="o.alloy_digital_signature"  t-field-options='{"widget": "signature"}'/>-->
                                         </h2>
                                     </td>
