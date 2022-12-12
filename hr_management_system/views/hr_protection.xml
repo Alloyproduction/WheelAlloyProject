@@ -4,7 +4,7 @@
             <field name="name">mo_hr_protection_view_form</field>
             <field name="model">hr.protection</field>
             <field name="arch" type="xml">
-                <form string="Employees Benefits Form">
+                <form string="Employees Asset Check-In/Out Form">
 
                     <header>
                         <button name="emp_request_action" states="draft"
@@ -35,7 +35,7 @@
 <!--                                groups="hr_management_system.group_hr_manager_demo"/>-->
 
                         <button name="return_action" states="approve"
-                                string="Benefit Return" type="object"
+                                string="Asset Return" type="object"
                                 groups="hr_management_system.group_admin_benefit_approve"/>
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,request,man_approve,approve,reject,return"/>
@@ -54,7 +54,7 @@
 
                                 <label for="employee_signature" string="Signature"/>
                                 <h2>
-                                    <field name="employee_signature" widget="signature"/>
+                                    <field name="employee_signature" widget="signature" attrs="{'readonly':[('id','>', 0)]}"/>
                                 </h2>
                             </group>
                             <group>
@@ -65,9 +65,9 @@
                         </group>
 
                         <notebook>
-                            <page string="Benefit Request">
+                            <page string="Asset Request">
                                 <!--                                <field name="line_ids">-->
-                                <form string="Benefit Request">
+                                <form string="Asset Request">
                                     <group>
                                         <field name="product_id" string="Product" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
                                         <field name="description" attrs="{'readonly': [('state','in', ['reject','return','approve'])]}"/>
@@ -100,7 +100,7 @@
             <field name="name">mo_hr_protection_view_tree</field>
             <field name="model">hr.protection</field>
             <field name="arch" type="xml">
-                <tree string="Employees Benefit Tree">
+                <tree string="Employees Asset Tree">
                     <field name="name"/>
                     <field name="emp_id"/>
                     <field name="emp_job_id"/>
@@ -113,7 +113,7 @@
         </record>
 
         <record id="mo_hr_protection_action" model="ir.actions.act_window">
-            <field name="name">Benefits</field>
+            <field name="name">Asset Check-In/Out</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.protection</field>
             <field name="view_mode">tree,form</field>
@@ -126,7 +126,7 @@
             <field name="arch" type="xml">
                 <div class="oe_button_box" position="inside">
                     <button class="oe_stat_button" name="document_view_protection" type="object" icon="fa-folder-open">
-                        <field string="Benefits" name="document_count_protection" widget="statinfo"/>
+                        <field string="Asset Check-In/Out" name="document_count_protection" widget="statinfo"/>
                     </button>
                 </div>
             </field>
@@ -135,7 +135,7 @@
 
         <menuitem id="menu_mo_hr_protection"
                   parent="hr_management_system.menu_hr_informations"
-                  name="Benefits"
+                  name="Asset Check-In/Out"
                   action="mo_hr_protection_action"
                   sequence="2"/>
 
@@ -143,14 +143,14 @@
 
 
         <record id="mo_hr_protection_action_tow" model="ir.actions.act_window">
-            <field name="name">Benefits</field>
+            <field name="name">Asset Check-In/Out</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.protection</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <menuitem id="menu_mo_hr_protection_tow"
-                  name="Benefits"
+                  name="Asset Check-In/Out"
                   action="mo_hr_protection_action_tow"
                   web_icon="hr_management_system,static/description/benefit.png"
                   sequence="3"/>
@@ -179,7 +179,7 @@
             <field name="arch" type="xml">
                 <div class="oe_button_box" position="inside">
                     <button name="benefits_button" type="object"
-                            class="oe_stat_button" icon="fa-folder-open" string="Benefits" widget="statinfo">
+                            class="oe_stat_button" icon="fa-folder-open" string="Asset Check-In/Out" widget="statinfo">
                         <field string="" name="document_count_protection"/>
                     </button>
                 </div>

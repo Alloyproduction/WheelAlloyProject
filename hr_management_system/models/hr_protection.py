@@ -9,7 +9,7 @@ class HRProtection111(models.Model):
 
 class HRProtection(models.Model):
     _name = 'hr.protection'
-    _description = 'Employees Benefits'
+    _description = 'Employees Asset Request'
     _inherit = ['mail.thread','mail.activity.mixin']
 
     @api.model
@@ -73,7 +73,7 @@ class HRProtection(models.Model):
                               ('request','Request'),
                               ('man_approve','Manager Approve'),
                               ('approve','Approved'),
-                              ('return', 'Benefit Return'),
+                              ('return', 'Asset Return'),
                               ('reject','Rejected'),],
                               default='draft')
     employee_signature = fields.Binary(string='Signature', widget="signature")
@@ -130,8 +130,8 @@ class HRProtection(models.Model):
         if available_qty < self.product_qty:
             raise UserError(_('product qty not enough for your order  ' + str(self.product_id.name)))
 
-        sub = _("Employee Benefit Request - Department Manager")
-        content = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has a Benefit request with Ref: <b>" + str(self.name) +  "</b> requires your approve," \
+        sub = _("Employee Asset Request - Department Manager")
+        content = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has an Asset request with Ref: <b>" + str(self.name) +  "</b> requires your approve," \
                     "<br>May you check it please.. ")
         recipient_partners = []
         if self.assigned_to:
@@ -150,8 +150,8 @@ class HRProtection(models.Model):
     @api.multi
     def hr_manager_action(self):
         recipient_partners = []
-        msg_sub = "Employee Benefit Request - Stock Manager"
-        msg_body = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has a Benefit request with Ref: <b>" + str(self.name) + "</b> requires your approve," \
+        msg_sub = "Employee Asset Request - Stock Manager"
+        msg_body = _("Hello,<br>Mr/Mrs: <b>" + str(self.emp_id.name) + "</b> Has a Asset request with Ref: <b>" + str(self.name) + "</b> requires your approve," \
                          "<br>May you check it please.. ")
 
         if self.department_id.create_quotation_manager_id:
@@ -307,8 +307,8 @@ class HrProtectionAttachment(models.Model):
 class stockpickUser(models.Model):
     _inherit = 'stock.picking'
 
-    benefit_id = fields.Many2one('hr.protection', string="Benefit Request")
-    employee_id = fields.Many2one('hr.employee',  string="Employee Benefit Request")
+    benefit_id = fields.Many2one('hr.protection', string="Asset Request")
+    employee_id = fields.Many2one('hr.employee',  string="Employee Asset Request")
 
 
 class benbfiteproducte(models.Model):
