@@ -24,7 +24,7 @@
       <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='journal_id']" position="before">
-          <field name="analytic_tags_id" widget="many2many"/>
+          <field name="analytic_tags_id" widget="many2many_tags"/>
 
 
         </xpath>
