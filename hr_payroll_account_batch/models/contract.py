@@ -11,7 +11,7 @@ class AccountMoveLine(models.Model):
     city_id = fields.Many2one("res.city", string="City",)
 
 
-    analytic_tags_id = fields.Many2one('account.analytic.tag', 'Analytic Tags')
+    analytic_tags_id  = fields.Many2many('account.analytic.tag','contract_analytical_tags_rel',string= 'Analytic Tags')
 
     class AccountMoveLine(models.Model):
         _inherit = 'account.move.line'

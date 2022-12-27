@@ -3,7 +3,9 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-
+from datetime import date, datetime, time
+from dateutil.relativedelta import relativedelta
+from pytz import timezone
 
 class HrPayslipRun(models.Model):
     _inherit = 'hr.payslip.run'
@@ -12,7 +14,8 @@ class HrPayslipRun(models.Model):
                                                                 False)]},
                              readonly=True,
                              help="Keep empty to use the period of the validation("
-                                  "Batch) date To.")
+                                  "Batch) date To.", default=lambda self: fields.Date.to_string( (datetime.now() + relativedelta(months=+1, day=1, days=-1)).date()))
+
     batch_move_id = fields.Many2one('account.move', 'Accounting Entry',
                                     readonly=True, copy=False)
 
@@ -63,7 +66,7 @@ class HrPayslipRun(models.Model):
                 raise UserError(_("You cannot close a payslip batch that is "
                                   "not in "
                                   "draft."))
-            payslips = self._get_draft_payslips(rec.slip_ids)
+            payslips = rec._get_draft_payslips(rec.slip_ids)
             if payslips:
                 for payslip in payslips:
                     payslip.compute_sheet()
@@ -87,8 +90,9 @@ class HrPayslipRun(models.Model):
         for slip in payslips:
             slip.write({'state': 'done'})
             for line in slip.details_by_salary_rule_category:
-                amount = currency.round(
-                    self.credit_note and -line.total or line.total)
+                amount = round(currency.round(
+                    self.credit_note and -line.total or line.total) ,2)
+                print("amount2344 ",amount)
                 if currency.is_zero(amount):
                     continue
                 debit_account_id = line.salary_rule_id.account_debit.id
@@ -96,10 +100,14 @@ class HrPayslipRun(models.Model):
 
                 if debit_account_id:
                     debit = amount > 0.0 and amount or 0.0
+                    debit = currency.round(debit)
                     credit = amount < 0.0 and -amount or 0.0
+                    credit = currency.round(credit)
 
                     city =line.slip_id.contract_id.city_id.id
-                    analytic = line.slip_id.contract_id.analytic_tags_id.id
+                    analytic=None
+                    if line.slip_id.contract_id.analytic_tags_id:
+                        analytic = line.slip_id.contract_id.analytic_tags_id.ids[0]
 
                     debit_line = self._get_existing_lines(
                         line_ids, line, debit_account_id, debit, credit, city , analytic)
@@ -113,10 +121,10 @@ class HrPayslipRun(models.Model):
                             'journal_id': self.journal_id.id,
                             'city_id' : line.slip_id.contract_id.city_id.id,
                             'date': date,
-                            'debit': amount > 0.0 and amount or 0.0,
-                            'credit': amount < 0.0 and -amount or 0.0,
+                            'debit': debit,
+                            'credit': credit,
                             'analytic_account_id': line.slip_id.contract_id.analytic_account_id.id,
-                            'analytic_tag_ids': line.slip_id.contract_id.analytic_tags_id.id,
+                             'analytic_tag_ids':[(6, 0,  line.slip_id.contract_id.analytic_tags_id.ids)]   ,
                             'tax_line_id': line.salary_rule_id.account_tax_id.id,
                         })
                         line_ids.append(debit_line)
@@ -131,9 +139,13 @@ class HrPayslipRun(models.Model):
                 if credit_account_id:
 
                     debit = amount < 0.0 and -amount or 0.0
+                    debit = currency.round(debit)
                     credit = amount > 0.0 and amount or 0.0
+                    credit = currency.round(credit)
                     city = line.slip_id.contract_id.city_id.id
-                    analytic = line.slip_id.contract_id.analytic_account_id.id
+                    analytic = None
+                    if line.slip_id.contract_id.analytic_tags_id:
+                        analytic = line.slip_id.contract_id.analytic_tags_id.ids[0]
 
                     credit_line = self._get_existing_lines(
                         line_ids, line, credit_account_id, debit, credit,city , analytic)
@@ -147,10 +159,10 @@ class HrPayslipRun(models.Model):
                             'journal_id': self.journal_id.id,
                             'city_id': line.slip_id.contract_id.city_id.id,
                             'date': date,
-                            'debit': amount < 0.0 and -amount or 0.0,
-                            'credit': amount > 0.0 and amount or 0.0,
+                            'debit': debit,
+                            'credit': credit,
                             'analytic_account_id':  line.slip_id.contract_id.analytic_account_id.id,
-                            'analytic_tag_ids': line.slip_id.contract_id.analytic_tags_id.id ,
+                            'analytic_tag_ids': [(6, 0,  line.slip_id.contract_id.analytic_tags_id.ids)]  ,
                             'tax_line_id': line.salary_rule_id.account_tax_id.id,
                         })
                         line_ids.append(credit_line)
@@ -160,15 +172,20 @@ class HrPayslipRun(models.Model):
 
                     # credit_sum += credit_line[2]['credit'] - credit_line[2]['debit']
                     credit_sum += credit_line[2]['credit']
+
+        print("debit sum" , debit_sum)
+        print("debit sum" , credit_sum)
         debit_sum1 = 0
         credit_sum1 = 0
         for line_id in line_ids:  # Get the debit and credit sum.
             debit_sum1 += line_id[2]['debit']
             credit_sum1 += line_id[2]['credit']
+        # debit_sum1 = currency.round(debit_sum1)
+        # credit_sum1 = currency.round(credit_sum1)
         print(debit_sum1)
         print(credit_sum1)
 
-        if currency.compare_amounts(credit_sum, debit_sum) == -1:
+        if currency.compare_amounts(credit_sum1, debit_sum1) == -1:
             acc_id = self.journal_id.default_credit_account_id.id
             if not acc_id:
                 raise UserError(_(
@@ -181,10 +198,10 @@ class HrPayslipRun(models.Model):
                 'journal_id': self.journal_id.id,
                 'date': date,
                 'debit': 0.0,
-                'credit': currency.round(debit_sum - credit_sum),
+                'credit': currency.round(debit_sum1 - credit_sum1),
             })
             line_ids.append(adjust_credit)
-        elif currency.compare_amounts(debit_sum, credit_sum) == -1:
+        elif currency.compare_amounts(debit_sum1, credit_sum1) == -1:
             acc_id = self.journal_id.default_debit_account_id.id
             if not acc_id:
                 raise UserError(_(
@@ -196,7 +213,7 @@ class HrPayslipRun(models.Model):
                 'account_id': acc_id,
                 'journal_id': self.journal_id.id,
                 'date': date,
-                'debit': currency.round(credit_sum - debit_sum),
+                'debit': currency.round(credit_sum1 - debit_sum1),
                 'credit': 0.0,
             })
             line_ids.append(adjust_debit)

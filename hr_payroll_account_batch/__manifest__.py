@@ -12,7 +12,7 @@
   "description"          :  """ODOO HR Payroll Accounting Batch""",
   "depends"              :  [
                              'hr_payroll_account',
-      'alloy_crm_modification','hr_contract','analytic'
+      'alloy_crm_modification','hr_contract','analytic','hr_payroll'
                             ],
   "data"                 :  [
                              'views/hr_payslip_run.xml',
