@@ -95,7 +95,7 @@ class Pay(models.Model):
 
     @api.onchange('employee_id')
     @api.depends('employee_id')
-    def onchange_employee_id(self):
+    def onchange_employee_id2(self):
         for rec in self:
             gosi_no = rec.env['gosi.payslip'].search([('employee', '=', rec.employee_id.name)])
             rec.gosi_no = gosi_no.id
