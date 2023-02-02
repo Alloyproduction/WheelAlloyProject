@@ -26,6 +26,7 @@ class CrmLead(models.Model):
     city_id = fields.Many2one('res.city', 'City')
     sales_id = fields.Many2one('sale.order', string='Quotation/SO')
     location = fields.Char(string="Location Link")
+    call_date = fields.Datetime(string='Call Date', default=lambda self: fields.Datetime.now())
     call_reason = fields.Many2one('crm.call.reason', string="Call Reason", required="1", track_visibility='onchange')
     call_reason_explain = fields.Text(string="Explain The Reason")
     explain_lost_reason = fields.Char(string="Explain#")
