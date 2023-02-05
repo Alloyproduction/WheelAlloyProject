@@ -73,6 +73,10 @@
                     <field name="sales_person_id" />
                 </xpath>
 
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="sale_id" />
+                </xpath>
+
                 <xpath expr="//header" position="inside">
                     <field name="is_task_finished" invisible="1"/>
                     <field name="sale" invisible="1"></field>

@@ -45,6 +45,7 @@ class tasks(models.Model):
     hourminutes = fields.Char(string='hours minutes', compute='_compute_hours_minutes')
     hours_minutes = fields.Char(string='hours: minutes')
     sales_person_id = fields.Many2one(comodel_name="res.users")
+    sale_id = fields.Many2one('sale.order', readonly= True)
     task_hours =  fields.Float ('Task hours',default=0)
 
     # total_cost = fields.Float('Total Labor Cost', compute='_compute_total_cost')
@@ -584,6 +585,7 @@ class InheritSale(models.Model):
                      'sale': self.id,
                      'stage_id': stage_id,
                      'sales_person_id': self.user_id.id,
+                     'sale_id': self.id,
                      'project_id': self.project.id, 'date_assign': fields.Datetime.now(),
                      'date_deadline': fields.Date.today() + timedelta(hours=90) ,
                       'date_task_deadline': fields.Datetime.now() + timedelta(hours=task_limit_hours) })
