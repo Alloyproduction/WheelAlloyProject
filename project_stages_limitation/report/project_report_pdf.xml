@@ -1,0 +1,161 @@
+<odoo>
+  <data>
+
+    <record id="paperformat_project_report" model="report.paperformat">
+      <field name="name">European A4 low margin</field>
+      <field name="default" eval="True"/>
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">15</field>
+      <field name="margin_left">5</field>
+      <field name="margin_right">5</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">45</field>
+      <field name="dpi">90</field>
+    </record>
+
+
+          <report id="project_report_pdf"
+            model="report.project.custom"
+            string="Project PDF Report"
+            report_type="qweb-pdf"
+            name="project_stages_limitation.project_report_pdf_templ"
+            paperformat="paperformat_project_report"
+            menu="False"
+           />
+
+
+    <template id="project_report_pdf_templ">
+         <t t-call="web.html_container">
+              <t t-call="web.external_layout">
+                  <div>
+                      <h2 class="text-center" style="font-weight:bold">Task Report</h2>
+                      <br/>
+                      <h4 class="text-center">
+                          <span style="font-weight:bold" t-if="date_from">Date From:</span>
+                          <span t-if="date_from">
+                              <t t-esc="date_from" t-field-options='{"widget": "date"}'/>
+                          </span>
+                          <span style="font-weight:bold" t-if="date_to">Date To:</span>
+                          <span t-if="date_to">
+                              <t t-esc="date_to" t-field-options='{"widget": "date"}'/>
+                          </span>
+                      </h4>
+                  </div>
+                  <br/>
+
+          <div class="page">
+
+              <table style="table-layout: fixed;border-collapse: collapse;border: 2px solid #ddd;font-size:16px; width:100%;padding-top:0;margin-top:0">
+                  <thead>
+                      <tr class="thead-light" style="border-top: 2px solid #ddd;background-color: #f2f2f2;">
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:5%">#</th>
+                       <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Date</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">User</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:8%">Task</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Project</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:11%">Sale Order</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Product</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Unit</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Quantity</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Price</th>
+                      <th class="text-center" style="border: 2px solid #ddd;text-align: center;width:9%">Total</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+
+                      <t t-set="seq" t-value="1"/>
+                      <t t-set="sum_quantity" t-value="0"/>
+                      <t t-set="sum_cost" t-value="0"/>
+                      <t t-set="sum_total" t-value="0"/>
+                     <tr t-foreach="docs" t-as="doc">
+                          <t t-set="sum_quantity" t-value="sum_quantity + doc['quantity']"/>
+                          <t t-set="sum_cost" t-value="sum_cost + doc['cost']"/>
+                          <t t-set="sum_total" t-value="sum_total + doc['total']"/>
+
+<!--                      <tr t-foreach="docs" t-as="doc">-->
+<!--                       <t t-set="sum_cost" t-value="sum_cost + doc['cost']"/>-->
+<!--                       <t t-set="sum_total" t-value="sum_total + doc['total']"/>-->
+<!--                          -->
+
+
+
+                          <tr>
+                           <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                              <span t-esc="seq"/>
+                            <t t-set="seq" t-value="seq+1"/>
+                            </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['date']"  t-options='{"widget": "date"}'/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['u_ser']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['t_ask']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['p_roject']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['s_order']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['product']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['unit']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['quantity']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['cost']"/>
+                              </td>
+                              <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                                  <span t-esc="doc['total']"/>
+                              </td>
+
+                          </tr>
+                      </tr>
+<!--                       </tr>-->
+          <tr>
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+
+            <h2>
+                <td class="text-center" colspan="8" style="bold;background-color: #f2f2f2;border: 2px solid #ddd;text-align: center;width:9%">Total</td>
+            </h2>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_quantity)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_cost)"/>
+                </td>
+                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">
+                  <span t-esc="'{0:,.2f}'.format(sum_total)"/>
+                </td>
+<!--                <td class="text-center" style="border: 2px solid #ddd;text-align: center;">-->
+<!--                  &lt;!&ndash;                  <span t-esc="'{0:,.2f}'.format(sum_amount)"/>&ndash;&gt;-->
+<!--                </td>-->
+<!--                <td></td>-->
+              </tr>
+
+                  </tbody>
+              </table>
+          </div>
+              </t>
+         </t>
+    </template>
+
+  </data>
+</odoo>

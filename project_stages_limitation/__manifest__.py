@@ -11,6 +11,8 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'report/project_wizard.xml',
+        'report/project_report_pdf.xml',
         'views/res_users.xml',
         'views/project_task.xml',
     ],

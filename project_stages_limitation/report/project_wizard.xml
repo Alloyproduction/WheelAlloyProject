@@ -1,0 +1,56 @@
+<odoo>
+  <data>
+
+    <record id="report_for_project_form_view" model="ir.ui.view">
+      <field name="name">report.project.form.view</field>
+      <field name="model">report.project.custom</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Project Report">
+          <group>
+            <group>
+              <field name="date_from" widget="date"/>
+            </group>
+            <group>
+              <field name="date_to"  widget="date"/>
+            </group>
+
+<!--            <group>-->
+<!--              <field name="user"/>-->
+<!--            </group>-->
+
+
+            <group>
+<!--              <field name="project"/>-->
+              <field name="task" widget="many2many_tags"/>
+<!--              <field name="sale"/>-->
+
+            </group>
+
+
+          </group>
+          <footer>
+            <button name="get_project_report_pdf" string="Get PDF Report" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_project_report_wizardx" model="ir.actions.act_window">
+      <field name="name">Project Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.project.custom</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="report_for_project_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_project_report_wizard_main" action="action_project_report_wizardx"
+              sequence="999" parent="project.menu_project_report"
+              name="Project Report"
+    />
+
+  </data>
+</odoo>

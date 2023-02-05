@@ -12,25 +12,6 @@
          <field name="context">{}</field>
  </record>
 
-<!--<record model="ir.ui.view" id="Sales_Prices_hide_form_view">-->
-<!--            <field name="name">sale.order</field>-->
-<!--            <field name="model">sale.order</field>-->
-<!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
-<!--            <field name="arch" type="xml">-->
-<!--                  <xpath expr="//field[@name='order_line']" position="attributes" >-->
-
-<!--                <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>-->
-<!--&lt;!&ndash;                     <field name="name"/>&ndash;&gt;-->
-<!--                </xpath>-->
-
-<!--&lt;!&ndash;                 <xpath expr="//field[@name='order_line']/tree/notebook/page[@string='Order Line']" position="attributes">&ndash;&gt;-->
-<!--&lt;!&ndash;                <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>&ndash;&gt;-->
-<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
-<!--            </field>-->
-<!--        </record>-->
-
-
-
          <record id="Sales_Prices_hide_form_view2" model="ir.ui.view">
             <field name="name">sale.order.form.Prices</field>
             <field name="model">sale.order</field>
@@ -58,86 +39,26 @@
 
 
                 <xpath expr="//form" position="attributes">
-                <attribute name="create">true</attribute>
-                <attribute name="edit">true</attribute>
+                    <attribute name="create">true</attribute>
+                    <attribute name="edit">true</attribute>
 
 
-
-<!--                 <attribute name="no_create">true</attribute>-->
-                <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>
+                    <!--                 <attribute name="no_create">true</attribute>-->
+                    <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>
                 </xpath>
 
 
-                  <xpath expr="//tree" position="attributes">
-                 <attribute name="create">true</attribute>
-                <attribute name="edit">true</attribute>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">true</attribute>
+                    <attribute name="edit">true</attribute>
 
-<!--                     <attribute name="no_create">true</attribute>-->
-                     <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>
+                    <!--                     <attribute name="no_create">true</attribute>-->
+                    <attribute name="groups">project_stages_limitation.group_sales_hide_Cost</attribute>
                 </xpath>
-
-<!--                <xpath expr="//tree" position="attributes">-->
-<!--                <attribute name="create">false</attribute>-->
-
-<!--                 <attribute name="edit">false</attribute>-->
-<!--                <attribute name="groups">project_stages_limitation.group_sales_hide_no_create</attribute>-->
-<!--                </xpath>-->
 
 
             </field>
         </record>
-
-<!--          <record id="Sales_Prices_hide_form_view3" model="ir.ui.view">-->
-<!--            <field name="name">sale.order.tree2</field>-->
-<!--            <field name="model">sale.order</field>-->
-<!--            <field name="inherit_id" ref="sale.view_quotation_tree"/>-->
-<!--                <field name="arch" type="xml">-->
-<!--              <xpath expr="//tree" position="attributes">-->
-<!--                <attribute name="create">false</attribute>-->
-
-<!--                 <attribute name="edit">false</attribute>-->
-<!--                <attribute name="groups">project_stages_limitation.group_sales_hide_no_create</attribute>-->
-<!--                </xpath>-->
-<!--            </field>-->
-<!--        </record>-->
-
-<!--         options="{'no_create': True}"-->
-<!--        <record id="project_task_kanban2_inherit" model="ir.actions.act_window">-->
-<!--            <field name="name">Tasks</field>-->
-<!--            <field name="res_model">project.task</field>-->
-<!--            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>-->
-<!--            <field name="view_id" ref="project.act_project_project_2_project_task_all"/>-->
-<!--            <field name="arch" type="xml">-->
-
-<!--          -->
-<!--               <xpath expr="//field[@name='context']" position="replace">-->
-<!--            <field name="context">{-->
-<!--                'search_default_project_id': [active_id],-->
-<!--                'default_project_id': active_id,-->
-<!--                'is_user_working': False,-->
-<!--            }</field>-->
-
-<!--</xpath>-->
-<!--         ("stage_date_2",">=",(time.strftime('%Y-%m-%d %H:%M:%S'))),("stage_id.name","!=","Delivery")]-->
-
-
-<!--&lt;!&ndash;                <xpath expr="//templates" attrs="{'invisible':[('can_invisible_delivery_stage', '=', False)]}">&ndash;&gt;-->
-
-<!--&lt;!&ndash;           </xpath>&ndash;&gt;-->
-<!--            </field>-->
-<!--        </record>-->
-
-<!--        <record model="ir.cron" id="ir_cron_delivery_stage_archiving">-->
-<!--            <field name="name">Delivery Stage Archive After 48h</field>-->
-<!--            <field name="interval_number">2</field>-->
-<!--            <field name="interval_type">minutes</field>-->
-<!--            <field name="numbercall">-1</field>-->
-<!--            <field name="doall" eval="False"/>-->
-<!--            <field name="model_id" ref="model_project_task"/>-->
-<!--            <field name="state">code</field>-->
-<!--            <field name="code">model.delete_stage()</field>-->
-<!--        </record>-->
-
 
 
         <record id="project_task_form_inherit" model="ir.ui.view">
@@ -170,6 +91,37 @@
                             </form>
                         </field>
                     </page>
+
+                     <page string="Product Used In Task">
+                        <field name="line_ids">
+                            <tree string="Product Used In Task">
+                                <field name="sale_name"/>
+                                <field name="project_name"/>
+                                <field name="task_number"/>
+                                <field name="user_id"/>
+                                <field name="create_date" string="Date"/>
+                                <field name="product_id" />
+                                <field name="used_unit" />
+                                <field name="product_qty" />
+                                <field name="product_cost" />
+                                <field name="total_cost" />
+                            </tree>
+                            <form string="Product Used In Task">
+                                <field name="sale_name"/>
+                                <field name="project_name"/>
+                                <field name="task_number"/>
+                                <field name="user_id"/>
+                                <field name="create_date" string="Date"/>
+                                <field name="product_id" />
+                                <field name="used_unit" />
+                                <field name="product_qty" />
+                                <field name="product_cost" />
+                                <field name="total_cost" />
+                            </form>
+                        </field>
+                    </page>
+
+
                     <page string="Signature" attrs="{'invisible':[('is_delivery_stage', '!=', True)]}">
                         <label for="alloy_digital_signature" string="Signature" />
                         <h2>
@@ -191,6 +143,78 @@
               <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[1]/div[3]/div[1]/field[@name='activity_ids']" position="after">
                 <field name="is_delete_stage" widget="boolean" invisible="True"/>
               </xpath>
+            </field>
+        </record>
+
+  ###############################################################################################################################
+         <record model="ir.ui.view" id="product_task_used_tree">
+            <field name="name">Product Used in Task</field>
+            <field name="model">product.task.used</field>
+            <field name="arch" type="xml">
+                <tree string="Product Used in Task">
+
+                    <field name="create_date"/>
+                    <field name="user_id"/>
+                    <field name="product_id"/>
+                   <field name="product_qty" sum="Total Quantity"/>
+                    <field name="product_uom_id"/>
+                    <field name="used_unit"/>
+                    <field name="product_cost" sum="Total Product Cost" widget="monetary"/>
+                    <field name="total_cost" sum="Total Product Used Cost" widget="monetary"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="product_task_used_form">
+            <field name="name">Product Used in Task form</field>
+            <field name="model">product.task.used</field>
+            <field name="arch" type="xml">
+                <form string="Product Used in Task">
+                    <sheet string="Product Used Sheet">
+                        <group>
+                            <field name="sale_name"/>
+                            <field name="project_name"/>
+                            <field name="task_number"/>
+                            <field name="create_date"/>
+                            <field name="user_id"/>
+                            <field name="product_id"/>
+                            <field name="product_qty"/>
+                            <field name="product_uom_id"/>
+                            <field name="used_unit"/>
+                            <field name="product_cost"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_project_product_used_line_tree" model="ir.actions.act_window">
+            <field name="name">Product Used</field>
+            <field name="res_model">product.task.used</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_task_used_tree"/>
+        </record>
+
+
+        <menuitem id="menu_product_used"
+                  name="Product Used"
+                  parent="project.menu_projects"
+                  action="action_project_product_used_line_tree"
+                  sequence="100"/>
+
+##############################################################################################################################
+        <record id="product_template_form_view_used" model="ir.ui.view">
+            <field name="name">product.template.task.used</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='uom_po_id']" position="after">
+                    <field name="used_product_unit"/>
+                    <field name="unit_cost"/>
+                </xpath>
             </field>
         </record>
 
