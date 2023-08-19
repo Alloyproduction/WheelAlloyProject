@@ -1,1 +1,1 @@
-# WheelAlloyProject git commit --allow-empty -m 'Trigger update'
+# WheelAlloyProject git commit --allow-empty -m "Trigger update"
