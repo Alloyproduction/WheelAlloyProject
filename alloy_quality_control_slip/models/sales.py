@@ -168,35 +168,37 @@ class SaleOrder(models.Model):
         print(so_inv_created)
 
         for i in so_inv_created:
-            print(so_inv_created)
-            print(i.is_qc_created)
-            if i.invoice_ids.number:
-                print('worked22')
-                i.is_qc_created = False
-            else:
-                groups = self.env['res.groups'].search([('name', '=', "QC invoice reminder")])
-                recipient_partners = []
-                print(groups)
-                for group in groups:
-                    for recipient in group.users:
-                        if recipient.partner_id.id not in recipient_partners:
-                            recipient_partners.append(recipient.partner_id.id)
-                            print(recipient.login)
-                            print(recipient_partners)
+            for line2 in i.order_line:
 
-                msg_sub = "QualityControl Without Invoice"
-                msg_body = "Please Create Invoice To This Sale Order. " + i.name
-                print(recipient_partners)
-                print('wanted1 still')
-                if len(recipient_partners):
-                    print('worked33 and sent')
-                    i.sudo().message_post(body=msg_body,
-                                      subtype='mt_comment',
-                                      subject=msg_sub,
-                                      partner_ids=recipient_partners,
-                                      message_type='comment')
+             print(so_inv_created)
+             print(line2.is_qc_created)
+             if line2.invoice_ids.number:
+                 print('worked22')
+                 line2.is_qc_created = False
+             else:
+                 groups = self.env['res.groups'].search([('name', '=', "QC invoice reminder")])
+                 recipient_partners = []
+                 print(groups)
+                 for group in groups:
+                     for recipient in group.users:
+                         if recipient.partner_id.id not in recipient_partners:
+                             recipient_partners.append(recipient.partner_id.id)
+                             print(recipient.login)
+                             print(recipient_partners)
 
-                i.is_qc_created = False
+                 msg_sub = "QualityControl Without Invoice"
+                 msg_body = "Please Create Invoice To This Sale Order. " + i.name
+                 print(recipient_partners)
+                 print('wanted1 still')
+                 if len(recipient_partners):
+                     print('worked33 and sent')
+                     line2.sudo().message_post(body=msg_body,
+                                       subtype='mt_comment',
+                                       subject=msg_sub,
+                                       partner_ids=recipient_partners,
+                                       message_type='comment')
+
+                 line2.is_qc_created = False
 
 
 
