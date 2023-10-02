@@ -164,7 +164,7 @@ class SaleOrder(models.Model):
     def qc_mail_reminder(self):
         """Sending Email notification to make invoice to the sale order"""
         print('......')
-        so_inv_created = self.env['sale.order'].search([('is_qc_created','=' ,True),('qc_slip_id','!=' ,False)], limit=500)
+        so_inv_created = self.env['sale.order'].search([('is_qc_created','=' ,True),('qc_slip_id','!=' ,False)])
         print(so_inv_created)
 
         for i in so_inv_created:
