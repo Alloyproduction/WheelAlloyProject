@@ -167,8 +167,9 @@ class SaleOrder(models.Model):
         so_inv_created = self.env['sale.order'].search([('is_qc_created','=' ,True),('qc_slip_id','!=' ,False)], limit=500)
         print(so_inv_created)
 
-        for i in so_inv_created:
-            print(so_inv_created)
+        for c in so_inv_created:
+            for i in c:
+                print(so_inv_created)
             print(i.is_qc_created)
             if i.invoice_ids.number:
                 print('worked22')
@@ -191,10 +192,10 @@ class SaleOrder(models.Model):
                 if len(recipient_partners):
                     print('worked33 and sent')
                     i.sudo().message_post(body=msg_body,
-                                      subtype='mt_comment',
-                                      subject=msg_sub,
-                                      partner_ids=recipient_partners,
-                                      message_type='comment')
+                                          subtype='mt_comment',
+                                          subject=msg_sub,
+                                          partner_ids=recipient_partners,
+                                          message_type='comment')
 
                 i.is_qc_created = False
 
