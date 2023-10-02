@@ -160,7 +160,6 @@ class SaleOrder(models.Model):
     is_qc_created = fields.Boolean('Is Qc Created', default=False)
     qc_slip_id = fields.Many2one(comodel_name="quality.control.slip")
 
-    @api.multi
     def qc_mail_reminder(self):
         """Sending Email notification to make invoice to the sale order"""
         print('......')
@@ -168,12 +167,11 @@ class SaleOrder(models.Model):
         print(so_inv_created)
 
         for i in so_inv_created:
-            for line2 in i.invoice_ids.number:
-                print(so_inv_created)
+            print(so_inv_created)
             print(i.is_qc_created)
-            if line2.invoice_ids.number:
+            if i.invoice_ids.number:
                 print('worked22')
-                line2.is_qc_created = False
+                i.is_qc_created = False
             else:
                 groups = self.env['res.groups'].search([('name', '=', "QC invoice reminder")])
                 recipient_partners = []
@@ -186,18 +184,18 @@ class SaleOrder(models.Model):
                             print(recipient_partners)
 
                 msg_sub = "QualityControl Without Invoice"
-                msg_body = "Please Create Invoice To This Sale Order. " + line2.name
+                msg_body = "Please Create Invoice To This Sale Order. " + i.name
                 print(recipient_partners)
                 print('wanted1 still')
                 if len(recipient_partners):
                     print('worked33 and sent')
-                    line2.sudo().message_post(body=msg_body,
-                                          subtype='mt_comment',
-                                          subject=msg_sub,
-                                          partner_ids=recipient_partners,
-                                          message_type='comment')
+                    i.sudo().message_post(body=msg_body,
+                                      subtype='mt_comment',
+                                      subject=msg_sub,
+                                      partner_ids=recipient_partners,
+                                      message_type='comment')
 
-                line2.is_qc_created = False
+                i.is_qc_created = False
 
 
 
