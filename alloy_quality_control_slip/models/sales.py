@@ -160,18 +160,16 @@ class SaleOrder(models.Model):
     is_qc_created = fields.Boolean('Is Qc Created', default=False)
     qc_slip_id = fields.Many2one(comodel_name="quality.control.slip")
 
-    @api.multi
     def qc_mail_reminder(self):
         """Sending Email notification to make invoice to the sale order"""
         print('......')
         so_inv_created = self.env['sale.order'].search([('is_qc_created','=' ,True),('qc_slip_id','!=' ,False)], limit=500)
         print(so_inv_created)
 
-        for c in so_inv_created:
-            for i in c:
-                print(so_inv_created)
+        for i in so_inv_created:
+            print(so_inv_created)
             print(i.is_qc_created)
-            if i.invoice_ids.number:
+            if i.invoice_ids:
                 print('worked22')
                 i.is_qc_created = False
             else:
@@ -192,10 +190,10 @@ class SaleOrder(models.Model):
                 if len(recipient_partners):
                     print('worked33 and sent')
                     i.sudo().message_post(body=msg_body,
-                                          subtype='mt_comment',
-                                          subject=msg_sub,
-                                          partner_ids=recipient_partners,
-                                          message_type='comment')
+                                      subtype='mt_comment',
+                                      subject=msg_sub,
+                                      partner_ids=recipient_partners,
+                                      message_type='comment')
 
                 i.is_qc_created = False
 
