@@ -160,6 +160,7 @@ class SaleOrder(models.Model):
     is_qc_created = fields.Boolean('Is Qc Created', default=False)
     qc_slip_id = fields.Many2one(comodel_name="quality.control.slip")
 
+    @api.multi
     def qc_mail_reminder(self):
         """Sending Email notification to make invoice to the sale order"""
         print('......')
