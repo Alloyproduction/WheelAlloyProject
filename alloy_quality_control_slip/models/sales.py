@@ -169,7 +169,7 @@ class SaleOrder(models.Model):
         for i in so_inv_created:
             print(so_inv_created)
             print(i.is_qc_created)
-            if i.invoice_ids.number:
+            if i.invoice_ids:
                 print('worked22')
                 i.is_qc_created = False
             else:
