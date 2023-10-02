@@ -168,7 +168,7 @@ class SaleOrder(models.Model):
         print(so_inv_created)
 
         for i in so_inv_created:
-            for line2 in i.order_line:
+            for line2 in i:
 
              print(so_inv_created)
              print(line2.is_qc_created)
